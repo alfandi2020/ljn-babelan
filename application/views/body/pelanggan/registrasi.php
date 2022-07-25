@@ -21,7 +21,7 @@
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <fieldset class="form-group">
                                         <span>Media layanan</span>
-                                        <select name="media" class="select2 form-control">
+                                        <select required name="media" class="select2 form-control">
                                             <option disabled selected>Pilih Media Layanan</option>
                                             <option value="Wireless">Wireless</option>
                                             <option value="LAN">LAN</option>
@@ -32,7 +32,7 @@
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <fieldset class="form-group">
                                         <span>Media Kecepatan</span>
-                                        <select name="speed" class="select2 form-control">
+                                        <select required name="speed" class="select2 form-control">
                                             <option disabled selected>Pilih Kecepatan</option>
                                         </select>
                                     </fieldset>
@@ -51,13 +51,13 @@
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <fieldset class="form-group">
                                         <span>Router</span>
-                                        <input type="text" name="router" class="form-control" placeholder="Router Huawei">
+                                        <input type="text" required name="router" class="form-control" placeholder="Router Huawei">
                                     </fieldset>
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <fieldset class="form-group">
                                         <span>CPE</span>
-                                        <input type="text" name="cpe" class="form-control" placeholder="Ubiqity">
+                                        <input type="text" required name="cpe" class="form-control" placeholder="Ubiqity">
                                     </fieldset>
                                 </div>
                             </div>
@@ -74,18 +74,18 @@
                                 <div class="col-xl-4 col-md-6 col-12">
                                     <fieldset class="form-group">
                                         <span>Nama</span>
-                                        <input type="text" name="nama" class="form-control" placeholder="asep" >
+                                        <input type="text" required name="nama" class="form-control" placeholder="asep" >
                                     </fieldset>
                                 </div>
                                 
                                 <div class="col-xl-4">
                                     <span>Nomor KTP</span>
-                                    <input type="number" name="nomor" class="form-control" placeholder="3175">
+                                    <input type="number" required name="nomor" class="form-control" placeholder="3175">
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-12">
                                     <fieldset class="form-group">
                                         <span>No NPWP</span>
-                                        <input type="number" name="npwp" class="form-control" placeholder="123" >
+                                        <input type="number" required name="npwp" class="form-control" placeholder="123" >
                                     </fieldset>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="col-xl-4">
                                     <span>Kontak Handphone / Telp</span>
-                                    <input type="number" name="telp" class="form-control" placeholder="081111">
+                                    <input type="number" required name="telp" class="form-control" placeholder="081111">
                                 </div>
                                 <div class="col-xl-4">
                                     <span>Email</span>
@@ -170,66 +170,40 @@
                                 <div class="col-xl-4 col-md-6 col-12">
                                     <fieldset class="form-group">
                                         <span>Nama</span>
-                                        <input type="text" name="t_nama" class="form-control" placeholder="asep" >
+                                        <input type="text" required name="t_nama" class="form-control" placeholder="asep" >
                                     </fieldset>
                                 </div>
                                 
                                 <div class="col-xl-4">
                                     <span>Nomor KTP</span>
-                                    <input type="number" name="t_nomor" class="form-control" placeholder="3175">
+                                    <input type="number" required name="t_nomor" class="form-control" placeholder="3175">
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-12">
                                     <fieldset class="form-group">
                                         <span>No NPWP</span>
-                                        <input type="number" name="t_npwp" class="form-control" placeholder="123" >
+                                        <input type="number" required name="t_npwp" class="form-control" placeholder="123" >
                                     </fieldset>
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-xl-4">
                                     <span>Kontak Handphone / Telp</span>
-                                    <input type="number" name="t_telp" class="form-control" placeholder="081111">
+                                    <input type="number" required name="t_telp" class="form-control" placeholder="081111">
                                 </div>
                                 <div class="col-xl-4">
                                     <span>Email</span>
                                     <input type="email" name="t_email" class="form-control" placeholder="info@gmail.com">
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-xl">
                                     <div class="divider divider-left divider-primary">
                                         <div class="divider-text">
-                                            <h4> Pembayaran Registrasi </h4>
+                                            <h4> Tanggal Registrasi </h4>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-2">
-                                    <fieldset>
-                                        <div class="vs-radio-con vs-radio-primary">
-                                            <input type="radio" name="pembayaran" value="Tunai">
-                                            <span class="vs-radio vs-radio-lg">
-                                                <span class="vs-radio--border"></span>
-                                                <span class="vs-radio--circle"></span>
-                                            </span>
-                                            <span class="">Tunai</span>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="col-xl-2">
-                                    <fieldset>
-                                        <div class="vs-radio-con vs-radio-primary">
-                                            <input type="radio" name="pembayaran" value="Transfer">
-                                            <span class="vs-radio vs-radio-lg">
-                                                <span class="vs-radio--border"></span>
-                                                <span class="vs-radio--circle"></span>
-                                            </span>
-                                            <span class="">Transfer</span>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
+                            </div> -->
                             <div class="row mt-2">
                                 <div class="col-xl-4">
                                     <span>Tanggal Installasi</span>

@@ -28,7 +28,7 @@ $(document).ready(function () {
   // ----------------------------------
   var lineChartOptions = {
     chart: {
-      height: 350,
+      height: 200,
       type: 'line',
       zoom: {
         enabled: false
@@ -43,12 +43,12 @@ $(document).ready(function () {
     },
     series: [{
       name: "Desktops",
-      data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+      data: [10, 41, 35, 51, 49, 62, 69, 91, 148,444,1234,212],
     }],
-    title: {
-      text: 'Product Trends by Month',
-      align: 'left'
-    },
+    // title: {
+    //   text: 'Product Trends by Month',
+    //   align: 'left'
+    // },
     grid: {
       row: {
         colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
@@ -56,7 +56,7 @@ $(document).ready(function () {
       },
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Okt','Nov','Des'],
     },
     yaxis: {
       tickAmount: 5,
@@ -73,7 +73,7 @@ $(document).ready(function () {
   // ----------------------------------
   var lineAreaOptions = {
     chart: {
-      height: 350,
+      height: 250,
       type: 'area',
     },
     colors: themeColors,
@@ -119,7 +119,7 @@ $(document).ready(function () {
   // ----------------------------------
   var columnChartOptions = {
     chart: {
-      height: 350,
+      height: 250,
       type: 'bar',
     },
     colors: themeColors,

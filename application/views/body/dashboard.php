@@ -2,157 +2,143 @@
                 <!-- Dashboard Analytics Start -->
                 <section id="dashboard-analytics">
                     <div class="row">
-                       <!-- <div class="col-xl-2 col-md-4 col-sm-6">
-                            <div class="card text-center">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="avatar bg-rgba-info p-50 m-0 mb-1">
-                                            <div class="avatar-content">
-                                                <i class="feather icon-user text-info font-medium-5"></i>
-                                            </div>
-                                        </div>
-                                        <h2 class="text-bold-700">830</h2>
-                                        <p class="mb-0 line-ellipsis">Sudah Bayar</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-xl-2 col-md-4 col-sm-6">
-                            <div class="card text-center">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="avatar bg-rgba-info p-50 m-0 mb-1">
-                                            <div class="avatar-content">
-                                                <i class="feather icon-user text-info font-medium-5"></i>
-                                            </div>
-                                        </div>
-                                        <h2 class="text-bold-700">21</h2>
-                                        <p class="mb-0 line-ellipsis">Belum Bayar</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-4 col-md-6 col-12">
                             <div class="card">
-                                <div class="card-header d-flex flex-column align-items-start pb-0">
-                                    <div class="avatar bg-rgba-warning p-50 m-0">
+                                <div class="card-header d-flex align-items-start pb-0">
+                                    <div>
+                                        <h2 class="text-bold-700 mb-0">850</h2>
+                                        <p>Total Pelanggan</p>
+                                    </div>
+                                    <div class="avatar bg-rgba-primary p-50 m-0">
                                         <div class="avatar-content">
-                                            <i class="feather icon-package text-warning font-medium-5"></i>
+                                            <i class="feather icon-users text-primary font-medium-5"></i>
                                         </div>
                                     </div>
-                                    <h2 class="text-bold-700 mt-1 mb-25">Rp.92.152.000</h2>
-                                    <p class="mb-0">Pembayaran <b>Berhasil</b></p>
-                                </div>
-                                <div class="card-content">
-                                    <div id="orders-received-chart"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-4 col-md-6 col-12">
                             <div class="card">
-                                <div class="card-header d-flex flex-column align-items-start pb-0">
-                                    <div class="avatar bg-rgba-warning p-50 m-0">
+                                <div class="card-header d-flex align-items-start pb-0">
+                                    <div>
+                                        <h2 class="text-bold-700 mb-0">Rp.132.220.000</h2>
+                                        <p>Pembayaran Belum Masuk</p>
+                                    </div>
+                                    <div class="avatar bg-rgba-danger p-50 m-0">
                                         <div class="avatar-content">
-                                            <i class="feather icon-package text-warning font-medium-5"></i>
+                                            <i class="feather icon-x-circle text-danger font-medium-5"></i>
                                         </div>
                                     </div>
-                                    <h2 class="text-bold-700 mt-1 mb-25">Rp.92.152.000</h2>
-                                    <p class="mb-0">Pembayaran <b>Berhasil</b></p>
-                                </div>
-                                <div class="card-content">
-                                    <div id="line-area-chart-1"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-4 col-md-6 col-12">
                             <div class="card">
-                                <div class="card-header d-flex flex-column align-items-start pb-0">
-                                    <div class="avatar bg-rgba-warning p-50 m-0">
+                                <div class="card-header d-flex align-items-start pb-0">
+                                    <div>
+                                        <h2 class="text-bold-700 mb-0">Rp.42.120.000</h2>
+                                        <p>Pembayaran Sudah Masuk</p>
+                                    </div>
+                                    <div class="avatar bg-rgba-success p-50 m-0">
                                         <div class="avatar-content">
-                                            <i class="feather icon-package text-warning font-medium-5"></i>
+                                            <i class="feather icon-check-circle text-success font-medium-5"></i>
                                         </div>
                                     </div>
-                                    <h2 class="text-bold-700 mt-1 mb-25">Rp.2.462.000</h2>
-                                    <p class="mb-0">Pembayaran <b>Belum Masuk</b></p>
-                                </div>
-                                <div class="card-content">
-                                    <div id="orders-received-chart2"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Pemasukan</h4>
+                            <div class="col-lg-4 col-md-12 col-12">
+                                <div class="card overlay-img-card text-white">
+                                    <img src="<?= base_url() ?>assets/images/bg-lt.jpeg" class="card-img" alt="card-img-6">
+                                    <div class="card-img-overlay overlay-black">
+                                        <br><br>
+                                        <h5 class="font-medium-5 text-white text-center mt-4">Date</h5>
+                                        <p class="text-white text-center"><?= hari_ini() .', '. tgl_indo(date('Y-m-d')) ?></p>
+                                        <div class="card-content">
+                                            <div class="d-flex justify-content-around mt-2">
+                                                <div class="icon">
+                                                    <h4 class="text-white font-large-2" id="timestamp"></h4>
+                                                </div>
+                                            
+                                            </div>
+                                            <!-- <div class="card-body">
+                                                <div class="d-flex justify-content-between mt-4">
+                                                    <div class="precipitation">
+                                                        <span class="font-medium-3">Jakarta</span>
+                                                    </div>
+                                                    <div class="degree">
+                                                        <span class="font-medium-3">48%</span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-between my-2">
+                                                    <div class="humidity">
+                                                        <span class="font-medium-3">Humidity</span>
+                                                    </div>
+                                                    <div class="degree">
+                                                        <span class="font-medium-3">60%</span>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div> -->
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div id="line-chart"></div>
+                            </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="card">
+                                        <div class="card-header d-flex align-items-start pb-0">
+                                            <div>
+                                                <h2 class="text-bold-700 mb-0">150</h2>
+                                                <p>Pelanggan <b class="text-danger">Belum Bayar</b></p>
+                                            </div>
+                                            <div class="avatar bg-rgba-danger p-50 m-0">
+                                                <div class="avatar-content">
+                                                    <i class="feather icon-users text-danger font-medium-5"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="card">
+                                        <div class="card-header d-flex align-items-start pb-0">
+                                            <div>
+                                                <h2 class="text-bold-700 mb-0">700</h2>
+                                                <p>Pelanggan <b class="text-success">Sudah Bayar</b></p>
+                                            </div>
+                                            <div class="avatar bg-rgba-success p-50 m-0">
+                                                <div class="avatar-content">
+                                                    <i class="feather icon-users text-success font-medium-5"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Total Pemasukan <?= date('Y') ?></h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="card-body pl-1">
+                                                <div class="height-200">
+                                                    <div id="line-chart"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Pemasukan</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div id="line-chart"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div class="col-md-6 col-12">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between pb-0">
-                                    <h4 class="card-title">Support Tracker</h4>
-                                    <div class="dropdown chart-dropdown">
-                                        <button class="btn btn-sm border-0 dropdown-toggle p-0" type="button" id="dropdownItem4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Last 7 Days
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownItem4">
-                                            <a class="dropdown-item" href="#">Last 28 Days</a>
-                                            <a class="dropdown-item" href="#">Last Month</a>
-                                            <a class="dropdown-item" href="#">Last Year</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body pt-0">
-                                        <div class="row">
-                                            <div class="col-sm-2 col-12 d-flex flex-column flex-wrap text-center">
-                                                <h1 class="font-large-2 text-bold-700 mt-2 mb-0">163</h1>
-                                                <small>Tickets</small>
-                                            </div>
-                                            <div class="col-sm-10 col-12 d-flex justify-content-center">
-                                                <div id="support-tracker-chart"></div>
-                                            </div>
-                                        </div>
-                                        <div class="chart-info d-flex justify-content-between">
-                                            <div class="text-center">
-                                                <p class="mb-50">New Tickets</p>
-                                                <span class="font-large-1">29</span>
-                                            </div>
-                                            <div class="text-center">
-                                                <p class="mb-50">Open Tickets</p>
-                                                <span class="font-large-1">63</span>
-                                            </div>
-                                            <div class="text-center">
-                                                <p class="mb-50">Response Time</p>
-                                                <span class="font-large-1">1d</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
-                    <div class="row match-height">
+                    
+                    <!-- <div class="row match-height">
                         <div class="col-lg-4 col-12">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between pb-0">
@@ -281,7 +267,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="row">
                         <div class="col-12">
                             <div class="card">

@@ -189,41 +189,34 @@ $(document).ready(function(){
         console.log(data)
         $.ajax({
                 type :"POST",
-                url : "",
+                url : "submit_registrasi",
                 dataType : 'json',
                 data : data,
                 success : function(data){
                     
-                    // Swal.fire({
-                    //     title: 'Berhasil',
-                    //     html: data.message,
-                    //     timer: 2000,
-                    //     // confirmButtonClass: 'btn btn-primary',
-                    //     // buttonsStyling: false,
+                    Swal.fire({
+                        title: 'Berhasil',
+                        html: data,
+                        timer: 2000,
+                        // confirmButtonClass: 'btn btn-primary',
+                        // buttonsStyling: false,
                         
-                    //     onBeforeOpen: function () {
-                    //       Swal.showLoading()
-                    //       timerInterval = setInterval(function () {
-                    //         Swal.getContent().querySelector('strong')
-                    //           .textContent = Swal.getTimerLeft()
-                    //       }, 100)
-                    //     },
-                    //     onClose: function () {
-                    //       clearInterval(timerInterval)
-                    //     }
-                    //   }).then(function (result) {
-                    //         if (result.dismiss === Swal.DismissReason.timer) {
-                    //             window.location = "";
-                    //         }
-                    //   })
-                    Swal.fire(
-                        {
-                          type: "success",
-                          title: 'Deleted!',
-                          text: data,
-                          confirmButtonClass: 'btn btn-success',
+                        onBeforeOpen: function () {
+                          Swal.showLoading()
+                          timerInterval = setInterval(function () {
+                            Swal.getContent().querySelector('strong')
+                              .textContent = Swal.getTimerLeft()
+                          }, 100)
+                        },
+                        onClose: function () {
+                          clearInterval(timerInterval)
                         }
-                      )
+                      }).then(function (result) {
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                window.location = "";
+                            }
+                      })
+                  
                     // Swal.fire({
                     //     icon: 'success',
                     //     title: data.message,
@@ -250,6 +243,12 @@ $(document).ready(function(){
         })
     });
 });
+$(document).ready(function() {
+    $("#timestamp").load('dashboard/jam');
+    // setInterval(function() {
+    //     $("#timestamp").load('dashboard/jam').fadeIn("slow");
+    // }, 1000);
+})
 $('.confirm-delete').on('click', function(e) {
     e.preventDefault();
     

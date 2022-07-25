@@ -20,6 +20,11 @@ class Dashboard extends CI_Controller {
 		$this->load->view('body/dashboard');
 		$this->load->view('temp/footer');
 	}
+    public function jam()
+    {
+        date_default_timezone_set('Asia/Jakarta'); //Menyesuaikan waktu dengan tempat kita tinggal
+        echo date('H:i:s'); //Menampilkan Jam Sekarang
+    }
 	public function menu()
 	{
 		$this->load->view('temp/sidebar');

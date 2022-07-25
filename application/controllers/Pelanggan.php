@@ -69,7 +69,6 @@ class Pelanggan extends CI_Controller {
 			];
 			$data = $this->db->insert('dt_registrasi',$insert);
 			echo json_encode($data);
-			// echo json_encode(count($this->input->post()));
 		}
 
 	}
