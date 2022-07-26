@@ -28,7 +28,7 @@ $(document).ready(function () {
   // ----------------------------------
   var lineChartOptions = {
     chart: {
-      height: 200,
+      height: 150,
       type: 'line',
       zoom: {
         enabled: false
@@ -73,7 +73,7 @@ $(document).ready(function () {
   // ----------------------------------
   var lineAreaOptions = {
     chart: {
-      height: 250,
+      height: 200,
       type: 'area',
     },
     colors: themeColors,
