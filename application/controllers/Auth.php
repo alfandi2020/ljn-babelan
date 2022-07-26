@@ -32,7 +32,7 @@ class Auth extends CI_Controller {
                     redirect('auth');
                 }
             }
-            $this->load->view('Sign_In');
+            $this->load->view('Sign_in');
         }
         function logout(){
             $array_items = array('id_user', 'username');
