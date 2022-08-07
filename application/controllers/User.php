@@ -94,21 +94,7 @@ class User extends CI_Controller {
 			echo "Password harus sama";
 		}
 	}
-	function signature(){
-		$key_pair = openssl_pkey_new(array(
-            'private_key_bits' => 2048,
-            'private_key_type' => OPENSSL_KEYTYPE_RSA,
-        ));
-		$details = openssl_pkey_get_details($key_pair);
-		$public_key = $details['key'];
 
-		$private_key = '';
-		openssl_pkey_export($key_pair, $private_key);
-
-		// check/print your public key and private key pair.
-		echo $public_key . "<br><br>";
-		echo $private_key;
-	}
 	function delete($id){
 		$this->db->delete('users', array('id' => $id)); 
 		redirect('user');

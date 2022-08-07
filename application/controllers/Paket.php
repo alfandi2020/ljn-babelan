@@ -20,9 +20,10 @@ class Paket extends CI_Controller {
         $media = $this->input->post('media');
         $kecepatan = $this->input->post('kecepatan');
         $paket = $this->input->post('paket');
+        $deskripsi = $this->input->post('deskripsi');
         if (count($this->input->post()) > 3) {
             $insert = [
-                "deskripsi" => 1,
+                "deskripsi" => $deskripsi,
                 "mbps" => $kecepatan,
                 "harga" => $harga,
                 "media" => $media,

@@ -25,7 +25,7 @@
                     <ul class="menu-content">
                         <li><a href="<?= base_url('pelanggan/registrasi') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Registrasi</span></a>
                         </li>
-                        <li><a href="app-ecommerce-details.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">List Pelanggan</span></a>
+                        <li><a href="<?= base_url('pelanggan/list') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">List Pelanggan</span></a>
                         </li>
                         <li><a href="<?= base_url('pelanggan/alamat') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Alamat</span></a>
                     </ul>

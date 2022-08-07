@@ -14,11 +14,11 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Paket Internet</th>
                                         <th>Kecepatan</th>
                                         <th>Harga</th>
                                         <th>Media</th>
                                         <th>Paket Internet</th>
+                                        <th>Deskripsi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -26,15 +26,15 @@
                                     <?php $no=1; foreach ($paket as $x) {?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $x->deskripsi ?></td>
                                         <td><?= $x->mbps ." Mbps" ?></td>
                                         <td><?= 'Rp.' . number_format($x->harga,0,".",".") ?></td>
                                         <td><?= $x->media ?></td>
                                         <td><?= $x->paket_internet ?></td>
+                                        <td><?= $x->deskripsi ?></td>
                                         <td>
-                                            <button id="<?= $x->id ?>" class="btn btn-primary update-user"> <i
+                                            <button id="<?= $x->id_paket ?>" class="btn btn-primary update-user"> <i
                                                     class="feather icon-edit"></i></button>&nbsp;&nbsp;
-                                            <a href="<?= base_url('paket/delete/').$x->id ?>"
+                                            <a href="<?= base_url('paket/delete/').$x->id_paket ?>"
                                                 class="btn btn-danger confirm-delete"> <i
                                                     class="feather icon-trash-2"></i></a>
                                         </td>

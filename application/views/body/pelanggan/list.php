@@ -4,39 +4,25 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Table user</h4>
+                    <h4 class="card-title">Table Pelanggan</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body card-dashboard">
                         
                         <div class="table-responsive">
-                            <table class="table zero-configuration">
+                            <table class="table" id="table-pelanggan">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Username</th>
-                                        <th>Level</th>
-                                        <th width="230">Action</th>
+                                        <th width="250">Nama</th>
+                                        <th width="200">Email</th>
+                                        <th width="100">Alamat</th>
+                                        <th width="150">Telp</th>
+                                        <th width="150">Group</th>
+                                        <th width="150">Status</th>
+                                        <th width="150">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php $no=1; foreach ($user as $x) {?>
-                                    <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $x->nama ?></td>
-                                        <td><?= $x->username ?></td>
-                                        <td><?php
-                                        echo $x->role; ?></td>
-                                        <td>
-                                            <button id="<?= $x->id ?>" class="btn btn-primary update-user"> <i class="feather icon-edit"></i> Edit</button>&nbsp;&nbsp;
-                                            <?php if ($x->role != 1) { ?>
-                                            <a href="<?= base_url('user/delete/').$x->id ?>" class="btn btn-danger confirm-delete"> <i class="feather icon-trash-2"></i> Delete</a>
-                                            <?php } ?>
-                                        </td>
-                                    </tr>
-                                    <?php } ?>
-                                </tbody>
                             </table>
                         </div>
                     </div>

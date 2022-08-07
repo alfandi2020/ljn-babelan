@@ -72,6 +72,28 @@ class Pelanggan extends CI_Controller {
 		}
 
 	}
+	function getClient(){
+        $postData = $this->input->post();
+        $data = $this->M_Registrasi->list_client($postData);
+        echo json_encode($data);
+    }
+	function delete($id){
+		$data = [
+			"status" => 0
+		];
+		$this->db->where('id',$id);
+		$this->db->update('dt_registrasi',$data);
+		// redirect('pelanggan/list');
+	}
+	function list(){
+		$data = [
+			'pelanggan' => $this->db->get('dt_registrasi')->result(),
+			'title' => 'List Pelanggan'
+		];
+		$this->load->view('temp/header',$data);
+		$this->load->view('body/pelanggan/list',$data);
+		$this->load->view('temp/footer');
+	}
 	function alamat(){
         $kode_alamat = strtoupper($this->input->post('kode_alamat'));
 		$user = $this->input->post('user');
@@ -87,7 +109,7 @@ class Pelanggan extends CI_Controller {
         }
 		$data = [
 			'title' => 'Alamat',
-            'alamat' =>  $this->db->query('SELECT * FROM users as a left join mt_alamat as b on(a.id = b.id_user) where a.role!=1')->result()
+            'alamat' =>  $this->db->query('SELECT * FROM users as a left join mt_alamat as b on(a.id = b.id_user)')->result()
 		];
 		$this->load->view('temp/header',$data);
 		$this->load->view('body/pelanggan/alamat');

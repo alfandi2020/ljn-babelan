@@ -32,12 +32,7 @@
                                         <td><?= $no++; ?></td>
                                         <td><?= $x->kode_alamat ?></td>
                                         <td><?php 
-                                             if ($x->role == 2) {
-                                                $role = 'Koordinator';
-                                            }elseif ($x->role == 3 ) {
-                                                $role = 'Sub Koordinator';
-                                            }
-                                            echo $role;
+                                            echo $x->role;
                                         ?></td>
                                         <td><?= $x->alamat ?></td>
                                         <td>

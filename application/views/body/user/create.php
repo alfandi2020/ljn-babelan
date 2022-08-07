@@ -40,8 +40,10 @@
                                         <span>Level User</span>
                                         <select required name="role" class="select2 form-control">
                                             <option disabled selected>Pilih Level User</option>
-                                            <option value="2">Koordinator</option>
-                                            <option value="3">Sub Koordinator</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Super Admin">Super Admin</option>
+                                            <option value="Koordinator">Koordinator</option>
+                                            <option value="Sub Koordinator">Sub Koordinator</option>
                                         </select>
                                     </fieldset>
                                 </div>
