@@ -23,8 +23,10 @@
     <div class="col-xl">
         <span>Role</span>
         <select required name="role" class="select2 form-control">
-            <option <?= $user['role'] == 2 ? 'selected' : '' ?> value="2" >Koordinator</option>
-            <option <?= $user['role'] == 3 ? 'selected' : '' ?> value="3">Sub Koordinator</option>
+            <option <?= $user['role'] == 'Super Admin' ? 'selected' : '' ?> value="Super Admin" >Super Admin</option>
+            <option <?= $user['role'] == 'Admin' ? 'selected' : '' ?> value="Admin" >Admin</option>
+            <option <?= $user['role'] == 'Koordinator' ? 'selected' : '' ?> value="Koordinator" >Koordinator</option>
+            <option <?= $user['role'] == 'Sub Koordinator' ? 'selected' : '' ?> value="Sub Koordinator">Sub Koordinator</option>
         </select>
     </div>
    

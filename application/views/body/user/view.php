@@ -30,7 +30,7 @@
                                         echo $x->role; ?></td>
                                         <td>
                                             <button id="<?= $x->id ?>" class="btn btn-primary update-user"> <i class="feather icon-edit"></i> Edit</button>&nbsp;&nbsp;
-                                            <?php if ($x->role != 1) { ?>
+                                            <?php if ($x->role != 'Super Admin') { ?>
                                             <a href="<?= base_url('user/delete/').$x->id ?>" class="btn btn-danger confirm-delete"> <i class="feather icon-trash-2"></i> Delete</a>
                                             <?php } ?>
                                         </td>
