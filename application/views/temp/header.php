@@ -111,7 +111,7 @@ function hari_ini(){
     <link rel="stylesheet" type="text/css" href="<?= base_url()?>assets/vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/vendors/css/tables/datatable/datatables.min.css">
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/style.css">
     <!-- END: Custom CSS-->
 
 </head>
@@ -210,7 +210,7 @@ function hari_ini(){
                         </li>
                         <li class="dropdown dropdown-user nav-item"><a
                                 class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600"><?= $this->session->userdata('username') ?></span><span class="user-status">Wahana Ungu</span></div><span><img
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600"><?= $this->session->userdata('username') ?></span><span class="user-status"><?= $this->session->userdata('role') ?></span></div><span><img
                                         class="round"
                                         src="<?= base_url() ?>assets/images/portrait/small/avatar-s-11.jpg" alt="avatar"
                                         height="40" width="40"></span>

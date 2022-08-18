@@ -19,18 +19,22 @@
                 </li> -->
                 <li class=" nav-item"><a href="<?= base_url('dashboard') ?>"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Calender">Dashboard</span></a>
 
-                
                 </li>
                 <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Ecommerce">Pelanggan</span></a>
                     <ul class="menu-content">
+                        <?php if ($this->session->userdata('role') == 'Super Admin') {?>    
                         <li><a href="<?= base_url('pelanggan/registrasi') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Registrasi</span></a>
                         </li>
+                        <?php } ?>
                         <li><a href="<?= base_url('pelanggan/list') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">List Pelanggan</span></a>
                         </li>
-                        <li><a href="<?= base_url('pelanggan/alamat') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Alamat</span></a>
+                        <?php if ($this->session->userdata('role') == 'Super Admin') {?>
+                            <li><a href="<?= base_url('pelanggan/alamat') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Alamat</span></a>
+                        <?php } ?>
                     </ul>
                 </li>
                 <li class=" nav-item"><a href="<?= base_url('pembayaran') ?>"><i class="feather icon-dollar-sign"></i><span class="menu-title" data-i18n="Calender">Buat Pembayaran</span></a>
+                <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                 <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="User">User</span></a>
                     <ul class="menu-content">
                         <li><a href="<?= base_url('user/create') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">Buat User</span></a>
@@ -40,6 +44,8 @@
                       
                     </ul>
                 </li>
+                <?php }  ?>
+               
                 <li class=" nav-item"><a href="#"><i class="feather icon-clipboard"></i><span class="menu-title" data-i18n="User">Keuangan</span></a>
                     <ul class="menu-content">
                         <li><a href="<?= base_url('keuangan/create') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">Pengeluaran</span></a>

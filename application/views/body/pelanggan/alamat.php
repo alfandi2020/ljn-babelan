@@ -30,15 +30,15 @@
                                         ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $x->kode_alamat ?></td>
+                                        <td><?= $x->kode_group ?></td>
                                         <td><?php 
                                             echo $x->role;
                                         ?></td>
                                         <td><?= $x->alamat ?></td>
                                         <td>
-                                            <button id="<?= $x->id ?>" class="btn btn-primary update-user"> <i
+                                            <button id="<?= $x->id_alamat ?>" class="btn btn-primary update-user"> <i
                                                     class="feather icon-edit"></i></button>&nbsp;&nbsp;
-                                            <a href="<?= base_url('paket/delete/').$x->id ?>"
+                                            <a href="<?= base_url('paket/delete/').$x->id_alamat ?>"
                                                 class="btn btn-danger confirm-delete"> <i
                                                     class="feather icon-trash-2"></i></a>
                                         </td>
@@ -73,7 +73,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"> <i class="feather icon-map-pin"></i> </span>
                                     </div>
-                                    <input type="text" name="kode_alamat" class="form-control"
+                                    <input type="text" name="kode_group" class="form-control"
                                         placeholder="WP01" aria-describedby="basic-addon1">
                                 </div>
                             </fieldset>
@@ -83,17 +83,20 @@
                             <select name="user" id="" class="select2">
                                 <option selected disabled>Pilih User</option>
                                 <?php 
-                                $this->db->where('role !=',1);
-                                $db = $this->db->get('users')->result();
-                                foreach ($db as $x) { 
-                                    if ($x->role == 2) {
-                                        $role = 'Koordinator';
-                                    }elseif ($x->role == 3 ) {
-                                        $role = 'Sub Koordinator';
-                                    }
+                                // $this->db->where('role !=',1);
+                                // $db = $this->db->get('mt_alamat')->result();
+                                foreach ($alamat as $x) { 
+                                    // if ($x->role == '2') {
+                                    //     $role = 'Koordinator';
+                                    // }elseif ($x->role == 3 ) {
+                                    //     $role = 'Sub Koordinator';
+                                    // }else{
+                                    //     $role = '';
+                                    // }
                                     ?>
-                                    <option value="<?= $x->id ?>"><?= $x->nama .' - ' .$role?></option>
+                                    <option value="<?= $x->id_alamat ?>"><?= $x->nama .' - ' .$x->role?></option>
                                 <?php } ?>
+
                             </select>
                         </div>
                     </div>

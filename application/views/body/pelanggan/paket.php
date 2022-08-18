@@ -18,7 +18,6 @@
                                         <th>Harga</th>
                                         <th>Media</th>
                                         <th>Paket Internet</th>
-                                        <th>Deskripsi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -30,7 +29,6 @@
                                         <td><?= 'Rp.' . number_format($x->harga,0,".",".") ?></td>
                                         <td><?= $x->media ?></td>
                                         <td><?= $x->paket_internet ?></td>
-                                        <td><?= $x->deskripsi ?></td>
                                         <td>
                                             <button id="<?= $x->id_paket ?>" class="btn btn-primary update-user"> <i
                                                     class="feather icon-edit"></i></button>&nbsp;&nbsp;
@@ -102,16 +100,17 @@
                             <select required name="paket" id="" class="select2">
                                 <option selected disabled>Pilih Paket internet</option>
                                 <option value="Home">Home</option>
+                                <option value="Soho">Soho</option>
                                 <option value="Corporate">Corporate</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row mt-2">
+                    <!-- <div class="row mt-2">
                         <div class="col-xl">
                             <span>Deskripsi</span>
                             <input type="text" class="form-control" placeholder="Internet Up To 10 Mbps" required name="deskripsi">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>

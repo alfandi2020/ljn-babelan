@@ -16,14 +16,14 @@ class Paket extends CI_Controller {
 	public function index()
 	{
     
-        $harga = $this->input->post('harga');
+        $harga = $this->remove_special($this->input->post('harga'));
         $media = $this->input->post('media');
         $kecepatan = $this->input->post('kecepatan');
         $paket = $this->input->post('paket');
-        $deskripsi = $this->input->post('deskripsi');
+        // $deskripsi = $this->input->post('deskripsi');
         if (count($this->input->post()) > 3) {
             $insert = [
-                "deskripsi" => $deskripsi,
+                // "deskripsi" => $deskripsi,
                 "mbps" => $kecepatan,
                 "harga" => $harga,
                 "media" => $media,
@@ -41,7 +41,7 @@ class Paket extends CI_Controller {
 		$this->load->view('temp/footer');
 	}
 	function delete($id){
-		$this->db->delete('mt_paket', array('id' => $id)); 
+		$this->db->delete('mt_paket', array('id_paket' => $id)); 
 		redirect('paket');
 	}
 	public function filter(){

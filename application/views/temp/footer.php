@@ -54,5 +54,36 @@
     <script src="<?= base_url() ?>assets/js/scripts/datatables/datatable.js"></script>
 </body>
 <!-- END: Body-->
-
+<script>
+     $('select[name="media"]').change(function() {
+        // var uri = $('input[name="id"]').val()
+        // console.log(uri)
+        // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update");
+        // setTimeout(() => {
+        // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update/"+uri);
+        // }, 100);
+        // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update/"+uri);
+        var id = $(this).val();
+        $.ajax({
+            url: '<?= base_url('pelanggan/paket')?>',//controller
+            method: "POST",
+            data: {
+                id: id
+            },
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                var html='';
+                var i;
+                html += '<option disabled selected>Pilih Kecepatan</option>'
+                for (i = 0; i < data.length; i++) {
+                    html +=  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+ ' - ' + data[i].paket_internet +'</option>';
+                    // html2 += '<option>Invoice Kosong </option>';
+                }
+                $('select[name="speed"]').html(html)
+               
+            }
+        });
+    });
+</script>
 </html>

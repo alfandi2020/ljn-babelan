@@ -21,29 +21,36 @@ $('div.collapse li a').filter(function() {
 
 $(document).ready(function(){
 
-    $('select[name="media"]').change(function() {
-        var id = $(this).val();
-        $.ajax({
-            url: 'paket',//controller
-            method: "POST",
-            data: {
-                id: id
-            },
-            async: true,
-            dataType: 'json',
-            success: function(data) {
-                var html='';
-                var i;
-                html += '<option disabled selected>Pilih Kecepatan</option>'
-                for (i = 0; i < data.length; i++) {
-                    html +=  '<option value='+ data[i].id+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+'</option>';
-                    // html2 += '<option>Invoice Kosong </option>';
-                }
-                $('select[name="speed"]').html(html)
+    // $('select[name="media"]').change(function() {
+    //     // var uri = $('input[name="id"]').val()
+    //     // console.log(uri)
+    //     // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update");
+    //     // setTimeout(() => {
+    //     // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update/"+uri);
+    //     // }, 100);
+    //     // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update/"+uri);
+    //     var id = $(this).val();
+    //     $.ajax({
+    //         url: 'paket',//controller
+    //         method: "POST",
+    //         data: {
+    //             id: id
+    //         },
+    //         async: true,
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             var html='';
+    //             var i;
+    //             html += '<option disabled selected>Pilih Kecepatan</option>'
+    //             for (i = 0; i < data.length; i++) {
+    //                 html +=  '<option value='+ data[i].id+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+'</option>';
+    //                 // html2 += '<option>Invoice Kosong </option>';
+    //             }
+    //             $('select[name="speed"]').html(html)
                
-            }
-        });
-    });
+    //         }
+    //     });
+    // });
 
     $('#submit_user').click(function(){
         var form = $('#form-user')
@@ -242,13 +249,14 @@ $(document).ready(function(){
             }
         })
     });
-
+    // var status = document.getElementById("status").checked
     $('#table-pelanggan').DataTable({
         'processing': true,
         'serverSide': true,
         'serverMethod': 'post',
         'ajax': {
-           'url':'getClient'
+           'url':'getClient',
+        //    'data' : {'status' : status}
         },
         'columns': [
             {data: 'no'},
@@ -257,56 +265,60 @@ $(document).ready(function(){
            { data: 'alamat' },
            { data: 'telp' },
            { data: 'group' },
+        //    { data: 'off' },
            { data: 'status' },
-           {
-              className: 'url',
-              data: 'id',
-              render: function(data, type, row) {
-                  if (type === 'display') {
-                      $('.delete-confirm').on('click', function (eventx) {
-                              eventx.preventDefault();
-                          //   var id = $(this).attr('val');
-                          const url = $(this).attr('href');
-                          swal.fire({
-                            title: 'Yakin Hapus Pelanggan?',
-                            text: "Data Akan di delete !",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            cancelButtonColor: '#d33',
-                            confirmButtonClass: 'btn btn-primary',
-                            cancelButtonClass: 'btn btn-danger ml-1',
-                            confirmButtonText: 'Ya, Hapus Data'
+           {data : 'action'}
+        //    {
+        //       className: 'url',
+        //       data: 'id',
+        //       render: function(data, type, row) {
+        //           if (type === 'display') {
+        //               $('.delete-confirm').on('click', function (eventx) {
+        //                       eventx.preventDefault();
+        //                   //   var id = $(this).attr('val');
+        //                   const url = $(this).attr('href');
+        //                   swal.fire({
+        //                     title: 'Yakin Hapus Pelanggan?',
+        //                     text: "Data Akan di delete !",
+        //                     icon: 'warning',
+        //                     showCancelButton: true,
+        //                     cancelButtonColor: '#d33',
+        //                     confirmButtonClass: 'btn btn-primary',
+        //                     cancelButtonClass: 'btn btn-danger ml-1',
+        //                     confirmButtonText: 'Ya, Hapus Data'
                       
-                          }).then(function(result) {
-                            if (result.value) {
-                                Swal.fire(
-                                    {
-                                      type: "success",
-                                      title: 'Deleted!',
-                                      text: 'Data berhasil didelete',
-                                      confirmButtonClass: 'btn btn-success',
-                                    }
-                                  )
-                                setTimeout(() => {
-                                    document.location.href = url;
-                                }, 1500);
-                                // console.log(href);
-                            }else if (result.dismiss === Swal.DismissReason.cancel) {
-                                Swal.fire({
-                                  title: 'Cencel',
-                                  text: 'Data cancel di delete',
-                                  type: 'error',
-                                  confirmButtonClass: 'btn btn-success',
-                                })
-                              }
-                          });
-                      });
-                      return '<a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light" href="pdf/' + data + '"><i class="feather icon-eye"></i></a>  <a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light" href="pdf/' + data + '" class="url"><i class="feather icon-edit"></i></a> <a href="delete/' + data + '" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light delete-confirm url"><i class="feather icon-trash-2"></i></a> ';
-                  }
+        //                   }).then(function(result) {
+        //                     if (result.value) {
+        //                         Swal.fire(
+        //                             {
+        //                               type: "success",
+        //                               title: 'Deleted!',
+        //                               text: 'Data berhasil didelete',
+        //                               confirmButtonClass: 'btn btn-success',
+        //                             }
+        //                           )
+        //                         setTimeout(() => {
+        //                             document.location.href = url;
+        //                         }, 1500);
+        //                         // console.log(href);
+        //                     }else if (result.dismiss === Swal.DismissReason.cancel) {
+        //                         Swal.fire({
+        //                           title: 'Cencel',
+        //                           text: 'Data cancel di delete',
+        //                           type: 'error',
+        //                           confirmButtonClass: 'btn btn-success',
+        //                         })
+        //                       }
+        //                   });
+        //               });
+        //               return '<a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light " href="pdf/' + data + '"><i class="feather icon-eye"></i></a>'+ 
+        //               '<a class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light" href="update/' + data + '" class="url"><i class="feather icon-edit"></i></a>'+
+        //               '<a href="delete/' + data + '" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light delete-confirm url"><i class="feather icon-trash-2"></i></a> ';
+        //           }
   
-                  return data;
-              }
-           }
+        //           return data;
+        //       }
+        //    }
         ],
         
         "sScrollX": "100%",
