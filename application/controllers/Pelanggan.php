@@ -23,7 +23,7 @@ class Pelanggan extends CI_Controller {
 	{
 		$data = [
 			'title' => 'Registrasi',
-			'mt_alamat' => $this->db->get('mt_alamat')->result()
+			'mt_role' => $this->db->get('mt_role')->result()
 		];
 		$this->load->view('temp/header',$data);
 		$this->load->view('body/pelanggan/registrasi');
@@ -72,19 +72,103 @@ class Pelanggan extends CI_Controller {
 		}
 
 	}
+	function pembayaran(){
+
+		$id_user = $this->session->userdata('id_user');
+        $alamat_get = $this->db->query("SELECT * FROM users where id='$id_user'")->row_array();
+		$arr = explode(',',$alamat_get['group']);
+        if ($this->session->userdata('role') != 'Super Admin') {
+			$this->db->where_in('group',$arr);
+		}
+		$this->db->where('status','Aktif');
+		$data_client =  $this->db->get('dt_registrasi')->result();
+		$data = [
+			'client' =>  $data_client,
+			'title' => 'Buat Pembayaran',
+			
+		];
+		$this->load->view('temp/header',$data);
+		$this->load->view('body/pelanggan/pembayaran',$data);
+		$this->load->view('temp/footer');
+	}
+	function getclient_pembayaran()
+	{
+		$id = $this->input->post('id');
+		$this->db->from('dt_registrasi as a');
+		$this->db->join('mt_paket as b','a.speed=b.id_paket');
+		$this->db->where('a.alamat',$id);
+		$data = $this->db->get()->result();
+		echo json_encode($data);
+	}
+	function buat_pembayaran(){
+		
+		$id_paket = $this->input->post('p_paket');
+		$get_paket = $this->db->query("SELECT * FROM mt_paket  where id_paket ='$id_paket'")->row_array();
+		$nama = $this->input->post('nama');
+		$id_registrasi = $this->input->post('p_client');
+		$tagihan = $this->input->post('p_tagihan');
+		$penerima = $this->input->post('p_penerima');
+		$bulan = $this->input->post('p_bulan');
+		$tahun = $this->input->post('p_tahun');
+		$tgl_bayar = $this->input->post('tgl_pembayaran');
+		$cek_tagihan = $this->db->query("SELECT * FROM dt_cetak where periode='$bulan' and tahun='$tahun' and id_registrasi='$id_registrasi' ")->num_rows();
+		if ($tagihan == true) {
+			if ($cek_tagihan != true) {
+				$data = [
+					"id_registrasi" => $id_registrasi,
+					"nama" => $nama,
+					"mbps" => $get_paket['mbps'],
+					"tagihan" => $tagihan,
+					"penerima" => $penerima,
+					"periode" => $bulan,
+					"tahun" => $tahun,
+					"tanggal_pembayaran" => $tgl_bayar
+				];
+				$this->db->insert('dt_cetak',$data);
+				$this->session->set_flashdata("msg", "<div class='alert alert-success'>Cetak Pembayaran berhasil</div>");
+				redirect('pelanggan/pembayaran');
+			}else{
+				$this->session->set_flashdata("msg", "<div class='alert alert-danger'>Buat pembayaran tidak boleh dobel nama $nama bulan $bulan tahun $tahun</div>");
+				redirect('pelanggan/pembayaran');
+			}
+		}else{
+			$this->session->set_flashdata("msg", "<div class='alert alert-danger'>Paket Internet Kosong</div>");
+			redirect('pelanggan/pembayaran');
+		}
+
+		// $msg = [
+		// 	"response" => "success",
+		// 	"message" => "Data user sudah ada"
+		// ];
+		// echo json_encode($msg);
+	}
+	function status(){
+		$data = [
+			'pelanggan' => $this->db->get('dt_registrasi')->result(),
+			'title' => 'List Pelanggan'
+		];
+		$this->load->view('temp/header',$data);
+		$this->load->view('body/pelanggan/status',$data);
+		$this->load->view('temp/footer');
+	}
+	function status_pembayaran()
+	{
+        $postData = $this->input->post();
+        $data = $this->M_Registrasi->status_payment($postData);
+        echo json_encode($data);
+	}
 	function getClient(){
-		$status = $this->input->post('status');
         $postData = $this->input->post();
         $data = $this->M_Registrasi->list_client($postData);
         echo json_encode($data);
     }
 	function delete($id){
 		$data = [
-			"status" => 0
+			"status" => 'Off'
 		];
 		$this->db->where('id',$id);
 		$this->db->update('dt_registrasi',$data);
-		// redirect('pelanggan/list');
+		redirect('pelanggan/list');
 	}
 	function list(){
 		$data = [
@@ -143,7 +227,7 @@ class Pelanggan extends CI_Controller {
 		$pelanggan = $this->db->get()->row_array();
 		$data = [
 			'title' => 'Update Pelanggan',
-			'mt_alamat' => $this->db->get('mt_alamat')->result(),
+			'mt_role' => $this->db->get('mt_role')->result(),
 			'pelanggan' => $pelanggan
 		];
 		$this->load->view('temp/header',$data);
@@ -153,23 +237,56 @@ class Pelanggan extends CI_Controller {
 	function alamat(){
         $kode_group = strtoupper($this->input->post('kode_group'));
 		$user = $this->input->post('user');
-        $alamat = $this->input->post('alamat');
+        $alamat = $this->input->post('kode_alamat');
         if ($kode_group == true || $alamat == true) {
             $insert = [
-                "kode_group" => $kode_group,
+                "group" => $kode_group,
                 "alamat" => $alamat,
-				"id_user" => $user
+				// "id_user" => $user
             ];
             $this->db->insert('mt_alamat',$insert);
             redirect('pelanggan/alamat','<div class="alert alert-primary mb-2" role="alert">Tambah alamat berhasil</div>');
         }
 		$data = [
 			'title' => 'Alamat',
-            'alamat' =>  $this->db->query('SELECT * FROM users as a left join mt_alamat as b on(a.id = b.id_user)')->result()
+            'alamat' =>  $this->db->get('mt_alamat')->result()
 		];
 		$this->load->view('temp/header',$data);
 		$this->load->view('body/pelanggan/alamat',$data);
 		$this->load->view('temp/footer');
+	}
+	function role(){
+		$data = [
+			'title' => 'Perizinan',
+            'alamat' =>  $this->db->get('users')->result(),
+			'group' => $this->db->get('mt_alamat')->result()
+		];
+		$this->load->view('temp/header',$data);
+		$this->load->view('body/pelanggan/perizinan',$data);
+		$this->load->view('temp/footer');
+	}
+	function change_role(){
+			$id = $this->uri->segment(3);
+				$role = $this->input->post('role');
+				$update = [
+					"role" => $role[0]
+				];
+				$this->db->where('id',$id);
+				echo $this->db->update('users',$update);
+				redirect('pelanggan/role');
+		
+	}
+	function change_group(){
+			$id = $this->uri->segment(3);
+				$group = $this->input->post('group');
+				$imp_group = implode(',',$group);
+				$update = [
+					"group" => $imp_group
+				];
+				$this->db->where('id',$id);
+				echo $this->db->update('users',$update);
+				redirect('pelanggan/role');
+		
 	}
 	function paket(){
 		$id = $this->input->post('id');

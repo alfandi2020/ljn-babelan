@@ -13,8 +13,16 @@ class Dashboard extends CI_Controller {
 	}
 	public function index()
 	{
+		$total_client = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi where status='Aktif'")->row_array();
+		$free = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi where status='Free'")->row_array();
+		$off = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi where status='Off'")->row_array();
+		$total = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi")->row_array();
 		$data = [
-			"title" => "Dashboard"
+			"title" => "Dashboard",
+			'total' => $total_client,
+			'free' => $free,
+			'tidak_aktif' => $off,
+			'semua' => $total
 		];
 		$this->load->view('temp/header',$data);
 		$this->load->view('body/dashboard');

@@ -94,7 +94,7 @@
                                 <div class="col-xl-4">
                                     <span>Alamat</span>
                                     <select name="alamat" id="" class="select2">
-                                        <?php foreach ($mt_alamat as $x) {?> 
+                                        <?php foreach ($mt_role as $x) {?> 
                                             <option value="<?= $x->kode_group ?>"><?= $x->kode_group . ' - ' .$x->alamat ?></option>
                                         <?php } ?>
                                     </select>

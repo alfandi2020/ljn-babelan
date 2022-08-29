@@ -55,14 +55,12 @@
 </body>
 <!-- END: Body-->
 <script>
+    window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function() {
+        $(this).remove();
+    });
+}, 3000);
      $('select[name="media"]').change(function() {
-        // var uri = $('input[name="id"]').val()
-        // console.log(uri)
-        // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update");
-        // setTimeout(() => {
-        // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update/"+uri);
-        // }, 100);
-        // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update/"+uri);
         var id = $(this).val();
         $.ajax({
             url: '<?= base_url('pelanggan/paket')?>',//controller
@@ -81,6 +79,34 @@
                     // html2 += '<option>Invoice Kosong </option>';
                 }
                 $('select[name="speed"]').html(html)
+               
+            }
+        });
+    });
+     $('select[name="p_client"]').change(function() {
+        var id = $(this).val();
+        $.ajax({
+            url: '<?= base_url('pelanggan/getclient_pembayaran')?>',//controller
+            method: "POST",
+            data: {
+                id: id
+            },
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                var html='';
+                var html2='';
+                var html3='';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                    html +=  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+ ' - ' + data[i].paket_internet +'</option>';
+                    html2 += data[i].harga;
+                    html3 += data[i].nama;
+                    // html2 += '<option>Invoice Kosong </option>';
+                }
+                $('select[name="p_paket"]').html(html)
+                $('input[name="p_tagihan"]').val(html2)
+                $('input[name="nama"]').val(html3)
                
             }
         });

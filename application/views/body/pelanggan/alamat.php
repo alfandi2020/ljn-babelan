@@ -15,26 +15,17 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode Alamat</th>
-                                        <th>User Koordinator</th>
-                                        <th>Alamat</th>
+                                        <th>Kode Group</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach ($alamat as $x) {
-                                        if ($x->role == 2) {
-                                            $role = 'Koordinator';
-                                        }elseif ($x->role == 3 ) {
-                                            $role = 'Sub Koordinator';
-                                        }
                                         ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $x->kode_group ?></td>
-                                        <td><?php 
-                                            echo $x->role;
-                                        ?></td>
                                         <td><?= $x->alamat ?></td>
+                                        <td><?= $x->group ?></td>
                                         <td>
                                             <button id="<?= $x->id_alamat ?>" class="btn btn-primary update-user"> <i
                                                     class="feather icon-edit"></i></button>&nbsp;&nbsp;
@@ -67,44 +58,41 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xl">
-                            <span>Kode alamat</span>
+                            <span>Kode GROUP</span>
                             <fieldset>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"> <i class="feather icon-map-pin"></i> </span>
+                                        <span class="input-group-text" id="basic-addon1"> <i
+                                                class="feather icon-map-pin"></i> </span>
                                     </div>
-                                    <input type="text" name="kode_group" class="form-control"
-                                        placeholder="WP01" aria-describedby="basic-addon1">
+                                    <input type="text" name="kode_group" class="form-control" placeholder="WP02"
+                                        aria-describedby="basic-addon1">
                                 </div>
                             </fieldset>
                         </div>
-                        <div class="col-xl">
+                        <div class="col-xl-6">
+                            <span>Kode Alamat</span>
+                            <input type="text" class="form-control" placeholder="WP121" required name="kode_alamat">
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <!-- <div class="col-xl">
                             <span>User Koordinator</span>
                             <select name="user" id="" class="select2">
                                 <option selected disabled>Pilih User</option>
                                 <?php 
-                                // $this->db->where('role !=',1);
-                                // $db = $this->db->get('mt_alamat')->result();
                                 foreach ($alamat as $x) { 
-                                    // if ($x->role == '2') {
-                                    //     $role = 'Koordinator';
-                                    // }elseif ($x->role == 3 ) {
-                                    //     $role = 'Sub Koordinator';
-                                    // }else{
-                                    //     $role = '';
-                                    // }
                                     ?>
                                     <option value="<?= $x->id_alamat ?>"><?= $x->nama .' - ' .$x->role?></option>
                                 <?php } ?>
 
                             </select>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-xl">
+                        </div> -->
+                        <!-- <div class="col-xl">
                             <span>Alamat</span>
-                            <input type="text" class="form-control" placeholder="Internet Up To 10 Mbps" required name="alamat">
-                        </div>
+                            <input type="text" class="form-control" placeholder="Jl.Baru" required name="alamat">
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">

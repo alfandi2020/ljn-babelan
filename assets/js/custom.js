@@ -20,37 +20,27 @@ $('div.collapse li a').filter(function() {
 }).parentsUntil(".nav > collapse li a").addClass('show');
 
 $(document).ready(function(){
-
-    // $('select[name="media"]').change(function() {
-    //     // var uri = $('input[name="id"]').val()
-    //     // console.log(uri)
-    //     // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update");
-    //     // setTimeout(() => {
-    //     // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update/"+uri);
-    //     // }, 100);
-    //     // window.history.replaceState({}, document.title, "/ljn-babelan/pelanggan/" + "update/"+uri);
-    //     var id = $(this).val();
-    //     $.ajax({
-    //         url: 'paket',//controller
-    //         method: "POST",
-    //         data: {
-    //             id: id
-    //         },
-    //         async: true,
-    //         dataType: 'json',
-    //         success: function(data) {
-    //             var html='';
-    //             var i;
-    //             html += '<option disabled selected>Pilih Kecepatan</option>'
-    //             for (i = 0; i < data.length; i++) {
-    //                 html +=  '<option value='+ data[i].id+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+'</option>';
-    //                 // html2 += '<option>Invoice Kosong </option>';
+    // var total = $('#jumlah_user').val();
+    // for (let i = total; i < total+1; i++) {
+        
+    //     $('input[name="role'+i+'"]').change(function() {
+    //         var val = $(this)[0].value
+    //         $.ajax({
+    //             url: 'change_role',//controller
+    //             method: "POST",
+    //             data: {
+    //                 role: val
+    //             },
+    //             async: true,
+    //             dataType: 'json',
+    //             success: function(data) {
+    //               console.log(data)
+                   
     //             }
-    //             $('select[name="speed"]').html(html)
-               
-    //         }
+    //         });
     //     });
-    // });
+    // }
+ 
 
     $('#submit_user').click(function(){
         var form = $('#form-user')
@@ -70,6 +60,71 @@ $(document).ready(function(){
                         buttonsStyling: false,
                       });
                 }else if (data.response == "double") {
+                    Swal.fire({
+                        title: "Opss!",
+                        text: data.message,
+                        type: "error",
+                        confirmButtonClass: 'btn btn-primary',
+                        buttonsStyling: false,
+                      });
+                }else if (data.response == "success") {
+                    Swal.fire({
+                        title: 'Berhasil',
+                        html: data.message,
+                        timer: 2000,
+                        // confirmButtonClass: 'btn btn-primary',
+                        // buttonsStyling: false,
+                        
+                        onBeforeOpen: function () {
+                          Swal.showLoading()
+                          timerInterval = setInterval(function () {
+                            Swal.getContent().querySelector('strong')
+                              .textContent = Swal.getTimerLeft()
+                          }, 100)
+                        },
+                        onClose: function () {
+                          clearInterval(timerInterval)
+                        }
+                      }).then(function (result) {
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                window.location = "";
+                            }
+                      })
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     title: data.message,
+                    //     showConfirmButton: false,
+                    //     timerProgressBar: true,
+                    //     timer: 2000,
+                    //     didOpen: () => {
+                    //         Swal.showLoading()
+                    //         const b = Swal.getHtmlContainer().querySelector('b')
+                    //         timerInterval = setInterval(() => {
+                    //         b.textContent = Swal.getTimerLeft()
+                    //         }, 100)
+                    //     },
+                    //     willClose: () => {
+                    //         clearInterval(timerInterval)
+                    //     }
+                    // }).then((result) => {
+                    //     if (result.dismiss === Swal.DismissReason.timer) {
+                    //     window.location = "";
+                    //     }
+                    // })
+                }
+            }
+        })
+    });
+    $('#submit_pembayaran').click(function(){
+        var form = $('#form_pembayaran')
+        var data  = form.serialize();
+        $.ajax({
+                type :"POST",
+                url : "buat_pembayaran",
+                dataType : 'json',
+                data : data,
+                success : function(data){
+                if (data.response == "error") {
                     Swal.fire({
                         title: "Opss!",
                         text: data.message,
@@ -322,6 +377,78 @@ $(document).ready(function(){
         ],
         
         "sScrollX": "100%",
+        
+      });
+    $('#table-status').DataTable({
+        'processing': true,
+        'serverSide': true,
+        'serverMethod': 'post',
+        'ajax': {
+           'url':'status_pembayaran',
+        //    'data' : {'status' : status}
+        },
+        'columns': [
+            {data: 'no'},
+           { data: 'nama' },
+           { data: 'alamat' },
+           { data: 'group' },
+        //    { data: 'off' },
+           { data: 'status' },
+        //    {
+        //       className: 'url',
+        //       data: 'id',
+        //       render: function(data, type, row) {
+        //           if (type === 'display') {
+        //               $('.delete-confirm').on('click', function (eventx) {
+        //                       eventx.preventDefault();
+        //                   //   var id = $(this).attr('val');
+        //                   const url = $(this).attr('href');
+        //                   swal.fire({
+        //                     title: 'Yakin Hapus Pelanggan?',
+        //                     text: "Data Akan di delete !",
+        //                     icon: 'warning',
+        //                     showCancelButton: true,
+        //                     cancelButtonColor: '#d33',
+        //                     confirmButtonClass: 'btn btn-primary',
+        //                     cancelButtonClass: 'btn btn-danger ml-1',
+        //                     confirmButtonText: 'Ya, Hapus Data'
+                      
+        //                   }).then(function(result) {
+        //                     if (result.value) {
+        //                         Swal.fire(
+        //                             {
+        //                               type: "success",
+        //                               title: 'Deleted!',
+        //                               text: 'Data berhasil didelete',
+        //                               confirmButtonClass: 'btn btn-success',
+        //                             }
+        //                           )
+        //                         setTimeout(() => {
+        //                             document.location.href = url;
+        //                         }, 1500);
+        //                         // console.log(href);
+        //                     }else if (result.dismiss === Swal.DismissReason.cancel) {
+        //                         Swal.fire({
+        //                           title: 'Cencel',
+        //                           text: 'Data cancel di delete',
+        //                           type: 'error',
+        //                           confirmButtonClass: 'btn btn-success',
+        //                         })
+        //                       }
+        //                   });
+        //               });
+        //               return '<a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light " href="pdf/' + data + '"><i class="feather icon-eye"></i></a>'+ 
+        //               '<a class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light" href="update/' + data + '" class="url"><i class="feather icon-edit"></i></a>'+
+        //               '<a href="delete/' + data + '" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light delete-confirm url"><i class="feather icon-trash-2"></i></a> ';
+        //           }
+  
+        //           return data;
+        //       }
+        //    }
+        ],
+        
+        // "sScrollX": "100%",
+        "responsive": true
         
       });
 });
