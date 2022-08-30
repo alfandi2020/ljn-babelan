@@ -92,10 +92,18 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-xl-4">
+                                    <span>Group</span>
+                                    <select name="group" id="" class="select2">
+                                        <?php foreach ($mt_role as $x) {?> 
+                                            <option value="<?= $x->group ?>"><?= $x->group ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-xl-4">
                                     <span>Alamat</span>
                                     <select name="alamat" id="" class="select2">
                                         <?php foreach ($mt_role as $x) {?> 
-                                            <option value="<?= $x->kode_group ?>"><?= $x->kode_group . ' - ' .$x->alamat ?></option>
+                                            <option value="<?= $x->alamat ?>"><?= $x->alamat ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -103,10 +111,17 @@
                                     <span>Kontak Handphone / Telp</span>
                                     <input type="number" required name="telp" class="form-control" placeholder="081111">
                                 </div>
+                                
+                            </div>
+                            <div class="row mt-2">
                                 <div class="col-xl-4">
-                                    <span>Email</span>
-                                    <input type="email" name="email" class="form-control" placeholder="info@gmail.com">
-                                </div>
+                                        <span>Email</span>
+                                        <input type="email" name="email" class="form-control" placeholder="info@gmail.com">
+                                    </div>
+                                <div class="col-xl-4">
+                                        <span>Teknisi</span>
+                                        <input type="text" name="teknisi" class="form-control" placeholder="asep">
+                                    </div>
                             </div>
                             <br>
                             

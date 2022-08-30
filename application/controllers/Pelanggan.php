@@ -23,7 +23,7 @@ class Pelanggan extends CI_Controller {
 	{
 		$data = [
 			'title' => 'Registrasi',
-			'mt_role' => $this->db->get('mt_role')->result()
+			'mt_role' => $this->db->get('mt_alamat')->result()
 		];
 		$this->load->view('temp/header',$data);
 		$this->load->view('body/pelanggan/registrasi');
@@ -37,6 +37,8 @@ class Pelanggan extends CI_Controller {
 		$nama = $this->input->post('nama');
 		$nomor_ktp = $this->input->post('nomor');
 		$npwp = $this->input->post('npwp');
+		$group = $this->input->post('group');
+		$teknisi = $this->input->post('teknisi');
 		$alamat = $this->input->post('alamat');
 		$telp = $this->input->post('telp');
 		$email = $this->input->post('email');
@@ -54,7 +56,7 @@ class Pelanggan extends CI_Controller {
 				"cpe" => $cpe,
 				"router" => $router,
 				"nama" => $nama,
-				"nomor_ktp" => $nomor_ktp,
+				"ktp" => $nomor_ktp,
 				"npwp" => $npwp,
 				"alamat" => $alamat,
 				"telp" => $telp,
@@ -65,7 +67,9 @@ class Pelanggan extends CI_Controller {
 				"t_npwp" => $t_npwp,
 				"t_telp" => $t_telp,
 				"t_email" => $t_email,
-				"aktif" => $tgl_installasi
+				"aktif" => $tgl_installasi,
+				"teknisi" => $teknisi,
+				"group" => $group
 			];
 			$data = $this->db->insert('dt_registrasi',$insert);
 			echo json_encode($data);
