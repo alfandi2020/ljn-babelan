@@ -40,6 +40,7 @@ class Pelanggan extends CI_Controller {
 		$group = $this->input->post('group');
 		$teknisi = $this->input->post('teknisi');
 		$alamat = $this->input->post('alamat');
+		$kode_pelanggan = $this->input->post('kode_pelanggan');
 		$telp = $this->input->post('telp');
 		$email = $this->input->post('email');
 		$tindakan = $this->input->post('tindakan');
@@ -50,29 +51,34 @@ class Pelanggan extends CI_Controller {
 		$t_email = $this->input->post('t_email');
 		$tgl_installasi = $this->input->post('tanggal_installasi');
 		if ($nama) {
-			$insert = [
-				"media" => $media,
-				"speed" => $speed,
-				"cpe" => $cpe,
-				"router" => $router,
-				"nama" => $nama,
-				"ktp" => $nomor_ktp,
-				"npwp" => $npwp,
-				"alamat" => $alamat,
-				"telp" => $telp,
-				"email" => $email,
-				"tindakan" => $tindakan,
-				"t_nama" => $t_nama,
-				"t_nomor_ktp" => $t_nomor_ktp,
-				"t_npwp" => $t_npwp,
-				"t_telp" => $t_telp,
-				"t_email" => $t_email,
-				"aktif" => $tgl_installasi,
-				"teknisi" => $teknisi,
-				"group" => $group
-			];
-			$data = $this->db->insert('dt_registrasi',$insert);
-			echo json_encode($data);
+				$insert = [
+					"media" => $media,
+					"speed" => $speed,
+					"cpe" => $cpe,
+					"router" => $router,
+					"nama" => $nama,
+					"kode_pelanggan" => $kode_pelanggan,
+					"alamat" => $alamat,
+					"ktp" => $nomor_ktp,
+					"npwp" => $npwp,
+					"telp" => $telp,
+					"email" => $email,
+					"tindakan" => $tindakan,
+					"t_nama" => $t_nama,
+					"t_nomor_ktp" => $t_nomor_ktp,
+					"t_npwp" => $t_npwp,
+					"t_telp" => $t_telp,
+					"t_email" => $t_email,
+					"aktif" => $tgl_installasi,
+					"teknisi" => $teknisi,
+					"group" => $group
+				];
+				$this->db->insert('dt_registrasi',$insert);
+				// $msg = [
+				// 	"message" => 'Berhasil di input',
+				// 	"status" => "success"
+				// ];
+				echo json_encode('Registrasi Berhasil');
 		}
 
 	}

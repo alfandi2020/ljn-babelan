@@ -101,11 +101,12 @@
                                 </div>
                                 <div class="col-xl-4">
                                     <span>Alamat</span>
-                                    <input type="text" class="form-control" name="alamat" placeholder="WP123">
+                                    <input type="text" class="form-control" name="alamat" placeholder="Wahana Blok F">
                                 </div>
+                              
                                 <div class="col-xl-4">
-                                    <span>Kontak Handphone / Telp</span>
-                                    <input type="number" required name="telp" class="form-control" placeholder="081111">
+                                    <span>Kode Pelanggan</span>
+                                    <input type="text" class="form-control" name="kode_pelanggan" placeholder="WP123">
                                 </div>
                                 
                             </div>
@@ -118,6 +119,10 @@
                                         <span>Teknisi</span>
                                         <input type="text" name="teknisi" class="form-control" placeholder="asep">
                                     </div>
+                                    <div class="col-xl-4">
+                                    <span>Kontak Handphone / Telp</span>
+                                    <input type="number" required name="telp" class="form-control" placeholder="081111">
+                                </div>
                             </div>
                             <br>
                             
@@ -188,7 +193,7 @@
                                 
                                 <div class="col-xl-4">
                                     <span>Nomor KTP</span>
-                                    <input type="number" required name="t_nomor" class="form-control" placeholder="3175">
+                                    <input type="number" required name="t_nomor" minlength="16" class="form-control" placeholder="3175">
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-12">
                                     <fieldset class="form-group">

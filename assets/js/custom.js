@@ -248,7 +248,8 @@ $(document).ready(function(){
     $('#submit_registrasi').click(function(){
         var form = $('#form_registrasi')
         var data  = form.serialize();
-        console.log(data)
+        var nik = $('input[name="nomor"]').val().length     
+        if (nik >= 16) {
         $.ajax({
                 type :"POST",
                 url : "submit_registrasi",
@@ -303,6 +304,14 @@ $(document).ready(function(){
                     console.log(data)
             }
         })
+    }else{
+        Swal.fire({
+            title: 'Opss..',
+            icon:'error',
+            text: 'Nomor KTP minimal 16',
+            timer: 2000,
+        })
+    }
     });
     // var status = document.getElementById("status").checked
     $('#table-pelanggan').DataTable({
