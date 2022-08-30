@@ -71,7 +71,8 @@ class Pelanggan extends CI_Controller {
 					"t_email" => $t_email,
 					"aktif" => $tgl_installasi,
 					"teknisi" => $teknisi,
-					"group" => $group
+					"group" => $group,
+					"status"=> 'Aktif'
 				];
 				$this->db->insert('dt_registrasi',$insert);
 				// $msg = [
