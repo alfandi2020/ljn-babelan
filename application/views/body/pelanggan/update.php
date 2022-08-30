@@ -63,6 +63,7 @@
                                         </select>
                                     </fieldset>
                                 </div>
+                              
                                 <div class="col-xl-4">
                                     <?php 
                                     $idd = $this->uri->segment(3);
@@ -74,6 +75,18 @@
                                     ?>
                                 </div>
                             </div>
+                            <?php if ($pelanggan['status'] == "Off") { ?>
+
+                            <div class="row mt-2">
+                                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                        <fieldset class="form-group">
+                                            <span>Status Pelanggan</span> <br>
+                                            <a href="<?= base_url('pelanggan/aktif/'.$pelanggan['id']) ?>" class="btn btn-success delete-confirm url">Aktifkan</a>
+                                        </fieldset>
+                                    </div>
+                            </div>
+                            <?php } ?>
+
                             <div class="row">
                                 <div class="col-xl">
                                     <div class="divider divider-left divider-primary">
@@ -127,20 +140,40 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-xl-4">
-                                    <span>Alamat</span>
-                                    <select name="alamat" id="" class="select2">
+                                    <span>Group</span>
+                                    <select name="group" id="" class="select2">
+                                        <?php if ($pelanggan['group'] != '') {?>
+                                        <option selected value="<?= $pelanggan['group'] ?>"><?= $pelanggan['group'] ?></option>
+                                        <?php } ?>
                                         <?php foreach ($mt_role as $x) {?> 
-                                            <option value="<?= $x->kode_group ?>"><?= $x->kode_group . ' - ' .$x->alamat ?></option>
+                                            <?php if (strpos($x->group,$pelanggan['group'])!= true) {?>
+                                            <option value="<?= $x->group ?>"><?= $x->group ?></option>
+                                            <?php } ?>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-xl-4">
-                                    <span>Kontak Handphone / Telp</span>
-                                    <input type="number"  name="telp" value="<?=$pelanggan['telp'] ?>" class="form-control" placeholder="081111">
+                                    <span>Alamat</span>
+                                    <input type="text" class="form-control" name="alamat" placeholder="Wahana Blok F">
                                 </div>
+                              
                                 <div class="col-xl-4">
+                                    <span>Kode Pelanggan</span>
+                                    <input type="text" class="form-control" name="kode_pelanggan" placeholder="WP123">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                            <div class="col-xl-4">
                                     <span>Email</span>
                                     <input type="email" name="email" value="<?=$pelanggan['email'] ?>" class="form-control" placeholder="info@gmail.com">
+                                </div>
+                                <div class="col-xl-4">
+                                        <span>Teknisi</span>
+                                        <input type="text" name="teknisi" value="<?=$pelanggan['teknisi'] ?>" class="form-control" placeholder="asep">
+                                    </div>
+                                <div class="col-xl-4">
+                                    <span>Kontak Handphone / Telp</span>
+                                    <input type="number"  name="telp" value="<?=$pelanggan['telp'] ?>" class="form-control" placeholder="081111">
                                 </div>
                             </div>
                             <br>

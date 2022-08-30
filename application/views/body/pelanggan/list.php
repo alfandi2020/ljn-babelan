@@ -34,6 +34,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th width="250">Nama</th>
+                                        <th width="250">Kode Pelanggan</th>
                                         <th width="200">Email</th>
                                         <th width="100">Alamat</th>
                                         <th width="150">Telp</th>

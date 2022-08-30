@@ -181,6 +181,14 @@ class Pelanggan extends CI_Controller {
 		$this->db->update('dt_registrasi',$data);
 		redirect('pelanggan/list');
 	}
+	function aktif($id){
+		$data = [
+			"status" => 'Aktif'
+		];
+		$this->db->where('id',$id);
+		$this->db->update('dt_registrasi',$data);
+		redirect('pelanggan/list');
+	}
 	function list(){
 		$data = [
 			'pelanggan' => $this->db->get('dt_registrasi')->result(),
@@ -231,14 +239,16 @@ class Pelanggan extends CI_Controller {
 			$this->session->set_userdata('msg', 'update');
 			redirect('pelanggan/update/'.$id_update);
 		}
+
 		$this->db->select('*');
 		$this->db->from('dt_registrasi as a');
-		$this->db->join('mt_paket as b','a.speed=b.id_paket');
+		$this->db->join('mt_paket as b','a.speed=b.id_paket','left');
 		$this->db->where('a.id',$id);
+
 		$pelanggan = $this->db->get()->row_array();
 		$data = [
 			'title' => 'Update Pelanggan',
-			'mt_role' => $this->db->get('mt_role')->result(),
+			'mt_role' => $this->db->get('mt_alamat')->result(),
 			'pelanggan' => $pelanggan
 		];
 		$this->load->view('temp/header',$data);

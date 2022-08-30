@@ -28,6 +28,7 @@ class M_Registrasi extends CI_Model {
         $this->db->select('count(*) as allcount');
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
+        $this->db->order_by('a.id', 'desc');
         // $this->db->where('a.status','Aktif');
         if ($this->session->userdata('role') != 'Super Admin') {
             $this->db->where_in('a.group',$arr);
@@ -42,6 +43,7 @@ class M_Registrasi extends CI_Model {
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         // $this->db->where('a.status','Aktif');
+        $this->db->order_by('a.id', 'desc');
         if ($this->session->userdata('role') != 'Super Admin') {
             $this->db->where_in('a.group',$arr);
         }
@@ -52,6 +54,7 @@ class M_Registrasi extends CI_Model {
         $this->db->select('*');
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
+        $this->db->order_by('a.id', 'desc');
         // $this->db->where('a.status','Aktif');
         if ($this->session->userdata('role') != 'Super Admin') {
             $this->db->where_in('a.group',$arr);
@@ -87,6 +90,7 @@ class M_Registrasi extends CI_Model {
             "no"=>$no++,
             "id"=> $record->id,
             "nama"=>$record->nama,
+            "kode_pelanggan"=>$record->kode_pelanggan,
             "email"=>$record->email,
             "alamat"=> $record->alamat,
             "telp"=>$record->telp,

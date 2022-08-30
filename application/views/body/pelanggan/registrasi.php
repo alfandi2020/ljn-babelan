@@ -108,7 +108,6 @@
                                     <span>Kode Pelanggan</span>
                                     <input type="text" class="form-control" name="kode_pelanggan" placeholder="WP123">
                                 </div>
-                                
                             </div>
                             <div class="row mt-2">
                                 <div class="col-xl-4">
