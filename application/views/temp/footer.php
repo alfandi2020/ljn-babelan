@@ -55,6 +55,7 @@
 </body>
 <!-- END: Body-->
 <script>
+    
     var base_url = '<?=base_url()?>';
     window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function() {
@@ -101,15 +102,14 @@
                 // var i;
                 // for (i = 0; i < data.length; i++) {
                    var html =  '<option value='+ data.id_paket+'> '+ data.mbps+' Mbps - Rp.'+ formatRupiah(data.harga)+ ' - ' + data.paket_internet +'</option>';
-                  var  html2 = formatRupiah(data.harga);
+                   var ppn = parseInt(data.harga * 11 / 100);
+                  var  html2 = parseInt(data.harga) + parseInt(ppn);
                    var html3 = data.nama;
                     // html2 += '<option>Invoice Kosong </option>';
                 // }
-                console.log(data)
                 $('select[name="p_paket"]').html(html)
-                $('input[name="p_tagihan"]').val(html2)
+                $('input[name="p_tagihan"]').val(formatRupiah2(html2.toString()))
                 $('input[name="nama"]').val(html3)
-               
             }
         });
     });
