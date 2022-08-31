@@ -29,7 +29,7 @@
                                         <td>
                                             <button id="<?= $x->id_alamat ?>" class="btn btn-primary update-user"> <i
                                                     class="feather icon-edit"></i></button>&nbsp;&nbsp;
-                                            <a href="<?= base_url('paket/delete/').$x->id_alamat ?>"
+                                            <a href="<?= base_url('pelanggan/delete_group/').$x->id_alamat ?>"
                                                 class="btn btn-danger confirm-delete"> <i
                                                     class="feather icon-trash-2"></i></a>
                                         </td>

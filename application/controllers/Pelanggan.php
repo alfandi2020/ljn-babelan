@@ -178,6 +178,11 @@ class Pelanggan extends CI_Controller {
 		$this->db->delete('dt_registrasi');
 		redirect('pelanggan/list');
 	}
+	function delete_group($id){
+		$this->db->where('id_alamat',$id);
+		$this->db->delete('mt_alamat');
+		redirect('pelanggan/alamat');
+	}
 	function change_status($id){
 		$data = [
 			"status" => 'Off'
