@@ -36,7 +36,7 @@
                 <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Ecommerce">Alamat</span></a>
                     <ul class="menu-content">
                         <?php if ($this->session->userdata('role') == 'Super Admin') {?>
-                            <li><a href="<?= base_url('pelanggan/alamat') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Tambah Alamat</span></a>
+                            <li><a href="<?= base_url('pelanggan/alamat') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Tambah Group</span></a>
                         <?php } ?>
                         <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                             <li><a href="<?= base_url('pelanggan/role') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Perizinan</span></a>
