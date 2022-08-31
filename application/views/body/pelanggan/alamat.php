@@ -71,8 +71,8 @@
                             </fieldset>
                         </div>
                         <div class="col-xl-6">
-                            <span>Kode Alamat</span>
-                            <input type="text" class="form-control" placeholder="WP121" required name="kode_alamat">
+                            <span>Deskripsi</span>
+                            <input type="text" class="form-control" placeholder="abc" required name="kode_alamat">
                         </div>
 
                     </div>
