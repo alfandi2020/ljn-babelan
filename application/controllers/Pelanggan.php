@@ -6,6 +6,7 @@ class Pelanggan extends CI_Controller {
 
 	public function __construct() {
         parent::__construct();
+		$this->load->helper('url');
 		if ($this->session->userdata('id_user') == false) {
 			$this->session->set_flashdata("msg", "<div class='alert alert-danger'>Opss anda blm login</div>");
             redirect('auth');
@@ -19,6 +20,11 @@ class Pelanggan extends CI_Controller {
 		$this->load->view('body/dashboard');
 		// $this->load->view('body/footer');
 	}
+	function remove_special($string) {
+        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+     
+        return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+     }
 	public function registrasi()
 	{
 		$data = [
@@ -108,7 +114,7 @@ class Pelanggan extends CI_Controller {
 		$this->db->from('dt_registrasi as a');
 		$this->db->join('mt_paket as b','a.speed=b.id_paket');
 		$this->db->where('a.alamat',$id);
-		$data = $this->db->get()->result();
+		$data = $this->db->get()->row_array();
 		echo json_encode($data);
 	}
 	function buat_pembayaran(){
@@ -117,7 +123,7 @@ class Pelanggan extends CI_Controller {
 		$get_paket = $this->db->query("SELECT * FROM mt_paket  where id_paket ='$id_paket'")->row_array();
 		$nama = $this->input->post('nama');
 		$id_registrasi = $this->input->post('p_client');
-		$tagihan = $this->input->post('p_tagihan');
+		$tagihan = $this->remove_special($this->input->post('p_tagihan'));
 		$penerima = $this->input->post('p_penerima');
 		$bulan = $this->input->post('p_bulan');
 		$tahun = $this->input->post('p_tahun');

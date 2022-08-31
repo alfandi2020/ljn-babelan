@@ -95,16 +95,17 @@
             async: true,
             dataType: 'json',
             success: function(data) {
-                var html='';
-                var html2='';
-                var html3='';
-                var i;
-                for (i = 0; i < data.length; i++) {
-                    html +=  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+ ' - ' + data[i].paket_internet +'</option>';
-                    html2 += data[i].harga;
-                    html3 += data[i].nama;
+                // var html='';
+                // var html2='';
+                // var html3='';
+                // var i;
+                // for (i = 0; i < data.length; i++) {
+                   var html =  '<option value='+ data.id_paket+'> '+ data.mbps+' Mbps - Rp.'+ formatRupiah(data.harga)+ ' - ' + data.paket_internet +'</option>';
+                  var  html2 = formatRupiah(data.harga);
+                   var html3 = data.nama;
                     // html2 += '<option>Invoice Kosong </option>';
-                }
+                // }
+                console.log(data)
                 $('select[name="p_paket"]').html(html)
                 $('input[name="p_tagihan"]').val(html2)
                 $('input[name="nama"]').val(html3)
