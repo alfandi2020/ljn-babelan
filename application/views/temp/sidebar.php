@@ -33,16 +33,14 @@
                         <?php } ?> -->
                     </ul>
                 </li>
+                <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                 <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Ecommerce">Group</span></a>
                     <ul class="menu-content">
-                        <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                             <li><a href="<?= base_url('pelanggan/alamat') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Tambah Group</span></a>
-                        <?php } ?>
-                        <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                             <li><a href="<?= base_url('pelanggan/role') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Perizinan</span></a>
-                        <?php } ?>
                     </ul>
                 </li>
+                <?php } ?>
 
                 <li class=" nav-item"><a href="<?= base_url('pelanggan/pembayaran') ?>"><i class="feather icon-log-in"></i><span class="menu-title" data-i18n="Calender">Buat Pembayaran</span></a>
                 <li class=" nav-item"><a href="<?= base_url('pelanggan/status') ?>"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Calender">Status Pembayaran</span></a>

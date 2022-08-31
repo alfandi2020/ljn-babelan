@@ -7,6 +7,7 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body card-dashboard">
+                    <?= $this->session->flashdata("msg") ?>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addalamat"><i
                                 class="feather icon-plus-circle"></i> Tambah Group</button>
                         <div class="table-responsive">

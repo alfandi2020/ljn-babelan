@@ -169,7 +169,14 @@
                                 </div>
                                 <div class="col-xl-4">
                                         <span>Teknisi</span>
-                                        <input type="text" name="teknisi" value="<?=$pelanggan['teknisi'] ?>" class="form-control" placeholder="asep">
+                                        <select name="teknisi" id="" class="select2 form-control">
+                                            <option selected value="<?= $pelanggan['teknisi'] ?>"><?= $pelanggan['teknisi'] ?></option>
+                                            <option value="Khaerul Anwar">Khaerul Anwar</option>
+                                            <option value="Ipung Iskandar">Ipung Iskandar</option>
+                                            <option value="Rizky Wahyu AlFajar">Rizky Wahyu AlFajar</option>
+                                            <option value="Agus Hermawan">Agus Hermawan</option>
+                                        </select>
+                                        <!-- <input type="text" name="teknisi" value="<?=$pelanggan['teknisi'] ?>" class="form-control" placeholder="asep"> -->
                                     </div>
                                 <div class="col-xl-4">
                                     <span>Kontak Handphone / Telp</span>

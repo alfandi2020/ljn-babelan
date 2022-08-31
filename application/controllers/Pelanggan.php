@@ -270,13 +270,21 @@ class Pelanggan extends CI_Controller {
 		$user = $this->input->post('user');
         $alamat = $this->input->post('kode_alamat');
         if ($kode_group == true || $alamat == true) {
-            $insert = [
-                "group" => $kode_group,
-                "alamat" => $alamat,
-				// "id_user" => $user
-            ];
-            $this->db->insert('mt_alamat',$insert);
-            redirect('pelanggan/alamat','<div class="alert alert-primary mb-2" role="alert">Tambah alamat berhasil</div>');
+			$this->db->where('group',$kode_group);
+			$cek = $this->db->get('mt_alamat')->num_rows();
+			if ($cek != true) {
+				$insert = [
+					"group" => $kode_group,
+					"alamat" => $alamat,
+					// "id_user" => $user
+				];
+				$this->db->insert('mt_alamat',$insert);
+				$this->session->set_flashdata("msg", "<div class='alert alert-success'>Tambah group berhasil</div>");
+				redirect('pelanggan/alamat');
+			}else{
+				$this->session->set_flashdata("msg", "<div class='alert alert-danger'>Group Sudah ada</div>");
+				redirect('pelanggan/alamat');
+			}
         }
 		$data = [
 			'title' => 'Alamat',

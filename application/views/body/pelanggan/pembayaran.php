@@ -1,7 +1,7 @@
 <section id="basic-input">
     <div class="row">
         <div class="col-md-12">
-            <?php if ($this->session->userdata('role') == 'Super Admin' || $this->session->userdata('role') == 'Koordinator') {?>
+            <?php if ($this->session->userdata('role') == 'Super Admin' || $this->session->userdata('role') == 'Koordinator' || $this->session->userdata('role') == 'Admin'){?>
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Buat Pembayaran <i class="feather icon-user primary"></i></h4>

@@ -30,7 +30,7 @@ class M_Registrasi extends CI_Model {
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->order_by('a.id', 'desc');
         // $this->db->where('a.status','Aktif');
-        if ($this->session->userdata('role') != 'Super Admin') {
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
         }
         $records = $this->db->get()->result();
@@ -44,7 +44,7 @@ class M_Registrasi extends CI_Model {
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         // $this->db->where('a.status','Aktif');
         $this->db->order_by('a.id', 'desc');
-        if ($this->session->userdata('role') != 'Super Admin') {
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
         }
         $records = $this->db->get()->result();
@@ -56,7 +56,7 @@ class M_Registrasi extends CI_Model {
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->order_by('a.id', 'desc');
         // $this->db->where('a.status','Aktif');
-        if ($this->session->userdata('role') != 'Super Admin') {
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
         }
         $this->db->like('a.nama',$searchValue);
