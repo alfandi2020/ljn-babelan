@@ -41,7 +41,7 @@
                                         <th width="150">Group</th>
                                         <!-- <th width="150">Off</th> -->
                                         <th width="150">Status</th>
-                                        <th width="150">Action</th>
+                                        <th width="200">Action</th>
                                     </tr>
                                 </thead>
                             </table>

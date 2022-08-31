@@ -84,7 +84,8 @@ class M_Registrasi extends CI_Model {
             }
             $action = '<a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light '.$disabled.'" href="pdf/'. $record->id . '"><i class="feather icon-eye"></i></a> 
             <a class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light '.$disabled.'" href="update/' . $record->id . '" class="url"><i class="feather icon-edit"></i></a>
-            <a href="delete/' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light '.$disabled.' delete-confirm url"><i class="feather icon-trash-2"></i></a>';
+            <a href="#" id="' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light '.$disabled.' change_status"><i class="feather icon-refresh-ccw"></i></a>
+            <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light '.$disabled.' del_client"><i class="feather icon-trash-2"></i></a>';
 
             $data[] = array(
             "no"=>$no++,

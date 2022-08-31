@@ -249,7 +249,8 @@ $(document).ready(function(){
         var form = $('#form_registrasi')
         var data  = form.serialize();
         var nik = $('input[name="nomor"]').val().length     
-        if (nik >= 16) {
+        var t_nik = $('input[name="t_nomor"]').val().length     
+        if (nik >= 16 && t_nik >= 16) {
         $.ajax({
                 type :"POST",
                 url : "submit_registrasi",
@@ -389,7 +390,79 @@ $(document).ready(function(){
         
         "sScrollX": "100%",
         
-      });
+    });
+    
+    $(document).on('click', '.del_client', function () {
+        var linkURL = $(this).attr("href").split('#');
+        var id = this.id;
+        linkURL =  base_url +"pelanggan/delete/" + id;
+        Swal.fire({
+            title: 'Yakin Hapus Pelanggan?',
+            text: "Data Akan di delete !",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger ml-1',
+            confirmButtonText: 'Ya, Hapus Data'
+        }).then(
+            function (isConfirm) {
+                if (isConfirm.value) {
+                    
+                    Swal.fire(
+                        {
+                            type: "success",
+                            title: 'Deleted!',
+                            text: 'Data berhasil didelete',
+                            confirmButtonClass: 'btn btn-success',
+                        })
+                    setTimeout(() => {
+                        window.location.href = linkURL;
+                    }, 1500);
+                } else {
+                    history.replaceState(null, null, ' ');
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        );
+    });
+    $(document).on('click', '.change_status', function () {
+        var linkURL = $(this).attr("href").split('#');
+        var id = this.id;
+        linkURL =  base_url +"pelanggan/change_status/" + id;
+        Swal.fire({
+            title: 'Nonaktifkan Pelanggan?',
+            text: "Data Akan di Nonaktifkan !",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger ml-1',
+            confirmButtonText: 'Yes'
+        }).then(
+            function (isConfirm) {
+                if (isConfirm.value) {
+                    
+                    Swal.fire(
+                        {
+                            type: "success",
+                            title: 'Deleted!',
+                            text: 'Data berhasil didelete',
+                            confirmButtonClass: 'btn btn-success',
+                        })
+                    setTimeout(() => {
+                        window.location.href = linkURL;
+                    }, 1500);
+                } else {
+                    history.replaceState(null, null, ' ');
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        );
+    });
+
     $('#table-status').DataTable({
         'processing': true,
         'serverSide': true,
@@ -403,7 +476,6 @@ $(document).ready(function(){
            { data: 'nama' },
            { data: 'alamat' },
            { data: 'group' },
-        //    { data: 'off' },
            { data: 'status' },
         //    {
         //       className: 'url',
@@ -461,7 +533,7 @@ $(document).ready(function(){
         // "sScrollX": "100%",
         "responsive": true
         
-      });
+    });
 });
 $(document).ready(function() {
     $("#timestamp").load('dashboard/jam');

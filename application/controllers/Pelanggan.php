@@ -174,6 +174,11 @@ class Pelanggan extends CI_Controller {
         echo json_encode($data);
     }
 	function delete($id){
+		$this->db->where('id',$id);
+		$this->db->delete('dt_registrasi');
+		redirect('pelanggan/list');
+	}
+	function change_status($id){
 		$data = [
 			"status" => 'Off'
 		];

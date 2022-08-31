@@ -55,6 +55,7 @@
 </body>
 <!-- END: Body-->
 <script>
+    var base_url = '<?=base_url()?>';
     window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function() {
         $(this).remove();
