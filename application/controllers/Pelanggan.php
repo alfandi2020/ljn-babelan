@@ -173,10 +173,24 @@ class Pelanggan extends CI_Controller {
         $data = $this->M_Registrasi->list_client($postData);
         echo json_encode($data);
     }
+	function privilage(){
+		$id_user = $this->session->userdata('id_user');
+		$this->db->where('id',$id_user);
+		$cek_s = $this->db->get('users')->row_array();
+		if ($cek_s['role'] == 'Super Admin') {
+			return 1;
+		}else{
+			return 0;
+		}
+	}
 	function delete($id){
-		$this->db->where('id',$id);
-		$this->db->delete('dt_registrasi');
-		redirect('pelanggan/list');
+		if ($this->privilage() == true) {
+			$this->db->where('id',$id);
+			$this->db->delete('dt_registrasi');
+			redirect('pelanggan/list');
+		}else{
+			redirect('pelanggan/list');
+		}
 	}
 	function delete_group($id){
 		$this->db->where('id_alamat',$id);

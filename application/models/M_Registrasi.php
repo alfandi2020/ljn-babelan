@@ -84,6 +84,8 @@ class M_Registrasi extends CI_Model {
             }
             if ($this->session->userdata('role') == 'Admin') {
                 $disabled_admin = 'disabled';
+            }else{
+                $disabled_admin ='';
             }
             $action = '<a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light '.$disabled.'" href="pdf/'. $record->id . '"><i class="feather icon-eye"></i></a> 
             <a class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light '.$disabled.'" href="update/' . $record->id . '" class="url"><i class="feather icon-edit"></i></a>
