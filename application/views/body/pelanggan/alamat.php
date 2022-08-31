@@ -3,18 +3,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Table <?= $title ?></h4>
+                    <h4 class="card-title">Table Group</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body card-dashboard">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addalamat"><i
-                                class="feather icon-plus-circle"></i> Tambah Alamat</button>
+                                class="feather icon-plus-circle"></i> Tambah Group</button>
                         <div class="table-responsive">
                             <table class="table zero-configuration">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Kode Alamat</th>
+                                        <th>Deskripsi</th>
                                         <th>Kode Group</th>
                                         <th>Action</th>
                                     </tr>
