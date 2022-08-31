@@ -77,15 +77,18 @@ class M_Registrasi extends CI_Model {
             }else{
                 $status = '<span class="badge badge-glow badge-danger">'.$record->status.'</span>';
             }
-            if ($this->session->userdata('role') == 'Koordinator') {
+            if ($this->session->userdata('role') == 'Koordinator' || $this->session->userdata('role') == 'Sub Koordinator') {
                 $disabled = 'disabled';
             }else{
                 $disabled = '';
             }
+            if ($this->session->userdata('role') == 'Admin') {
+                $disabled_admin = 'disabled';
+            }
             $action = '<a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light '.$disabled.'" href="pdf/'. $record->id . '"><i class="feather icon-eye"></i></a> 
             <a class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light '.$disabled.'" href="update/' . $record->id . '" class="url"><i class="feather icon-edit"></i></a>
             <a href="#" id="' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light '.$disabled.' change_status"><i class="feather icon-refresh-ccw"></i></a>
-            <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light '.$disabled.' del_client"><i class="feather icon-trash-2"></i></a>';
+            <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light '.$disabled.' '.$disabled_admin.' del_client"><i class="feather icon-trash-2"></i></a>';
 
             $data[] = array(
             "no"=>$no++,
@@ -133,7 +136,7 @@ class M_Registrasi extends CI_Model {
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->where('a.status','Aktif');
-        if ($this->session->userdata('role') != 'Super Admin') {
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where('a.group',$this->session->userdata('kode_group'));
         }
         $records = $this->db->get()->result();
@@ -146,7 +149,7 @@ class M_Registrasi extends CI_Model {
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->where('a.status','Aktif');
-        if ($this->session->userdata('role') != 'Super Admin') {
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where('a.group',$this->session->userdata('kode_group'));
         }
         $records = $this->db->get()->result();
@@ -157,7 +160,7 @@ class M_Registrasi extends CI_Model {
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->where('a.status','Aktif');
-        if ($this->session->userdata('role') != 'Super Admin') {
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where('a.group',$this->session->userdata('kode_group'));
         }
         $this->db->like('a.nama',$searchValue);
