@@ -108,6 +108,11 @@ class Pelanggan extends CI_Controller {
 		$this->load->view('body/pelanggan/pembayaran',$data);
 		$this->load->view('temp/footer');
 	}
+	function reset_url()
+	{
+		$this->session->unset_userdata('sort_group');
+		redirect('pelanggan/list');
+	}
 	function getclient_pembayaran()
 	{
 		$id = $this->input->post('id');
