@@ -28,7 +28,7 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-xl-4">
+                            <div class="col-xl-4 mt-2">
                                     <a href="<?= base_url('pelanggan/reset_url') ?>" class="btn btn-warning">Reset</a>
                             </div>
                         </div>
