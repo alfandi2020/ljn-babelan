@@ -20,8 +20,9 @@
                                     foreach ($db as $x) {
                                         if ($x->group != "") {
                                             //if (!empty($_GET['group'])) {
+                                                $groupp = $_GET['group'] == NULL ? '' : $_GET['group'];
                                         ?>
-                                        <option <?= $x->group == empty($_GET['group']) ? 'selected' : '' ?> value="<?= $x->group == empty($_GET['group']) ? $x->group : $x->group ?>"><?= $x->group == empty($_GET['group']) ? $x->group : $x->group ?></option>
+                                        <option <?= $x->group == $groupp ? 'selected' : '' ?> value="<?= $x->group == empty($_GET['group']) ? $x->group : $x->group ?>"><?= $x->group == empty($_GET['group']) ? $x->group : $x->group ?></option>
                                     <?php // } 
                                         }
                                     }
