@@ -328,13 +328,13 @@ $(document).ready(function(){
             {data: 'no'},
            { data: 'nama' },
            { data: 'kode_pelanggan' },
-           {data : 'action'},
+           { data : 'action'},
+           { data: 'status' },
            { data: 'email' },
            { data: 'alamat' },
            { data: 'telp' },
-           { data: 'group' },
+           { data: 'group' }
         //    { data: 'off' },
-           { data: 'status' }
         //    {
         //       className: 'url',
         //       data: 'id',

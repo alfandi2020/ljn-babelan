@@ -106,11 +106,11 @@ class M_Registrasi extends CI_Model {
             "nama"=>$record->nama,
             "kode_pelanggan"=>$record->kode_pelanggan,
             "action" => $action,
+            "status"=>$status,
             "email"=>$record->email,
             "alamat"=> $record->alamat,
             "telp"=>$record->telp,
             "group"=>$record->group,
-            "status"=>$status,
             );
         }
 
