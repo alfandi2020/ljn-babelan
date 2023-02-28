@@ -44,13 +44,13 @@
                                         <th>No</th>
                                         <th width="250">Nama</th>
                                         <th width="250">Kode Pelanggan</th>
+                                        <th width="250">Action</th>
                                         <th width="200">Email</th>
                                         <th width="100">Alamat</th>
                                         <th width="150">Telp</th>
                                         <th width="150">Group</th>
                                         <!-- <th width="150">Off</th> -->
                                         <th width="150">Status</th>
-                                        <th width="250">Action</th>
                                     </tr>
                                 </thead>
                             </table>

@@ -96,20 +96,22 @@
             async: true,
             dataType: 'json',
             success: function(data) {
-                // var html='';
-                // var html2='';
-                // var html3='';
-                // var i;
-                // for (i = 0; i < data.length; i++) {
-                   var html =  '<option value='+ data.id_paket+'> '+ data.mbps+' Mbps - Rp.'+ formatRupiah(data.harga)+ ' - ' + data.paket_internet +'</option>';
-                   var ppn = parseInt(data.harga * 11 / 100);
-                  var  html2 = parseInt(data.harga) + parseInt(ppn);
-                   var html3 = data.nama;
+                var html='';
+                var html2='';
+                var html3='';
+                var ppn ='';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                    html =  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+ ' - ' + data[i].paket_internet +'</option>';
+                    ppn = parseInt(data[i].harga * 11 / 100);
+                    html2 = parseInt(data[i].harga) + parseInt(ppn);
+                    html3 = data[i].nama;
                     // html2 += '<option>Invoice Kosong </option>';
-                // }
-                $('select[name="p_paket"]').html(html)
-                $('input[name="p_tagihan"]').val(formatRupiah2(html2.toString()))
+                }
+                $('select[name="p_paket"]').html(html).change()
+                $('input[name="p_tagihan"]').val(formatRupiah2(html2.toString())).change()
                 $('input[name="nama"]').val(html3)
+                console.log(html3)
             }
         });
     });

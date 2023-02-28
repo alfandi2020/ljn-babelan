@@ -113,13 +113,59 @@ class Pelanggan extends CI_Controller {
 		$this->session->unset_userdata('sort_group');
 		redirect('pelanggan/list');
 	}
+	public function indonesian_date($timestamp = '', $date_format = 'd F Y', $suffix = '')
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        if ($timestamp == null) {
+            return '-';
+        }
+
+        if ($timestamp == '1970-01-01' || $timestamp == '0000-00-00' || $timestamp == '-25200') {
+            return '-';
+        }
+
+
+        if (trim($timestamp) == '') {
+            $timestamp = time();
+        } elseif (!ctype_digit($timestamp)) {
+            $timestamp = strtotime($timestamp);
+        }
+        # remove S (st,nd,rd,th) there are no such things in indonesia :p
+        $date_format = preg_replace("/S/", "", $date_format);
+        $pattern = array(
+            '/Mon[^day]/', '/Tue[^sday]/', '/Wed[^nesday]/', '/Thu[^rsday]/',
+            '/Fri[^day]/', '/Sat[^urday]/', '/Sun[^day]/', '/Monday/', '/Tuesday/',
+            '/Wednesday/', '/Thursday/', '/Friday/', '/Saturday/', '/Sunday/',
+            '/Jan[^uary]/', '/Feb[^ruary]/', '/Mar[^ch]/', '/Apr[^il]/', '/May/',
+            '/Jun[^e]/', '/Jul[^y]/', '/Aug[^ust]/', '/Sep[^tember]/', '/Oct[^ober]/',
+            '/Nov[^ember]/', '/Dec[^ember]/', '/January/', '/February/', '/March/',
+            '/April/', '/June/', '/July/', '/August/', '/September/', '/October/',
+            '/November/', '/December/',
+        );
+        $replace = array(
+            'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min',
+            'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu',
+            'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des',
+            'Januari', 'Februari', 'Maret', 'April', 'Juni', 'Juli', 'Agustus', 'September',
+            'Oktober', 'November', 'Desember',
+        );
+        $date = date($date_format, $timestamp);
+        $date = preg_replace($pattern, $replace, $date);
+        $date = "{$date} {$suffix}";
+        return $date;
+    }
 	function getclient_pembayaran()
 	{
 		$id = $this->input->post('id');
 		$this->db->from('dt_registrasi as a');
 		$this->db->join('mt_paket as b','a.speed=b.id_paket');
-		$this->db->where('a.alamat',$id);
-		$data = $this->db->get()->row_array();
+		$this->db->where('a.kode_pelanggan',$id);
+		$data = $this->db->get()->result();
+
+		$tanggal = time();
+        $bulan = $this->indonesian_date($tanggal, 'F');
+		
+		$cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$id' and periode='' ");
 		echo json_encode($data);
 	}
 	function buat_pembayaran(){
