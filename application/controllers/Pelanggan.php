@@ -112,6 +112,7 @@ class Pelanggan extends CI_Controller {
 	function reset_url()
 	{
 		$this->session->unset_userdata('sort_group');
+		$this->session->unset_userdata('sort_status');
 		redirect('pelanggan/list');
 	}
 	public function indonesian_date($timestamp = '', $date_format = 'd F Y', $suffix = '')

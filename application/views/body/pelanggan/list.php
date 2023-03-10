@@ -27,9 +27,9 @@
                                     $db = $this->db->get("dt_registrasi")->result();
                                     foreach ($db as $x) {
                                         if ($x->group != "") {
-                                                $groupp = isset($_GET['group']) == false ? '' : $_GET['group'];
+                                                $groupp = $this->session->userdata('sort_group') == '' ? '' : $this->session->userdata('sort_group');
                                         ?>
-                                        <option <?= $x->group == $groupp ? 'selected' : '' ?> value="<?= $x->group == empty($_GET['group']) ? $x->group : $x->group ?>"><?= $x->group == empty($_GET['group']) ? $x->group : $x->group ?></option>
+                                        <option <?= $x->group == $groupp ? 'selected' : '' ?> value="<?= $x->group == empty($this->session->userdata('sort_group')) ? $x->group : $x->group ?>"><?= $x->group == empty($this->session->userdata('sort_group')) ? $x->group : $x->group ?></option>
                                     <?php 
                                         }
                                     }
@@ -46,7 +46,7 @@
                                     }else{
                                         $this->session->unset_userdata('sort_status');
                                     } 
-                                    $statuss = isset($_GET['status']) == false ? '' : $_GET['status'];
+                                    $statuss = $this->session->userdata('sort_status') == false ? '' : $this->session->userdata('sort_status');
                                     ?></label>
                                 <select name="status" id="" class="select2 form-control" onchange="this.form.submit()">
                                     <option value="">All Status</option>
