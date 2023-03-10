@@ -15,7 +15,7 @@
                                         $this->session->set_userdata('sort_group',$_GET['group']);
                                     } ?></label>
                                 <select name="group" id="" class="select2 form-control" onchange="this.form.submit()">
-                                    <option value="">Pilih Group</option>
+                                    <option value="">All Group</option>
                                     <?php 
                                     if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
                                         $this->db->where_in('group',explode(',',$this->session->userdata('kode_group')));
