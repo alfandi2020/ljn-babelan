@@ -13,10 +13,37 @@ class Dashboard extends CI_Controller {
 	}
 	public function index()
 	{
-		$total_client = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi where status='Aktif'")->row_array();
-		$free = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi where status='Free'")->row_array();
-		$off = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi where status='Off'")->row_array();
-		$total = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi")->row_array();
+		$group_sess = explode(',',$this->session->userdata('kode_group'));
+		$condition_group = $this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin';
+		//total aktif
+		$this->db->select('COUNT(id) as pelanggan');
+		$this->db->where('status','Aktif');
+		if ($condition_group) {
+			$this->db->where_in('group',$group_sess);
+		}
+		$total_client = $this->db->get('dt_registrasi')->row_array();
+		//total pelanggan free
+		$this->db->select('COUNT(id) as pelanggan');
+		$this->db->where('status','Free');
+		if ($condition_group) {
+			$this->db->where_in('group',$group_sess);
+		}
+		$free = $this->db->get('dt_registrasi')->row_array();
+		//total pelanggan off
+		$this->db->select('COUNT(id) as pelanggan');
+		$this->db->where('status','Off');
+		if ($condition_group) {
+			$this->db->where_in('group',$group_sess);
+		}
+		$off = $this->db->get('dt_registrasi')->row_array();
+		//total pelanggan total
+		$this->db->select('COUNT(id) as pelanggan');
+		// $this->db->where('status','Off');
+		if ($condition_group) {
+			$this->db->where_in('group',$group_sess);
+		}
+		$total = $this->db->get('dt_registrasi')->row_array();
+		// $total = $this->db->query("SELECT COUNT(id) as pelanggan from dt_registrasi")->row_array();
 		$data = [
 			"title" => "Dashboard",
 			'total' => $total_client,

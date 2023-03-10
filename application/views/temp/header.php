@@ -113,6 +113,7 @@ function hari_ini(){
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/style.css">
     <!-- END: Custom CSS-->
+    
 
 </head>
 <!-- END: Head-->

@@ -50,7 +50,7 @@ $(document).ready(function(){
                 url : "submit_user",
                 dataType : 'json',
                 data : data,
-            success : function(data){
+                success : function(data){
                 if (data.response == "error") {
                     Swal.fire({
                         title: "Opss!",
@@ -447,8 +447,8 @@ $(document).ready(function(){
                     Swal.fire(
                         {
                             type: "success",
-                            title: 'Deleted!',
-                            text: 'Data berhasil didelete',
+                            title: 'Berhasil!',
+                            text: 'Data client berhasil dinonaktifkan',
                             confirmButtonClass: 'btn btn-success',
                         })
                     setTimeout(() => {
@@ -462,6 +462,114 @@ $(document).ready(function(){
             }
         );
     });
+    $(document).on('click', '.change_status_aktif', function () {
+        var linkURL = $(this).attr("href").split('#');
+        var id = this.id;
+        linkURL =  base_url +"pelanggan/aktif/" + id;
+        Swal.fire({
+            title: 'Aktifkan Pelanggan?',
+            text: "Data client Akan di aktifkan !",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger ml-1',
+            confirmButtonText: 'Yes'
+        }).then(
+            function (isConfirm) {
+                if (isConfirm.value) {
+                    
+                    Swal.fire(
+                        {
+                            type: "success",
+                            title: 'Berhasil!',
+                            text: 'Data client berhasil aktifkan',
+                            confirmButtonClass: 'btn btn-success',
+                        })
+                    setTimeout(() => {
+                        window.location.href = linkURL;
+                    }, 1500);
+                } else {
+                    history.replaceState(null, null, ' ');
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        );
+    });
+    $(document).on('click', '.notif-confirm', function () {
+        var linkURL = $(this).attr("href").split('#');
+        var id = this.id;
+        linkURL =  base_url +"pelanggan/send_notif/" + id;
+        $.ajax({
+            type :"POST",
+            url : "get_pelanggan",
+            dataType : 'json',
+            data : {id:id},
+            success : function(data){
+             Swal.fire({
+                    title: "Tagihan invoice!",
+                    html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u> <br>Apa yakin anda akan mengirim tagihan?',
+                    type: "info",
+                    confirmButtonClass: 'btn btn-primary',
+                    buttonsStyling: false,
+                    showCancelButton:true,
+                    cancelButtonClass: 'btn btn-danger ml-1',
+                  }).then(
+                        function (isConfirm) {
+                            if (isConfirm.value) {
+                                
+                                Swal.fire(
+                                    {
+                                        type: "success",
+                                        title: 'Deleted!',
+                                        text: 'Data berhasil didelete',
+                                        confirmButtonClass: 'btn btn-success',
+                                    })
+                                setTimeout(() => {
+                                    window.location.href = linkURL;
+                                }, 1500);
+                            } else {
+                                history.replaceState(null, null, ' ');
+                                event.preventDefault();
+                                return false;
+                            }
+                        }
+                    );;
+            }
+        })
+        // Swal.fire({
+        //     icon: 'warning',
+        //     title: 'Tagihan invoice',
+        //     text: "Apa yakin anda akan mengirim tagihan",
+        //     showCancelButton: true,
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonClass: 'btn btn-primary',
+        //     cancelButtonClass: 'btn btn-danger ml-1',
+        //     confirmButtonText: 'Yes'
+        // }).then(
+        //     function (isConfirm) {
+        //         if (isConfirm.value) {
+                    
+        //             Swal.fire(
+        //                 {
+        //                     type: "success",
+        //                     title: 'Deleted!',
+        //                     text: 'Data berhasil didelete',
+        //                     confirmButtonClass: 'btn btn-success',
+        //                 })
+        //             setTimeout(() => {
+        //                 window.location.href = linkURL;
+        //             }, 1500);
+        //         } else {
+        //             history.replaceState(null, null, ' ');
+        //             event.preventDefault();
+        //             return false;
+        //         }
+        //     }
+        // );
+    });
+
 
     $('#table-status').DataTable({
         'processing': true,
@@ -476,6 +584,7 @@ $(document).ready(function(){
            { data: 'nama' },
            { data: 'alamat' },
            { data: 'group' },
+           { data: 'tagihan' },
            { data: 'status' },
         //    {
         //       className: 'url',
@@ -536,6 +645,10 @@ $(document).ready(function(){
     });
 });
 $(document).ready(function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
     $("#timestamp").load('dashboard/jam');
     // setInterval(function() {
     //     $("#timestamp").load('dashboard/jam').fadeIn("slow");
@@ -578,6 +691,19 @@ $('.confirm-delete').on('click', function(e) {
       }
     })
 });
+
+    $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if ($('#show_hide_password input').attr("type") == "text") {
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass("fa-eye-slash");
+            $('#show_hide_password i').removeClass("fa-eye");
+        } else if ($('#show_hide_password input').attr("type") == "password") {
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass("fa-eye-slash");
+            $('#show_hide_password i').addClass("fa-eye");
+        }
+    });
 // $('input[name="identitas"]').change(function(f) {
 //     let selectedValA = $(this).val();
 //     let isAChecked = $(this).prop("checked");

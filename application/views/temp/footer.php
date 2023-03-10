@@ -9,7 +9,7 @@
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light">
-        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent,</a>All rights Reserved</span>
+        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; FanTecno Design By<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a></span>
             <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
         </p>
     </footer>
@@ -42,6 +42,7 @@
     <script src="<?= base_url() ?>assets/js/custom.js"></script>
 
     <script src="<?= base_url() ?>assets/js/scripts/charts/chart-apex.js"></script>
+    <script src="<?= base_url() ?>assets/js/scripts/components-tooltips.js"></script>
 
     <script src="<?= base_url() ?>assets/vendors/js/tables/datatable/pdfmake.min.js"></script>
     <script src="<?= base_url() ?>assets/vendors/js/tables/datatable/vfs_fonts.js"></script>
@@ -62,28 +63,32 @@
         $(this).remove();
     });
 }, 3000);
+    $('select[name="speed"]').attr('disabled',true)
+
      $('select[name="media"]').change(function() {
         var id = $(this).val();
-        $.ajax({
-            url: '<?= base_url('pelanggan/paket')?>',//controller
-            method: "POST",
-            data: {
-                id: id
-            },
-            async: true,
-            dataType: 'json',
-            success: function(data) {
-                var html='';
-                var i;
-                html += '<option disabled selected>Pilih Kecepatan</option>'
-                for (i = 0; i < data.length; i++) {
-                    html +=  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+ ' - ' + data[i].paket_internet +'</option>';
-                    // html2 += '<option>Invoice Kosong </option>';
-                }
-                $('select[name="speed"]').html(html)
+        $('select[name="speed"]').attr('disabled',false)
+
+        // $.ajax({
+        //     url: '<?= base_url('pelanggan/paket')?>',//controller
+        //     method: "POST",
+        //     data: {
+        //         id: id
+        //     },
+        //     async: true,
+        //     dataType: 'json',
+        //     success: function(data) {
+        //         var html='';
+        //         var i;
+        //         html += '<option disabled selected>Pilih Kecepatan</option>'
+        //         for (i = 0; i < data.length; i++) {
+        //             html +=  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+ ' - ' + data[i].paket_internet +'</option>';
+        //             // html2 += '<option>Invoice Kosong </option>';
+        //         }
+        //         $('select[name="speed"]').html(html)
                
-            }
-        });
+        //     }
+        // });
     });
      $('select[name="p_client"]').change(function() {
         var id = $(this).val();
@@ -115,5 +120,7 @@
             }
         });
     });
+	
+
 </script>
 </html>

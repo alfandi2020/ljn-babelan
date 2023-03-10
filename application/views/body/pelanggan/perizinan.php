@@ -77,17 +77,27 @@
                                             <form action="<?= base_url('pelanggan/change_group/'.$x->id .' ') ?>" method="POST">
                                             <div class="row">
                                                 <div class="col-xl-8">
-                                                    <?= $x->group ?> 
+                                                    <!-- <?= $x->group ?>  -->
                                                     <select name="group[]" multiple="multiple" id="" class="select2 form-control">
                                                        <?php 
+                                                            $this->db->where('id',$x->id);
+                                                            $user_x = $this->db->get('users')->row_array();
+
+                                                            $group_x = explode(',',$user_x['group']);
                                                             foreach ($group as $e) {
+                                                                if (strpos($x->group,$e->group) !== false) {
                                                             ?>
-                                                            <option value="<?= $e->group?>"><?= $e->group ?></option>
-                                                       <?php 
-                                                       }?>
+                                                            <option selected  value="<?= $e->group?>"><?= $e->group?></option>
+                                                       <?php    }else{ ?>
+                                                        <option value="<?= $e->group?>"><?= $e->group ?></option>
+
+                                                     <?php  }
+                                                            }
+                                                        ?>
+                                                     
                                                     </select>
                                                 </div>
-                                                <div class="col mt-2">
+                                                <div class="col">
                                                 <button type="submit" class="btn btn-primary"><i class="feather icon-save"></i></button>
                                                 </div>
                                             </div>

@@ -12,6 +12,7 @@ class Pelanggan extends CI_Controller {
             redirect('auth');
 		}
 		$this->load->model(array('M_Registrasi'));
+        $this->load->library('api_whatsapp');
 
 	}
 	public function index()
@@ -240,6 +241,13 @@ class Pelanggan extends CI_Controller {
 			return 0;
 		}
 	}
+	function send_notif($id)
+	{
+		$this->db->where('id',$id);
+		$get_client = $this->db->get('dt_registrasi')->row_array();
+		$msg = 'test notif babelan';
+		$this->api_whatsapp->wa_notif($msg,'083897943785');
+	}
 	function delete($id){
 		if ($this->privilage() == true) {
 			$this->db->where('id',$id);
@@ -340,7 +348,9 @@ class Pelanggan extends CI_Controller {
         $kode_group = strtoupper($this->input->post('kode_group'));
 		$user = $this->input->post('user');
         $alamat = $this->input->post('kode_alamat');
-        if ($kode_group == true || $alamat == true) {
+        $status = $this->input->post('status');
+        $id_alamat = $this->input->post('id_alamat');
+        if ($kode_group == true && $alamat == true && $status != 'update') {
 			$this->db->where('group',$kode_group);
 			$cek = $this->db->get('mt_alamat')->num_rows();
 			if ($cek != true) {
@@ -356,7 +366,16 @@ class Pelanggan extends CI_Controller {
 				$this->session->set_flashdata("msg", "<div class='alert alert-danger'>Group Sudah ada</div>");
 				redirect('pelanggan/alamat');
 			}
-        }
+        }elseif ($kode_group == true && $alamat == true && $status == 'update') {
+			$insert = [
+				"group" => $kode_group,
+				"alamat" => $alamat,
+			];
+			$this->db->where('id_alamat',$id_alamat);
+			$this->db->update('mt_alamat',$insert);
+			$this->session->set_flashdata("msg", "<div class='alert alert-success'>Update group berhasil</div>");
+			redirect('pelanggan/alamat');
+		}
 		$data = [
 			'title' => 'Alamat',
             'alamat' =>  $this->db->get('mt_alamat')->result()
@@ -401,6 +420,13 @@ class Pelanggan extends CI_Controller {
 	function paket(){
 		$id = $this->input->post('id');
 		$data = $this->M_Registrasi->get_paket($id);
+		echo json_encode($data);
+	}
+	function get_pelanggan()
+	{
+		$id = $this->input->post('id');
+		$this->db->where('id',$id);
+		$data = $this->db->get('dt_registrasi')->row_array();
 		echo json_encode($data);
 	}
 	function profile(){

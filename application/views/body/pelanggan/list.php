@@ -9,21 +9,25 @@
                 <form action="" method="get">
                     <div class="container ml-1">
                         <div class="row">
-                            <div class="col-xl-4">
+                            <div class="col-xl-3">
                                 <label>Group <?php 
                                     if (!empty($_GET['group'])) {
                                         $this->session->set_userdata('sort_group',$_GET['group']);
                                     } ?></label>
                                 <select name="group" id="" class="select2 form-control" onchange="this.form.submit()">
+                                    <option value="">Pilih Group</option>
                                     <?php 
-                                    $db = $this->db->query("SELECT min(id) as id,`group` FROM dt_registrasi group by `group` ")->result();
+                                    if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
+                                        $this->db->where_in('group',explode(',',$this->session->userdata('kode_group')));
+                                    }
+                                    $this->db->group_by('group');
+                                    $db = $this->db->get("dt_registrasi")->result();
                                     foreach ($db as $x) {
                                         if ($x->group != "") {
-                                            //if (!empty($_GET['group'])) {
-                                                $groupp = $_GET['group'] == NULL ? '' : $_GET['group'];
+                                                $groupp = isset($_GET['group']) == false ? '' : $_GET['group'];
                                         ?>
                                         <option <?= $x->group == $groupp ? 'selected' : '' ?> value="<?= $x->group == empty($_GET['group']) ? $x->group : $x->group ?>"><?= $x->group == empty($_GET['group']) ? $x->group : $x->group ?></option>
-                                    <?php // } 
+                                    <?php 
                                         }
                                     }
                                     ?>

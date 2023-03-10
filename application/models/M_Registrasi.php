@@ -95,9 +95,94 @@ class M_Registrasi extends CI_Model {
             }else{
                 $disabled_admin ='';
             }
-            $action = '<a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light '.$disabled.'" href="pdf/'. $record->id . '"><i class="feather icon-eye"></i></a> 
+            if ($record->status == 'Aktif') {
+                $change = '<a href="#" id="' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light '.$disabled.' change_status"><i class="feather icon-refresh-ccw"></i></a>';
+            }else{
+                $change = '<a href="#" id="' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light '.$disabled.' change_status_aktif"><i class="feather icon-refresh-ccw"></i></a>';
+            }
+            $action = '<button type="button" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light '.$disabled.'" data-toggle="modal" data-target="#modalClient'.$record->id.'"><i class="feather icon-eye"></i></button> 
+            <div class="modal fade" id="modalClient'.$record->id.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">View Client</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Paket Internet</h6>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label>Media</label>
+                                <input class="form-control" disabled value="'.$record->media.'">
+                            </div>
+                            <div class="col-xl-6">
+                                <label>Paket Internet</label>
+                                <input class="form-control" disabled value="'.$record->mbps.' Mbps - Rp.'.number_format($record->harga,0,'.','.').' - '.$record->paket_internet.'">
+                            </div>
+                        </div>
+                        <hr>
+                        <h6>Inventory</h6>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <label>Router</label>
+                                <input class="form-control" disabled value="'.$record->router.'">
+                            </div>
+                            <div class="col-xl-6">
+                                <label>CPE</label>
+                                <input class="form-control" disabled value="'.$record->cpe.'">
+                            </div>
+                        </div>
+                        <hr>
+                        <h6>Data</h6>
+                        <div class="row mt-2">
+                            <div class="col-xl-4">
+                                <label>Nama</label>
+                                <input class="form-control" disabled value="'.$record->nama.'">
+                            </div>
+                            <div class="col-xl-4">
+                                <label>Nomor KTP</label>
+                                <input class="form-control" disabled value="'.$record->ktp.'">
+                            </div>
+                            <div class="col-xl-4">
+                                <label>Nomor NPWP</label>
+                                <input class="form-control" disabled value="'.$record->npwp.'">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-xl-4">
+                                <label>Group</label>
+                                <input class="form-control" disabled value="'.$record->group.'">
+                            </div>
+                            <div class="col-xl-4">
+                                <label>Alamat</label>
+                                <input class="form-control" disabled value="'.$record->alamat.'">
+                            </div>
+                            <div class="col-xl-4">
+                                <label>Kode Pelanggan</label>
+                                <input class="form-control" disabled value="'.$record->kode_pelanggan.'">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-xl-4">
+                                <label>Teknisi</label>
+                                <input class="form-control" disabled value="'.$record->teknisi.'">
+                            </div>
+                            <div class="col-xl-4">
+                                <label>Kontak Handphone</label>
+                                <input class="form-control" disabled value="'.$record->telp.'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <a class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light '.$disabled.'" href="update/' . $record->id . '" class="url"><i class="feather icon-edit"></i></a>
-            <a href="#" id="' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light '.$disabled.' change_status"><i class="feather icon-refresh-ccw"></i></a>
+            '.$change.'
             <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light '.$disabled.' '.$disabled_admin.' del_client"><i class="feather icon-trash-2"></i></a>';
 
             $data[] = array(
@@ -147,7 +232,7 @@ class M_Registrasi extends CI_Model {
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->where('a.status','Aktif');
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
-            $this->db->where('a.group',$this->session->userdata('kode_group'));
+            $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
         }
         $records = $this->db->get()->result();
         $totalRecords = $records[0]->allcount;
@@ -160,7 +245,7 @@ class M_Registrasi extends CI_Model {
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->where('a.status','Aktif');
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
-            $this->db->where('a.group',$this->session->userdata('kode_group'));
+            $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
         }
         $records = $this->db->get()->result();
         $totalRecordwithFilter = $records[0]->allcount;
@@ -171,7 +256,7 @@ class M_Registrasi extends CI_Model {
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->where('a.status','Aktif');
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
-            $this->db->where('a.group',$this->session->userdata('kode_group'));
+            $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
         }
         $this->db->like('a.nama',$searchValue);
         // $this->db->or_like('a.alamat',$searchValue);
@@ -184,18 +269,21 @@ class M_Registrasi extends CI_Model {
         $data = array();
         $no =1;
         foreach($records as $record ){
-            $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->alamat'")->num_rows();
+            $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->id'")->num_rows();
             if ($cek == true) {
                 $status = '<span class="badge badge-glow badge-success">Sudah Bayar</span>';
             }else{
                 $status = '<span class="badge badge-glow badge-danger">Belum Bayar</span>';
             }
+           $tagihan =  '<a href="#" id="'.$record->id.'" class="notif-confirm btn btn-icon btn-icon rounded-circle btn-success waves-effect waves-light notif-confirm"><i class="feather icon-send"></i></a>';
+
             $data[] = array(
             "no"=>$no++,
             "id"=> $record->id,
             "nama"=>$record->nama,
             "alamat"=> $record->alamat,
             "group"=>$record->group,
+            "tagihan"=>$tagihan,
             "status"=>$status,
             );
         }

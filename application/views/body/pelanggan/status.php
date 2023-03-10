@@ -36,6 +36,7 @@
                                         <th width="400">Nama</th>
                                         <th width="100">Alamat</th>
                                         <th width="150">Group</th>
+                                        <th width="100">Tagihan</th>
                                         <th width="150">Status Pembayaran</th>
                                     </tr>
                                 </thead>

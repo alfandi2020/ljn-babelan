@@ -25,7 +25,6 @@
                                         <select required name="media" class="select2 form-control">
                                             <option disabled selected>Pilih Media Layanan</option>
                                             <option value="Wireless">Wireless</option>
-                                            <option value="LAN">LAN</option>
                                             <option value="Fiber Optik">Fiber Optik</option>
                                         </select>
                                     </fieldset>
@@ -35,6 +34,10 @@
                                         <span>Media Kecepatan</span>
                                         <select required name="speed" class="select2 form-control">
                                             <option disabled selected>Pilih Kecepatan</option>
+                                            <?php $paket = $this->db->get('mt_paket')->result();
+                                                foreach ($paket as $x) { ?>
+                                                <option value="<?= $x->id_paket ?>"><?= $x->mbps . "Mbps - Rp.". number_format($x->harga,0,'.','.') . ' - ' .$x->paket_internet ?></option>    
+                                            <?php } ?>
                                         </select>
                                     </fieldset>
                                 </div>
@@ -242,8 +245,20 @@
                     </div>
                 </form>
             </div>
-        <?php }else{
-            echo "Tidak di izinkan";
-        } ?>
+        <?php }else{ ?>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Tidak di izinkan!',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                   // Simulate an HTTP redirect:
+                    window.location.replace("https://billing.lintasmediadata.net/dashboard");
+                }
+                })
+            </script>
+        <?php } ?>
         </div>
 </section>

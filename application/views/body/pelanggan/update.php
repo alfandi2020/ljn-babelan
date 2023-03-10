@@ -159,7 +159,7 @@
                               
                                 <div class="col-xl-4">
                                     <span>Kode Pelanggan</span>
-                                    <input type="text" class="form-control" name="kode_pelanggan" placeholder="WP123">
+                                    <input type="text" class="form-control" name="kode_pelanggan" placeholder="WP123" value="<?= $pelanggan['kode_pelanggan'] ?>">
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -288,8 +288,8 @@
                             </div> -->
                             <div class="row mt-2">
                                 <div class="col-xl-4">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <a href="<?= base_url('pelanggan/list') ?>" class="btn btn-warning">Refresh</a>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <!-- <a href="<?= base_url('pelanggan/list') ?>" class="btn btn-warning">Refresh</a> -->
                                 </div>
                             </div>
                         </div>

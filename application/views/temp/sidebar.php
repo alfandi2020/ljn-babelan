@@ -20,7 +20,9 @@
                 <li class=" nav-item"><a href="<?= base_url('dashboard') ?>"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Calender">Dashboard</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Ecommerce">Pelanggan</span></a>
+                <li class=" nav-item"><a href="<?= base_url('pelanggan/registrasi') ?>"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Calender">Registrasi</span></a>
+                <li class=" nav-item"><a href="<?= base_url('pelanggan/list') ?>"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Calender">List Pelanggan</span></a>
+                <!-- <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Ecommerce">Pelanggan</span></a>
                     <ul class="menu-content">
                         <?php if ($this->session->userdata('role') == 'Super Admin') {?>    
                         <li><a href="<?= base_url('pelanggan/registrasi') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Registrasi</span></a>
@@ -28,11 +30,8 @@
                         <?php } ?>
                         <li><a href="<?= base_url('pelanggan/list') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">List Pelanggan</span></a>
                         </li>
-                        <!-- <?php if ($this->session->userdata('role') == 'Super Admin') {?>
-                            <li><a href="<?= base_url('pelanggan/alamat') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Alamat</span></a>
-                        <?php } ?> -->
                     </ul>
-                </li>
+                </li> -->
                 <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                 <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Ecommerce">Group</span></a>
                     <ul class="menu-content">
@@ -41,8 +40,10 @@
                     </ul>
                 </li>
                 <?php } ?>
+                <?php if ($this->session->userdata('role') == 'Super Admin') {?>
+                    <li class=" nav-item"><a href="<?= base_url('pelanggan/pembayaran') ?>"><i class="feather icon-log-in"></i><span class="menu-title" data-i18n="Calender">Buat Pembayaran</span></a>
+                <?php } ?>
 
-                <li class=" nav-item"><a href="<?= base_url('pelanggan/pembayaran') ?>"><i class="feather icon-log-in"></i><span class="menu-title" data-i18n="Calender">Buat Pembayaran</span></a>
                 <li class=" nav-item"><a href="<?= base_url('pelanggan/status') ?>"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Calender">Status Pembayaran</span></a>
                 <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                 <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="User">User</span></a>
@@ -55,6 +56,7 @@
                     </ul>
                 </li>
                 <?php }  ?>
+                <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                
                 <li class=" nav-item"><a href="#"><i class="feather icon-clipboard"></i><span class="menu-title" data-i18n="User">Keuangan</span></a>
                     <ul class="menu-content">
@@ -65,7 +67,10 @@
                       
                     </ul>
                 </li>
+                <?php } ?>
+                <?php if ($this->session->userdata('role') == 'Super Admin') {?>
                 <li class=" nav-item"><a href="<?= base_url('paket') ?>"><i class="feather icon-calendar"></i><span class="menu-title" data-i18n="Calender">Paket internet</span></a>
+                <?php } ?>
                 <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="User">Laporan</span></a>
                     <ul class="menu-content">
                         <li><a href="<?= base_url('laporan/create') ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">Buat User</span></a>
