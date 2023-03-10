@@ -6,13 +6,16 @@
                 <div class="card-header">
                     <h4 class="card-title">Table Pelanggan </h4>
                 </div>
-                <form action="" method="get">
                     <div class="container ml-1">
                         <div class="row">
                             <div class="col-xl-3">
+                                <form action="" method="get">
+
                                 <label>Group <?php 
                                     if (!empty($_GET['group'])) {
                                         $this->session->set_userdata('sort_group',$_GET['group']);
+                                    }else{
+                                        $this->session->unset_userdata('sort_group');
                                     } ?></label>
                                 <select name="group" id="" class="select2 form-control" onchange="this.form.submit()">
                                     <option value="">All Group</option>
@@ -32,13 +35,31 @@
                                     }
                                     ?>
                                 </select>
+                                </form>
+                            </div>
+                            <div class="col-xl-3">
+                                <form action="" method="get">
+
+                                <label>Status <?= $this->session->userdata('sort_status') ?> <?php 
+                                    if (!empty($_GET['status'])) {
+                                        $this->session->set_userdata('sort_status',$_GET['status']);
+                                    }else{
+                                        $this->session->unset_userdata('sort_status');
+                                    } 
+                                    $statuss = isset($_GET['status']) == false ? '' : $_GET['status'];
+                                    ?></label>
+                                <select name="status" id="" class="select2 form-control" onchange="this.form.submit()">
+                                    <option value="">All Status</option>
+                                        <option <?= $statuss == 'Aktif' ? 'selected' : '' ?> value="Aktif">Aktif</option>
+                                        <option <?= $statuss == 'Off' ||  $statuss == 'OFF'? 'selected' : '' ?> value="Off">Off</option>
+                                </select>
+                                </form>
                             </div>
                             <div class="col-xl-4 mt-2">
                                     <a href="<?= base_url('pelanggan/reset_url') ?>" class="btn btn-warning">Reset</a>
                             </div>
                         </div>
                     </div>
-                </form>
                 <div class="card-content">
                     <div class="card-body card-dashboard">
                         <div class="table-responsive">
