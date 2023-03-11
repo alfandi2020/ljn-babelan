@@ -38,20 +38,21 @@
                                 </form>
                             </div>
                             <div class="col-xl-3">
-                                <form action="" method="get">
+                                <form action="<?= base_url('pelanggan/sort') ?>" method="POST">
 
                                 <label>Status <?= $this->session->userdata('sort_status') ?> <?php 
-                                    if (!empty($_GET['status'])) {
-                                        $this->session->set_userdata('sort_status',$_GET['status']);
-                                    }else{
-                                        $this->session->unset_userdata('sort_status');
-                                    } 
+                                    // if (!empty($_GET['status'])) {
+                                    //     $this->session->set_userdata('sort_status',$_GET['status']);
+                                    // }else{
+                                    //     $this->session->unset_userdata('sort_status');
+                                    // } 
                                     $statuss = $this->session->userdata('sort_status') == false ? '' : $this->session->userdata('sort_status');
                                     ?></label>
                                 <select name="status" id="" class="select2 form-control" onchange="this.form.submit()">
                                     <option value="">All Status</option>
                                         <option <?= $statuss == 'Aktif' ? 'selected' : '' ?> value="Aktif">Aktif</option>
                                         <option <?= $statuss == 'Off' ||  $statuss == 'OFF'? 'selected' : '' ?> value="Off">Off</option>
+                                        <option <?= $statuss == 'Free' ? 'selected' : '' ?> value="Free">Free</option>
                                 </select>
                                 </form>
                             </div>

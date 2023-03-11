@@ -115,6 +115,12 @@ class Pelanggan extends CI_Controller {
 		$this->session->unset_userdata('sort_status');
 		redirect('pelanggan/list');
 	}
+	function sort()
+	{
+		$status = $this->input->post('status');
+		$this->session->set_userdata('sort_status',$status);
+		redirect('pelanggan/list');
+	}
 	public function indonesian_date($timestamp = '', $date_format = 'd F Y', $suffix = '')
     {
         date_default_timezone_set("Asia/Jakarta");
