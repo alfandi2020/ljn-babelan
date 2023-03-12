@@ -248,6 +248,33 @@ class Pelanggan extends CI_Controller {
 			return 0;
 		}
 	}
+	function update_kode()
+	{
+		$client = $this->db->get('dt_registrasi')->result();
+	
+		// $count_12 = strlen($client['telp']);
+		foreach ($client as $x) {
+			$phone_13 = substr($x->telp,10);//13
+			$phone_12 = substr($x->telp,9);//12
+			$phone_11 = substr($x->telp,8);//11
+			$phone_10 = substr($x->telp,7);//10
+
+			$phone = strlen(preg_replace('/\s+/', '', $x->telp));
+			$this->db->where('id',$x->id);
+			if ($phone == '13') {
+				$this->db->set('kode_unik',$phone_13);
+			}elseif ($phone == '12') {
+				$this->db->set('kode_unik',$phone_12);
+			}elseif ($phone == '11') {
+				$this->db->set('kode_unik',$phone_11);
+			}elseif ($phone == '10') {
+				$this->db->set('kode_unik',$phone_10);
+			}else{
+				$this->db->set('kode_unik','');
+			}
+			$this->db->update('dt_registrasi');
+		}
+	}
 	function send_notif($id)
 	{
 		$this->db->where('id',$id);

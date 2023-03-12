@@ -63,7 +63,10 @@
                                         </select>
                                     </fieldset>
                                 </div>
-                              
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                    <span>Kode Unik</span>
+                                    <input type="text" class="form-control" value="<?= $pelanggan['kode_unik'] ?>">
+                                </div>
                                 <div class="col-xl-4">
                                     <?php 
                                     $idd = $this->uri->segment(3);
