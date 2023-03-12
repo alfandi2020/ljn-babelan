@@ -251,8 +251,40 @@ class Pelanggan extends CI_Controller {
 	function send_notif($id)
 	{
 		$this->db->where('id',$id);
-		$get_client = $this->db->get('dt_registrasi')->row_array();
-		$msg = 'test notif babelan';
+		$this->db->join('mt_paket as b','a.speed = b.id_paket');
+		$get_client = $this->db->get('dt_registrasi as a')->row_array();
+		$ppn = $get_client['harga'] * 11 / 100;
+		$hargaa = $get_client['harga'] + $ppn;
+		$msg = 
+"Kepada yth Bpk/Ibu ".$get_client['nama']." (".$get_client['kode_pelanggan']."),
+
+Terimakasih sudah menggunakan layanan *MD-MediaNet*
+		
+Kami informasikan jumlah tagihan sebagai berikut :
+.: Biaya Langganan 5 Mbps Periode Maret 2023 = Rp ".number_format($hargaa,0,'.','.').",-
+.: Kode Unik Verifikasi = ".$get_client['kode_unik']."
+
+*Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
+
+.: Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi
+.: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
+.: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
+
+Pembayaran dapat ditujukan ke : 
+		
+1. *BCA 2761446578 an Mahfudin*
+2. *Mandiri 1560016047112 an Mahfudin*
+3. *BRI 096601022974536 an Mahfudin*
+
+Demikian disampaikan dan terima kasih atas kerjasamanya..
+		
+Regards
+MD-MediaNet
+PT Lintas Jaringan Nusantara
+Kantor Layanan Babelan
+Layanan Teknis	: 
+0821-1420-9923
+0819-3380-3366";
 		$this->api_whatsapp->wa_notif($msg,'083897943785');
 	}
 	function delete($id){

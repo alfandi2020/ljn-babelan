@@ -522,8 +522,8 @@ $(document).ready(function(){
                                 Swal.fire(
                                     {
                                         type: "success",
-                                        title: 'Deleted!',
-                                        text: 'Data berhasil didelete',
+                                        title: 'Berhasil!',
+                                        text: 'Tagihan berhasil dikirim',
                                         confirmButtonClass: 'btn btn-success',
                                     })
                                 setTimeout(() => {
