@@ -286,6 +286,7 @@ Layanan Teknis	:
 0821-1420-9923
 0819-3380-3366";
 		$this->api_whatsapp->wa_notif($msg,'083897943785');
+		redirect('pelanggan/status');
 	}
 	function delete($id){
 		if ($this->privilage() == true) {
