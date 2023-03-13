@@ -507,6 +507,13 @@ $(document).ready(function(){
             dataType : 'json',
             data : {id:id},
             success : function(data){
+            if (data.telp == "") {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Nomor WhatsApp harus di isi..!',
+                  })
+            }else{
              Swal.fire({
                     title: "Tagihan invoice!",
                     html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u> <br>Apa yakin anda akan mengirim tagihan?',
@@ -518,7 +525,6 @@ $(document).ready(function(){
                   }).then(
                         function (isConfirm) {
                             if (isConfirm.value) {
-                                
                                 Swal.fire(
                                     {
                                         type: "success",
@@ -535,7 +541,8 @@ $(document).ready(function(){
                                 return false;
                             }
                         }
-                    );;
+                    );
+            }
             }
         })
         // Swal.fire({

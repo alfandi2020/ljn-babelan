@@ -117,9 +117,16 @@ class Pelanggan extends CI_Controller {
 	}
 	function sort()
 	{
-		$status = $this->input->post('status');
-		$this->session->set_userdata('sort_status',$status);
-		redirect('pelanggan/list');
+		$uri = $this->uri->segment(3);
+		if ($uri == 'bulan') {
+			$bulan = $this->input->post('bulan');
+			$this->session->set_userdata('filterBulan',$bulan);
+			redirect('pelanggan/status');
+		}else{
+			$status = $this->input->post('status');
+			$this->session->set_userdata('sort_status',$status);
+			redirect('pelanggan/list');
+		}
 	}
 	public function indonesian_date($timestamp = '', $date_format = 'd F Y', $suffix = '')
     {
@@ -280,6 +287,7 @@ class Pelanggan extends CI_Controller {
 		$this->db->where('id',$id);
 		$this->db->join('mt_paket as b','a.speed = b.id_paket');
 		$get_client = $this->db->get('dt_registrasi as a')->row_array();
+
 		$ppn = $get_client['harga'] * 11 / 100;
 		$hargaa = $get_client['harga'] + $ppn;
 		$bulan = $this->session->userdata('filterBulan');
@@ -290,7 +298,7 @@ class Pelanggan extends CI_Controller {
 Terimakasih sudah menggunakan layanan *MD-MediaNet*
 		
 Kami informasikan jumlah tagihan sebagai berikut :
-.: Biaya Langganan 5 Mbps Periode Maret 2023 = Rp ".number_format($hargaa,0,'.','.').",-
+.: Biaya Langganan 5 Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
 .: Kode Unik Verifikasi = ".$get_client['kode_unik']."
 
 *Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
@@ -314,7 +322,7 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-		$this->api_whatsapp->wa_notif($msg,'083897943785');
+		$this->api_whatsapp->wa_notif($msg,$get_client['telp']);
 		redirect('pelanggan/status');
 	}
 	function delete($id){

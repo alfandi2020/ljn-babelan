@@ -16,6 +16,8 @@ class Auth extends CI_Controller {
             if ($password == true) {
                 if ($username == $data['username']) {
                         if (password_verify($password, $data['password'])) {
+                            $this->session->set_userdata('filterTahun',date('Y'));
+                            $this->session->set_userdata('filterBulan',date('m'));
                             $datax = [
                                 'id_user' => $data['id'],
                                 'nama' => $data['nama'],
