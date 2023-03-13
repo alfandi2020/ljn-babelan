@@ -48,33 +48,44 @@
                                     <fieldset class="form-group">
                                         <span>Media layanan</span>
                                         <select  name="media" class="select2 form-control">
-                                            <option <?= $pelanggan['media'] == 'Wireless' ? 'selected' : '' ?> value="Wireless">Wireless</option>
-                                            <option <?= $pelanggan['media'] == 'LAN' ? 'selected' : '' ?> value="LAN">LAN</option>
-                                            <option <?= $pelanggan['media'] == 'Fiber Optik' ? 'selected' : '' ?> value="Fiber Optik">Fiber Optik</option>
+                                            <option <?= $pelanggan['layanan'] == 'Wireless' ? 'selected' : '' ?> value="Wireless">Wireless</option>
+                                            <option <?= $pelanggan['layanan'] == 'LAN' ? 'selected' : '' ?> value="LAN">LAN</option>
+                                            <option <?= $pelanggan['layanan'] == 'Fiber Optik' ? 'selected' : '' ?> value="Fiber Optik">Fiber Optik</option>
                                         </select>
                                     </fieldset>
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <fieldset class="form-group">
                                         <span>Media Kecepatan</span>
-                                        <select  name="speed" class="select2 form-control">
+                                        <select required name="speed_x" class="select2 form-control">
                                             <option disabled selected>Pilih Kecepatan</option>
-                                            <option <?= $pelanggan['mbps'] == true ? 'selected' : '' ?> value="<?= $pelanggan['id_paket'] ?>"><?= $pelanggan['mbps'] .' Mbps - Rp.' . number_format($pelanggan['harga'],0,'.','.') . ' - '. $pelanggan['paket_internet'] ?></option>
+                                            <?php $paket = $this->db->get('mt_paket')->result();
+                                                foreach ($paket as $x) { ?>
+                                                <option <?= $pelanggan['id_paket'] == $x->id_paket ? 'selected' : '' ?> value="<?= $x->id_paket ?>"><?= $x->mbps . "Mbps - Rp.". number_format($x->harga,0,'.','.') . ' - ' .$x->paket_internet ?></option>    
+                                            <?php } ?>
                                         </select>
                                     </fieldset>
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <span>Kode Unik</span>
-                                    <input type="text" class="form-control" value="<?= $pelanggan['kode_unik'] ?>">
+                                    <input type="text" name="kode_unik" class="form-control" value="<?= $pelanggan['kode_unik'] ?>">
                                 </div>
                                 <div class="col-xl-4">
                                     <?php 
                                     $idd = $this->uri->segment(3);
                                     $cek =  $this->db->query("SELECT * FROM dt_registrasi as a left join mt_paket as b on(a.speed = b.id_paket) where id='$idd'")->row_array();
-                                        if ($cek['mbps'] == false) {
-                                            echo '<labe>Status Paket Internet</label> <br>';
-                                            echo '<p class="btn btn-danger">tidak ada paket internet</p>';
-                                        }
+                                        if ($cek['mbps'] == false) { ?>
+                                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                            <script>
+                                                 Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Oops...',
+                                                    text: 'Tidak ada paket internet!',
+                                                })
+                                            </script>
+                                            <!-- echo '<labe>Status Paket Internet</label> <br>';
+                                            echo '<p class="btn btn-danger">tidak ada paket internet</p>'; -->
+                                       <?php  } 
                                     ?>
                                 </div>
                             </div>
@@ -173,11 +184,15 @@
                                 <div class="col-xl-4">
                                         <span>Teknisi</span>
                                         <select name="teknisi" id="" class="select2 form-control">
-                                            <option selected value="<?= $pelanggan['teknisi'] ?>"><?= $pelanggan['teknisi'] ?></option>
-                                            <option value="Khaerul Anwar">Khaerul Anwar</option>
-                                            <option value="Ipung Iskandar">Ipung Iskandar</option>
+                                            <option <?= $pelanggan['teknisi'] == '' ? 'selected' : '' ?>>Belum Pilih Teknisi</option> -->
+                                            <?php $teknisi = $this->db->get('mt_teknisi')->result(); 
+                                            foreach ($teknisi as $x) { ?>
+                                            <!-- <option selected value="<?= $pelanggan['teknisi'] ?>"><?= $pelanggan['teknisi'] ?></option> -->
+                                                <option <?= $pelanggan['teknisi'] == $x->id_teknisi ? 'selected' : '' ?> value="<?= $x->id_teknisi ?>"><?= $x->nama ?></option>
+                                            <?php } ?>
+                                            <!-- <option value="Ipung Iskandar">Ipung Iskandar</option>
                                             <option value="Rizky Wahyu AlFajar">Rizky Wahyu AlFajar</option>
-                                            <option value="Agus Hermawan">Agus Hermawan</option>
+                                            <option value="Agus Hermawan">Agus Hermawan</option> -->
                                         </select>
                                         <!-- <input type="text" name="teknisi" value="<?=$pelanggan['teknisi'] ?>" class="form-control" placeholder="asep"> -->
                                     </div>

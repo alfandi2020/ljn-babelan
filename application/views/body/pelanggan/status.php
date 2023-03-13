@@ -4,29 +4,32 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Table Pelanggan</h4>
+                    <h4 class="card-title">Table Status Pembayaran Pelanggan</h4>
                 </div>
-                <!-- <form action="" method="get">
+                <div class="card-content">
                     <div class="container ml-1">
                         <div class="row">
-                            <div class="col-xl-4">
-                                <label>Status</label>
+                            <div class="col-xl-4 col-sm-5">
+                                <label>Bulan</label>
                                 <fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                        <input type="checkbox" name="status" <?= $this->input->get('status') == 'Aktif' ? 'checked' : '' ?> value="Aktif" onchange="this.form.submit()">
-                                        <span class="vs-checkbox">
-                                            <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
-                                            </span>
-                                        </span>
-                                        <span class="">Aktif</span>
-                                    </div>
+                                    <select name="bulan" id="" class="form-control">
+                                        <option value="<?= date('m') ?>">Januari</option>
+                                        <option value="<?= date('m') ?>">Febuari</option>
+                                        <option value="<?= date('m') ?>">Maret</option>
+                                        <option value="<?= date('m') ?>">April</option>
+                                        <option value="<?= date('m') ?>">Mei</option>
+                                        <option value="<?= date('m') ?>">Juni</option>
+                                        <option value="<?= date('m') ?>">Juli</option>
+                                        <option value="<?= date('m') ?>">Agustus</option>
+                                        <option value="<?= date('m') ?>">September</option>
+                                        <option value="<?= date('m') ?>">Oktober</option>
+                                        <option value="<?= date('m') ?>">November</option>
+                                        <option value="<?= date('m') ?>">Desember</option>
+                                    </select>
                                 </fieldset>
                             </div>
                         </div>
                     </div>
-                </form> -->
-                <div class="card-content">
                     <div class="card-body card-dashboard">
                         <div class="table-responsive">
                             <table class="table" id="table-status">

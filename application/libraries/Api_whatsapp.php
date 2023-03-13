@@ -6,10 +6,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Api_whatsapp{
     function wa_notif($msgg,$phonee)
     {
-    $sender = 'fandi';
+    $sender = 'mahfud';
     $phone = $phonee;
     $msg = $msgg;
-        if ($sender == "fandi") {
+        if ($sender == "mahfud") {
                 // $token = "rasJFCC37ewayax21uu2Caog9CCqyT3KSwBWFqQAbQMdMAefxa";
                 // $phone = $phone; //untuk group pakai groupid contoh: 62812xxxxxx-xxxxx
                 $message = $msg;

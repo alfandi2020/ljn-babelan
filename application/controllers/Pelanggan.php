@@ -282,6 +282,8 @@ class Pelanggan extends CI_Controller {
 		$get_client = $this->db->get('dt_registrasi as a')->row_array();
 		$ppn = $get_client['harga'] * 11 / 100;
 		$hargaa = $get_client['harga'] + $ppn;
+		$bulan = $this->session->userdata('filterBulan');
+		$tahun = $this->session->userdata('filterTahun');
 		$msg = 
 "Kepada yth Bpk/Ibu ".$get_client['nama']." (".$get_client['kode_pelanggan']."),
 
@@ -357,13 +359,14 @@ Layanan Teknis	:
 	function update(){
 		$id = $this->uri->segment(3);
 		$media = $this->input->post('media');
-		$speed = $this->input->post('speed');
+		$speed = $this->input->post('speed_x');
 		$router = $this->input->post('router');
 		$cpe = $this->input->post('cpe');
 		$nama = $this->input->post('nama');
 		$nomor_ktp = $this->input->post('nomor');
 		$npwp = $this->input->post('npwp');
 		$alamat = $this->input->post('alamat');
+		$teknisi = $this->input->post('teknisi');
 		$telp = $this->input->post('telp');
 		$email = $this->input->post('email');
 		$t_nama = $this->input->post('t_nama');
@@ -371,6 +374,8 @@ Layanan Teknis	:
 		$t_npwp = $this->input->post('t_npwp');
 		$t_telp = $this->input->post('t_telp');
 		$t_email = $this->input->post('t_email');
+		$kode_unik = $this->input->post('kode_unik');
+		
 		if($nama){
 			$id_update = $this->input->post('id_update');
 			$update = [
@@ -389,14 +394,16 @@ Layanan Teknis	:
 				"t_npwp" => $t_npwp,
 				"t_telp" => $t_telp,
 				"t_email" => $t_email,
+				"teknisi" => $teknisi,
+				"kode_unik" => $kode_unik,
 			];
 			$this->db->where('id',$id_update);
-			$data = $this->db->update('dt_registrasi',$update);
+			$data = $this->db->update('dt_registrasi as a',$update);
 			$this->session->set_userdata('msg', 'update');
 			redirect('pelanggan/update/'.$id_update);
 		}
 
-		$this->db->select('*');
+		$this->db->select('*,a.media as layanan');
 		$this->db->from('dt_registrasi as a');
 		$this->db->join('mt_paket as b','a.speed=b.id_paket','left');
 		$this->db->where('a.id',$id);
