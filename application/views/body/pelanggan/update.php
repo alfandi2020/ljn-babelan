@@ -7,11 +7,13 @@
                     <h3 class="card-title">Update Pelanggan</h3>
                 </div>
                 <?php
-                    if ($this->session->userdata('msg') == "update") { ?>
+                    if ($this->session->flashdata('msg') == "update") { ?>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <script>
                         Swal.fire({
-                            type: 'success',
-                            title: 'Your work has been saved',
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text:'Berhasil update client',
                             showConfirmButton: false,
                             timer: 1500,
                             confirmButtonClass: 'btn btn-primary',

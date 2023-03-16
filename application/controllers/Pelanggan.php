@@ -407,7 +407,7 @@ Layanan Teknis	:
 			];
 			$this->db->where('id',$id_update);
 			$data = $this->db->update('dt_registrasi as a',$update);
-			$this->session->set_userdata('msg', 'update');
+			$this->session->set_flashdata('msg', 'update');
 			redirect('pelanggan/update/'.$id_update);
 		}
 
