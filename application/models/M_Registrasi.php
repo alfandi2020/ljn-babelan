@@ -80,8 +80,8 @@ class M_Registrasi extends CI_Model {
             $this->db->where_in('a.group',$arr);
         }
         $this->db->like('a.nama',$searchValue);
-        // $this->db->or_like('a.alamat',$searchValue);
-        // $this->db->or_like('a.tanggal',$searchValue);
+        $this->db->or_like('a.kode_pelanggan',$searchValue);
+        $this->db->or_like('a.telp',$searchValue);
         //  $this->db->order_by('tanggal', 'desc');
         $this->db->order_by($columnName, $columnSortOrder);
         $this->db->limit($rowperpage, $start);
