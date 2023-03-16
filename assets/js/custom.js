@@ -576,6 +576,85 @@ $(document).ready(function(){
         //     }
         // );
     });
+    $(document).on('click', '.notif-confirm2', function () {
+        var linkURL = $(this).attr("href").split('#');
+        var id = this.id;
+        linkURL =  base_url +"pelanggan/send_notif/" + id;
+        $.ajax({
+            type :"POST",
+            url : "get_pelanggan",
+            dataType : 'json',
+            data : {id:id},
+            success : function(data){
+            if (data.telp == "") {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Nomor WhatsApp harus di isi..!',
+                  })
+            }else{
+             Swal.fire({
+                    title: "Tagihan invoice dengan pdf!",
+                    html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u> <br>Apa yakin anda akan mengirim tagihan?',
+                    type: "info",
+                    confirmButtonClass: 'btn btn-primary',
+                    buttonsStyling: false,
+                    showCancelButton:true,
+                    cancelButtonClass: 'btn btn-danger ml-1',
+                  }).then(
+                        function (isConfirm) {
+                            if (isConfirm.value) {
+                                Swal.fire(
+                                    {
+                                        type: "success",
+                                        title: 'Berhasil!',
+                                        text: 'Tagihan berhasil dikirim',
+                                        confirmButtonClass: 'btn btn-success',
+                                    })
+                                setTimeout(() => {
+                                    window.location.href = linkURL;
+                                }, 1500);
+                            } else {
+                                history.replaceState(null, null, ' ');
+                                event.preventDefault();
+                                return false;
+                            }
+                        }
+                    );
+            }
+            }
+        })
+        // Swal.fire({
+        //     icon: 'warning',
+        //     title: 'Tagihan invoice',
+        //     text: "Apa yakin anda akan mengirim tagihan",
+        //     showCancelButton: true,
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonClass: 'btn btn-primary',
+        //     cancelButtonClass: 'btn btn-danger ml-1',
+        //     confirmButtonText: 'Yes'
+        // }).then(
+        //     function (isConfirm) {
+        //         if (isConfirm.value) {
+                    
+        //             Swal.fire(
+        //                 {
+        //                     type: "success",
+        //                     title: 'Deleted!',
+        //                     text: 'Data berhasil didelete',
+        //                     confirmButtonClass: 'btn btn-success',
+        //                 })
+        //             setTimeout(() => {
+        //                 window.location.href = linkURL;
+        //             }, 1500);
+        //         } else {
+        //             history.replaceState(null, null, ' ');
+        //             event.preventDefault();
+        //             return false;
+        //         }
+        //     }
+        // );
+    });
 
 
     $('#table-status').DataTable({

@@ -20,7 +20,9 @@
                 <li class=" nav-item"><a href="<?= base_url('dashboard') ?>"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Calender">Dashboard</span></a>
 
                 </li>
+                <?php if ($this->session->userdata('role') == 'Super Admin' || $this->session->userdata('role') == 'Admin') { ?>
                 <li class=" nav-item"><a href="<?= base_url('pelanggan/registrasi') ?>"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Calender">Registrasi</span></a>
+                <?php } ?>
                 <li class=" nav-item"><a href="<?= base_url('pelanggan/list') ?>"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Calender">List Pelanggan</span></a>
                 <!-- <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Ecommerce">Pelanggan</span></a>
                     <ul class="menu-content">
