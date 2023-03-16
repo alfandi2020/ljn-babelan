@@ -20,18 +20,8 @@
                             buttonsStyling: false,
                         })
                     </script>
-                <?php }else{ ?>
-                    <script>
-                        Swal.fire({
-                            type: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 1500,
-                            confirmButtonClass: 'btn btn-primary',
-                            buttonsStyling: false,
-                        })
-                    </script>  
                 <?php } ?>
+                    
                 <form method="POST" action="<?= base_url('pelanggan/update') ?>">
                     <div class="card-content">
                         <div class="card-body">
