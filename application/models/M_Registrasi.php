@@ -20,7 +20,7 @@ class M_Registrasi extends CI_Model {
         //search
         $searchQuery = "";
         if($searchValue != ''){
-            $searchQuery = " (nama like '%".$searchValue."%' or alamat like '%".$searchValue."%' or telp like'%".$searchValue."%' ) ";
+            $searchQuery = " (nama like '%".$searchValue."%' or a.alamat like '%".$searchValue."%' or telp like'%".$searchValue."%' ) ";
         }
         $id_user = $this->session->userdata('id_user');
         $alamat_get = $this->db->query("SELECT * FROM users where id='$id_user'")->row_array();
@@ -45,7 +45,9 @@ class M_Registrasi extends CI_Model {
         $this->db->select('count(*) as allcount,nama');
         if($searchQuery != '')
             $this->db->where($searchQuery);
-            // $this->db->like('nama',$searchValue);
+            $this->db->like('nama',$searchValue);
+            $this->db->or_like('a.kode_pelanggan',$searchValue);
+            $this->db->or_like('a.t_telp',$searchValue);
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         // $this->db->where('a.status','Aktif');
@@ -81,7 +83,7 @@ class M_Registrasi extends CI_Model {
         }
         $this->db->like('a.nama',$searchValue);
         $this->db->or_like('a.kode_pelanggan',$searchValue);
-        $this->db->or_like('a.telp',$searchValue);
+        $this->db->or_like('a.t_telp',$searchValue);
         //  $this->db->order_by('tanggal', 'desc');
         $this->db->order_by($columnName, $columnSortOrder);
         $this->db->limit($rowperpage, $start);
