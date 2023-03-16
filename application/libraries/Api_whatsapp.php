@@ -7,12 +7,10 @@ class Api_whatsapp{
     function wa_notif($msgg,$phonee)
     {
     $sender = 'mahfud';
-    $phone = $phonee;
-    $msg = $msgg;
-        if ($sender == "mahfud") {
+        // if ($sender == "mahfud") {
                 // $token = "rasJFCC37ewayax21uu2Caog9CCqyT3KSwBWFqQAbQMdMAefxa";
                 // $phone = $phone; //untuk group pakai groupid contoh: 62812xxxxxx-xxxxx
-                $message = $msg;
+                // $message = $msg;
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
                     CURLOPT_URL => 'https://ljn.fantecno.net/cron/send',
@@ -23,12 +21,12 @@ class Api_whatsapp{
                     CURLOPT_FOLLOWLOCATION => true,
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                     CURLOPT_CUSTOMREQUEST => 'POST',
-                    CURLOPT_POSTFIELDS => 'key='.$sender.'&phone='.$phone.'&msg='.$msgg,
+                    CURLOPT_POSTFIELDS => 'key='.$sender.'&phone='.$phonee.'&msg='.$msgg,
                   ));
                 $response = curl_exec($curl);
                 curl_close($curl);
                 return $response;
                 // redirect('permohonan/index/'.$this->hash_url->base64_url_encode($otp).'/'.$this->hash_url->base64_url_encode($phone));
-        }
+        // }
     }
 }
