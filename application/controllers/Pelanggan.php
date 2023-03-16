@@ -282,8 +282,9 @@ class Pelanggan extends CI_Controller {
 	// 		$this->db->update('dt_registrasi');
 	// 	}
 	// }
-	function send_notif($id)
+	function send_notif()
 	{
+		$id = $this->uri->segment(3);
 		$this->db->where('a.id',$id);
 		$this->db->join('mt_paket as b','a.speed = b.id_paket');
 		$get_client = $this->db->get('dt_registrasi as a')->row_array();
