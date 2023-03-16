@@ -284,7 +284,7 @@ class Pelanggan extends CI_Controller {
 	// }
 	function send_notif($id)
 	{
-		$this->db->where('id',$id);
+		$this->db->where('a.id',$id);
 		$this->db->join('mt_paket as b','a.speed = b.id_paket');
 		$get_client = $this->db->get('dt_registrasi as a')->row_array();
 
