@@ -323,8 +323,38 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-		$this->api_whatsapp->wa_notif($msg,$get_client['telp']);
+		$this->api_whatsapp->wa_notif($msg,'083897943785');
 		redirect('pelanggan/status');
+	}
+	function send_notif_pdf()
+	{
+		if($this->uri->segment(3)){
+            $mpdf = new \Mpdf\Mpdf([
+				'tempDir' => '/tmp',
+                'mode' => '',
+                'format' => 'A4',
+                'default_font_size' => 0,
+                'default_font' => '',
+                'margin_left' => 15,
+                'margin_right' => 15,
+                'margin_top' => 5,
+                'margin_bottom' => 10,
+                'margin_header' => 10,
+                'margin_footer' => 5,
+                'orientation' => 'P',
+            ]);
+			$this->db->where('a.id',$this->uri->segment(3));
+			$this->db->join('mt_paket as b','a.speed = b.id_paket');
+            $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
+
+            $html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
+            // $mpdf->defaultfooterline=0;
+            // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+            $mpdf->WriteHTML($html);
+            // $mpdf->Output('INVOICE_.pdf','F');
+            $mpdf->Output();
+            //$mpdf->Output('permohonan.pdf','D'); // it downloads the file into the user system, with give name
+        }
 	}
 	function delete($id){
 		if ($this->privilage() == true) {
@@ -509,7 +539,8 @@ Layanan Teknis	:
 	{
 		$id = $this->input->post('id');
 		$this->db->where('id',$id);
-		$data = $this->db->get('dt_registrasi')->row_array();
+		$this->db->join('mt_paket as b','a.speed = b.id_paket');
+		$data = $this->db->get('dt_registrasi as a')->row_array();
 		echo json_encode($data);
 	}
 	function profile(){

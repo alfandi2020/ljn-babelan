@@ -10,7 +10,7 @@
                 <form method="POST" action="<?= base_url('pelanggan/buat_pembayaran') ?>">
                     <div class="card-content">
                         <div class="card-body">
-                <?= $this->session->userdata('msg') ?>
+                        <?= $this->session->userdata('msg') ?>
                             <div class="row mt-2">
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <fieldset class="form-group">
