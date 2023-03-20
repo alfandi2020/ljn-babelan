@@ -68,22 +68,15 @@
             <div class="card">
                 <div class="card-header d-flex align-items-start pb-0">
                     <div>
-                        <h2 class="text-bold-700 mb-0">Rp.132.220.000</h2>
-                        <p>Pembayaran Belum Masuk</p>
-                    </div>
-                    <div class="avatar bg-rgba-danger p-50 m-0">
-                        <div class="avatar-content">
-                            <i class="feather icon-x-circle text-danger font-medium-5"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-12">
-            <div class="card">
-                <div class="card-header d-flex align-items-start pb-0">
-                    <div>
-                        <h2 class="text-bold-700 mb-0">Rp.42.120.000</h2>
+                        <h2 class="text-bold-700 mb-0"><?php
+                        $total = 0;
+                        $tagihan = 0;
+                        foreach ($payment as $x) {
+                            $total += $x->tagihan * 11 / 100 + $x->tagihan;
+                            // $tagihan += $x->tagihan;
+                        }
+                        echo  'Rp.'.number_format($total,0,'.','.');
+                        ?></h2>
                         <p>Pembayaran Sudah Masuk</p>
                     </div>
                     <div class="avatar bg-rgba-success p-50 m-0">
@@ -95,10 +88,33 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-start pb-0">
+                    <div>
+                        <h2 class="text-bold-700 mb-0">
+                            <?php 
+                                $belum = 0;
+                                foreach ($belum_bayar as $x) {
+                                    $belum += $x->harga * 11 / 100 + $x->harga;
+                                }
+                                echo 'Rp.'. number_format($belum - $total,0,'.','.');
+                            ?>
+                        </h2>
+                        <p>Pembayaran Belum Masuk</p>
+                    </div>
+                    <div class="avatar bg-rgba-danger p-50 m-0">
+                        <div class="avatar-content">
+                            <i class="feather icon-x-circle text-danger font-medium-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-12">
                     <div class="card">
                         <div class="card-header d-flex align-items-start pb-0">
                             <div>
-                                <h2 class="text-bold-700 mb-0">150</h2>
+                                <h2 class="text-bold-700 mb-0"><?= count($belum_bayar) - count($payment) ?></h2>
                                 <p>Pelanggan <b class="text-danger">Belum Bayar</b></p>
                             </div>
                             <div class="avatar bg-rgba-danger p-50 m-0">
@@ -113,7 +129,7 @@
                     <div class="card">
                         <div class="card-header d-flex align-items-start pb-0">
                             <div>
-                                <h2 class="text-bold-700 mb-0">700</h2>
+                                <h2 class="text-bold-700 mb-0"><?= count($payment) ?></h2>
                                 <p>Pelanggan <b class="text-success">Sudah Bayar</b></p>
                             </div>
                             <div class="avatar bg-rgba-success p-50 m-0">
@@ -132,7 +148,7 @@
                 <div class="card-img-overlay overlay-black">
                     <br><br>
                     <h5 class="font-medium-5 text-white text-center mt-4">Date</h5>
-                    <p class="text-white text-center"><?= hari_ini() .', '. tgl_indo(date('Y-m-d')) ?></p>
+                    <p class="text-white text-center"><?= hari_ini() .', '. indonesian_date(date('Y-m-d')) ?></p>
                     <div class="card-content">
                         <div class="d-flex justify-content-around mt-2">
                             <div class="icon">

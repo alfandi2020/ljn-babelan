@@ -55,7 +55,10 @@
                                 <div class="col-xl-4 col-md-6 col-12 mb-1">
                                     <span>Bulan</span>
                                     <select name="p_bulan" id="" class="select2 form-control">
-                                        <option value="<?= tgl_indo(date('-m-')) ?>"><?= tgl_indo(date('-m-')) ?></option>
+                                        <option value="<?php
+                                        		$tanggal = time();
+                                                $bulan = indonesian_date($tanggal, 'F');
+                                     echo $bulan ?>"><?= $bulan ?></option>
                                                 <option disabled>Pilih Periode</option>
                                                 <option value="Januari">Januari</option>
                                                 <option value="Februari">Februari</option>
