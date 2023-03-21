@@ -354,7 +354,7 @@ Layanan Teknis	:
             $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
             // $mpdf->Output();
 			$imagick = new Imagick();
-            $imagick->setResolution(200, 200);
+            $imagick->setResolution(400, 400);
             $imagick->readImage("invoice/$no_invoice.pdf");
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
 		}
