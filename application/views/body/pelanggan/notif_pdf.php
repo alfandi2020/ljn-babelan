@@ -62,7 +62,7 @@ function terbilang($nilai) {
 
             #table_tagihan tr:nth-child(even){background-color: #f2f2f2;}
 
-            #table_tagihan tr:hover {background-color: #ddd;}
+            /* #table_tagihan tr:hover {background-color: #ddd;} */
 
             #table_tagihan th {
             font-size: 12px;
