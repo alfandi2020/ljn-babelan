@@ -590,7 +590,7 @@ $(document).ready(function(){
     $(document).on('click', '.notif-confirm2', function () {
         var linkURL = $(this).attr("href").split('#');
         var id = this.id;
-        linkURL =  base_url +"pelanggan/send_notif/" + id;
+        linkURL =  base_url +"pelanggan/send_notif_pdf/" + id;
         $.ajax({
             type :"POST",
             url : "get_pelanggan",
