@@ -332,7 +332,7 @@ Layanan Teknis	:
             $mpdf = new \Mpdf\Mpdf([
 				'tempDir' => '/tmp',
                 'mode' => '',
-                'format' => 'A4',
+                'format' => 'A5',
                 'default_font_size' => 0,
                 'default_font' => '',
                 'margin_left' => 15,
@@ -354,7 +354,7 @@ Layanan Teknis	:
             $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
             // $mpdf->Output();
 			$imagick = new Imagick();
-            // $imagick->setResolution(400, 400);
+            $imagick->setResolution(400, 400);
             $imagick->readImage("invoice/$no_invoice.pdf");
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
 		}
