@@ -400,6 +400,8 @@ Layanan Teknis	:
 0821-1420-9923
 0819-3380-3366";
 			$this->api_whatsapp->wa_notif_doc($msg,$get_client['kode_pelanggan'],$url_img);
+		redirect('pelanggan/status');
+
 		}
 	}
 	function info()
