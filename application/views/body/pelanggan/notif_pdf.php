@@ -74,7 +74,7 @@ function terbilang($nilai) {
             }
     </style>
 </head>
-<body>
+<body style="background-color: #ffffff">
     <table style="background-color: #ffffff;">
         <tr>
             <td>
