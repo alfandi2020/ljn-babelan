@@ -357,7 +357,7 @@ Layanan Teknis	:
             $imagick->setResolution(400, 400);
             $imagick->readImage("invoice/$no_invoice.pdf");
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
-
+			$url_img = "invoice/image/$no_invoice.jpg";
 
 			//send wa
 			$id = $this->uri->segment(3);
@@ -399,7 +399,7 @@ Layanan Teknis	:
 	Layanan Teknis	: 
 	0821-1420-9923
 	0819-3380-3366";
-			$this->api_whatsapp->wa_notif_doc($msg,'083897943785');
+			$this->api_whatsapp->wa_notif_doc($msg,'083897943785',$url_img);
 		}
 	}
 	function info()
