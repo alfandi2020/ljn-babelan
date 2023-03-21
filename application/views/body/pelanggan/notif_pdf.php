@@ -75,7 +75,7 @@ function terbilang($nilai) {
     </style>
 </head>
 <body>
-    <table style="background-color: #f7f7f7;">
+    <table style="background-color: #ffffff;">
         <tr>
             <td>
                  <img width="120" src="<?= base_url() ?>assets/images/logo/ljn.png" alt="">
@@ -86,7 +86,7 @@ function terbilang($nilai) {
             <td> <br><br></td>
         </tr>
     </table>
-    <table style="background-color:#f7f7f7">
+    <table style="background-color:#ffffff">
         <tr>
             <td><b style="background-color: #f2f2f2;width:90px;">Kepada : </b></td>
             <td><h4> INVOICE </h4></td>
