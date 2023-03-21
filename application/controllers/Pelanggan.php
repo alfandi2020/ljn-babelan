@@ -341,7 +341,7 @@ Layanan Teknis	:
                 'margin_bottom' => 10,
                 'margin_header' => 10,
                 'margin_footer' => 5,
-                'orientation' => 'L',
+                'orientation' => 'P',
             ]);
 			$this->db->where('a.id',$this->uri->segment(3));
 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
@@ -351,12 +351,12 @@ Layanan Teknis	:
             // $mpdf->defaultfooterline=0;
             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
             $mpdf->WriteHTML($html);
-            $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
-            // $mpdf->Output();
-			$imagick = new Imagick();
-            $imagick->setResolution(400, 400);
-            $imagick->readImage("invoice/$no_invoice.pdf");
-            $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
+            // $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
+            $mpdf->Output();
+			// $imagick = new Imagick();
+            // $imagick->setResolution(400, 400);
+            // $imagick->readImage("invoice/$no_invoice.pdf");
+            // $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
 		}
 	}
 	function info()
