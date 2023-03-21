@@ -357,7 +357,7 @@ Layanan Teknis	:
             $imagick->setResolution(400, 400);
             $imagick->readImage("invoice/$no_invoice.pdf");
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
-			$url_img = "invoice/image/$no_invoice.jpg";
+			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
 
 			//send wa
 			$id = $this->uri->segment(3);
