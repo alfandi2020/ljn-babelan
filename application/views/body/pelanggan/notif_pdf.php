@@ -126,7 +126,7 @@ function terbilang($nilai) {
             echo 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
             <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
         </tr>
-        <tr>
+        <tr style="background-color: #d0cece;">
             <td colspan="2">
                 Keterangan : 
             </td>
@@ -140,7 +140,7 @@ function terbilang($nilai) {
             <td>Diskon</td>
             <td>Rp.0</td>
         </tr>
-        <tr>
+        <tr style="background-color: #d0cece;">
             <td>PPN 11%</td>
             <td>Rp.<?= number_format($ppn,0,'.','.') ?></td>
         </tr>
@@ -148,7 +148,7 @@ function terbilang($nilai) {
             <td>Biaya Pengirim</td>
             <td>Rp.0</td>
         </tr>
-        <tr>
+        <tr style="background-color: #d0cece;">
             <td>Uang Muka (DP)</td>
             <td>Rp.0</td>
         </tr>
