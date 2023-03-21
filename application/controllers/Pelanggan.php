@@ -351,8 +351,8 @@ Layanan Teknis	:
             // $mpdf->defaultfooterline=0;
             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
             $mpdf->WriteHTML($html);
-            // $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
-            $mpdf->Output();
+            $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
+            // $mpdf->Output();
 			$imagick = new Imagick();
             $imagick->setResolution(400, 400);
             $imagick->readImage("invoice/$no_invoice.pdf");
