@@ -323,7 +323,7 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-		$this->api_whatsapp->wa_notif($msg,'083897943785');
+		$this->api_whatsapp->wa_notif($msg,$get_client['telp']);
 		redirect('pelanggan/status');
 	}
 	function send_notif_pdf()
@@ -399,7 +399,7 @@ Layanan Teknis	:
 	Layanan Teknis	: 
 	0821-1420-9923
 	0819-3380-3366";
-			$this->api_whatsapp->wa_notif_doc($msg,'083897943785',$url_img);
+			$this->api_whatsapp->wa_notif_doc($msg,$get_client['kode_pelanggan'],$url_img);
 		}
 	}
 	function info()
