@@ -346,15 +346,18 @@ Layanan Teknis	:
 			$this->db->where('a.id',$this->uri->segment(3));
 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
             $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
-
+			$no_invoice = 'INV' . date('y').date('m').date('d').$data['x']['id'];
             $html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
             // $mpdf->defaultfooterline=0;
             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
             $mpdf->WriteHTML($html);
-            // $mpdf->Output('INVOICE_.pdf','F');
-            $mpdf->Output();
-            //$mpdf->Output('permohonan.pdf','D'); // it downloads the file into the user system, with give name
-        }
+            $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
+            // $mpdf->Output();
+			$imagick = new Imagick();
+            $imagick->setResolution(200, 200);
+            $imagick->readImage("invoice/$no_invoice.pdf");
+            $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
+		}
 	}
 	function delete($id){
 		if ($this->privilage() == true) {
