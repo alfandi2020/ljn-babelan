@@ -359,6 +359,10 @@ Layanan Teknis	:
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
 		}
 	}
+	function info()
+	{
+		echo phpinfo();
+	}
 	function delete($id){
 		if ($this->privilage() == true) {
 			$this->db->where('id',$id);
