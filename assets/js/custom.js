@@ -606,7 +606,7 @@ $(document).ready(function(){
             }else{
              Swal.fire({
                     title: "Tagihan invoice dengan pdf!",
-                    html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u> <br>Apa yakin anda akan mengirim tagihan?',
+                    html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u><br>Jumlah Tagihan : <b>Rp.'+rupiahh+'</b>  <br>Apa yakin anda akan mengirim tagihan?',
                     type: "info",
                     confirmButtonClass: 'btn btn-primary',
                     buttonsStyling: false,
