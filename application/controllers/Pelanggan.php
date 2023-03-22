@@ -328,7 +328,7 @@ Layanan Teknis	:
 	}
 	function send_notif_pdf()
 	{
-		if($this->uri->segment(3)){
+		// if($this->uri->segment(3)){
             $mpdf = new \Mpdf\Mpdf([
 				'tempDir' => '/tmp',
                 'mode' => '',
@@ -402,7 +402,7 @@ Layanan Teknis	:
 			$this->api_whatsapp->wa_notif_doc($msg,$get_client['kode_pelanggan'],$url_img);
 		redirect('pelanggan/status');
 
-		}
+		// }
 	}
 	function info()
 	{
