@@ -604,6 +604,17 @@ $(document).ready(function(){
                     text: 'Nomor WhatsApp harus di isi..!',
                   })
             }else{
+                var ppn = parseInt(data.harga * 11 / 100);
+                var harga = parseInt(data.harga) + parseInt(ppn);
+                var	number_string = harga.toString(),
+                    sisa 	= number_string.length % 3,
+                    rupiahh 	= number_string.substr(0, sisa),
+                    ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                        
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiahh += separator + ribuan.join('.');
+                }
              Swal.fire({
                     title: "Tagihan invoice dengan pdf!",
                     html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u><br>Jumlah Tagihan : <b>Rp.'+rupiahh+'</b>  <br>Apa yakin anda akan mengirim tagihan?',
