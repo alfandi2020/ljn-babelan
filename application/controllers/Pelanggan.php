@@ -180,7 +180,7 @@ class Pelanggan extends CI_Controller {
 		$tanggal = time();
         $bulan = $this->indonesian_date($tanggal, 'F');
 		
-		$cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$id' and periode='' ");
+		$cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$id' and periode='$bulan' ");
 		echo json_encode($data);
 	}
 	function buat_pembayaran(){
