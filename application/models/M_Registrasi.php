@@ -282,8 +282,9 @@ class M_Registrasi extends CI_Model {
         $records = $this->db->get()->result();
         $data = array();
         $no =1;
+        $bulann= $this->session->userdata('filterBulan');
         foreach($records as $record ){
-            $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->id'")->num_rows();
+            $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->id' and periode='$bulann'")->num_rows();
             if ($cek == true) {
                 $status = '<span class="badge badge-glow badge-success">Sudah Bayar</span>';
             }else{
