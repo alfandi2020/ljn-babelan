@@ -19,7 +19,7 @@
                                             <option disabled selected>Pilih nama pelanggan</option>
                                             <?php 
                                             foreach ($client as $x) {?>
-                                                <option value="<?= $x->kode_pelanggan ?>"><?= $x->nama .' - '. $x->alamat ?></option>
+                                                <option value="<?= $x->id ?>"><?= $x->nama .' - '. $x->alamat ?></option>
                                             <?php } ?>
                                         </select>
                                     </fieldset>
