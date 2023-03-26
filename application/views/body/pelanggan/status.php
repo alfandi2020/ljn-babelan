@@ -14,18 +14,18 @@
                                     <h6>Pilih Bulan</h6>
                                     <fieldset>
                                         <select onchange="this.form.submit()" name="bulan" id="" class="form-control">
-                                            <option <?= $this->session->userdata('filterBulan') == '01' ? 'selected' : '' ?> value="01">Januari</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '02' ? 'selected' : '' ?> value="02">Febuari</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '03' ? 'selected' : '' ?> value="03">Maret</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '04' ? 'selected' : '' ?>  value="04">April</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '05' ? 'selected' : '' ?>  value="05">Mei</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '06' ? 'selected' : '' ?>  value="06">Juni</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '07' ? 'selected' : '' ?>  value="07">Juli</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '08' ? 'selected' : '' ?>  value="08">Agustus</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '09' ? 'selected' : '' ?>  value="09">September</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '10' ? 'selected' : '' ?>  value="10">Oktober</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '11' ? 'selected' : '' ?>  value="11">November</option>
-                                            <option <?= $this->session->userdata('filterBulan') == '12' ? 'selected' : '' ?>  value="12">Desember</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Januari' ? 'selected' : '' ?> value="Januari">Januari</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Febuari' ? 'selected' : '' ?> value="Febuari">Febuari</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Maret' ? 'selected' : '' ?> value="Maret">Maret</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'April' ? 'selected' : '' ?>  value="April">April</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Mei' ? 'selected' : '' ?>  value="Mei">Mei</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Juni' ? 'selected' : '' ?>  value="Juni">Juni</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Juli' ? 'selected' : '' ?>  value="Juli">Juli</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Agustus' ? 'selected' : '' ?>  value="Agustus">Agustus</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'September' ? 'selected' : '' ?>  value="September">September</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Oktober' ? 'selected' : '' ?>  value="Oktober">Oktober</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'November' ? 'selected' : '' ?>  value="November">November</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Desember' ? 'selected' : '' ?>  value="Desember">Desember</option>
                                         </select>
                                     </fieldset>
                                 </div>
