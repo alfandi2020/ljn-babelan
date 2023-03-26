@@ -159,13 +159,13 @@ function terbilang($nilai) {
         <tr>
             <td rowspan="7"><b>Grand Total</b></td>
             <td >
-                <b><?= 'Rp.'. number_format($x['harga']+ $ppn,0,'.','.') ?></b>
+                <b><?= 'Rp.'. number_format($x['harga'] + $x['kode_unik']+ $ppn,0,'.','.') ?></b>
             </td>
         </tr>
     </table>
     <table id="table_tagihan">
         <tr style="background-color: #d0cece;">
-            <td>Terbilang : <i> <?= terbilang(232400) ?> rupiah</i></td>
+            <td>Terbilang : <i> <?= terbilang($x['harga'] + $x['kode_unik']+ $ppn) ?> rupiah</i></td>
         </tr>
     </table>
 </body>
