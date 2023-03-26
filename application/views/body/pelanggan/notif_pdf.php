@@ -86,6 +86,10 @@ function terbilang($nilai) {
             <td> <br><br></td>
         </tr>
     </table>
+    <?php
+        			$bulan = $this->session->userdata('filterBulan');
+                    $tahun = $this->session->userdata('filterTahun');    
+    ?>
     <table style="background-color:white">
         <tr>
             <td><b style="background-color: #f2f2f2;width:90px;">Kepada : </b></td>
@@ -97,15 +101,15 @@ function terbilang($nilai) {
         </tr>
         <tr>
             <td width="400"><?= $x['alamat'] ?></td> 
-            <td>Tanggal : 11 Maret 2023</td>
+            <td>Tanggal : 11 <?= $bulan ?> <?= $tahun ?></td>
         </tr>
         <tr>
             <td><br><br></td>
-            <td>Periode : Maret 2023</td>
+            <td>Periode : <?= $bulan ?> <?= $tahun ?></td>
         </tr>
         <tr>
             <td>Phone : <?= $x['telp'] ?></td>
-            <td>Jatuh Tempo : 20 Maret 2023</td>
+            <td>Jatuh Tempo : 20 <?= $bulan ?> <?= $tahun ?></td>
         </tr>
         <tr>
             <td>Email : <?= $x['email'] ?></td>
