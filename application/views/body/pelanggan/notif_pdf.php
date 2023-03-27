@@ -135,7 +135,7 @@ function terbilang($nilai) {
                 Keterangan : 
             </td>
             <td>Harga Total</td>
-            <td><?= 'Rp.'. number_format($x['harga']+$x['kode_unik'],0,'.','.') ?></td>
+            <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
         </tr>
         <tr>
             <td colspan="2" rowspan="6">
