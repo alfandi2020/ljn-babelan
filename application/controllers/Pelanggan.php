@@ -402,8 +402,8 @@ Layanan Teknis	:
 			$this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
 		redirect('pelanggan/status');
 
-		// }
 	}
+	// }
 	function info()
 	{
 		echo phpinfo();
