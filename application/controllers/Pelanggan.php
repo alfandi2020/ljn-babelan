@@ -174,7 +174,7 @@ class Pelanggan extends CI_Controller {
 		$id = $this->input->post('id');
 		$this->db->from('dt_registrasi as a');
 		$this->db->join('mt_paket as b','a.speed=b.id_paket');
-		$this->db->where('a.kode_pelanggan',$id);
+		$this->db->where('a.id',$id);
 		$data = $this->db->get()->result();
 
 		$tanggal = time();
