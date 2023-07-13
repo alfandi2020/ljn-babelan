@@ -58,6 +58,10 @@ class Pelanggan extends CI_Controller {
 		$t_email = $this->input->post('t_email');
 		$tgl_installasi = $this->input->post('tanggal_installasi');
 		if ($nama) {
+			$kd_plg =  $this->db->get_where('dt_registrasi',['kode_pelanggan' => $kode_pelanggan])->num_rows();
+			if ($kd_plg) {
+				# code...
+			}
 				$insert = [
 					"media" => $media,
 					"speed" => $speed,
@@ -352,6 +356,7 @@ Layanan Teknis	:
             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
             $mpdf->WriteHTML($html);
             $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
+			chmod($no_invoice.".pdf", 0777);
             // $mpdf->Output();
 			$imagick = new Imagick();
             $imagick->setResolution(400, 400);
