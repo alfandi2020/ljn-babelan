@@ -354,6 +354,8 @@ Layanan Teknis	:
             $html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
             // $mpdf->defaultfooterline=0;
             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+			chmod($no_invoice.".pdf", 0777);
+
             $mpdf->WriteHTML($html);
             $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
 			chmod($no_invoice.".pdf", 0777);
