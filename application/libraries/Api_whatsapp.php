@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Api_whatsapp{
     function wa_notif($msgg,$phonee)
     {
-        $sender = 'babelan';
+        $sender = 'ljnbabelan';
         $phone = $phonee;
         $msg = $msgg;
         // if ($sender == "mahfud") {
@@ -33,7 +33,7 @@ class Api_whatsapp{
     }
     function wa_notif_doc($msgg,$phonee,$file)
     {
-        $sender = 'babelan';
+        $sender = 'ljnbabelan';
         $phone = $phonee;
         $msg = $msgg;
         // if ($sender == "mahfud") {
