@@ -354,6 +354,7 @@ Layanan Teknis	:
                 'margin_header' => 10,
                 'margin_footer' => 5,
                 'orientation' => 'L',
+				'showImageErrors' => true
             ]);
 			$this->db->where('a.id',$this->uri->segment(3));
 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
