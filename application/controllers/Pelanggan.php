@@ -373,50 +373,50 @@ Layanan Teknis	:
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
 			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
 
-// 			//send wa
-// 			$id = $this->uri->segment(3);
-// 			$this->db->where('a.id',$id);
-// 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
-// 			$get_client = $this->db->get('dt_registrasi as a')->row_array();
+			//send wa
+			$id = $this->uri->segment(3);
+			$this->db->where('a.id',$id);
+			$this->db->join('mt_paket as b','a.speed = b.id_paket');
+			$get_client = $this->db->get('dt_registrasi as a')->row_array();
 	
-// 			$ppn = $get_client['harga'] * 11 / 100;
-// 			$hargaa = $get_client['harga'] + $ppn;
-// 			$bulan = $this->session->userdata('filterBulan');
-// 			$tahun = $this->session->userdata('filterTahun');
-// 			$msg = 
-// "Kepada yth 
-// *Bpk/Ibu ".$get_client['nama']."*
-// ID : ".$get_client['kode_pelanggan']."
+			$ppn = $get_client['harga'] * 11 / 100;
+			$hargaa = $get_client['harga'] + $ppn;
+			$bulan = $this->session->userdata('filterBulan');
+			$tahun = $this->session->userdata('filterTahun');
+			$msg = 
+"Kepada yth 
+*Bpk/Ibu ".$get_client['nama']."*
+ID : ".$get_client['kode_pelanggan']."
 				
-// Terimakasih sudah menggunakan layanan *MD.Net*
+Terimakasih sudah menggunakan layanan *MD.Net*
 			
-// Kami informasikan jumlah tagihan sebagai berikut :
-// .: Biaya Langganan 5 Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
-// .: Kode Unik Verifikasi = ".$get_client['kode_unik']."
+Kami informasikan jumlah tagihan sebagai berikut :
+.: Biaya Langganan 5 Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
+.: Kode Unik Verifikasi = ".$get_client['kode_unik']."
 	
-// *Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
 	
-// .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
-// .: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
-// .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
+.: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
+.: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
+.: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 	
-// Pembayaran dapat ditujukan ke : 
+Pembayaran dapat ditujukan ke : 
 			
-// 1. *BCA 2761446578*
-// 2. *Mandiri 1560016047112*
-// 3. *BRI 096601022974536*
-// (An Mahfudin)
+1. *BCA 2761446578*
+2. *Mandiri 1560016047112*
+3. *BRI 096601022974536*
+(An Mahfudin)
 	
-// Demikian disampaikan dan terima kasih atas kerjasamanya..
+Demikian disampaikan dan terima kasih atas kerjasamanya..
 		
-// Regards
-// MD.Net
-// PT Lintas Jaringan Nusantara
-// Kantor Layanan Babelan
-// Layanan Teknis	: 
-// 0821-1420-9923
-// 0819-3380-3366";
-// 			$this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
+Regards
+MD.Net
+PT Lintas Jaringan Nusantara
+Kantor Layanan Babelan
+Layanan Teknis	: 
+0821-1420-9923
+0819-3380-3366";
+			$this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
 // 		redirect('pelanggan/status');
 
 	}
