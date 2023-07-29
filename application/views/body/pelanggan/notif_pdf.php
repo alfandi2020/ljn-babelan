@@ -78,7 +78,7 @@ function terbilang($nilai) {
     <table style="background-color: white;">
         <tr>
             <td>
-                 <img width="120" src="<?= base_url() ?>assets/images/logo/ljn.png" alt="">
+                 <img width="120" src="./assets/images/logo/ljn.png" alt="">
             </td>
             <td><b style="font-size: 20px;"> PT Lintas Jaringan Nusantara </b> <br> <i>Internet Service Provider & IT Solution</i> <br><br>Kantor Layanan Babelan <br> Perum Wahana Pondok Ungu</td>
         </tr>
