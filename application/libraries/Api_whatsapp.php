@@ -27,7 +27,7 @@ class Api_whatsapp{
                 ));
                 $response = curl_exec($curl);
                 curl_close($curl);
-                return $response;
+                echo $response;
                 // redirect('permohonan/index/'.$this->hash_url->base64_url_encode($otp).'/'.$this->hash_url->base64_url_encode($phone));
         // }
     }
@@ -54,7 +54,7 @@ class Api_whatsapp{
                 ));
                 $response = curl_exec($curl);
                 curl_close($curl);
-                return $response;
+                echo $response;
                 // redirect('permohonan/index/'.$this->hash_url->base64_url_encode($otp).'/'.$this->hash_url->base64_url_encode($phone));
         // }
     }
