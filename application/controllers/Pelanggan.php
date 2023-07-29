@@ -367,7 +367,7 @@ Layanan Teknis	:
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
 			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
 
-			//send wa
+// 			//send wa
 // 			$id = $this->uri->segment(3);
 // 			$this->db->where('a.id',$id);
 // 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
@@ -382,7 +382,7 @@ Layanan Teknis	:
 // *Bpk/Ibu ".$get_client['nama']."*
 // ID : ".$get_client['kode_pelanggan']."
 				
-// Terimakasih sudah menggunakan layanan *MD-MediaNet*
+// Terimakasih sudah menggunakan layanan *MD.Net*
 			
 // Kami informasikan jumlah tagihan sebagai berikut :
 // .: Biaya Langganan 5 Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
@@ -396,14 +396,15 @@ Layanan Teknis	:
 	
 // Pembayaran dapat ditujukan ke : 
 			
-// 1. *BCA 2761446578 an Mahfudin*
-// 2. *Mandiri 1560016047112 an Mahfudin*
-// 3. *BRI 096601022974536 an Mahfudin*
+// 1. *BCA 2761446578*
+// 2. *Mandiri 1560016047112*
+// 3. *BRI 096601022974536*
+// (An Mahfudin)
 	
 // Demikian disampaikan dan terima kasih atas kerjasamanya..
 		
 // Regards
-// MD-MediaNet
+// MD.Net
 // PT Lintas Jaringan Nusantara
 // Kantor Layanan Babelan
 // Layanan Teknis	: 
