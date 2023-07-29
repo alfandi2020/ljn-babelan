@@ -298,7 +298,9 @@ class Pelanggan extends CI_Controller {
 		$bulan = $this->session->userdata('filterBulan');
 		$tahun = $this->session->userdata('filterTahun');
 		$msg = 
-"Kepada yth Bpk/Ibu ".$get_client['nama']." (".$get_client['kode_pelanggan']."),
+"Kepada yth 
+*Bpk/Ibu ".$get_client['nama']."*
+ID : ".$get_client['kode_pelanggan']."
 
 Terimakasih sudah menggunakan layanan *MD-MediaNet*
 		
@@ -308,7 +310,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 
 *Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
 
-.: Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi
+.: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
 .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 
@@ -375,8 +377,10 @@ Layanan Teknis	:
 			$bulan = $this->session->userdata('filterBulan');
 			$tahun = $this->session->userdata('filterTahun');
 			$msg = 
-"Kepada yth Bpk/Ibu ".$get_client['nama']." (".$get_client['kode_pelanggan']."),
-	
+"Kepada yth 
+*Bpk/Ibu ".$get_client['nama']."*
+ID : ".$get_client['kode_pelanggan']."
+				
 Terimakasih sudah menggunakan layanan *MD-MediaNet*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
@@ -385,7 +389,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 	
 *Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
 	
-.: Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi
+.: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
 .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 	
