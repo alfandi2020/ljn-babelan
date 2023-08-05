@@ -364,7 +364,7 @@ Layanan Teknis	:
             // $mpdf->defaultfooterline=0;
             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
             $mpdf->WriteHTML($html);
-            $mpdf->Output('invoice/'.$no_invoice.'.pdf','F');
+            $mpdf->Output('home/billing.lintasmediadata.net/invoice/'.$no_invoice.'.pdf','F');
 			//chmod($no_invoice.".pdf", 0777);
             // $mpdf->Output();
 			$imagick = new Imagick();
@@ -416,7 +416,11 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-			$this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
+			if (file_exists($url_img)) {
+				$this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
+			}else{
+				echo 1;
+			}
 // 		redirect('pelanggan/status');
 
 	}
