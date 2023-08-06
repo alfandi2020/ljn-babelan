@@ -368,7 +368,7 @@ Layanan Teknis	:
 			//chmod($no_invoice.".pdf", 0777);
             // $mpdf->Output();
 			$imagick = new Imagick();
-            $imagick->setResolution(400, 400);
+            $imagick->setResolution(200, 200);
             $imagick->readImage("invoice/$no_invoice.pdf");
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
 			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
