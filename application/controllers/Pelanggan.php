@@ -417,11 +417,14 @@ Layanan Teknis	:
 0821-1420-9923
 0819-3380-3366";
 			// if (file_exists($url_img)) {
-				$this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
+				$c =  $this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
 			// }else{
 			// 	echo 1;
 			// }
-// 		redirect('pelanggan/status');
+			$o = json_decode($c);
+            if(json_encode($o->status) == true){
+				redirect('pelanggan/status');
+			}
 
 	}
 	// }
