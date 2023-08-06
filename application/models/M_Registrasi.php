@@ -42,7 +42,7 @@ class M_Registrasi extends CI_Model {
         $records = $this->db->get()->result();
         $totalRecords = $records[0]->allcount;
 
-        $this->db->select('count(*) as allcount,nama');
+        $this->db->select('count(*) as allcount');
         if($searchQuery != '')
             $this->db->where($searchQuery);
             $this->db->like('nama',$searchValue);
@@ -251,7 +251,7 @@ class M_Registrasi extends CI_Model {
         $records = $this->db->get()->result();
         $totalRecords = $records[0]->allcount;
 
-        $this->db->select('count(*) as allcount,nama');
+        $this->db->select('count(*) as allcount');
         if($searchQuery != '')
             $this->db->where($searchQuery);
             // $this->db->like('nama',$searchValue);
