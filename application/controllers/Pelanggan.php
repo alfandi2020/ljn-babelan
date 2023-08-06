@@ -371,7 +371,7 @@ Layanan Teknis	:
             $imagick->setResolution(400, 400);
             $imagick->readImage("invoice/$no_invoice.pdf");
             $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
-			$url_img = "https://billing.lintasmediadata.net/invoice/image/INV2308051069.jpg";
+			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
 
 			//send wa
 			$id = $this->uri->segment(3);
@@ -416,7 +416,7 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-			if (!file_exists($url_img)) {
+			if (file_exists($url_img)) {
 				$this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
 			}else{
 				echo 1;
