@@ -421,7 +421,7 @@ Layanan Teknis	:
 			// }else{
 			// 	echo 1;
 			// }
-            if(json_encode($c->status) == true){
+            if($c->status == true){
 				redirect('pelanggan/status');
 			}
 
