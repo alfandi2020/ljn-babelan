@@ -361,18 +361,18 @@ Layanan Teknis	:
             $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
 			$no_invoice = 'INV' . date('y').date('m').date('d').$data['x']['id'];
             $html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
-            // $mpdf->defaultfooterline=0;
-            // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
-            // $mpdf->WriteHTML($html);
-            // $mpdf->Output('/home/billing.lintasmediadata.net/invoice/'.$no_invoice.'.pdf','F');
-			//chmod($no_invoice.".pdf", 0777);
-            // $mpdf->Output();
-			// $imagick = new Imagick();
-            // $imagick->setResolution(200, 200);
-            // $imagick->readImage("invoice/$no_invoice.pdf");
-            // $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
-			// $url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
-			$url_img = "https://billing.lintasmediadata.net/invoice/image/INV2308051069.jpg";
+            $mpdf->defaultfooterline=0;
+            $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('/home/billing.lintasmediadata.net/invoice/'.$no_invoice.'.pdf','F');
+			chmod($no_invoice.".pdf", 0777);
+            $mpdf->Output();
+			$imagick = new Imagick();
+            $imagick->setResolution(200, 200);
+            $imagick->readImage("invoice/$no_invoice.pdf");
+            $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
+			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
+			// $url_img = "https://billing.lintasmediadata.net/invoice/image/INV2308051069.jpg";
 
 			//send wa
 			$id = $this->uri->segment(3);
