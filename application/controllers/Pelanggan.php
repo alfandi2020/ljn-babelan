@@ -363,15 +363,16 @@ Layanan Teknis	:
             $html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
             // $mpdf->defaultfooterline=0;
             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
-            $mpdf->WriteHTML($html);
-            $mpdf->Output('/home/billing.lintasmediadata.net/invoice/'.$no_invoice.'.pdf','F');
+            // $mpdf->WriteHTML($html);
+            // $mpdf->Output('/home/billing.lintasmediadata.net/invoice/'.$no_invoice.'.pdf','F');
 			//chmod($no_invoice.".pdf", 0777);
             // $mpdf->Output();
-			$imagick = new Imagick();
-            $imagick->setResolution(200, 200);
-            $imagick->readImage("invoice/$no_invoice.pdf");
-            $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
-			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
+			// $imagick = new Imagick();
+            // $imagick->setResolution(200, 200);
+            // $imagick->readImage("invoice/$no_invoice.pdf");
+            // $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
+			// $url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
+			$url_img = "https://billing.lintasmediadata.net/invoice/image/INV2308051069.jpg";
 
 			//send wa
 			$id = $this->uri->segment(3);
@@ -391,7 +392,7 @@ ID : ".$get_client['kode_pelanggan']."
 Terimakasih sudah menggunakan layanan *MD.Net*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
-.: Biaya Langganan 5 Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
+.: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
 .: Kode Unik Verifikasi = ".$get_client['kode_unik']."
 	
 *Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
