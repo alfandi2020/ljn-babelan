@@ -43,13 +43,9 @@ class M_Registrasi extends CI_Model {
         $totalRecords = $records[0]->allcount;
 
         $this->db->select('count(*) as allcount');
-        if($searchQuery != '')
-            $this->db->where($searchQuery);
-            $this->db->like('nama',$searchValue);
-            $this->db->or_like('a.kode_pelanggan',$searchValue);
-            $this->db->or_like('a.t_telp',$searchValue);
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
+        $this->db->order_by('a.id', 'desc');
         // $this->db->where('a.status','Aktif');
         if ($this->session->userdata('sort_status')) {
             $this->db->where('a.status',$this->session->userdata('sort_status'));
@@ -57,10 +53,6 @@ class M_Registrasi extends CI_Model {
         if ($this->session->userdata('sort_group')) {
             $this->db->where('a.group',$this->session->userdata('sort_group'));
         }
-        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
-            $this->db->where_in('a.group',$arr);
-        }
-        $this->db->order_by('a.id', 'desc');
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
         }
