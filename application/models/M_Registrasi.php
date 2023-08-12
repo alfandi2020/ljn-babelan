@@ -20,7 +20,7 @@ class M_Registrasi extends CI_Model {
         //search
         $searchQuery = "";
         if($searchValue != ''){
-            $searchQuery = " (nama like '%".$searchValue."%' or a.alamat like '%".$searchValue."%' or telp like'%".$searchValue."%' ) ";
+            $searchQuery = " (a.nama like '%".$searchValue."%' or a.alamat like '%".$searchValue."%' or a.telp like'%".$searchValue."%' ) ";
         }
         $id_user = $this->session->userdata('id_user');
         $alamat_get = $this->db->query("SELECT * FROM users where id='$id_user'")->row_array();
@@ -39,6 +39,9 @@ class M_Registrasi extends CI_Model {
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
         }
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
         $records = $this->db->get()->result();
         $totalRecords = $records[0]->allcount;
 
@@ -56,10 +59,13 @@ class M_Registrasi extends CI_Model {
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
         }
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
         $records = $this->db->get()->result();
         $totalRecordwithFilter = $records[0]->allcount;
 
-        if($searchQuery != '')
+        // if($searchQuery != '')
         $this->db->select('*');
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
@@ -73,10 +79,9 @@ class M_Registrasi extends CI_Model {
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
         }
-        $this->db->like('a.nama',$searchValue);
-        $this->db->or_like('a.kode_pelanggan',$searchValue);
-        $this->db->or_like('a.t_telp',$searchValue);
-        //  $this->db->order_by('tanggal', 'desc');
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
         $this->db->order_by($columnName, $columnSortOrder);
         $this->db->limit($rowperpage, $start);
         //  $records = $this->db->query("SELECT a.id_cetak,a.nama,b.paket,a.tagihan,a.penerima,a.periode,a.tanggal,a.nomor_struk FROM dt_registrasi as a left join mt_paket as b on(a.internet = b.id_wireless) where '$searchQuery' order by '$columnName' asc limit $rowperpage")->result();
@@ -88,7 +93,7 @@ class M_Registrasi extends CI_Model {
                 $status = '<span class="badge badge-glow badge-success">'.$record->status.'</span>';
             }else if($record->status == "Free"){
                 $status = '<span class="badge badge-glow badge-primary">'.$record->status.'</span>';
-            }else{
+            }else if($record->status == "Off"){
                 $status = '<span class="badge badge-glow badge-danger">'.$record->status.'</span>';
             }
             if ($this->session->userdata('role') == 'Koordinator' || $this->session->userdata('role') == 'Sub Koordinator') {
