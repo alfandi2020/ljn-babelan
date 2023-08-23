@@ -180,6 +180,7 @@ $(document).ready(function(){
             }
         })
     });
+
     $(document).on('click', '.update-user', function (e) {
         e.preventDefault();
         var id = this.id;
@@ -210,6 +211,8 @@ $(document).ready(function(){
         e.preventDefault();
         var form = $('#user_form');
         var datas = form.serialize();
+        console.log(datas)
+        stop;
         if (form[0][1].value && form[0][2].value && form[0][3].value && form[0][4].value) {
             $.ajax({
                 url: "user/update",
@@ -218,8 +221,7 @@ $(document).ready(function(){
                 dataType: "text",
                 success: function (data) {
                     // alert(data);
-
-                    console.log(data);
+                    // console.log(data);
                     if (data == 'Password harus sama') {
                         Swal.fire({
                             type: 'warning',

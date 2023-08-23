@@ -235,8 +235,8 @@ function hari_ini(){
                                         height="40" width="40"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item"
-                                    href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a>
+                                <a href="<?= base_url('user') ?>" class="dropdown-item"
+                                    ><i class="feather icon-user"></i> Edit Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="<?= base_url('auth/logout') ?>"><i
                                         class="feather icon-power"></i> Logout</a>

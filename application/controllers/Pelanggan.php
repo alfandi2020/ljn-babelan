@@ -314,19 +314,16 @@ Kami informasikan jumlah tagihan sebagai berikut :
 .: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
 .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 
-Pembayaran dapat ditujukan ke : 
+Pembayaran ditujukan ke : 
 		
-1. *BCA 2761446578*
-2. *Mandiri 1560016047112*
-3. *BRI 096601022974536*
-(An Mahfudin)
+1. *BCA 2761446578 an Mahfudin*
+2. *Mandiri 1560016047112 an Mahfudin*
 
-Demikian disampaikan dan terima kasih atas kerjasamanya..
+Demikian disampaikan terima kasih atas kerjasamanya..
 		
 Regards
 MD.Net
 PT Lintas Jaringan Nusantara
-Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
@@ -401,19 +398,16 @@ Kami informasikan jumlah tagihan sebagai berikut :
 .: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
 .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 	
-Pembayaran dapat ditujukan ke : 
+Pembayaran ditujukan ke : 
 			
-1. *BCA 2761446578*
-2. *Mandiri 1560016047112*
-3. *BRI 096601022974536*
-(An Mahfudin)
+1. *BCA 2761446578 an Mahfudin*
+2. *Mandiri 1560016047112 an Mahfudin*
 	
-Demikian disampaikan dan terima kasih atas kerjasamanya..
+Demikian disampaikan terima kasih atas kerjasamanya..
 		
 Regards
 MD.Net
 PT Lintas Jaringan Nusantara
-Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
