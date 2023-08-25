@@ -430,74 +430,91 @@ $(document).ready(function(){
         );
     });
     $(document).on('click', '.change_status', function () {
+        let datepicker;
         var linkURL = $(this).attr("href").split('#');
         var id = this.id;
         linkURL =  base_url +"pelanggan/change_status/" + id;
-        Swal.fire({
-            title: 'Nonaktifkan Pelanggan?',
-            text: "Data Akan di Nonaktifkan !",
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-            confirmButtonClass: 'btn btn-primary',
-            cancelButtonClass: 'btn btn-danger ml-1',
-            confirmButtonText: 'Yes'
-        }).then(
-            function (isConfirm) {
-                if (isConfirm.value) {
-                    
-                    Swal.fire(
-                        {
-                            type: "success",
-                            title: 'Berhasil!',
-                            text: 'Data client berhasil dinonaktifkan',
-                            confirmButtonClass: 'btn btn-success',
-                        })
-                    setTimeout(() => {
-                        window.location.href = linkURL;
-                    }, 1500);
-                } else {
-                    history.replaceState(null, null, ' ');
-                    event.preventDefault();
-                    return false;
-                }
+            $.ajax({
+                type :"POST",
+                url : "get_pelanggan",
+                dataType : 'json',
+                data : {id:id},
+                success : function(data){
+                Swal.fire({
+                    title: 'Nonaktifkan Pelanggan?',
+                    html: "Pelanggan <b>"+data.nama+"</b> Akan di Nonaktifkan !",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#d33',
+                    confirmButtonClass: 'btn btn-primary',
+                    cancelButtonClass: 'btn btn-danger ml-1',
+                    confirmButtonText: 'Yes'
+                }).then(
+                    function (isConfirm) {
+                        if (isConfirm.value) {
+                            Swal.fire(
+                                {
+                                    type: "success",
+                                    title: 'Berhasil!',
+                                    html: 'Data client <b>'+data.nama+'</b> berhasil dinonaktifkan',
+                                    confirmButtonClass: 'btn btn-success',
+                                })
+                            setTimeout(() => {
+                                window.location.href = linkURL;
+                            }, 1500);
+                        } else {
+                            history.replaceState(null, null, ' ');
+                            event.preventDefault();
+                            return false;
+                        }
+                    }
+                );
             }
-        );
+    })
     });
     $(document).on('click', '.change_status_aktif', function () {
         var linkURL = $(this).attr("href").split('#');
         var id = this.id;
         linkURL =  base_url +"pelanggan/aktif/" + id;
-        Swal.fire({
-            title: 'Aktifkan Pelanggan?',
-            text: "Data client Akan di aktifkan !",
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-            confirmButtonClass: 'btn btn-primary',
-            cancelButtonClass: 'btn btn-danger ml-1',
-            confirmButtonText: 'Yes'
-        }).then(
-            function (isConfirm) {
-                if (isConfirm.value) {
-                    
-                    Swal.fire(
-                        {
-                            type: "success",
-                            title: 'Berhasil!',
-                            text: 'Data client berhasil aktifkan',
-                            confirmButtonClass: 'btn btn-success',
-                        })
-                    setTimeout(() => {
-                        window.location.href = linkURL;
-                    }, 1500);
-                } else {
-                    history.replaceState(null, null, ' ');
-                    event.preventDefault();
-                    return false;
-                }
+        $.ajax({
+            type :"POST",
+            url : "get_pelanggan",
+            dataType : 'json',
+            data : {id:id},
+            success : function(data){
+
+                Swal.fire({
+                    title: 'Aktifkan Pelanggan?',
+                    html: "Pelanggan <b>"+data.nama+"</b> Akan di aktifkan !",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonColor: '#d33',
+                    confirmButtonClass: 'btn btn-primary',
+                    cancelButtonClass: 'btn btn-danger ml-1',
+                    confirmButtonText: 'Yes'
+                }).then(
+                    function (isConfirm) {
+                        if (isConfirm.value) {
+                            
+                            Swal.fire(
+                                {
+                                    type: "success",
+                                    title: 'Berhasil!',
+                                    text: 'Data client berhasil aktifkan',
+                                    confirmButtonClass: 'btn btn-success',
+                                })
+                            setTimeout(() => {
+                                window.location.href = linkURL;
+                            }, 1500);
+                        } else {
+                            history.replaceState(null, null, ' ');
+                            event.preventDefault();
+                            return false;
+                        }
+                    }
+                );
             }
-        );
+        })
     });
 
 
@@ -616,6 +633,43 @@ $('.confirm-delete').on('click', function(e) {
         Swal.fire({
           title: 'Cencel',
           text: 'Data cancel delete',
+          type: 'error',
+          confirmButtonClass: 'btn btn-success',
+        })
+      }
+    })
+});
+$('.confirm-update-client').on('click', function(e) {
+    e.preventDefault();
+    
+    const href = $(this).attr('href');
+    Swal.fire({
+    title: 'Yakin Update Pelanggan?',
+    text: "Pelanggan adwwadaw Akan di update !",
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonColor: '#d33',
+    confirmButtonClass: 'btn btn-primary',
+    cancelButtonClass: 'btn btn-danger ml-1',
+    confirmButtonText: 'Ya, Update!'
+    }).then((result) => {
+       
+    if (result.value) {
+        Swal.fire(
+            {
+              type: "success",
+              title: 'Updated!',
+              text: 'Data berhasil diupdate',
+              confirmButtonClass: 'btn btn-success',
+            }
+          )
+        setTimeout(() => {
+            document.location.href = href;
+        }, 2000);
+    }else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire({
+          title: 'Cencel',
+          text: 'Data cancel update',
           type: 'error',
           confirmButtonClass: 'btn btn-success',
         })

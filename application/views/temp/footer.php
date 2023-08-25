@@ -30,7 +30,6 @@
     <script src="<?= base_url() ?>assets/js/core/app.js"></script>
     <script src="<?= base_url() ?>assets/js/scripts/components.js"></script>
     <!-- END: Theme JS-->
-
     <!-- BEGIN: Page JS-->
     <script src="<?= base_url() ?>assets/js/scripts/pages/dashboard-analytics.js"></script>
     <!-- END: Page JS-->
@@ -120,7 +119,7 @@
             }
         });
     });
-	
+
     $(document).on('click', '.notif-confirm', function () {
         var linkURL = $(this).attr("href").split('#');
         var id = this.id;

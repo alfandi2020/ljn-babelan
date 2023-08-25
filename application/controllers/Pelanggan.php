@@ -58,10 +58,10 @@ class Pelanggan extends CI_Controller {
 		$t_email = $this->input->post('t_email');
 		$tgl_installasi = $this->input->post('tanggal_installasi');
 		if ($nama) {
-			$kd_plg =  $this->db->get_where('dt_registrasi',['kode_pelanggan' => $kode_pelanggan])->num_rows();
-			if ($kd_plg) {
-				# code...
-			}
+			// $kd_plg =  $this->db->get_where('dt_registrasi',['kode_pelanggan' => $kode_pelanggan])->num_rows();
+			// if ($kd_plg == true) {
+			// 	# code...
+			// }
 				$insert = [
 					"media" => $media,
 					"speed" => $speed,
@@ -440,10 +440,18 @@ Layanan Teknis	:
 	}
 	function change_status($id){
 		$data = [
+			"id_user" => $id,
+			"tanggal_off" => $this->input->post('tgl_off'),
+			"tanggal_cuti" => $this->input->post('tgl_cuti')
+		];
+		$data2 = [
+			"off" => date('Y-m-d'),
 			"status" => 'Off'
 		];
 		$this->db->where('id',$id);
-		$this->db->update('dt_registrasi',$data);
+		$this->db->update('dt_registrasi',$data2);
+
+
 		redirect('pelanggan/list');
 	}
 	function aktif($id){
@@ -482,20 +490,25 @@ Layanan Teknis	:
 		$t_telp = $this->input->post('t_telp');
 		$t_email = $this->input->post('t_email');
 		$kode_unik = $this->input->post('kode_unik');
+		$group = $this->input->post('group');
+		$kd_plg = $this->input->post('kode_pelanggan');
+		$tindakan = $this->input->post('tindakan');
 		
 		if($nama){
 			$id_update = $this->input->post('id_update');
 			$update = [
+				"nama" => $nama,
+				"alamat" => $alamat,
 				"media" => $media,
 				"speed" => $speed,
 				"cpe" => $cpe,
 				"router" => $router,
-				"nama" => $nama,
 				"ktp" => $nomor_ktp,
 				"npwp" => $npwp,
-				"alamat" => $alamat,
 				"telp" => $telp,
 				"email" => $email,
+				"group" => $group,
+				"kode_pelanggan" => $kd_plg,
 				"t_nama" => $t_nama,
 				"t_nomor_ktp" => $t_nomor_ktp,
 				"t_npwp" => $t_npwp,
@@ -503,9 +516,10 @@ Layanan Teknis	:
 				"t_email" => $t_email,
 				"teknisi" => $teknisi,
 				"kode_unik" => $kode_unik,
+				"tindakan" => $tindakan,
 			];
 			$this->db->where('id',$id_update);
-			$data = $this->db->update('dt_registrasi as a',$update);
+			$data = $this->db->update('dt_registrasi',$update);
 			$this->session->set_flashdata('msg', 'update');
 			redirect('pelanggan/update/'.$id_update);
 		}

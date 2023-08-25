@@ -20,7 +20,7 @@ class M_Registrasi extends CI_Model {
         //search
         $searchQuery = "";
         if($searchValue != ''){
-            $searchQuery = " (a.nama like '%".$searchValue."%' or a.alamat like '%".$searchValue."%' or a.telp like'%".$searchValue."%' ) ";
+            $searchQuery = " (a.nama like '%".$searchValue."%' or a.alamat like '%".$searchValue."%' or a.telp like'%".$searchValue."%' or a.kode_pelanggan like'%".$searchValue."%' ) ";
         }
         $id_user = $this->session->userdata('id_user');
         $alamat_get = $this->db->query("SELECT * FROM users where id='$id_user'")->row_array();

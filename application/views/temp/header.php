@@ -130,6 +130,9 @@ function hari_ini(){
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/vendors/css/tables/datatable/datatables.min.css">
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/css/style.css">
+    <!-- <link rel="stylesheet" href="<?= base_url() ?>assets/vendors/css/libs/node-waves.css" />
+    <link rel="stylesheet" href="<?= base_url() ?>assets/vendors/css/libs/perfect-scroll.css" />
+    <link rel="stylesheet" href="<?= base_url() ?>assets/vendors/css/libs/typeahead.css" /> -->
     <!-- END: Custom CSS-->
     
 
