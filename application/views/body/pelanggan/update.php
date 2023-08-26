@@ -351,7 +351,7 @@
                                         <div class="row mt-2">
                                             <div class="col-xl-4">
                                                 <!-- <button type="submit" class="btn btn-primary">Update</button> -->
-                                                <a href="<?= base_url('pelanggan') ?>" class="btn btn-warning">Back</a>
+                                                <a href="<?= base_url('pelanggan/list') ?>" class="btn btn-warning">Back</a>
                                             </div>
                                         </div>
                                     </div>
