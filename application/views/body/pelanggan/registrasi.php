@@ -231,7 +231,7 @@
                             </div> -->
                             <div class="row mt-2">
                                 <div class="col-xl-4">
-                                    <span>Tanggal Installasi</span>
+                                    <span>Tanggal Installasi / Aktif</span>
                                     <input type="date" name="tanggal_installasi" class="form-control">
                                 </div>
                             </div>

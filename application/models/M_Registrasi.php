@@ -107,7 +107,88 @@ class M_Registrasi extends CI_Model {
                 $disabled_admin ='';
             }
             if ($record->status == 'Aktif') {
-                $change = '<a href="#" id="' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light '.$disabled.' change_status"><i class="feather icon-refresh-ccw"></i></a>';
+                $change = '<button type="button" id="' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1 waves-effect waves-light '.$disabled.'" data-toggle="modal" data-target="#modalStatus'.$record->id.'"><i class="feather icon-refresh-ccw"></i></button>
+                    <div class="modal fade" id="modalStatus'.$record->id.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                            <form action="change_status" method="POST">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">NonAktifkan Pelanggan</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h6>Data Pelanggan</h6>
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <label>Nama</label>
+                                            <input class="form-control" disabled value="'.$record->nama.'">
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <label>Group</label>
+                                            <input class="form-control" disabled value="'.$record->kode_pelanggan.'">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-xl-6">
+                                            <label>Telp</label>
+                                            <input class="form-control" disabled value="'.$record->telp.'">
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <label>Alamat</label>
+                                            <input class="form-control" disabled value="'.$record->alamat.'">
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-md-center mt-2">
+                                        <div class="col-xl-6">
+                                            <label>Tanggal Non Aktif</label>
+                                           <input type="hidden" name="id" value="'.$record->id.'" required class="form-control">
+                                           <input type="date" name="tgl_nonaktif" required class="form-control">
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <label>Status Pelanggan</label>
+                                            <div class="vs-radio-con">
+                                                <input type="radio" name="status" checked value="2">
+                                                <span class="vs-radio">
+                                                    <span class="vs-radio--border"></span>
+                                                    <span class="vs-radio--circle"></span>
+                                                </span>
+                                                <span class="">Off</span>
+                                            </div>
+                                            <div class="vs-radio-con">
+                                                <input type="radio" name="status" value="1">
+                                                <span class="vs-radio">
+                                                    <span class="vs-radio--border"></span>
+                                                    <span class="vs-radio--circle"></span>
+                                                </span>
+                                                <span class="">Cuti</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-md-center mt-2">
+                                        <div class="col-xl-12">
+                                            <label>Keterangan</label>
+                                           <input type="text" class="form-control" name="note" required placeholder="pelanggan cuti / off">
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-md-center mt-2">
+                                        <div class="col-xl-12">
+                                            <h6 class="alert alert-danger text-center">
+                                            <i class="feather icon-alert-triangle align-middle"></i> Apakah anda yakin ingin Nonaktifkan Pelanggan ?
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Ya</button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                ';
             }else{
                 $change = '<a href="#" id="' .$record->id . '" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light '.$disabled.' change_status_aktif"><i class="feather icon-refresh-ccw"></i></a>';
             }

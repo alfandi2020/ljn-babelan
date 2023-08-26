@@ -30,9 +30,9 @@
                                         <td>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#editgroup<?= $x->id_alamat ?>"> <i
                                                     class="feather icon-edit"></i></button>&nbsp;&nbsp;
-                                            <!-- <a href="<?= base_url('pelanggan/delete_group/').$x->id_alamat ?>"
+                                            <a href="<?= base_url('pelanggan/delete_group/').$x->id_alamat ?>"
                                                 class="btn btn-danger confirm-delete"> <i
-                                                    class="feather icon-trash-2"></i></a> -->
+                                                    class="feather icon-trash-2"></i></a>
 
                                                     <div class="modal fade text-left" id="editgroup<?= $x->id_alamat ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
                                                         aria-hidden="true">

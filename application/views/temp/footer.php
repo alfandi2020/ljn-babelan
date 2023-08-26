@@ -57,11 +57,11 @@
 <script>
     
     var base_url = '<?=base_url()?>';
-    window.setTimeout(function() {
-    $(".alert").fadeTo(500, 0).slideUp(500, function() {
-        $(this).remove();
-    });
-}, 3000);
+//     window.setTimeout(function() {
+//     $(".alert").fadeTo(500, 0).slideUp(500, function() {
+//         $(this).remove();
+//     });
+// }, 3000);
     $('select[name="speed"]').attr('disabled',true)
 
      $('select[name="media"]').change(function() {

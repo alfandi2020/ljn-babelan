@@ -438,20 +438,23 @@ Layanan Teknis	:
 		$this->db->delete('mt_alamat');
 		redirect('pelanggan/alamat');
 	}
-	function change_status($id){
-		$data = [
-			"id_user" => $id,
-			"tanggal_off" => $this->input->post('tgl_off'),
-			"tanggal_cuti" => $this->input->post('tgl_cuti')
+	function change_status(){
+		$id_user = $this->input->post('id');
+		$history = [
+			"id_user" => $id_user,
+			"status" => $this->input->post('status'), //off
+			"tanggal" => $this->input->post('tgl_nonaktif'),
+			"note" => $this->input->post('note'),
 		];
+
 		$data2 = [
 			"off" => date('Y-m-d'),
 			"status" => 'Off'
 		];
-		$this->db->where('id',$id);
+		$this->db->where('id',$id_user);
 		$this->db->update('dt_registrasi',$data2);
 
-
+		$this->db->insert('dt_registrasi_history',$history);
 		redirect('pelanggan/list');
 	}
 	function aktif($id){
@@ -530,10 +533,19 @@ Layanan Teknis	:
 		$this->db->where('a.id',$id);
 
 		$pelanggan = $this->db->get()->row_array();
+		
+		$this->db->select('*');
+		$this->db->from('dt_registrasi as a');
+		$this->db->join('dt_registrasi_history as b','a.id=b.id_user','left');
+		$this->db->where('a.id',$id);
+
+		$history = $this->db->get()->result();
+
 		$data = [
 			'title' => 'Update Pelanggan',
 			'mt_role' => $this->db->get('mt_alamat')->result(),
-			'pelanggan' => $pelanggan
+			'pelanggan' => $pelanggan,
+			'history' => $history
 		];
 		$this->load->view('temp/header',$data);
 		$this->load->view('body/pelanggan/update');

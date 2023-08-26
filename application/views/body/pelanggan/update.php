@@ -321,7 +321,41 @@
                             </form>
                         </div>
                         <div class="tab-pane" id="profile-fill" role="tabpanel" aria-labelledby="profile-tab-fill">
-                            awdwa
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl">
+                                                <div class="divider divider-left divider-primary">
+                                                    <div class="divider-text">
+                                                        <h4> History Non Aktif </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php foreach($history as $x) { ?>
+                                            <div class="row mt-2">
+                                                <div class="col-xl-4">
+                                                    <label for="">Nama</label>
+                                                    <input type="text" readonly class="form-control" value="<?= $x->nama ?>">
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <label for="">Alamat</label>
+                                                    <input type="text" readonly class="form-control" value="<?= $x->alamat ?>">
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <label for="">Tanggal Off</label>
+                                                    <input type="text" readonly class="form-control" value="<?= $x->tanggal ?>">
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                        <div class="row mt-2">
+                                            <div class="col-xl-4">
+                                                <!-- <button type="submit" class="btn btn-primary">Update</button> -->
+                                                <a href="<?= base_url('pelanggan') ?>" class="btn btn-warning">Back</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
             </div>
