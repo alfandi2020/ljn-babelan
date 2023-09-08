@@ -135,7 +135,22 @@ function hari_ini(){
     <link rel="stylesheet" href="<?= base_url() ?>assets/vendors/css/libs/typeahead.css" /> -->
     <!-- END: Custom CSS-->
     
+<?php
 
+function rangeMonths($thna,$blna,$thnb,$blnb) {
+    $months = [];
+    $tgla = $thna.'-'.$blna.'-01';
+    $dtglb = new DateTime( $thnb.'-'.$blnb.'-01' ); 
+    $tglb = $dtglb->format( 'Y-m-t' );
+    $start = $month = strtotime($tgla);
+    $end = strtotime($tglb);
+    while($month < $end) {
+         $months[] = date('Y-m', $month);
+         $month = strtotime("+1 month", $month);
+    }
+    return $months;
+}
+?>
 </head>
 <!-- END: Head-->
 

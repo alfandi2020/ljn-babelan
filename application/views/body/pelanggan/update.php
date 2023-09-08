@@ -44,10 +44,13 @@
                                             </div>
                                         </div>
                                         <input name="id_update" type="hidden" value="<?= $this->uri->segment(3) ?>">
-                                         <?php $p = $pelanggan['aktif'] .'<br>'; $aktif = new DateTime($pelanggan['aktif']) ;
-                                           $x = $aktif->diff(new DateTime(date('Y-m-d')));
-                                           echo "Pelanggan Aktif : <b>". $p .'</b>' ;
-                                           echo "Lama berlangganan :  <b>". $x->m . ' Bulan </b>';
+                                         <?php 
+                                        //  $p = $pelanggan['aktif'] .'<br>'; $aktif = new DateTime($pelanggan['aktif']) ;
+                                        //    $x = $aktif->diff(new DateTime(date('Y-m-d')));
+                                            $p = strtotime($pelanggan['aktif']);
+                                            $k = rangeMonths(date('Y',$p),date('n',$p),date('Y'),date('n'));
+                                           echo "Pelanggan Aktif : <b>". $pelanggan['aktif'] .'</b>' . "<br>" ;
+                                           echo "Lama berlangganan :  <b>". count($k) . ' Bulan </b>';
                                         ?> </b>
                                         <div class="row mt-2">
                                             <div class="col-xl-4 col-md-6 col-12 mb-1">
