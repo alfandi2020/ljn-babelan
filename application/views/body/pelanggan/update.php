@@ -166,13 +166,15 @@
                                                 <span>Group</span>
                                                 <select name="group" id="" class="select2">
                                                     <?php if ($pelanggan['group'] != '') {?>
-                                                    <option selected value="<?= $pelanggan['group'] ?>"><?= $pelanggan['group'] ?></option>
+                                                    <!-- <option selected value="<?= $pelanggan['group'] ?>"><?= $pelanggan['group'] ?></option> -->
                                                     <?php } ?>
                                                     <?php foreach ($mt_role as $x) {?> 
                                                         <?php if (strpos($x->group,$pelanggan['group'])!= true) {?>
-                                                        <option value="<?= $x->group ?>"><?= $x->group ?></option>
-                                                        <?php } ?>
-                                                    <?php } ?>
+                                                        <option selected value="<?= $x->group ?>"><?= $x->group ?></option>
+                                                        <?php }else{ ?>
+                                                            <option selected value="<?= $x->group ?>"><?= $x->group ?></option>
+                                                    <?php } 
+                                                    }?>
                                                 </select>
                                             </div>
                                             <div class="col-xl-4">
