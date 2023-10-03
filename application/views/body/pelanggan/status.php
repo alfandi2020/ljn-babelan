@@ -11,7 +11,7 @@
                         <form action="<?= base_url('pelanggan/sort/bulan') ?>" method="POST">
                             <div class="row">
                                 <div class="col-xl-4 col-sm-5 mt-2">
-                                    <h6>Pilih Jatoh tempo</h6>
+                                    <h6>Tanggal Jatoh tempo</h6>
                                     <input type="number" required name="tgl_t" min="1" max="31" value="<?= $this->session->userdata('filterTgl_tempo') == false ? 10 : $this->session->userdata('filterTgl_tempo') ?>" onchange="this.form.submit()" class="form-control">
                                 </div>
                                 <div class="col-xl-4 col-sm-5 mt-2">
