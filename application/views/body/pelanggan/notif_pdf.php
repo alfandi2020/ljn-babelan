@@ -89,7 +89,7 @@ function terbilang($nilai) {
     <?php
         			$bulan = $this->session->userdata('filterBulan');
                     $tahun = $this->session->userdata('filterTahun');    
-                    $tanggal_t = $this->session->userdata('filterTgl_tempo');    
+                    $tanggal_t = $this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo');    
     ?>
     <table style="background-color:white">
         <tr>
