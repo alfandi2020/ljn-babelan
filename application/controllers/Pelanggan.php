@@ -389,7 +389,7 @@ ID : ".$get_client['kode_pelanggan']."
 Terimakasih sudah menggunakan layanan *MD.Net*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
-.: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
+.: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
 .: Kode Unik Verifikasi = ".$get_client['kode_unik']."
 	
 *Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
