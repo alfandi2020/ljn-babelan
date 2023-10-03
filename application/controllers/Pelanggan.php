@@ -301,7 +301,7 @@ class Pelanggan extends CI_Controller {
 		$tahun = $this->session->userdata('filterTahun');
 		$msg = 
 "Kepada yth 
-*Bpk/Ibu ".$get_client['nama']."*
+*Bpk/Ibu ".trim($get_client['nama'])."*
 ID : ".$get_client['kode_pelanggan']."
 
 Terimakasih sudah menggunakan layanan *MD.Net*
