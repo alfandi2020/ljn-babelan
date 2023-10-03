@@ -124,7 +124,9 @@ class Pelanggan extends CI_Controller {
 		$uri = $this->uri->segment(3);
 		if ($uri == 'bulan') {
 			$bulan = $this->input->post('bulan');
+			$tgl_t = $this->input->post('tgl_t');
 			$this->session->set_userdata('filterBulan',$bulan);
+			$this->session->set_userdata('filterTgl_tempo',$tgl_t);
 			redirect('pelanggan/status');
 		}else{
 			$status = $this->input->post('status');
@@ -383,7 +385,7 @@ Layanan Teknis	:
 			$tahun = $this->session->userdata('filterTahun');
 			$msg = 
 "Kepada yth 
-*Bpk/Ibu ".$get_client['nama']."*
+*Bpk/Ibu ".trim($get_client['nama'])."*
 ID : ".$get_client['kode_pelanggan']."
 				
 Terimakasih sudah menggunakan layanan *MD.Net*

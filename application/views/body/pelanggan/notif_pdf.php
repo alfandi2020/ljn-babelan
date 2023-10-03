@@ -89,6 +89,7 @@ function terbilang($nilai) {
     <?php
         			$bulan = $this->session->userdata('filterBulan');
                     $tahun = $this->session->userdata('filterTahun');    
+                    $tanggal_t = $this->session->userdata('filterTgl_tempo');    
     ?>
     <table style="background-color:white">
         <tr>
@@ -109,7 +110,7 @@ function terbilang($nilai) {
         </tr>
         <tr>
             <td>Phone : <?= $x['telp'] ?></td>
-            <td>Jatuh Tempo : 20 <?= $bulan ?> <?= $tahun ?></td>
+            <td>Jatuh Tempo : <?= $tanggal_t ?> <?= $bulan ?> <?= $tahun ?></td>
         </tr>
         <tr>
             <td>Email : <?= $x['email'] ?></td>

@@ -11,6 +11,10 @@
                         <form action="<?= base_url('pelanggan/sort/bulan') ?>" method="POST">
                             <div class="row">
                                 <div class="col-xl-4 col-sm-5 mt-2">
+                                    <h6>Pilih Jatoh tempo</h6>
+                                    <input type="number" name="tgl_t" value="<?= $this->session->userdata('filterTgl_tempo') ?>" onchange="this.form.submit()" class="form-control">
+                                </div>
+                                <div class="col-xl-4 col-sm-5 mt-2">
                                     <h6>Pilih Bulan</h6>
                                     <fieldset>
                                         <select onchange="this.form.submit()" name="bulan" id="" class="form-control">
