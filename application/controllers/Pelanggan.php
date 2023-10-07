@@ -313,7 +313,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 *Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
-.: Jatuh tempo pembayaran *tanggal ".$this->session->userdata('filterTgl_tempo')." bulan tagihan*.
+.: Jatuh tempo pembayaran *tanggal ".$this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo')." bulan tagihan*.
 .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 
 Pembayaran ditujukan ke : 
