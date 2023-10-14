@@ -169,10 +169,10 @@
                                                     <!-- <option selected value="<?= $pelanggan['group'] ?>"><?= $pelanggan['group'] ?></option> -->
                                                     <?php } ?>
                                                     <?php foreach ($mt_role as $x) {?> 
-                                                        <?php if (strpos($x->group,$pelanggan['group'])!= true) {?>
+                                                        <?php if (strpos($x->group,$pelanggan['group']) !== false) {?>
                                                         <option selected value="<?= $x->group ?>"><?= $x->group ?></option>
                                                         <?php }else{ ?>
-                                                            <option selected value="<?= $x->group ?>"><?= $x->group ?></option>
+                                                            <option value="<?= $x->group ?>"><?= $x->group ?></option>
                                                     <?php } 
                                                     }?>
                                                 </select>
