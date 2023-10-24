@@ -102,6 +102,7 @@
                                 <option value="Home">Home</option>
                                 <option value="Soho">Soho</option>
                                 <option value="Corporate">Corporate</option>
+                                <option value="Up to">Up to</option>
                             </select>
                         </div>
                     </div>
