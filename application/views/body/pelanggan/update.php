@@ -299,6 +299,10 @@
                                                 <span>Email</span>
                                                 <input type="email" value="<?=$pelanggan['t_email'] ?>"  name="t_email" class="form-control" placeholder="info@gmail.com">
                                             </div>
+                                            <div class="col-xl-4">
+                                                <span>Tanggal Aktif</span>
+                                                <input type="date" value="<?=$pelanggan['aktif'] ?>"  name="aktif" class="form-control">
+                                            </div>
                                         </div>
                                         <!-- <div class="row">
                                             <div class="col-xl">

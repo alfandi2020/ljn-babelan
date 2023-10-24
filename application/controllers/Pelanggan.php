@@ -522,6 +522,7 @@ Layanan Teknis	:
 				"teknisi" => $teknisi,
 				"kode_unik" => $kode_unik,
 				"tindakan" => $tindakan,
+				"aktif" => $this->input->post('aktif')
 			];
 			$this->db->where('id',$id_update);
 			$data = $this->db->update('dt_registrasi',$update);
