@@ -94,6 +94,8 @@ class Login extends CI_Controller {
                 $this->api_whatsapp->wa_notif('tes api mutasi '.$amount.'','083897943785');
                 }else {
                     echo "Tansaksi $id not valid ";
+                $this->api_whatsapp->wa_notif('error tes api mutasi ','083897943785');
+
                 }
             }
         }
