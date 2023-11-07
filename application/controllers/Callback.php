@@ -23,25 +23,6 @@ class Callback extends CI_Controller {
             // $this->load->view('body/footer');
         }
         function mutasi(){
-            //Contoh Data Callback
-            //{
-            //"api_key": "xxxx",
-            //"account_id": 10,
-            //"module": "bca",
-            //"account_name": "Budi santoso",
-            //"account_number": "12341123455",
-            //"balance": 12720562,
-            //"data_mutasi": [
-            //    {
-            //        "transaction_date": "2018-12-27 05:03:02",
-            //        "description": "PRMA CR Transfer 1270007989179 5047101250062758",
-            //        "type": "CR",
-            //        "amount": 1000261,
-            //        "balance": 0
-            //        }
-            //    ]
-            //}
-
             $data = json_decode(file_get_contents('php://input'), true);
 
             //TOKEN ANDA YANG ANDA DAPATKAN DI MUTASIBANK.CO.ID
@@ -88,15 +69,45 @@ class Callback extends CI_Controller {
                 $data_r = json_decode($result_v);
 
                 if ($data_r->valid && $data_r->data->amount == $amount) {
-                    //transaksi valid
-                    //proses untuk selanjutnya
-                    //Logic validasi transaksi selanjutnya ada disini
-
-                $this->api_whatsapp->wa_notif('tes api mutasi '.$amount.'','083897943785');
+               
+                $get_client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik])->row_array();
+                $unik = substr($amount,-3);
+                $wa = "
+Kepada pelanggan yth,
+Bapak/Ibu ".$get_client['nama']."
+ID Pel : ".$get_client['kode_pelanggan']."
+                
+Pembayaran tagihan anda BERHASIL 
+                
+Tanggal Verifikasi : ".date('d-m-Y')."
+Periode Pembayaran : ".date('M') . date('Y') ."
+Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-
+                
+Terima kasih atas kerjasamanya.
+                
+Salam
+MD.Net
+Supported by :
+PT Lintas Jaringan Nusantara
+Kantor Layanan Babelan
+Layanan Teknis	: 
+0821-1420-9923
+0819-3380-3366";
+                $paket = $this->db->get_where('mt_paket',['id_paket' => $get_paket['mbps']])->row_array();
+                $data2 = [
+                    "id_registrasi" => $get_client['id'],
+                    "nama" => $get_client['nama'],
+                    "mbps" => $paket['mbps'],
+                    "tagihan" => $amount,
+                    "penerima" => "admin",
+                    "periode" => date('F'),
+                    "tahun" => date('Y'),
+                    "tanggal_pembayaran" => date('Y-m-d H:i:s')
+                ];
+                $this->db->insert('dt_cetak',$data2);
+                $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
                 }else {
                     echo "Tansaksi $id not valid ";
-                $this->api_whatsapp->wa_notif('error tes api mutasi ','083897943785');
-
                 }
             }
         }
