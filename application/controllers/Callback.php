@@ -69,9 +69,10 @@ class Callback extends CI_Controller {
 
                 if ($data_r->valid && $data_r->data->amount == $amount) {
                 $unik = substr($amount,-3);
-                $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik]);
-                $get_client = $client->row_array();
-                if ($client->num_rows() == true) {
+                if ($unik != 000) {
+                    $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik]);
+                    $get_client = $client->row_array();
+                    if ($client->num_rows() == true) {
                     $wa = "
     Kepada pelanggan yth,
     Bapak/Ibu ".$get_client['nama']."
@@ -106,6 +107,7 @@ class Callback extends CI_Controller {
                     ];
                     $this->db->insert('dt_cetak',$data2);
                     $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                    }
                 }
                 }else {
                     echo "Tansaksi $id not valid ";
