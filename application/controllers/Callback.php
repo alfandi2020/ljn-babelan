@@ -75,21 +75,21 @@ class Callback extends CI_Controller {
                     $get_client = $client->row_array();
                     if ($client->num_rows() == true) {
                     $wa = "Kepada pelanggan yth,
-Bapak/Ibu ".$get_client['nama']."
+*Bapak/Ibu ".$get_client['nama']."*
 ID Pel : ".$get_client['kode_pelanggan']."
                     
-Pembayaran tagihan anda BERHASIL 
+Pembayaran tagihan anda *BERHASIL* 
                     
 Tanggal Verifikasi : ".date('d-m-Y')."
-Periode Pembayaran : ".date('M') . date('Y') ."
-Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-
+Periode Pembayaran : ".date('M')." " . date('Y') ."
+*Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-*
                     
 Terima kasih atas kerjasamanya.
                     
 Salam
 MD.Net
-Supported by :
-PT Lintas Jaringan Nusantara
+(_)Supported by :(_)
+*PT Lintas Jaringan Nusantara*
 Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
