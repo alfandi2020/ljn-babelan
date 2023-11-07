@@ -9,6 +9,7 @@ class Callback extends CI_Controller {
             parent::__construct();
             $this->load->helper(array('form', 'url'));
             $this->load->library(array('form_validation'));
+            $this->load->library('api_whatsapp');
         }
         function index(){
             // $this->load->view('body/header');
