@@ -73,27 +73,26 @@ class Callback extends CI_Controller {
                     $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik]);
                     $get_client = $client->row_array();
                     if ($client->num_rows() == true) {
-                    $wa = "
-    Kepada pelanggan yth,
-    Bapak/Ibu ".$get_client['nama']."
-    ID Pel : ".$get_client['kode_pelanggan']."
+                    $wa = "Kepada pelanggan yth,
+Bapak/Ibu ".$get_client['nama']."
+ID Pel : ".$get_client['kode_pelanggan']."
                     
-    Pembayaran tagihan anda BERHASIL 
+Pembayaran tagihan anda BERHASIL 
                     
-    Tanggal Verifikasi : ".date('d-m-Y')."
-    Periode Pembayaran : ".date('M') . date('Y') ."
-    Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-
+Tanggal Verifikasi : ".date('d-m-Y')."
+Periode Pembayaran : ".date('M') . date('Y') ."
+Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-
                     
-    Terima kasih atas kerjasamanya.
+Terima kasih atas kerjasamanya.
                     
-    Salam
-    MD.Net
-    Supported by :
-    PT Lintas Jaringan Nusantara
-    Kantor Layanan Babelan
-    Layanan Teknis	: 
-    0821-1420-9923
-    0819-3380-3366";
+Salam
+MD.Net
+Supported by :
+PT Lintas Jaringan Nusantara
+Kantor Layanan Babelan
+Layanan Teknis	: 
+0821-1420-9923
+0819-3380-3366";
                     $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
                     $data2 = [
                         "id_registrasi" => $get_client['kode_pelanggan'],
