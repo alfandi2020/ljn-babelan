@@ -95,7 +95,7 @@ class Callback extends CI_Controller {
     Layanan Teknis	: 
     0821-1420-9923
     0819-3380-3366";
-                    $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['mbps']])->row_array();
+                    $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
                     $data2 = [
                         "id_registrasi" => $get_client['kode_pelanggan'],
                         "nama" => $get_client['nama'],
