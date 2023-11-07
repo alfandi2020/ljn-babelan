@@ -68,43 +68,45 @@ class Callback extends CI_Controller {
                 $data_r = json_decode($result_v);
 
                 if ($data_r->valid && $data_r->data->amount == $amount) {
-               
-                $get_client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik])->row_array();
                 $unik = substr($amount,-3);
-                $wa = "
-Kepada pelanggan yth,
-Bapak/Ibu ".$get_client['nama']."
-ID Pel : ".$get_client['kode_pelanggan']."
-                
-Pembayaran tagihan anda BERHASIL 
-                
-Tanggal Verifikasi : ".date('d-m-Y')."
-Periode Pembayaran : ".date('M') . date('Y') ."
-Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-
-                
-Terima kasih atas kerjasamanya.
-                
-Salam
-MD.Net
-Supported by :
-PT Lintas Jaringan Nusantara
-Kantor Layanan Babelan
-Layanan Teknis	: 
-0821-1420-9923
-0819-3380-3366";
-                $paket = $this->db->get_where('mt_paket',['id_paket' => $get_paket['mbps']])->row_array();
-                $data2 = [
-                    "id_registrasi" => $get_client['id'],
-                    "nama" => $get_client['nama'],
-                    "mbps" => $paket['mbps'],
-                    "tagihan" => $amount,
-                    "penerima" => "admin",
-                    "periode" => date('F'),
-                    "tahun" => date('Y'),
-                    "tanggal_pembayaran" => date('Y-m-d H:i:s')
-                ];
-                $this->db->insert('dt_cetak',$data2);
-                $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik]);
+                $get_client = $client->row_array();
+                if ($client->num_rows() == true) {
+                    $wa = "
+    Kepada pelanggan yth,
+    Bapak/Ibu ".$get_client['nama']."
+    ID Pel : ".$get_client['kode_pelanggan']."
+                    
+    Pembayaran tagihan anda BERHASIL 
+                    
+    Tanggal Verifikasi : ".date('d-m-Y')."
+    Periode Pembayaran : ".date('M') . date('Y') ."
+    Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-
+                    
+    Terima kasih atas kerjasamanya.
+                    
+    Salam
+    MD.Net
+    Supported by :
+    PT Lintas Jaringan Nusantara
+    Kantor Layanan Babelan
+    Layanan Teknis	: 
+    0821-1420-9923
+    0819-3380-3366";
+                    $paket = $this->db->get_where('mt_paket',['id_paket' => $get_paket['mbps']])->row_array();
+                    $data2 = [
+                        "id_registrasi" => $get_client['id'],
+                        "nama" => $get_client['nama'],
+                        "mbps" => $paket['mbps'],
+                        "tagihan" => $amount,
+                        "penerima" => "admin",
+                        "periode" => date('F'),
+                        "tahun" => date('Y'),
+                        "tanggal_pembayaran" => date('Y-m-d H:i:s')
+                    ];
+                    $this->db->insert('dt_cetak',$data2);
+                    $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                }
                 }else {
                     echo "Tansaksi $id not valid ";
                 }
