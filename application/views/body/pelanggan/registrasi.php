@@ -41,6 +41,10 @@
                                         </select>
                                     </fieldset>
                                 </div>
+                                <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                                <span>Kode Unik</span>
+                                                <input type="text" name="kode_unik" required class="form-control">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-xl">

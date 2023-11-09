@@ -88,7 +88,7 @@ Terima kasih atas kerjasamanya.
                     
 Salam
 MD.Net
-(_)Supported by :(_)
+_Supported by :_
 *PT Lintas Jaringan Nusantara*
 Kantor Layanan Babelan
 Layanan Teknis	: 
