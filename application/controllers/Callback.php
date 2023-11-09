@@ -112,7 +112,7 @@ Layanan Teknis	:
                         $this->api_whatsapp->wa_notif($wa,'083897943785');
                     }
                     }else{
-                        $this->api_whatsapp->wa_notif($wa.'er'.$amount.'='intval($t['tagihan']) ,'083897943785');
+                        $this->api_whatsapp->wa_notif($wa.'er'.$amount ,'083897943785');
                     }
                 }
                 }else {
