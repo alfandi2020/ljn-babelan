@@ -73,7 +73,7 @@ class Callback extends CI_Controller {
                     $t = $this->db->query("SELECT *,b.harga+b.harga * 11/100 as tagihan FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket) where a.kode_unik=".$unik." AND status='Aktif'")->row_array();
                     $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik,'status' => 'Aktif']);
                     $get_client = $client->row_array();
-                    if ($amount == $t['tagihan']) {
+                    if ($amount == (int)$t['tagihan']) {
                         if ($client->num_rows() == true) {
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
