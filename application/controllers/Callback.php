@@ -74,7 +74,8 @@ class Callback extends CI_Controller {
                     $t = $this->db->query("SELECT *,b.harga+b.harga * 11/100 as tagihan FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket) where a.kode_unik=".$unik." AND status='Aktif'")->row_array();
                     $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik,'status' => 'Aktif']);
                     $get_client = $client->row_array();
-                    if ($client->num_rows() == true) {
+                    if ($amount == $t['tagihan']) {
+                        if ($client->num_rows() == true) {
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
 ID Pel : ".$get_client['kode_pelanggan']."
@@ -108,9 +109,10 @@ Layanan Teknis	:
                     ];
                     $this->db->insert('dt_cetak',$data2);
                     // $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
-                    if ($amount == $t['tagihan']) {
                         $this->api_whatsapp->wa_notif($wa,'083897943785');
                     }
+                    }else{
+                        $this->api_whatsapp->wa_notif($wa.'error','083897943785');
                     }
                 }
                 }else {
