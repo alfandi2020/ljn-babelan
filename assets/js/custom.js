@@ -259,30 +259,44 @@ $(document).ready(function(){
                 dataType : 'json',
                 data : data,
                 success : function(data){
-                    
-                    Swal.fire({
-                        title: 'Berhasil',
-                        html: data,
-                        timer: 2000,
-                        // confirmButtonClass: 'btn btn-primary',
-                        // buttonsStyling: false,
-                        
-                        onBeforeOpen: function () {
-                          Swal.showLoading()
-                          timerInterval = setInterval(function () {
-                            Swal.getContent().querySelector('strong')
-                              .textContent = Swal.getTimerLeft()
-                          }, 100)
-                        },
-                        onClose: function () {
-                          clearInterval(timerInterval)
-                        }
-                      }).then(function (result) {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                window.location = "";
+                    if (data.code == 'nama_double') {
+                        Swal.fire({
+                            title: 'Opss..',
+                            icon:'error',
+                            text: data.status,
+                            timer: 2000,
+                        })
+                    }else if(data.code == 'unik_double'){
+                        Swal.fire({
+                            title: 'Opss..',
+                            icon:'error',
+                            text: data.status,
+                            timer: 2000,
+                        })
+                    }else{
+                        Swal.fire({
+                            title: 'Berhasil',
+                            html: data.status,
+                            timer: 2000,
+                            // confirmButtonClass: 'btn btn-primary',
+                            // buttonsStyling: false,
+                            
+                            onBeforeOpen: function () {
+                            Swal.showLoading()
+                            timerInterval = setInterval(function () {
+                                Swal.getContent().querySelector('strong')
+                                .textContent = Swal.getTimerLeft()
+                            }, 100)
+                            },
+                            onClose: function () {
+                            clearInterval(timerInterval)
                             }
-                      })
-                  
+                        }).then(function (result) {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    window.location = "";
+                                }
+                        })
+                    }
                     // Swal.fire({
                     //     icon: 'success',
                     //     title: data.message,
