@@ -66,11 +66,12 @@ class Callback extends CI_Controller {
                 //validate transaction =
                 $result_v = $this->http_get("https://mutasibank.co.id/api/v1/validate/$id", $headers);
                 $data_r = json_decode($result_v);
-
+                $kd_unik_in = $get_client['id'];
+                $kd_unik_in = sprintf('%04d',$kd_unik_in);
                 if ($data_r->valid && $data_r->data->amount == $amount) {
                 $unik = substr($amount,-3);
                 if ($unik != 000) {
-                    $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik,'status' => 'Aktif']);
+                    $client = $this->db->get_where('dt_registrasi',['status' => 'Aktif']);
                     $get_client = $client->row_array();
                     if ($client->num_rows() == true) {
                     $wa = "Kepada pelanggan yth,
@@ -93,19 +94,27 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-                    $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
-                    $data2 = [
-                        "id_registrasi" => $get_client['kode_pelanggan'],
-                        "nama" => $get_client['nama'],
-                        "mbps" => $paket['mbps'],
-                        "tagihan" => $amount,
-                        "penerima" => "admin",
-                        "periode" => date('F'),
-                        "tahun" => date('Y'),
-                        "tanggal_pembayaran" => date('Y-m-d H:i:s')
-                    ];
-                    $this->db->insert('dt_cetak',$data2);
-                    $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                    foreach ($client->result() as $x) {
+                        $ppn = $x->harga * 11 / 100;
+                        $hargaa = $x->harga + $ppn;
+                        $cek_unik = $harga - $x->id;
+                        if ($cek_unik == $amount) {
+                            $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
+                            $data2 = [
+                                "id_registrasi" => $get_client['kode_pelanggan'],
+                                "nama" => $get_client['nama'],
+                                "mbps" => $paket['mbps'],
+                                "tagihan" => $amount,
+                                "penerima" => "admin",
+                                "periode" => date('F'),
+                                "tahun" => date('Y'),
+                                "tanggal_pembayaran" => date('Y-m-d H:i:s')
+                            ];
+                            $this->db->insert('dt_cetak',$data2);
+                            $this->api_whatsapp->wa_notif($wa,'083897943785');
+                        }
+                    }
+
                     }
                 }
                 }else {
