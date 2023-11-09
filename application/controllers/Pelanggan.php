@@ -304,6 +304,8 @@ class Pelanggan extends CI_Controller {
 		$hargaa = $get_client['harga'] + $ppn;
 		$bulan = $this->session->userdata('filterBulan');
 		$tahun = $this->session->userdata('filterTahun');
+		$kd_unik_in = $get_client['id'];
+		$kd_unik_in = sprintf('%04d',$kd_unik_in);
 		$msg = 
 "Kepada yth 
 *Bpk/Ibu ".trim($get_client['nama'])."*
@@ -313,9 +315,9 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 		
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
-.: Kode Unik Verifikasi = ".$get_client['kode_unik']."
+.: Kode Unik Verifikasi = ".$kd_unik_in."
 
-*Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format($hargaa+$kd_unik_in,0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo')." bulan tagihan*.
@@ -388,6 +390,8 @@ Layanan Teknis	:
 			$hargaa = $get_client['harga'] + $ppn;
 			$bulan = $this->session->userdata('filterBulan');
 			$tahun = $this->session->userdata('filterTahun');
+			$kd_unik_in = $get_client['id'];
+			$kd_unik_in = sprintf('%04d',$kd_unik_in);
 			$msg = 
 "Kepada yth 
 *Bpk/Ibu ".trim($get_client['nama'])."*
@@ -397,9 +401,9 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
-.: Kode Unik Verifikasi = ".$get_client['kode_unik']."
+.: Kode Unik Verifikasi = ".$kd_unik_in."
 	
-*Total Tagihan = Rp ".number_format($hargaa+$get_client['kode_unik'],0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format($hargaa+$kd_unik_in,0,'.','.')."*,-
 	
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
