@@ -70,6 +70,7 @@ class Callback extends CI_Controller {
                 if ($data_r->valid && $data_r->data->amount == $amount) {
                 $unik = substr($amount,-3);
                 if ($unik != 000) {
+                    $t = $this->db->query("SELECT *,b.harga+b.harga * 11/100 as tagihan FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket) where a.kode_unik=".$unik." AND status='Aktif'")->row_array();
                     $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik,'status' => 'Aktif']);
                     $get_client = $client->row_array();
                     if ($client->num_rows() == true) {
@@ -105,7 +106,10 @@ Layanan Teknis	:
                         "tanggal_pembayaran" => date('Y-m-d H:i:s')
                     ];
                     $this->db->insert('dt_cetak',$data2);
-                    $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                    // $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                    if ($amount == $t['tagihan']) {
+                        $this->api_whatsapp->wa_notif($wa,'083897943785');
+                    }
                     }
                 }
                 }else {
