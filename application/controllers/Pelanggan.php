@@ -51,17 +51,21 @@ class Pelanggan extends CI_Controller {
 		$telp = $this->input->post('telp');
 		$email = $this->input->post('email');
 		$tindakan = $this->input->post('tindakan');
+		$kd_unik = $this->input->post('kode_unik');
 		$t_nama = $this->input->post('t_nama');
 		$t_nomor_ktp = $this->input->post('t_nomor');
 		$t_npwp = $this->input->post('t_npwp');
 		$t_telp = $this->input->post('t_telp');
 		$t_email = $this->input->post('t_email');
 		$tgl_installasi = $this->input->post('tanggal_installasi');
-		if ($nama) {
-			// $kd_plg =  $this->db->get_where('dt_registrasi',['kode_pelanggan' => $kode_pelanggan])->num_rows();
-			// if ($kd_plg == true) {
-			// 	# code...
-			// }
+		// if ($nama) {
+			$nama =  $this->db->get_where('dt_registrasi',['nama' => $nama])->num_rows();
+			$unik =  $this->db->get_where('dt_registrasi',['kode_unik' => $kd_unik])->num_rows();
+			if ($nama == true) {
+				echo json_encode(['code' => 'nama_double','status' => 'Nama pelanggan sudah ada..!']);
+			}else if($unik == true){
+				echo json_encode(['code' => 'unik_double','status' => 'Kode unik sudah ada..!']);
+			}else{
 				$insert = [
 					"media" => $media,
 					"speed" => $speed,
@@ -90,8 +94,9 @@ class Pelanggan extends CI_Controller {
 				// 	"message" => 'Berhasil di input',
 				// 	"status" => "success"
 				// ];
-				echo json_encode('Registrasi Berhasil');
-		}
+				echo json_encode(['code' => 'berhasil','status' => 'Registrasi '.$nama.' berhasil..!']);
+			}
+		// }
 
 	}
 	function pembayaran(){
