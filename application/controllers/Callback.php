@@ -21,104 +21,98 @@ class Callback extends CI_Controller {
             }
             // $this->load->view('body/footer');
         }
-        function mutasi(){
-            $data = json_decode(file_get_contents('php://input'), true);
+//         function mutasi(){
+//             $data = json_decode(file_get_contents('php://input'), true);
 
-            //TOKEN ANDA YANG ANDA DAPATKAN DI MUTASIBANK.CO.ID
-            $api_token = "M0h6QUE1Sno4MHh6VElMUUdvV3MxOUNwNWlCQ3phMG9HMzE1V2RLTmhPUUg1TU81emY2YnZxbGMxTFlU6547c37442370";
+//             //TOKEN ANDA YANG ANDA DAPATKAN DI MUTASIBANK.CO.ID
+//             $api_token = "M0h6QUE1Sno4MHh6VElMUUdvV3MxOUNwNWlCQ3phMG9HMzE1V2RLTmhPUUg1TU81emY2YnZxbGMxTFlU6547c37442370";
 
-            $token = $data['api_key'];
-            if ($api_token != strval($token)) {
-                echo "invalid api token";
-                exit;
-            }
+//             $token = $data['api_key'];
+//             if ($api_token != strval($token)) {
+//                 echo "invalid api token";
+//                 exit;
+//             }
 
-            //MODULE BANK (bca,bri,bni,mandiri)
-            $module = $data['module'];
+//             //MODULE BANK (bca,bri,bni,mandiri)
+//             $module = $data['module'];
 
-            //DATA MUTASI
-            foreach ($data['data_mutasi'] as $dtm) {
-                //Tanggal Transaksi terjadi di bank
-                $date = $dtm['transaction_date'];
+//             //DATA MUTASI
+//             foreach ($data['data_mutasi'] as $dtm) {
+//                 //Tanggal Transaksi terjadi di bank
+//                 $date = $dtm['transaction_date'];
 
-                //Note atau deskripsi dari bank
-                $note = $dtm['description'];
+//                 //Note atau deskripsi dari bank
+//                 $note = $dtm['description'];
 
-                //Tipe transaksi (DB ATAU CR)
-                $type = $dtm['type'];
+//                 //Tipe transaksi (DB ATAU CR)
+//                 $type = $dtm['type'];
 
-                //Jumlah Dana
-                $amount = $dtm['amount'];
+//                 //Jumlah Dana
+//                 $amount = $dtm['amount'];
 
-                //Saldo saat ini
-                $saldo = $dtm['balance'];
+//                 //Saldo saat ini
+//                 $saldo = $dtm['balance'];
 
-                //ID Transaksi Mutasi
-                $id = $dtm['id'];
+//                 //ID Transaksi Mutasi
+//                 $id = $dtm['id'];
 
-                //Module Bank
-                $module = $data['module'];
+//                 //Module Bank
+//                 $module = $data['module'];
 
-                $headers = [
-                    "Authorization: $api_token",
-                    'Content-Type: application/json'
-                ];
-                //validate transaction =
-                $result_v = $this->http_get("https://mutasibank.co.id/api/v1/validate/$id", $headers);
-                $data_r = json_decode($result_v);
+//                 $headers = [
+//                     "Authorization: $api_token",
+//                     'Content-Type: application/json'
+//                 ];
+//                 //validate transaction =
+//                 $result_v = $this->http_get("https://mutasibank.co.id/api/v1/validate/$id", $headers);
+//                 $data_r = json_decode($result_v);
 
-                if ($data_r->valid && $data_r->data->amount == $amount) {
-                $unik = substr($amount,-3);
-                if ($unik != 000) {
-                    $t = $this->db->query("SELECT *,b.harga+b.harga * 11/100 as tagihan FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket) where a.kode_unik=".$unik." AND status='Aktif'")->row_array();
-                    $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik,'status' => 'Aktif']);
-                    $get_client = $client->row_array();
-                    if ($amount == intval($t['tagihan'])) {
-                        if ($client->num_rows() == true) {
-                    $wa = "Kepada pelanggan yth,
-*Bapak/Ibu ".$get_client['nama']."*
-ID Pel : ".$get_client['kode_pelanggan']."
+//                 if ($data_r->valid && $data_r->data->amount == $amount) {
+//                 $unik = substr($amount,-3);
+//                 if ($unik != 000) {
+//                     $client = $this->db->get_where('dt_registrasi',['kode_unik' => $unik,'status' => 'Aktif']);
+//                     $get_client = $client->row_array();
+//                     if ($client->num_rows() == true) {
+//                     $wa = "Kepada pelanggan yth,
+// *Bapak/Ibu ".$get_client['nama']."*
+// ID Pel : ".$get_client['kode_pelanggan']."
                     
-Pembayaran tagihan anda *BERHASIL* 
+// Pembayaran tagihan anda *BERHASIL* 
                     
-Tanggal Verifikasi : ".date('d-m-Y')."
-Periode Pembayaran : ".date('M')." " . date('Y') ."
-*Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-*
+// Tanggal Verifikasi : ".date('d-m-Y')."
+// Periode Pembayaran : ".date('M')." " . date('Y') ."
+// *Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-*
                     
-Terima kasih atas kerjasamanya.
+// Terima kasih atas kerjasamanya.
                     
-Salam
-MD.Net
-_Supported by :_
-*PT Lintas Jaringan Nusantara*
-Kantor Layanan Babelan
-Layanan Teknis	: 
-0821-1420-9923
-0819-3380-3366";
-                    $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
-                    $data2 = [
-                        "id_registrasi" => $get_client['kode_pelanggan'],
-                        "nama" => $get_client['nama'],
-                        "mbps" => $paket['mbps'],
-                        "tagihan" => $amount,
-                        "penerima" => "admin",
-                        "periode" => date('F'),
-                        "tahun" => date('Y'),
-                        "tanggal_pembayaran" => date('Y-m-d H:i:s')
-                    ];
-                    $this->db->insert('dt_cetak',$data2);
-                    // $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
-                        $this->api_whatsapp->wa_notif($wa,'083897943785');
-                    }
-                    }else{
-                        $this->api_whatsapp->wa_notif($wa.'er'.$amount ,'083897943785');
-                    }
-                }
-                }else {
-                    echo "Tansaksi $id not valid ";
-                }
-            }
-        }
+// Salam
+// MD.Net
+// _Supported by :_
+// *PT Lintas Jaringan Nusantara*
+// Kantor Layanan Babelan
+// Layanan Teknis	: 
+// 0821-1420-9923
+// 0819-3380-3366";
+//                     $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
+//                     $data2 = [
+//                         "id_registrasi" => $get_client['kode_pelanggan'],
+//                         "nama" => $get_client['nama'],
+//                         "mbps" => $paket['mbps'],
+//                         "tagihan" => $amount,
+//                         "penerima" => "admin",
+//                         "periode" => date('F'),
+//                         "tahun" => date('Y'),
+//                         "tanggal_pembayaran" => date('Y-m-d H:i:s')
+//                     ];
+//                     $this->db->insert('dt_cetak',$data2);
+//                     $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+//                     }
+//                 }
+//                 }else {
+//                     echo "Tansaksi $id not valid ";
+//                 }
+//             }
+//         }
         public static function http_get($url, $headers = array())
         {
 
