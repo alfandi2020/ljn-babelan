@@ -99,20 +99,23 @@ Layanan Teknis	:
                         $ppn = $x->harga * 11 / 100;
                         $hargaa = $x->harga + $ppn;
                         $cek_unik = $harga - $x->id;
-                        if ($cek_unik == $amount) {
-                            $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
-                            $data2 = [
-                                "id_registrasi" => $get_client['kode_pelanggan'],
-                                "nama" => $get_client['nama'],
-                                "mbps" => $paket['mbps'],
-                                "tagihan" => $amount,
-                                "penerima" => "admin",
-                                "periode" => date('F'),
-                                "tahun" => date('Y'),
-                                "tanggal_pembayaran" => date('Y-m-d H:i:s')
-                            ];
-                            $this->db->insert('dt_cetak',$data2);
-                            $this->api_whatsapp->wa_notif($wa,'083897943785');
+                        $get_cetak = $this->db->get_where('dt_cetak'['periode' => date('F'),'tahun' => date('Y'),'id_registrasi' => $x->kode_pelanggan])->num_rows();
+                        if ($get_cetak != true) {
+                            if ($cek_unik == $amount) {
+                                $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
+                                $data2 = [
+                                    "id_registrasi" => $get_client['kode_pelanggan'],
+                                    "nama" => $get_client['nama'],
+                                    "mbps" => $paket['mbps'],
+                                    "tagihan" => $amount,
+                                    "penerima" => "admin",
+                                    "periode" => date('F'),
+                                    "tahun" => date('Y'),
+                                    "tanggal_pembayaran" => date('Y-m-d H:i:s')
+                                ];
+                                $this->db->insert('dt_cetak',$data2);
+                                $this->api_whatsapp->wa_notif($wa,'083897943785');
+                            }
                         }
                     }
 
