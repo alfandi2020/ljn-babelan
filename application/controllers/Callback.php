@@ -70,7 +70,7 @@ class Callback extends CI_Controller {
                 if ($data_r->valid && $data_r->data->amount == $amount) {
                 $unik = substr($amount,-3);
                 if ($unik != 000) {
-                    $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif"');
+                    $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and ceil(b.harga * 11 / 100 + b.harga - id)='$amount'');
                     $get_client = $client->row_array();
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
@@ -92,11 +92,11 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-                    foreach ($client->result() as $x) {
-                        $ppn = $x->harga * 11 / 100;
-                        $hargaa = $x->harga + $ppn;
-                        $cek_unik = $hargaa - $x->id;
-                        $get_cetak = $this->db->get_where('dt_cetak',['periode' => date('F'),'tahun' => date('Y'),'id_registrasi' => $x->kode_pelanggan])->num_rows();
+                    // foreach ($client->result() as $x) {
+                    //     $ppn = $x->harga * 11 / 100;
+                    //     $hargaa = $x->harga + $ppn;
+                    //     $cek_unik = $hargaa - $x->id;
+                        $get_cetak = $this->db->get_where('dt_cetak',['periode' => date('F'),'tahun' => date('Y'),'id_registrasi' => $get_client['kode_pelanggan'] ])->num_rows();
                         if ($get_cetak == false) {
                             if ($get_client['tagihan'] == $amount) {
                                 $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
@@ -112,11 +112,9 @@ Layanan Teknis	:
                                 ];
                                 $this->db->insert('dt_cetak',$data2);
                                 $this->api_whatsapp->wa_notif('22','083897943785');
-                            }else{
-                                echo $amount ."=". $get_client['tagihan'];
                             }
                         }
-                    }
+                    // }
 
                 }
                 }else {
