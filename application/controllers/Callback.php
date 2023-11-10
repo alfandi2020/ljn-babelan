@@ -112,6 +112,8 @@ Layanan Teknis	:
                                 ];
                                 $this->db->insert('dt_cetak',$data2);
                                 $this->api_whatsapp->wa_notif('22','083897943785');
+                            }else{
+                                $this->api_whatsapp->wa_notif('error'.$get_client.'','083897943785');
                             }
                         }
                     // }
