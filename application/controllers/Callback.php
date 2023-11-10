@@ -111,7 +111,9 @@ Layanan Teknis	:
                                     "tanggal_pembayaran" => date('Y-m-d H:i:s')
                                 ];
                                 $this->db->insert('dt_cetak',$data2);
-                                $this->api_whatsapp->wa_notif($wa,'083897943785');
+                                if ($get_client['telp'] != "") {
+                                    $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                                }
                             }
                         }
                     // }
