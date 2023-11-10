@@ -115,8 +115,6 @@ Layanan Teknis	:
                                 ];
                                 $this->db->insert('dt_cetak',$data2);
                                 $this->api_whatsapp->wa_notif($wa,'083897943785');
-                            }else{
-                                $this->api_whatsapp->wa_notif('eror kode unik','083897943785');
                             }
                         }
                     }
