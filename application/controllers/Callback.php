@@ -98,7 +98,7 @@ Layanan Teknis	:
                     foreach ($client->result() as $x) {
                         $ppn = $x->harga * 11 / 100;
                         $hargaa = $x->harga + $ppn;
-                        $cek_unik = $harga - $x->id;
+                        $cek_unik = $hargaa - $x->id;
                         $get_cetak = $this->db->get_where('dt_cetak',['periode' => date('F'),'tahun' => date('Y'),'id_registrasi' => $x->kode_pelanggan])->num_rows();
                         if ($get_cetak != true) {
                             if ($cek_unik == $amount) {
@@ -118,8 +118,6 @@ Layanan Teknis	:
                             }else{
                                 $this->api_whatsapp->wa_notif('eror kode unik','083897943785');
                             }
-                        }else{
-                            $this->api_whatsapp->wa_notif('eror cetak','083897943785');
                         }
                     }
 
