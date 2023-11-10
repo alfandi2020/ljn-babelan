@@ -70,7 +70,7 @@ class Callback extends CI_Controller {
                 if ($data_r->valid && $data_r->data->amount == $amount) {
                 $unik = substr($amount,-3);
                 if ($unik != 000) {
-                    $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and ceil(b.harga * 11 / 100 + b.harga - id)='$amount'');
+                    $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and ceil(b.harga * 11 / 100 + b.harga - id)='.$amount.'');
                     $get_client = $client->row_array();
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
