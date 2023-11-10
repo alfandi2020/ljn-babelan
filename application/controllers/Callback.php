@@ -99,7 +99,7 @@ Layanan Teknis	:
                         $ppn = $x->harga * 11 / 100;
                         $hargaa = $x->harga + $ppn;
                         $cek_unik = $harga - $x->id;
-                        $get_cetak = $this->db->get_where('dt_cetak'['periode' => date('F'),'tahun' => date('Y'),'id_registrasi' => $x->kode_pelanggan])->num_rows();
+                        $get_cetak = $this->db->get_where('dt_cetak',['periode' => date('F'),'tahun' => date('Y'),'id_registrasi' => $x->kode_pelanggan])->num_rows();
                         if ($get_cetak != true) {
                             if ($cek_unik == $amount) {
                                 $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
