@@ -98,7 +98,7 @@ Layanan Teknis	:
                         $hargaa = $x->harga + $ppn;
                         $cek_unik = $hargaa - $x->id;
                         $get_cetak = $this->db->get_where('dt_cetak',['periode' => date('F'),'tahun' => date('Y'),'id_registrasi' => $x->kode_pelanggan])->num_rows();
-                        if ($get_cetak == false) {
+                        // if ($get_cetak == false) {
                             if ($get_client['tagihan']== $amount) {
                                 $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
                                 $data2 = [
@@ -114,7 +114,7 @@ Layanan Teknis	:
                                 $this->db->insert('dt_cetak',$data2);
                                 $this->api_whatsapp->wa_notif($wa,'083897943785');
                             }
-                        }
+                        // }
                     }
 
                     }
