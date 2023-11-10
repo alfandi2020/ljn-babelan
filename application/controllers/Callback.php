@@ -67,12 +67,10 @@ class Callback extends CI_Controller {
                 //validate transaction =
                 $result_v = $this->http_get("https://mutasibank.co.id/api/v1/validate/$id", $headers);
                 $data_r = json_decode($result_v);
-                $kd_unik_in = $get_client['id'];
-                $kd_unik_in = sprintf('%04d',$kd_unik_in);
                 if ($data_r->valid && $data_r->data->amount == $amount) {
                 $unik = substr($amount,-3);
                 if ($unik != 000) {
-                    $client = $this->db->get_where('dt_registrasi',['status' => 'Aktif']);
+                    $client = $this->db->query('SELECT * FROM dt_registrasi as A LEFT JOIN mt_paket on(a.speed=b.id_paket) where status="Aktif"');
                     $get_client = $client->row_array();
                     if ($client->num_rows() == true) {
                     $wa = "Kepada pelanggan yth,
