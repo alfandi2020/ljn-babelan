@@ -124,7 +124,11 @@ function terbilang($nilai) {
             <th>Harga</th>
         </tr>
         <tr>
-        <?php $kd_unik = $x['kode_unik'] == '' ? 0 : $x['kode_unik']; ?>
+        <?php
+        		$kd_unik_in = $x['id'];
+                $kd_unik_in = sprintf('%04d',$kd_unik_in);
+        ?>
+        <?php $kd_unik = $kd_unik_in == '' ? 0 : $kd_unik_in; ?>
             <td>1 Paket</td>
             <td>Biaya langganan internet <?= $x['mbps'] ?> mbps</td>
             <td><?php 
@@ -165,13 +169,13 @@ function terbilang($nilai) {
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
             <td >
-                <b><?= 'Rp.'. number_format($x['harga'] + intval($x['kode_unik']) + $ppn,0,'.','.') ?></b>
+                <b><?= 'Rp.'. number_format($x['harga'] - intval($kd_unik_in) + $ppn,0,'.','.') ?></b>
             </td>
         </tr>
     </table>
     <table id="table_tagihan">
         <tr style="background-color: #d0cece;">
-            <td>Terbilang : <i> <?= terbilang($x['harga'] + $kd_unik + $ppn + 1) ?> rupiah</i></td>
+            <td>Terbilang : <i> <?= terbilang($x['harga'] - $kd_unik_in + $ppn) ?> rupiah</i></td>
         </tr>
     </table>
 </body>
