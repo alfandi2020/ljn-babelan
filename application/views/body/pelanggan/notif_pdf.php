@@ -164,7 +164,7 @@ function terbilang($nilai) {
         </tr>
         <tr>
             <td>Kode Unik</td>
-            <td>Rp.<?= $kd_unik ?></td>
+            <td><?= $kd_unik ?></td>
         </tr>
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
