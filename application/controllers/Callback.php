@@ -26,7 +26,7 @@ class Callback extends CI_Controller {
             $data = json_decode(file_get_contents('php://input'), true);
 
             //TOKEN ANDA YANG ANDA DAPATKAN DI MUTASIBANK.CO.ID
-            $api_token = "M0h6QUE1Sno4MHh6VElMUUdvV3MxOUNwNWlCQ3phMG9HMzE1V2RLTmhPUUg1TU81emY2YnZxbGMxTFlU6547c37442370";
+            $api_token = "N2lYREgzV3lJdGNzdzVGNVRyVVVLZ2YxdjNRSDVCTlA0UWdBS2FHUkJLcm5YQTlzck9QZTJmZ2F4TE5Q6562dc5bb59f8";
 
             $token = $data['api_key'];
             if ($api_token != strval($token)) {
