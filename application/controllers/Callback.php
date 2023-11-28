@@ -26,7 +26,7 @@ class Callback extends CI_Controller {
             $data = json_decode(file_get_contents('php://input'), true);
 
             //TOKEN ANDA YANG ANDA DAPATKAN DI MUTASIBANK.CO.ID
-            $api_token = "M0h6QUE1Sno4MHh6VElMUUdvV3MxOUNwNWlCQ3phMG9HMzE1V2RLTmhPUUg1TU81emY2YnZxbGMxTFlU6547c37442370";
+            $api_token = "N2lYREgzV3lJdGNzdzVGNVRyVVVLZ2YxdjNRSDVCTlA0UWdBS2FHUkJLcm5YQTlzck9QZTJmZ2F4TE5Q6562dc5bb59f8";
 
             $token = $data['api_key'];
             if ($api_token != strval($token)) {
@@ -69,9 +69,9 @@ class Callback extends CI_Controller {
                 $data_r = json_decode($result_v);
                 if ($data_r->valid && $data_r->data->amount == $amount) {
                 $unik = substr($amount,-3);
-                if ($unik != 000) {
-                    $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and ceil(b.harga * 11 / 100 + b.harga - id)='.$amount.'');
-                    $get_client = $client->row_array();
+                    if ($unik != 000) {
+                        $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and ceil(b.harga * 11 / 100 + b.harga - a.id)='.$amount.'');
+                        $get_client = $client->row_array();
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
 ID Pel : ".$get_client['kode_pelanggan']."
@@ -115,10 +115,14 @@ Layanan Teknis	:
                                     $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
                                 }
                             }
+                        }else{
+                            echo 'error2';
                         }
                     // }
 
-                }
+                    }else{
+                        echo "error1";
+                    }
                 }else {
                     echo "Tansaksi $id not valid ";
                 }
