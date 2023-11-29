@@ -206,6 +206,8 @@ Layanan Teknis	:
                     // Update status pembayaran
                     // $update = $this->Order_model->updatePMoota($idOrder);
                 }
+            }else{
+                $this->api_whatsapp->wa_notif('notif','083897943785');
             }
         }
         public static function http_get($url, $headers = array())
