@@ -27,7 +27,6 @@ class Callback extends CI_Controller {
 
             //TOKEN ANDA YANG ANDA DAPATKAN DI MUTASIBANK.CO.ID
             $api_token = "N2lYREgzV3lJdGNzdzVGNVRyVVVLZ2YxdjNRSDVCTlA0UWdBS2FHUkJLcm5YQTlzck9QZTJmZ2F4TE5Q6562dc5bb59f8";
-
             $token = $data['api_key'];
             if ($api_token != strval($token)) {
                 echo "invalid api token";
@@ -125,6 +124,97 @@ Layanan Teknis	:
                     }
                 }else {
                     echo "Tansaksi $id not valid ";
+                }
+            }
+        }
+        function mutasi_moota()
+        {
+            // $curl = curl_init();
+
+            // curl_setopt_array($curl, array(
+            //     CURLOPT_URL => 'https://app.moota.co/api/v2/auth/login',
+            //     CURLOPT_RETURNTRANSFER => true,
+            //     CURLOPT_ENCODING => '',
+            //     CURLOPT_MAXREDIRS => 10,
+            //     CURLOPT_TIMEOUT => 0,
+            //     CURLOPT_FOLLOWLOCATION => true,
+            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            //     CURLOPT_CUSTOMREQUEST => 'POST',
+            //     CURLOPT_POSTFIELDS =>'{
+            //         "email" : "mahfud612@gmail.com",
+            //         "password" : "#BESI1meter",
+            //         "scopes" : ["api"]
+            //     }',
+            //     CURLOPT_HTTPHEADER => array(
+            //         'Accept: application/json',
+            //         'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJucWllNHN3OGxsdyIsImp0aSI6ImFkMDI0MDk4ZWNmZTFjNDdhMzA0YmZmMjJmMjViMDVjYzFkZTc4OTRhMDg0NTI4MzNlM2FkYWY4MDM2MjBiNGUzYjcwYjM4N2FkODJlMDY3IiwiaWF0IjoxNzAxMjU5NjUyLjQ0MTQ5NywibmJmIjoxNzAxMjU5NjUyLjQ0MTUwMywiZXhwIjoxNzMyODgyMDUyLjE4NzQxOCwic3ViIjoiMzEyNjciLCJzY29wZXMiOlsiYXBpIiwibXV0YXRpb25fcmVhZCIsIm11dGF0aW9uIiwidXNlciIsInVzZXJfcmVhZCIsImJhbmsiLCJiYW5rX3JlYWQiXX0.TjAYbcMFcyoBjzHkh6_UU1_Bx1PT3rzLG687qUxr2WudRUFqBgGdj6WjKCcY0GOTCTnOC8y-9OPGgSEDuiOjSxLxNXc39NZ3mCQgtYAJ_ktLjX1jea14XlqnJZtHXXSoSyKFDyJx21SddcLL9zCsW601mnGTZtrrTVx_QwDQbDpxorSz2Q8FIsH8yVRCh1x6xF1BhOVOTJc9ok3xDuDKwrEx6y5V_90GW6ZMVcY3c79JW7Y7xVdNZs8xBUN_3DoxrIbXmwxMp6VKh9FEuSDWkSUZgyQmBo2-1UUU9rGbaP4bxleotcTPn78cuEjofvNEnLwQE2URc8flh24zwcXY2O-9sXMSJjsbvJmbkk02rVAC5OAI9QpNKlPZhWGUVgvYdFNOHNxSuH51acbb65EP4nW6VvRUcYAUutTsJvqfvC66yy8U3_G2rEs8we7Z04BP-HNcptmMLhMM1JfRv-Yl9OAq8w8FeTo60yWNxunHbmeLcjU6U2XIYOxJqwsLE_9FZz7bSBMBWnmN0Y8rGh7Yz8cRBuayfny7CQhq5qfVVnZ4U4Z5rulfWZdwYYMEhUyeOXFvAQk45NIq5kv9HLD0E7xE0vqHVrPYRa1KVhYdWvmphdHfM9g5IRTizcHRPTz8mnCjhE0I1bWTEGoIuUaSIxqk8HQZVWQxPbleumlwJXA',
+            //         'Content-Type: application/json'
+            //     ),
+            // ));
+            // $token = curl_exec($curl);
+
+            $curl2 = curl_init();
+
+            curl_setopt_array($curl2, array(
+                CURLOPT_URL => 'https://app.moota.co/api/v1/bank/{bank_id}/mutation/search/222',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Accept: application/json',
+                    'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJucWllNHN3OGxsdyIsImp0aSI6IjUxZDg2ZWZiMDQ3NGNlMjQ3NTkyOWI3ODcwOTQ5OTZkOGQyYTQ4N2U2YmM3MDMxMWU0MzExYjBkNDkxNWM2YzY2ZGQ1NzdkMzQ3NDZiYmM2IiwiaWF0IjoxNzAxMjY0MTMwLjU1MDMwMiwibmJmIjoxNzAxMjY0MTMwLjU1MDMwNiwiZXhwIjoxNzMyODg2NTMwLjQ3ODk4Mywic3ViIjoiMzEyNjciLCJzY29wZXMiOlsiYXBpIiwidXNlciIsInVzZXJfcmVhZCIsImJhbmsiLCJiYW5rX3JlYWQiLCJtdXRhdGlvbiIsIm11dGF0aW9uX3JlYWQiXX0.bfwnOzHgX7kAz3isgAVNQnnUw8pBzv21dDahFlzcRJf3vaEkDH1ILwJJqPvIMjZcEe80Z_PoTE7uTrRtnu2T9GpeqfUgMV0hOCt3IM26RYO1CxRMXtnQvr30QAjKvMTYUxa7v1p4Mqr8mqfwctM7lFW00_9MW4urd960jD1VhhNDcrBImAprmsE04hlktjNcus-wsqTpuvTPl2YKZxvADDKLcUDJaNzJzVai8P71W_26bM7QDHqST0_e4eIUhio7jxYlfcy6GQvRyxskBsOg1TSK9omU60gVtcCZP0ggJargJ3ib1xa0LZtvToWasAQiwIAaAZ7H8B1hM66w2QN8NJb_rPrpYKbAhpH9nJj7Dvg0Gstj9ha3V8z97c5nkgoIQN1n6Yq2aVIUrBwZFF7WgWljEs6G2EWgOO--WMU-ADjEN0X-lafqyZ9o25re0cH4tQslmOBsEZLHpqReYZ63stC3Uy54TifqJIhSxwFPN3V-y1RZLEH5OCRW4RurMU1GtgAHBIOWlt024yUvfQPOEkerHaVhnL7-DqYOCJDvmgX0pAfexzTLf639xUb47sbTBVUF1rJoOOHJS6Ce0obq1qb-mbSxlwqPRKgtGeuIMM-Rc19jD_l5lvrNcQ8wGGb5TLEiVzu05e5s93Y1K_rVEmIVvPMx4T3W__RfyHXmrxE',
+                    'Content-Type: application/json'
+                ),
+            ));
+            $xx = curl_exec($curl2);
+            echo $xx;
+            // echo json_decode($token)->access_token;
+
+        }
+      
+        public function index()
+        {
+            // Tangkap webhook dari moota METHOD POST
+            // notifikasi ini berbentuk json
+            $notifications = file_get_contents("php://input");
+            // Ubah json menjadi array
+            $neko = json_decode($notifications, TRUE);
+            // Cek notif
+            if ($notifications) {
+                // Looping hasil array dan isert ke database 
+                foreach($neko as $jquin) {
+                    // Buat kode unik untuk membandingkan
+                    // update status pembayaran
+                    $kode_unik = substr($jquin['amount'], -3);
+                    // Cari data yang sama di table detail order
+                    // $jOrder = $this->Order_model->jGetDataOrder($kode_unik);
+                    $idOrder = $jOrder->id_order;
+                    // Tampung data response dari moota
+                    // Perlu diketahui value Sandbox Webhook dan value
+                    // webhook original berbeda.
+                    $data = array(
+                        'bank_id' => $jquin['bank_id'],
+                        'account_number' => $jquin['account_number'],
+                        'bank_type' => $jquin['bank_type'],
+                        'date' => date( 'Y-m-d H:i:s'),
+                        'amount' => $jquin['amount'],
+                        'description' => $jquin['description'],
+                        'type' => $jquin['type'],
+                        'balance' => $jquin['balance'],
+                        'kode_unik' => $kode_unik,
+                        'id_order' => $idOrder,
+                        'nama_penerima'  => $jOrder->nama_penerima,
+                        'nama_pengirim' => $jOrder->nama_pengirim
+                    );
+                    echo 111;
+                    // Insert table mutasi
+                    // $store = $this->Order_model->storeMoota($data);
+                    // Update status pembayaran
+                    // $update = $this->Order_model->updatePMoota($idOrder);
                 }
             }
         }
