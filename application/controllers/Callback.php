@@ -194,7 +194,7 @@ Layanan Teknis	:
                     $kode_unik = substr($jquin['amount'], -3);
                     // Cari data yang sama di table detail order
                     // $jOrder = $this->Order_model->jGetDataOrder($kode_unik);
-                    $idOrder = $jOrder->id_order;
+                    // $idOrder = $jOrder->id_order;
                     // Tampung data response dari moota
                     // Perlu diketahui value Sandbox Webhook dan value
                     // webhook original berbeda.
