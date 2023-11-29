@@ -170,7 +170,7 @@ Layanan Teknis	:
             // Tangkap webhook dari moota METHOD POST
             // notifikasi ini berbentuk json
             // $notifications = file_get_contents("php://input");
-                $notifications = '[
+                $notifications = [
                     {
                         "id" : 212,
                         "bank_id" : "1Kwjm2mQWrl",
@@ -182,7 +182,7 @@ Layanan Teknis	:
                         "type" : "CREDIT",
                         "balance" : 10999992
                     }
-                ]';
+                ];
             // Ubah json menjadi array
             $neko = json_decode($notifications, TRUE);
             // Cek notif
