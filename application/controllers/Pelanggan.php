@@ -392,6 +392,7 @@ Layanan Teknis	:
 			$tahun = $this->session->userdata('filterTahun');
 			$kd_unik_in = $get_client['id'];
 			$kd_unik_in = sprintf('%04d',$kd_unik_in);
+			$tanggal_t = $this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo');    
 			$msg = 
 "Kepada yth 
 *Bpk/Ibu ".trim($get_client['nama'])."*
@@ -406,7 +407,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 *Total Tagihan = Rp ".number_format($hargaa-$kd_unik_in,0,'.','.')."*,-
 	
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
-.: Jatuh tempo pembayaran *tanggal 10 bulan tagihan*.
+.: Jatuh tempo pembayaran *tanggal ".$tanggal_t." bulan tagihan*.
 .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 	
 Pembayaran ditujukan ke : 
