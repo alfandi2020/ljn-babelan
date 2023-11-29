@@ -208,7 +208,7 @@ Layanan Teknis	:
                         'type' => $jquin['type'],
                         'balance' => $jquin['balance'],
                         'kode_unik' => $kode_unik,
-                        'id_order' => $idOrder,
+                        'id_order' => '13',
                         'nama_penerima'  => $jOrder->nama_penerima,
                         'nama_pengirim' => $jOrder->nama_pengirim
                     );
