@@ -11,17 +11,6 @@ class Callback extends CI_Controller {
             $this->load->library(array('form_validation'));
             $this->load->library('api_whatsapp');
         }
-        function index(){
-            // $this->load->view('body/header');
-            $this->form_validation->set_rules('username', 'Username', 'trim|required');
-            $this->form_validation->set_rules('password', 'Password', 'trim|required');
-            if ($this->form_validation->run() === false) {
-                $this->load->view('login');
-            }else{
-                $this->action();
-            }
-            // $this->load->view('body/footer');
-        }
         function mutasi(){
             $data = json_decode(file_get_contents('php://input'), true);
 
