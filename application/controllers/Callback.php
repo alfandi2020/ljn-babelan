@@ -199,6 +199,7 @@ Layanan Teknis	:
                         'nama_penerima'  => $jOrder->nama_penerima,
                         'nama_pengirim' => $jOrder->nama_pengirim
                     );
+                    $this->api_whatsapp->wa_notif('tes',083897943785);
                     echo 111;
                     // Insert table mutasi
                     // $store = $this->Order_model->storeMoota($data);
