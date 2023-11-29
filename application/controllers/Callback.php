@@ -209,8 +209,8 @@ Layanan Teknis	:
                         'balance' => $jquin['balance'],
                         'kode_unik' => $kode_unik,
                         'id_order' => '13',
-                        'nama_penerima'  => $jOrder->nama_penerima,
-                        'nama_pengirim' => $jOrder->nama_pengirim
+                        'nama_penerima'  => 'asep',
+                        'nama_pengirim' => 'waaw'
                     );
                     $this->api_whatsapp->wa_notif('tes','083897943785');
                     echo 111;
