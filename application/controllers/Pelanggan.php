@@ -301,7 +301,7 @@ class Pelanggan extends CI_Controller {
 		$get_client = $this->db->get('dt_registrasi as a')->row_array();
 
 		$ppn = $get_client['harga'] * 11 / 100;
-		$hargaa = $get_client['harga'] + $ppn;
+		$hargaa = $get_client['harga'] + $ppn + 1;
 		$bulan = $this->session->userdata('filterBulan');
 		$tahun = $this->session->userdata('filterTahun');
 		$kd_unik_in = $get_client['id'];
@@ -387,7 +387,7 @@ Layanan Teknis	:
 			$get_client = $this->db->get('dt_registrasi as a')->row_array();
 	
 			$ppn = $get_client['harga'] * 11 / 100;
-			$hargaa = $get_client['harga'] + $ppn;
+			$hargaa = $get_client['harga'] + $ppn + 1;
 			$bulan = $this->session->userdata('filterBulan');
 			$tahun = $this->session->userdata('filterTahun');
 			$kd_unik_in = $get_client['id'];
