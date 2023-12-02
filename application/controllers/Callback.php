@@ -236,7 +236,7 @@ Layanan Teknis	:
                             'nama_pengirim' => 'waaw'
                         );
                         $store = $this->db->insert('mutasi',$data);
-                        $this->api_whatsapp->wa_notif($wa,'083897943785');
+                        $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
                     }
                 }
             }else{
