@@ -212,12 +212,8 @@ Layanan Teknis	:
                         'nama_penerima'  => 'asep',
                         'nama_pengirim' => 'waaw'
                     );
+                    $store = $this->db->insert('mutasi',$data);
                     $this->api_whatsapp->wa_notif($jquin['amount'],'083897943785');
-                    // echo 111;
-                    // Insert table mutasi
-                    // $store = $this->Order_model->storeMoota($data);
-                    // Update status pembayaran
-                    // $update = $this->Order_model->updatePMoota($idOrder);
                 }
             }else{
                 $this->api_whatsapp->wa_notif('notif','083897943785');
