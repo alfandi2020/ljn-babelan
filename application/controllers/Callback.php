@@ -186,7 +186,7 @@ Layanan Teknis	:
             // Ubah json menjadi array
             $neko = json_decode($notifications, TRUE);
             // Cek notif
-            if (count($neko) > 0) {
+            if ($neko) {
                 // Looping hasil array dan isert ke database 
                 foreach($neko as $jquin) {
                     // Buat kode unik untuk membandingkan
