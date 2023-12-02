@@ -198,22 +198,46 @@ Layanan Teknis	:
                     // Tampung data response dari moota
                     // Perlu diketahui value Sandbox Webhook dan value
                     // webhook original berbeda.
-                    $data = array(
-                        'bank_id' => $jquin['bank_id'],
-                        'account_number' => $jquin['account_number'],
-                        'bank_type' => $jquin['bank_type'],
-                        'date' => date( 'Y-m-d H:i:s'),
-                        'amount' => $jquin['amount'],
-                        'description' => $jquin['description'],
-                        'type' => $jquin['type'],
-                        'balance' => $jquin['balance'],
-                        'kode_unik' => $kode_unik,
-                        'id_order' => '13',
-                        'nama_penerima'  => 'asep',
-                        'nama_pengirim' => 'waaw'
-                    );
-                    $store = $this->db->insert('mutasi',$data);
-                    $this->api_whatsapp->wa_notif('token : '. $jquin['token'] . $jquin['amount'],'083897943785');
+                    $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and ceil(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
+                    $get_client = $client->row_array();
+                    $wa = "Kepada pelanggan yth,
+*Bapak/Ibu ".$get_client['nama']."*
+ID Pel : ".$get_client['kode_pelanggan']."
+                    
+Pembayaran tagihan anda *BERHASIL* 
+                    
+Tanggal Verifikasi : ".date('d-m-Y')."
+Periode Pembayaran : ".date('M')." " . date('Y') ."
+*Total Pembayaran : Rp ".number_format($jquin['amount'],0,'.','.').",-*
+                    
+Terima kasih atas kerjasamanya.
+                    
+Salam
+MD.Net
+_Supported by :_
+*PT Lintas Jaringan Nusantara*
+Kantor Layanan Babelan
+Layanan Teknis	: 
+0821-1420-9923
+0819-3380-3366";
+                    if ($kode_unik != 000) {
+                        $data = array(
+                            'bank_id' => $jquin['bank_id'],
+                            'account_number' => $jquin['account_number'],
+                            'bank_type' => $jquin['bank_type'],
+                            'date' => date( 'Y-m-d H:i:s'),
+                            'amount' => $jquin['amount'],
+                            'description' => $jquin['description'],
+                            'type' => $jquin['type'],
+                            'balance' => $jquin['balance'],
+                            'kode_unik' => $kode_unik,
+                            'id_order' => '13',
+                            'nama_penerima'  => 'asep',
+                            'nama_pengirim' => 'waaw'
+                        );
+                        $store = $this->db->insert('mutasi',$data);
+                        $this->api_whatsapp->wa_notif($wa,'083897943785');
+                    }
                 }
             }else{
                 $this->api_whatsapp->wa_notif('notif','083897943785');
