@@ -169,20 +169,20 @@ Layanan Teknis	:
         {
             // Tangkap webhook dari moota METHOD POST
             // notifikasi ini berbentuk json
-            $notifications = file_get_contents("php://input");
-                // $notifications = '[
-                //     {
-                //         "id" : 212,
-                //         "bank_id" : "1Kwjm2mQWrl",
-                //         "account_number" : 51231231,
-                //         "bank_type" : "mandiri",
-                //         "date" : "01/02/2023",
-                //         "amount" : "2141",
-                //         "description": "ets",
-                //         "type" : "CREDIT",
-                //         "balance" : 10999992
-                //     }
-                // ]';
+            // $notifications = file_get_contents("php://input");
+                $notifications = '[
+                    {
+                        "id" : 212,
+                        "bank_id" : "1Kwjm2mQWrl",
+                        "account_number" : 51231231,
+                        "bank_type" : "mandiri",
+                        "date" : "01/02/2023",
+                        "amount" : "2141",
+                        "description": "ets",
+                        "type" : "CREDIT",
+                        "balance" : 10999992
+                    }
+                ]';
             // Ubah json menjadi array
             $neko = json_decode($notifications, TRUE);
             // Cek notif
@@ -201,7 +201,7 @@ Layanan Teknis	:
                     $data = array(
                         'bank_id' => $jquin['bank_id'],
                         'account_number' => $jquin['account_number'],
-                        'bank_type' => 'bb',
+                        'bank_type' => $jquin['bank_type'],
                         'date' => date( 'Y-m-d H:i:s'),
                         'amount' => $jquin['amount'],
                         'description' => $jquin['description'],
