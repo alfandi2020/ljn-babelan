@@ -201,7 +201,7 @@ Layanan Teknis	:
                     $data = array(
                         'bank_id' => $jquin['bank_id'],
                         'account_number' => $jquin['account_number'],
-                        'bank_type' => $jquin['bank_type'],
+                        'bank_type' => 'bb',
                         'date' => date( 'Y-m-d H:i:s'),
                         'amount' => $jquin['amount'],
                         'description' => $jquin['description'],
