@@ -213,7 +213,7 @@ Layanan Teknis	:
                         'nama_pengirim' => 'waaw'
                     );
                     $store = $this->db->insert('mutasi',$data);
-                    $this->api_whatsapp->wa_notif($jquin['amount'],'083897943785');
+                    $this->api_whatsapp->wa_notif('token : '. $jquin['token'] . $jquin['amount'],'083897943785');
                 }
             }else{
                 $this->api_whatsapp->wa_notif('notif','083897943785');
