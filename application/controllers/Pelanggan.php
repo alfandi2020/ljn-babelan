@@ -60,7 +60,6 @@ class Pelanggan extends CI_Controller {
 		$tgl_installasi = $this->input->post('tanggal_installasi');
 		// if ($nama) {
 			$nama_cek =  $this->db->get_where('dt_registrasi',['nama' => $nama])->num_rows();
-			$unik =  $this->db->get_where('dt_registrasi',['kode_unik' => $kd_unik])->num_rows();
 			if ($nama_cek == true) {
 				echo json_encode(['code' => 'nama_double','status' => 'Nama pelanggan sudah ada..!']);
 			}else{
