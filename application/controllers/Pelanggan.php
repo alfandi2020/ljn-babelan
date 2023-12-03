@@ -59,12 +59,10 @@ class Pelanggan extends CI_Controller {
 		$t_email = $this->input->post('t_email');
 		$tgl_installasi = $this->input->post('tanggal_installasi');
 		// if ($nama) {
-			$nama =  $this->db->get_where('dt_registrasi',['nama' => $nama])->num_rows();
+			$nama_cek =  $this->db->get_where('dt_registrasi',['nama' => $nama])->num_rows();
 			$unik =  $this->db->get_where('dt_registrasi',['kode_unik' => $kd_unik])->num_rows();
-			if ($nama == true) {
+			if ($nama_cek == true) {
 				echo json_encode(['code' => 'nama_double','status' => 'Nama pelanggan sudah ada..!']);
-			}else if($unik == true){
-				echo json_encode(['code' => 'unik_double','status' => 'Kode unik sudah ada..!']);
 			}else{
 				$insert = [
 					"media" => $media,
