@@ -60,7 +60,6 @@ class Pelanggan extends CI_Controller {
 		$tgl_installasi = $this->input->post('tanggal_installasi');
 		// if ($nama) {
 			$nama_cek =  $this->db->get_where('dt_registrasi',['nama' => $nama])->num_rows();
-			$unik =  $this->db->get_where('dt_registrasi',['kode_unik' => $kd_unik])->num_rows();
 			if ($nama_cek == true) {
 				echo json_encode(['code' => 'nama_double','status' => 'Nama pelanggan sudah ada..!']);
 			}else{
@@ -299,7 +298,7 @@ class Pelanggan extends CI_Controller {
 		$get_client = $this->db->get('dt_registrasi as a')->row_array();
 
 		$ppn = $get_client['harga'] * 11 / 100;
-		$hargaa = $get_client['harga'] + $ppn + 1;
+		$hargaa = $get_client['harga'] + 1;
 		$bulan = $this->session->userdata('filterBulan');
 		$tahun = $this->session->userdata('filterTahun');
 		$kd_unik_in = $get_client['id'];
@@ -315,7 +314,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
 .: Kode Unik Verifikasi = ".$kd_unik_in."
 
-*Total Tagihan = Rp ".number_format($hargaa-$kd_unik_in,0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format($hargaa-$kd_unik_in+ $ppn,0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$this->session->userdata('filterTgl_tempo')." bulan tagihan*.
@@ -385,7 +384,7 @@ Layanan Teknis	:
 			$get_client = $this->db->get('dt_registrasi as a')->row_array();
 	
 			$ppn = $get_client['harga'] * 11 / 100;
-			$hargaa = $get_client['harga'] + $ppn + 1;
+			$hargaa = $get_client['harga'] + 1;
 			$bulan = $this->session->userdata('filterBulan');
 			$tahun = $this->session->userdata('filterTahun');
 			$kd_unik_in = $get_client['id'];
@@ -402,7 +401,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 .: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa,0,'.','.').",-
 .: Kode Unik Verifikasi = ".$kd_unik_in."
 	
-*Total Tagihan = Rp ".number_format($hargaa-$kd_unik_in,0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format($hargaa-$kd_unik_in + $ppn,0,'.','.')."*,-
 	
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$tanggal_t." bulan tagihan*.
