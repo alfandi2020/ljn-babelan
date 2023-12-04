@@ -58,7 +58,7 @@ class Callback extends CI_Controller {
                 if ($data_r->valid && $data_r->data->amount == $amount) {
                 $unik = substr($amount,-3);
                     if ($unik != 000) {
-                        $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and ceil(b.harga * 11 / 100 + b.harga - a.id)='.$amount.'');
+                        $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$amount.'');
                         $get_client = $client->row_array();
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
@@ -198,7 +198,7 @@ Layanan Teknis	:
                     // Tampung data response dari moota
                     // Perlu diketahui value Sandbox Webhook dan value
                     // webhook original berbeda.
-                    $client = $this->db->query('SELECT *,ceil(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and ceil(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
+                    $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $get_client = $client->row_array();
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
