@@ -236,7 +236,7 @@ Layanan Teknis	:
                             "tanggal_pembayaran" => date('Y-m-d H:i:s')
                         ];
                         $this->db->insert('dt_cetak',$data_cetak);
-                        // $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                        $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
                     }
                 }
             }else{
