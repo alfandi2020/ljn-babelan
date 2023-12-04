@@ -313,7 +313,7 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa + $ppn,0,'.','.').",-
 .: Kode Unik Verifikasi = ".$kd_unik_in."
-
+	
 *Total Tagihan = Rp ".number_format($hargaa-$kd_unik_in + $ppn,0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
