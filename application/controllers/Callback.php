@@ -185,7 +185,7 @@ Layanan Teknis	:
                     // Tampung data response dari moota
                     // Perlu diketahui value Sandbox Webhook dan value
                     // webhook original berbeda.
-                    $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
+                    $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $get_client = $client->row_array();
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
@@ -227,7 +227,7 @@ Layanan Teknis	:
                         $data_cetak = [
                             "id_registrasi" => $get_client['kode_pelanggan'],
                             "nama" => $get_client['nama'],
-                            "mbps" => $get_paket['mbps'],
+                            "mbps" => $get_client['mbps'],
                             "tagihan" => $get_client['tagihan'],
                             "penerima" => 'admin',
                             "periode" => date('F'),
