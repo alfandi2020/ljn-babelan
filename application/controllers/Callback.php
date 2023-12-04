@@ -207,36 +207,46 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-                    if ($kode_unik != 000) {
-                        $data = array(
-                            'bank_id' => $jquin['bank_id'],
-                            'account_number' => $jquin['account_number'],
-                            'bank_type' => $jquin['bank_type'],
-                            'date' => date( 'Y-m-d H:i:s'),
-                            'amount' => $jquin['amount'],
-                            'description' => $jquin['description'],
-                            'type' => $jquin['type'],
-                            'balance' => $jquin['balance'],
-                            'kode_unik' => $kode_unik,
-                            'id_order' => '13',
-                            'nama_penerima'  => 'asep',
-                            'nama_pengirim' => 'waaw'
-                        );
-                        $store = $this->db->insert('mutasi',$data);
-                        $tanggal2 = time();
-                        $bulan2 = $this->indonesian_date($tanggal2, 'F');
-                        $data_cetak = [
-                            "id_registrasi" => $get_client['kode_pelanggan'],
-                            "nama" => $get_client['nama'],
-                            "mbps" => $get_client['mbps'],
-                            "tagihan" => $get_client['tagihan'],
-                            "penerima" => 'admin',
-                            "periode" => $bulan2,
-                            "tahun" => date('Y'),
-                            "tanggal_pembayaran" => date('Y-m-d H:i:s')
-                        ];
-                        $this->db->insert('dt_cetak',$data_cetak);
-                        $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                    if ($client->num_rows() == true) {
+                        if ($kode_unik != 000) {
+                            $data = array(
+                                'bank_id' => $jquin['bank_id'],
+                                'account_number' => $jquin['account_number'],
+                                'bank_type' => $jquin['bank_type'],
+                                'date' => date( 'Y-m-d H:i:s'),
+                                'amount' => $jquin['amount'],
+                                'description' => $jquin['description'],
+                                'type' => $jquin['type'],
+                                'balance' => $jquin['balance'],
+                                'kode_unik' => $kode_unik,
+                                'id_order' => '13',
+                                'nama_penerima'  => 'asep',
+                                'nama_pengirim' => 'waaw'
+                            );
+                            $store = $this->db->insert('mutasi',$data);
+                            $tanggal2 = time();
+                            $bulan2 = $this->indonesian_date($tanggal2, 'F');
+                            $data_cetak = [
+                                "id_registrasi" => $get_client['kode_pelanggan'],
+                                "nama" => $get_client['nama'],
+                                "mbps" => $get_client['mbps'],
+                                "tagihan" => $get_client['tagihan'],
+                                "penerima" => 'admin',
+                                "periode" => $bulan2,
+                                "tahun" => date('Y'),
+                                "tanggal_pembayaran" => date('Y-m-d H:i:s')
+                            ];
+                            $this->db->insert('dt_cetak',$data_cetak);
+                            $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                        }
+                    }else{
+                        $wa_2 = "Notifkasi Pembayaran
+Bank : ".$jquin['bank_type']."
+Tanggal : ".date( 'Y-m-d H:i:s')."
+Jumlah : ".$jquin['amount']."
+Deskripsi : ".$jquin['description']."
+                        ";
+                        $this->api_whatsapp->wa_notif($wa_2,'081933803366');
                     }
                 }
             }else{
