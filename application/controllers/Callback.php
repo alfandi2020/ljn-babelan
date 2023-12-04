@@ -170,20 +170,7 @@ Layanan Teknis	:
             // Tangkap webhook dari moota METHOD POST
             // notifikasi ini berbentuk json
             $notifications = file_get_contents("php://input");
-                // $notifications = '[
-                //     {
-                //         "id" : 212,
-                //         "bank_id" : "1Kwjm2mQWrl",
-                //         "account_number" : 51231231,
-                //         "bank_type" : "mandiri",
-                //         "date" : "01/02/2023",
-                //         "amount" : "2141",
-                //         "description": "ets",
-                //         "type" : "CREDIT",
-                //         "balance" : 10999992
-                //     }
-                // ]';
-            // Ubah json menjadi array
+               
             $neko = json_decode($notifications, TRUE);
             // Cek notif
             if ($neko) {
@@ -236,7 +223,19 @@ Layanan Teknis	:
                             'nama_pengirim' => 'waaw'
                         );
                         $store = $this->db->insert('mutasi',$data);
-                        $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+
+                        $data_cetak = [
+                            "id_registrasi" => $get_client['kode_pelanggan'],
+                            "nama" => $get_client['nama'],
+                            "mbps" => $get_paket['mbps'],
+                            "tagihan" => $get_client['tagihan'],
+                            "penerima" => 'admin',
+                            "periode" => date('F'),
+                            "tahun" => date('Y'),
+                            "tanggal_pembayaran" => date('Y-m-d H:i:s')
+                        ];
+                        $this->db->insert('dt_cetak',$data_cetak);
+                        // $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
                     }
                 }
             }else{
