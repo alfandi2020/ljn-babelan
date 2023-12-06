@@ -398,10 +398,10 @@ ID : ".$get_client['kode_pelanggan']."
 Terimakasih sudah menggunakan layanan *MD.Net*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
-.: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa+$ppn,0,'.','.').",-
+.: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa+$ppn),0,'.','.').",-
 .: Kode Unik Verifikasi = ".$kd_unik_in."
 	
-*Total Tagihan = Rp ".number_format($hargaa+ $ppn-$kd_unik_in,0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format(floor($hargaa+ $ppn-$kd_unik_in),0,'.','.')."*,-
 	
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$tanggal_t." bulan tagihan*.
@@ -421,7 +421,7 @@ Layanan Teknis	:
 0821-1420-9923
 0819-3380-3366";
 			// if (file_exists($url_img)) {
-				$c =  $this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
+				$c =  $this->api_whatsapp->wa_notif_doc($msg,'083897943785',$url_img);
 			// }else{
 			// 	echo 1;
 			// }
