@@ -133,15 +133,15 @@ function terbilang($nilai) {
             <td>Biaya langganan internet <?= $x['mbps'] ?> mbps</td>
             <td><?php 
 		    $ppn = $x['harga'] * 11 / 100;
-            echo 'Rp.'. number_format($x['harga_d_ppn'],0,'.','.') ?></td>
-            <td><?= 'Rp.'. number_format($x['harga_d_ppn'],0,'.','.') ?></td>
+            echo 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
+            <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
         </tr>
         <tr style="background-color: #d0cece;">
             <td colspan="2">
                 Keterangan : 
             </td>
             <td>Harga Total</td>
-            <td><?= 'Rp.'. number_format($x['harga_d_ppn'],0,'.','.') ?></td>
+            <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
         </tr>
         <tr>
             <td colspan="2" rowspan="6">
@@ -169,7 +169,7 @@ function terbilang($nilai) {
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
             <td >
-                <b><?= 'Rp.'. number_format($x['tagihan'],0,'.','.') ?></b>
+                <b><?= 'Rp.'. number_format($x['harga'] - intval($kd_unik_in) + $ppn,0,'.','.') ?></b>
             </td>
         </tr>
     </table>
