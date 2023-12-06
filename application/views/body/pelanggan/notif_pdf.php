@@ -169,13 +169,13 @@ function terbilang($nilai) {
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
             <td >
-                <b><?= 'Rp.'. number_format($x['harga'] - intval($kd_unik_in) + $ppn,0,'.','.') ?></b>
+                <b><?= 'Rp.'. number_format(floor($x['harga'] - intval($kd_unik_in) + $ppn),0,'.','.') ?></b>
             </td>
         </tr>
     </table>
     <table id="table_tagihan">
         <tr style="background-color: #d0cece;">
-            <td>Terbilang : <i> <?= terbilang($x['harga'] - $kd_unik_in + $ppn) ?> rupiah</i></td>
+            <td>Terbilang : <i> <?= terbilang(floor($x['harga'] - $kd_unik_in + $ppn)) ?> rupiah</i></td>
         </tr>
     </table>
 </body>
