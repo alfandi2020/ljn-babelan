@@ -293,6 +293,7 @@ class Pelanggan extends CI_Controller {
 	function send_notif()
 	{
 		$id = $this->uri->segment(3);
+		$this->db->select('*,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan,b.harga * 11 / 100 + b.harga as harga_d_ppn');
 		$this->db->where('a.id',$id);
 		$this->db->join('mt_paket as b','a.speed = b.id_paket');
 		$get_client = $this->db->get('dt_registrasi as a')->row_array();
@@ -311,10 +312,10 @@ ID : ".$get_client['kode_pelanggan']."
 Terimakasih sudah menggunakan layanan *MD.Net*
 		
 Kami informasikan jumlah tagihan sebagai berikut :
-.: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa + $ppn,0,'.','.').",-
+.: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($get_client['harga_d_ppn'],0,'.','.').",-
 .: Kode Unik Verifikasi = ".$kd_unik_in."
 .: PPn = ".$ppn."
-*Total Tagihan = Rp ".number_format($hargaa+ $ppn -$kd_unik_in,0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format($get_client['tagihan'],0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$this->session->userdata('filterTgl_tempo')." bulan tagihan*.
@@ -360,6 +361,7 @@ Layanan Teknis	:
 				'showImageErrors' => true
             ]);
 			$this->db->where('a.id',$this->uri->segment(3));
+			$this->db->select('*,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan,b.harga * 11 / 100 + b.harga as harga_d_ppn');
 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
             $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
 			$no_invoice = 'INV' . date('y').date('m').date('d').$data['x']['id'];
@@ -379,6 +381,7 @@ Layanan Teknis	:
 
 			//send wa
 			$id = $this->uri->segment(3);
+			$this->db->select('*,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan,b.harga * 11 / 100 + b.harga as harga_d_ppn');
 			$this->db->where('a.id',$id);
 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
 			$get_client = $this->db->get('dt_registrasi as a')->row_array();
@@ -398,10 +401,10 @@ ID : ".$get_client['kode_pelanggan']."
 Terimakasih sudah menggunakan layanan *MD.Net*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
-.: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($hargaa+$ppn,0,'.','.').",-
+.: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format($get_client['harga_d_ppn'],0,'.','.').",-
 .: Kode Unik Verifikasi = ".$kd_unik_in."
 	
-*Total Tagihan = Rp ".number_format($hargaa+ $ppn-$kd_unik_in,0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format($get_client['tagihan'],0,'.','.')."*,-
 	
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$tanggal_t." bulan tagihan*.
