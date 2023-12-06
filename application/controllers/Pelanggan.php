@@ -293,10 +293,10 @@ class Pelanggan extends CI_Controller {
 	function send_notif()
 	{
 		$id = $this->uri->segment(3);
-		$this->db->select('*,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan,b.harga * 11 / 100 + b.harga as harga_d_ppn');
-		$this->db->where('a.id',$id);
-		$this->db->join('mt_paket as b','a.speed = b.id_paket');
-		$get_client = $this->db->get('dt_registrasi as a')->row_array();
+		// $this->db->select('*,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan,b.harga * 11 / 100 + b.harga as harga_d_ppn');
+		// $this->db->where('a.id',$id);
+		// $this->db->join('mt_paket as b','a.speed = b.id_paket');
+		$get_client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and a.id='.$id.' ')->row_array();
 
 		$ppn = $get_client['harga'] * 11 / 100;
 		$hargaa = $get_client['harga'];
@@ -360,10 +360,10 @@ Layanan Teknis	:
                 'orientation' => 'L',
 				'showImageErrors' => true
             ]);
-			$this->db->where('a.id',$this->uri->segment(3));
-			$this->db->select('*,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan,b.harga * 11 / 100 + b.harga as harga_d_ppn');
-			$this->db->join('mt_paket as b','a.speed = b.id_paket');
-            $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
+			// $this->db->where('a.id',$this->uri->segment(3));
+			// $this->db->select('*,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan,b.harga * 11 / 100 + b.harga as harga_d_ppn');
+			// $this->db->join('mt_paket as b','a.speed = b.id_paket');
+            $data['x'] = $this->db->query("SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status='Aktif' and a.id='".$this->uri->segment(3)."'")->row_array();
 			$no_invoice = 'INV' . date('y').date('m').date('d').$data['x']['id'];
             $html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
             $mpdf->defaultfooterline=0;
