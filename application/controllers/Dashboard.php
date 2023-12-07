@@ -98,8 +98,15 @@ class Dashboard extends CI_Controller {
 		$this->db->join('dt_registrasi as a','a.kode_pelanggan = b.id_registrasi');
 		$payment = $this->db->get('dt_cetak as b')->result();
 
+		$arraydata = implode(',',$group_sess);
 
-		$belum_bayar = $this->db->query("SELECT * FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket)")->result();
+		if ($condition_group) {
+			$this->db->where_in('a.group',$group_sess);
+		}
+		$this->db->from('dt_registrasi as a');
+		$this->db->join('mt_paket as b','a.speed=b.id_paket');
+		$belum_bayar = $this->db->get()->result();
+		// $belum_bayar = $this->db->query("SELECT * FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket)")->result();
 		$data = [
 			"title" => "Dashboard",
 			'total' => $total_client,
