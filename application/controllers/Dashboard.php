@@ -91,25 +91,14 @@ class Dashboard extends CI_Controller {
 		// $this->db->select('*');
 		
 		if ($condition_group) {
-			$this->db->where_in('b.group',$group_sess);
+			$this->db->where_in('a.group',$group_sess);
 		}
-		$this->db->where('a.periode',$bulan);
-		$this->db->where('a.tahun',$tahun);
-		// $this->db->from('');
-		$this->db->join('dt_registrasi as b','b.kode_pelanggan = a.id_registrasi');
-		$payment = $this->db->get('dt_cetak as a')->result();
+		$this->db->where('b.periode',$bulan);
+		$this->db->where('b.tahun',$tahun);
+		$this->db->join('dt_registrasi as a','a.kode_pelanggan = b.id_registrasi');
+		$payment = $this->db->get('dt_cetak as b')->result();
 
-		if ($condition_group) {
-			$this->db->where_in('b.group',$group_sess);
-		}
-		// $this->db->where('a.periode',$bulan);
-		// $this->db->where('a.tahun',$tahun);
-		// $this->db->from('dt_cetak as a');
-		$this->db->join('dt_registrasi as b','a.id_registrasi=b.kode_pelanggan');
-		$this->db->join('mt_paket as c','c.id_paket=b.kode_pelanggan');
-		$belum_bayar = $this->db->get('dt_cetak as a')->result();
-
-		// $belum_bayar = $this->db->query("SELECT * FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket)")->result();
+		$belum_bayar = $this->db->query("SELECT * FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket)")->result();
 		$data = [
 			"title" => "Dashboard",
 			'total' => $total_client,
