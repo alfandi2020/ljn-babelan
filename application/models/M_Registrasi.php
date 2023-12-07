@@ -87,7 +87,8 @@ class M_Registrasi extends CI_Model {
         //  $records = $this->db->query("SELECT a.id_cetak,a.nama,b.paket,a.tagihan,a.penerima,a.periode,a.tanggal,a.nomor_struk FROM dt_registrasi as a left join mt_paket as b on(a.internet = b.id_wireless) where '$searchQuery' order by '$columnName' asc limit $rowperpage")->result();
         $records = $this->db->get()->result();
         $data = array();
-        $no =1;
+        // $no =1;
+        $no = $_POST['start']+1;
         foreach($records as $record ){
             if ($record->status == "Aktif") {
                 $status = '<span class="badge badge-glow badge-success">'.$record->status.'</span>';
