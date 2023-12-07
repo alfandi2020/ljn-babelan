@@ -96,8 +96,8 @@ class Dashboard extends CI_Controller {
 		$this->db->where('a.periode',$bulan);
 		$this->db->where('a.tahun',$tahun);
 		// $this->db->from('');
-		$this->db->join('dt_registrasi as b','a.id_registrasi=b.kode_pelanggan');
-		$payment = $this->db->get()->result('dt_cetak as a');
+		$this->db->join('dt_registrasi as b','b.kode_pelanggan = a.id_registrasi');
+		$payment = $this->db->get('dt_cetak as a')->result();
 
 		if ($condition_group) {
 			$this->db->where_in('b.group',$group_sess);
