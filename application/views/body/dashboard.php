@@ -115,7 +115,7 @@
                         <div class="card-header d-flex align-items-start pb-0">
                             <div>
                                 <h2 class="text-bold-700 mb-0"><?= count($belum_bayar) - count($payment) ?></h2>
-                                <p>Pelanggan <b class="text-danger">Belum Bayar <?= $this->session->userdata('kode_group') ?></b></p>
+                                <p>Pelanggan <b class="text-danger">Belum Bayar</b></p>
                             </div>
                             <div class="avatar bg-rgba-danger p-50 m-0">
                                 <div class="avatar-content">
