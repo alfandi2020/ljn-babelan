@@ -376,6 +376,7 @@ class M_Registrasi extends CI_Model {
             $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->kode_pelanggan' and periode='$bulann'")->num_rows();
             if ($cek == true) {
                 $status = '<span class="badge badge-glow badge-success">Sudah Bayar</span>';
+                $tagihan = '';
             }else{
                 $status = '<span class="badge badge-glow badge-danger">Belum Bayar</span>';
                 $tagihan =  '<a href="#" id="'.$record->id.'" class="notif-confirm btn btn-icon btn-icon rounded-circle btn-success waves-effect waves-light"><i class="feather icon-send"></i></a> &nbsp;
