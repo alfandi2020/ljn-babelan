@@ -76,9 +76,9 @@ class M_Registrasi extends CI_Model {
         if ($this->session->userdata('sort_group')) {
             $this->db->where('a.group',$this->session->userdata('sort_group'));
         }
-        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
+        // if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
-        }
+        // }
         if ($searchValue) {
             $this->db->where($searchQuery);
         }
