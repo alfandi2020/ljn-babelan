@@ -24,7 +24,7 @@ class M_Registrasi extends CI_Model {
         }
         $id_user = $this->session->userdata('id_user');
         $alamat_get = $this->db->query("SELECT * FROM users where id='$id_user'")->row_array();
-        $arr = explode(',',$alamat_get['group']);
+        $arr = $alamat_get['group'];
         $this->db->select('count(*) as allcount');
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
@@ -76,9 +76,9 @@ class M_Registrasi extends CI_Model {
         if ($this->session->userdata('sort_group')) {
             $this->db->where('a.group',$this->session->userdata('sort_group'));
         }
-        // if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',$arr);
-        // }
+        }
         if ($searchValue) {
             $this->db->where($searchQuery);
         }
