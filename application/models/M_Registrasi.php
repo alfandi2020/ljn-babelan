@@ -369,7 +369,8 @@ class M_Registrasi extends CI_Model {
         //  $records = $this->db->query("SELECT a.id_cetak,a.nama,b.paket,a.tagihan,a.penerima,a.periode,a.tanggal,a.nomor_struk FROM dt_registrasi as a left join mt_paket as b on(a.internet = b.id_wireless) where '$searchQuery' order by '$columnName' asc limit $rowperpage")->result();
         $records = $this->db->get()->result();
         $data = array();
-        $no =1;
+        // $no =1;
+        $no = $_POST['start']+1;
         $bulann= $this->session->userdata('filterBulan');
         foreach($records as $record ){
             $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->kode_pelanggan' and periode='$bulann'")->num_rows();
@@ -377,9 +378,9 @@ class M_Registrasi extends CI_Model {
                 $status = '<span class="badge badge-glow badge-success">Sudah Bayar</span>';
             }else{
                 $status = '<span class="badge badge-glow badge-danger">Belum Bayar</span>';
+                $tagihan =  '<a href="#" id="'.$record->id.'" class="notif-confirm btn btn-icon btn-icon rounded-circle btn-success waves-effect waves-light"><i class="feather icon-send"></i></a> &nbsp;
+                <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-warning waves-effect waves-light notif-confirm2"><i class="feather icon-file-text"></i></a>';
             }
-           $tagihan =  '<a href="#" id="'.$record->id.'" class="notif-confirm btn btn-icon btn-icon rounded-circle btn-success waves-effect waves-light"><i class="feather icon-send"></i></a> &nbsp;
-           <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-warning waves-effect waves-light notif-confirm2"><i class="feather icon-file-text"></i></a>';
 
             $data[] = array(
             "no"=>$no++,
