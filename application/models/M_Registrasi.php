@@ -68,7 +68,7 @@ class M_Registrasi extends CI_Model {
         // if($searchQuery != '')
         $this->db->select('*');
         $this->db->from('dt_registrasi as a');
-        $this->db->join('mt_paket as b', 'a.speed = b.id_paket');
+        $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->order_by('a.id', 'desc');
         if ($this->session->userdata('sort_status')) {
             $this->db->where('a.status',$this->session->userdata('sort_status'));
@@ -324,9 +324,12 @@ class M_Registrasi extends CI_Model {
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
         $this->db->where('a.status','Aktif');
-        $this->db->like('a.nama',$searchValue);
-        $this->db->or_like('a.alamat',$searchValue);
-        $this->db->or_like('a.kode_pelanggan',$searchValue);
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
+        // $this->db->like('a.nama',$searchValue);
+        // $this->db->or_like('a.alamat',$searchValue);
+        // $this->db->or_like('a.kode_pelanggan',$searchValue);
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
         }
@@ -334,12 +337,12 @@ class M_Registrasi extends CI_Model {
         $totalRecords = $records[0]->allcount;
 
         $this->db->select('count(*) as allcount');
-        // if ($searchValue) {
-        //     $this->db->where($searchQuery);
-        // }
-        $this->db->like('a.nama',$searchValue);
-        $this->db->or_like('a.alamat',$searchValue);
-        $this->db->or_like('a.kode_pelanggan',$searchValue);
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
+        // $this->db->like('a.nama',$searchValue);
+        // $this->db->or_like('a.alamat',$searchValue);
+        // $this->db->or_like('a.kode_pelanggan',$searchValue);
             // $this->db->like('nama',$searchValue);
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
@@ -357,12 +360,12 @@ class M_Registrasi extends CI_Model {
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
         }
-        // if ($searchValue) {
-        //     $this->db->where($searchQuery);
-        // }
-        $this->db->like('a.nama',$searchValue);
-        $this->db->or_like('a.alamat',$searchValue);
-        $this->db->or_like('a.kode_pelanggan',$searchValue);
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
+        // $this->db->like('a.nama',$searchValue);
+        // $this->db->or_like('a.alamat',$searchValue);
+        // $this->db->or_like('a.kode_pelanggan',$searchValue);
         //  $this->db->order_by('tanggal', 'desc');
         $this->db->order_by($columnName, $columnSortOrder);
         $this->db->limit($rowperpage, $start);
