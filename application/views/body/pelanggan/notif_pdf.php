@@ -132,7 +132,7 @@ function terbilang($nilai) {
             <td>1 Paket</td>
             <td>Biaya langganan internet <?= $x['mbps'] ?> mbps</td>
             <td><?php 
-		    $ppn = $x['harga'] * 11 / 100;
+		    $ppn = floor($x['harga'] * 11 / 100);
             echo 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
             <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
         </tr>

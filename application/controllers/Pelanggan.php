@@ -383,7 +383,7 @@ Layanan Teknis	:
 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
 			$get_client = $this->db->get('dt_registrasi as a')->row_array();
 	
-			$ppn = $get_client['harga'] * 11 / 100;
+			$ppn = floor($get_client['harga'] * 11 / 100);
 			$hargaa = $get_client['harga'];
 			$bulan = $this->session->userdata('filterBulan');
 			$tahun = $this->session->userdata('filterTahun');
