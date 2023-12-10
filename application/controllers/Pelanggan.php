@@ -383,7 +383,7 @@ Layanan Teknis	:
 			$this->db->join('mt_paket as b','a.speed = b.id_paket');
 			$get_client = $this->db->get('dt_registrasi as a')->row_array();
 	
-			$ppn = $get_client['harga'] * 11 / 100;
+			$ppn = floor($get_client['harga'] * 11 / 100);
 			$hargaa = $get_client['harga'];
 			$bulan = $this->session->userdata('filterBulan');
 			$tahun = $this->session->userdata('filterTahun');
@@ -421,7 +421,7 @@ Layanan Teknis	:
 0821-1420-9923
 0819-3380-3366";
 			// if (file_exists($url_img)) {
-				$c =  $this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
+				$c =  $this->api_whatsapp->wa_notif_doc($msg,'083897943785',$url_img);
 			// }else{
 			// 	echo 1;
 			// }
