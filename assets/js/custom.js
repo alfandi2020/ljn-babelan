@@ -252,83 +252,83 @@ $(document).ready(function(){
         var data  = form.serialize();
         var nik = $('input[name="nomor"]').val().length     
         var t_nik = $('input[name="t_nomor"]').val().length     
-        if (nik >= 16 && t_nik >= 16) {
-        $.ajax({
-                type :"POST",
-                url : "submit_registrasi",
-                dataType : 'json',
-                data : data,
-                success : function(data){
-                    if (data.code == 'nama_double') {
-                        Swal.fire({
-                            title: 'Opss..',
-                            icon:'error',
-                            text: data.status,
-                            timer: 2000,
-                        })
-                    }else if(data.code == 'unik_double'){
-                        Swal.fire({
-                            title: 'Opss..',
-                            icon:'error',
-                            text: data.status,
-                            timer: 2000,
-                        })
-                    }else{
-                        Swal.fire({
-                            title: 'Berhasil',
-                            html: data.status,
-                            timer: 2000,
-                            // confirmButtonClass: 'btn btn-primary',
-                            // buttonsStyling: false,
-                            
-                            onBeforeOpen: function () {
-                            Swal.showLoading()
-                            timerInterval = setInterval(function () {
-                                Swal.getContent().querySelector('strong')
-                                .textContent = Swal.getTimerLeft()
-                            }, 100)
-                            },
-                            onClose: function () {
-                            clearInterval(timerInterval)
-                            }
-                        }).then(function (result) {
-                                if (result.dismiss === Swal.DismissReason.timer) {
-                                    window.location = "";
+        // if (nik >= 16 && t_nik >= 16) {
+            $.ajax({
+                    type :"POST",
+                    url : "submit_registrasi",
+                    dataType : 'json',
+                    data : data,
+                    success : function(data){
+                        if (data.code == 'nama_double') {
+                            Swal.fire({
+                                title: 'Opss..',
+                                icon:'error',
+                                text: data.status,
+                                timer: 2000,
+                            })
+                        }else if(data.code == 'unik_double'){
+                            Swal.fire({
+                                title: 'Opss..',
+                                icon:'error',
+                                text: data.status,
+                                timer: 2000,
+                            })
+                        }else{
+                            Swal.fire({
+                                title: 'Berhasil',
+                                html: data.status,
+                                timer: 2000,
+                                // confirmButtonClass: 'btn btn-primary',
+                                // buttonsStyling: false,
+                                
+                                onBeforeOpen: function () {
+                                Swal.showLoading()
+                                timerInterval = setInterval(function () {
+                                    Swal.getContent().querySelector('strong')
+                                    .textContent = Swal.getTimerLeft()
+                                }, 100)
+                                },
+                                onClose: function () {
+                                clearInterval(timerInterval)
                                 }
-                        })
-                    }
-                    // Swal.fire({
-                    //     icon: 'success',
-                    //     title: data.message,
-                    //     showConfirmButton: false,
-                    //     timerProgressBar: true,
-                    //     timer: 2000,
-                    //     didOpen: () => {
-                    //         Swal.showLoading()
-                    //         const b = Swal.getHtmlContainer().querySelector('b')
-                    //         timerInterval = setInterval(() => {
-                    //         b.textContent = Swal.getTimerLeft()
-                    //         }, 100)
-                    //     },
-                    //     willClose: () => {
-                    //         clearInterval(timerInterval)
-                    //     }
-                    // }).then((result) => {
-                    //     if (result.dismiss === Swal.DismissReason.timer) {
-                    //     window.location = "";
-                    //     }
-                    // })
-                    console.log(data)
-            }
-        })
-    }else{
-        Swal.fire({
-            title: 'Opss..',
-            icon:'error',
-            text: 'Nomor KTP minimal 16',
-            timer: 2000,
-        })
-    }
+                            }).then(function (result) {
+                                    if (result.dismiss === Swal.DismissReason.timer) {
+                                        window.location = "";
+                                    }
+                            })
+                        }
+                        // Swal.fire({
+                        //     icon: 'success',
+                        //     title: data.message,
+                        //     showConfirmButton: false,
+                        //     timerProgressBar: true,
+                        //     timer: 2000,
+                        //     didOpen: () => {
+                        //         Swal.showLoading()
+                        //         const b = Swal.getHtmlContainer().querySelector('b')
+                        //         timerInterval = setInterval(() => {
+                        //         b.textContent = Swal.getTimerLeft()
+                        //         }, 100)
+                        //     },
+                        //     willClose: () => {
+                        //         clearInterval(timerInterval)
+                        //     }
+                        // }).then((result) => {
+                        //     if (result.dismiss === Swal.DismissReason.timer) {
+                        //     window.location = "";
+                        //     }
+                        // })
+                        console.log(data)
+                }
+            })
+        // }else{
+        //     Swal.fire({
+        //         title: 'Opss..',
+        //         icon:'error',
+        //         text: 'Nomor KTP minimal 16',
+        //         timer: 2000,
+        //     })
+        // }
     });
     // var status = document.getElementById("status").checked
     $('#table-pelanggan').DataTable({
