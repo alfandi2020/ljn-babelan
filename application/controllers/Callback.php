@@ -186,7 +186,7 @@ Layanan Teknis	:
                     // Perlu diketahui value Sandbox Webhook dan value
                     // webhook original berbeda.
                     // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
-                    $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif"');
+                    $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $get_client = $client->row_array();
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
@@ -208,7 +208,7 @@ Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
-                    if ($get_client['tagihan'] == $jquin['amount']) {
+                    if ($client->num_rows() == true) {
                         if ($kode_unik != 000) {
                             $data = array(
                                 'bank_id' => $jquin['bank_id'],
@@ -242,10 +242,10 @@ Layanan Teknis	:
                         }
                     }else{
                         $wa_2 = "Notifkasi Pembayaran
-
+Bank : ".$jquin['bank']->bank_type."
 Tanggal : ".date( 'Y-m-d H:i:s')."
 Jumlah : "."Rp.". number_format($jquin['amount'],0,'.','.')."
-Deskripsi : ".$get_client['tagihan']."
+Deskripsi : ".$jquin['description']."
                         ";
                         $this->api_whatsapp->wa_notif($wa_2,'081933803366');
                     }
