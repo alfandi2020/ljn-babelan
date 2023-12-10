@@ -242,10 +242,10 @@ Layanan Teknis	:
                         }
                     }else{
                         $wa_2 = "Notifkasi Pembayaran
-Bank : ".$jquin['bank']->bank_type."
+
 Tanggal : ".date( 'Y-m-d H:i:s')."
 Jumlah : "."Rp.". number_format($jquin['amount'],0,'.','.')."
-Deskripsi : ".$jquin['description']."
+Deskripsi : ".$get_client['tagihan']."
                         ";
                         $this->api_whatsapp->wa_notif($wa_2,'081933803366');
                     }
