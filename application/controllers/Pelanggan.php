@@ -124,11 +124,13 @@ class Pelanggan extends CI_Controller {
 	function sort()
 	{
 		$uri = $this->uri->segment(3);
+		$thn = $this->input->post('tahun_t');
 		if ($uri == 'bulan') {
 			$bulan = $this->input->post('bulan');
 			$tgl_t = $this->input->post('tgl_t');
 			$this->session->set_userdata('filterBulan',$bulan);
 			$this->session->set_userdata('filterTgl_tempo',$tgl_t);
+			$this->session->set_userdata('filterTahun',$thn);
 			redirect('pelanggan/status');
 		}else{
 			$status = $this->input->post('status');
