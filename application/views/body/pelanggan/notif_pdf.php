@@ -98,11 +98,11 @@ function terbilang($nilai) {
         </tr>
         <tr>
             <td><?= $x['nama'] ?></td> 
-            <td>No Invoice : INV<?= date('y').date('m').date('d').$x['id'] ?></td>
+            <td>No Invoice : INV<?= $tahun.$bulan. $tanggal_t.$x['id'] ?></td>
         </tr>
         <tr>
             <td width="400"><?= $x['alamat'] ?></td> 
-            <td>Tanggal : <?= date('d') ?> <?= $bulan ?> <?= $tahun ?></td>
+            <td>Tanggal : <?= $tanggal_t ?> <?= $bulan ?> <?= $tahun ?></td>
         </tr>
         <tr>
             <td><br><br></td>
