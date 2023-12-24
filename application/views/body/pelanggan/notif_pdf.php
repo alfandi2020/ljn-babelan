@@ -102,7 +102,7 @@ function terbilang($nilai) {
         </tr>
         <tr>
             <td width="400"><?= $x['alamat'] ?></td> 
-            <td>Tanggal : <?= $tanggal_t ?> <?= $bulan ?> <?= $tahun ?></td>
+            <td>Tanggal : <?= date('d') ?> <?= date('m') ?> <?= date('Y') ?></td>
         </tr>
         <tr>
             <td><br><br></td>
