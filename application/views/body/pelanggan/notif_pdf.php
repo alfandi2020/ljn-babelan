@@ -90,6 +90,31 @@ function terbilang($nilai) {
         			$bulan = $this->session->userdata('filterBulan');
                     $tahun = $this->session->userdata('filterTahun');    
                     $tanggal_t = $this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo');    
+            if ($bulan == 'Januari') {
+                $bln_conv = '01';
+            }elseif ($bulan == 'Febuari') {
+                $bln_conv = '02';
+            }elseif ($bulan == 'Maret') {
+                $bln_conv = '03';
+            }elseif ($bulan == 'April') {
+                $bln_conv = '04';
+            }elseif ($bulan == 'Mei') {
+                $bln_conv = '05';
+            }elseif ($bulan == 'Juni') {
+                $bln_conv = '06';
+            }elseif ($bulan == 'Juli') {
+                $bln_conv = '07';
+            }elseif ($bulan == 'Agustus') {
+                $bln_conv = '08';
+            }elseif ($bulan == 'September') {
+                $bln_conv = '09';
+            }elseif ($bulan == 'Oktober') {
+                $bln_conv = '10';
+            }elseif ($bulan == 'November') {
+                $bln_conv = '11';
+            }elseif ($bulan == 'Desember') {
+                $bln_conv = '12';
+            }
     ?>
     <table style="background-color:white">
         <tr>
@@ -98,7 +123,7 @@ function terbilang($nilai) {
         </tr>
         <tr>
             <td><?= $x['nama'] ?></td> 
-            <td>No Invoice : INV<?= $tahun.$bulan. $tanggal_t.$x['id'] ?></td>
+            <td>No Invoice : INV<?= $tahun. $bln_conv. $tanggal_t.$x['id'] ?></td>
         </tr>
         <tr>
             <td width="400"><?= $x['alamat'] ?></td> 
