@@ -188,6 +188,20 @@ Layanan Teknis	:
                     // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $get_client = $client->row_array();
+                $tanggal2 = time();
+                $bulan2 = $this->indonesian_date($tanggal2, 'F');
+                $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => $get_client['kode_pelanggan'], 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
+                if ($cek_bulan == true) {
+                    //jika sudah bayar maka bayar di bulan berikut nya 
+                    $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
+                    $bln_ad2 = date("Y-m-d H:i:s", $effectiveDate);
+                    $str_bln = strtotime($bln_ad2);
+                    $bulan_fix = $this->indonesian_date($str_bln, 'F');
+                    $thn_fix = date('Y', $str_bln);
+                } else {
+                    $bulan_fix = $bulan2;
+                    $thn_fix = date('Y');
+                }
                     $wa = "Kepada pelanggan yth,
 *Bapak/Ibu ".$get_client['nama']."*
 ID Pel : ".$get_client['kode_pelanggan']."
@@ -195,7 +209,7 @@ ID Pel : ".$get_client['kode_pelanggan']."
 Pembayaran tagihan anda *BERHASIL* 
                     
 Tanggal Verifikasi : ".date('d-m-Y')."
-Periode Pembayaran : ".date('M')." " . date('Y') ."
+Periode Pembayaran : ". $bulan_fix." " . $thn_fix ."
 *Total Pembayaran : Rp ".number_format($jquin['amount'],0,'.','.').",-*
                     
 Terima kasih atas kerjasamanya.
@@ -225,16 +239,15 @@ Layanan Teknis	:
                                 'nama_pengirim' => 'waaw'
                             );
                             $store = $this->db->insert('mutasi',$data);
-                            $tanggal2 = time();
-                            $bulan2 = $this->indonesian_date($tanggal2, 'F');
+                            
                             $data_cetak = [
                                 "id_registrasi" => $get_client['kode_pelanggan'],
                                 "nama" => $get_client['nama'],
                                 "mbps" => $get_client['mbps'],
                                 "tagihan" => $get_client['tagihan'],
                                 "penerima" => 'admin',
-                                "periode" => $bulan2,
-                                "tahun" => date('Y'),
+                                "periode" => $bulan_fix,
+                                "tahun" => $thn_fix,
                                 "tanggal_pembayaran" => date('Y-m-d H:i:s')
                             ];
                             $this->db->insert('dt_cetak',$data_cetak);
