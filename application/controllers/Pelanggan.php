@@ -321,8 +321,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 .: Jatuh tempo pembayaran *tanggal ".$this->session->userdata('filterTgl_tempo')." bulan tagihan*.
 .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 
-Pembayaran ditujukan ke : 
-		
+.: Pembayaran ditujukan ke : 
 1. *BCA 2761446578 an Mahfudin*
 2. *Mandiri 1560016047112 an Mahfudin*
 
