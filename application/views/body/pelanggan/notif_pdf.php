@@ -170,7 +170,7 @@ function terbilang($nilai) {
         </tr>
         <tr>
             <td colspan="2" rowspan="6">
-            .: Pembayaran ditujukan ke :
+            .: Pembayaran ditujukan ke : <br>
                 1. BCA 2761446578 an Mahfudin <br>
                 2. MANDIRI 1560016047112 an Mahfudin
             </td>
