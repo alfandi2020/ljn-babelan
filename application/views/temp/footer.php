@@ -269,6 +269,41 @@
             }
             }
         })
+    })
+    $(document).on('click', '.delete-confirm-struk', function () {
+        var linkURL = $(this).attr("href").split('#');
+        var id = this.id;
+        linkURL =  base_url +"pelanggan/delete_struk/" + id;
+       
+                Swal.fire({
+                    title: "Delete Struk!",
+                    html: 'Apakah anda Yakin ingin delete struk..!',
+                    type: "info",
+                    confirmButtonClass: 'btn btn-primary',
+                    buttonsStyling: false,
+                    showCancelButton:true,
+                    cancelButtonClass: 'btn btn-danger ml-1',
+                  }).then(
+                        function (isConfirm) {
+                            if (isConfirm.value) {
+                                Swal.fire(
+                                    {
+                                        type: "success",
+                                        title: 'Berhasil!',
+                                        text: 'Tagihan berhasil dikirim',
+                                        confirmButtonClass: 'btn btn-success',
+                                    })
+                                setTimeout(() => {
+                                    window.location.href = linkURL;
+                                }, 1500);
+                            } else {
+                                history.replaceState(null, null, ' ');
+                                event.preventDefault();
+                                return false;
+                            }
+                        }
+                    );
+            // }
         // Swal.fire({
         //     icon: 'warning',
         //     title: 'Tagihan invoice',

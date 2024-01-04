@@ -58,6 +58,10 @@ class Pelanggan extends CI_Controller {
 		$t_telp = $this->input->post('t_telp');
 		$t_email = $this->input->post('t_email');
 		$tgl_installasi = $this->input->post('tanggal_installasi');
+		$add_on1 = $this->input->post('addon1');
+		$add_on2 = $this->input->post('addon2');
+		$add_on3 = $this->input->post('addon3');
+		$diskon = $this->input->post('diskon');
 		// if ($nama) {
 			$nama_cek =  $this->db->get_where('dt_registrasi',['nama' => $nama])->num_rows();
 			if ($nama_cek == true) {
@@ -84,7 +88,11 @@ class Pelanggan extends CI_Controller {
 					"aktif" => $tgl_installasi,
 					"teknisi" => $teknisi,
 					"group" => $group,
-					"status"=> 'Aktif'
+					"status"=> 'Aktif',
+					"addon1"=> $add_on1,
+					"addon2"=> $add_on2,
+					"addon3"=> $add_on3,
+					"diskon"=> $diskon,
 				];
 				$this->db->insert('dt_registrasi',$insert);
 				// $msg = [
@@ -131,7 +139,11 @@ class Pelanggan extends CI_Controller {
 			$this->session->set_userdata('filterBulan',$bulan);
 			$this->session->set_userdata('filterTgl_tempo',$tgl_t);
 			$this->session->set_userdata('filterTahun',$thn);
-			redirect('pelanggan/status');
+			if ($this->input->post('cetak') == 'cetak') {
+				redirect('pelanggan/cetak');
+			} else {
+				redirect('pelanggan/status');
+			}
 		}else{
 			$status = $this->input->post('status');
 			$this->session->set_userdata('sort_status',$status);
@@ -235,6 +247,16 @@ class Pelanggan extends CI_Controller {
 		// ];
 		// echo json_encode($msg);
 	}
+	function cetak()
+	{
+		$data = [
+			'pelanggan' => $this->db->get('dt_registrasi')->result(),
+			'title' => 'List Pelanggan'
+		];
+		$this->load->view('temp/header', $data);
+		$this->load->view('body/pelanggan/cetak', $data);
+		$this->load->view('temp/footer');
+	}
 	function status(){
 		$data = [
 			'pelanggan' => $this->db->get('dt_registrasi')->result(),
@@ -248,6 +270,12 @@ class Pelanggan extends CI_Controller {
 	{
         $postData = $this->input->post();
         $data = $this->M_Registrasi->status_payment($postData);
+        echo json_encode($data);
+	}
+	function cetak_struk()
+	{
+        $postData = $this->input->post();
+        $data = $this->M_Registrasi->cetak_struk2($postData);
         echo json_encode($data);
 	}
 	function getClient(){
@@ -433,6 +461,7 @@ Layanan Teknis	:
 	{
 		echo phpinfo();
 	}
+
 	function delete($id){
 		if ($this->privilage() == true) {
 			$this->db->where('id',$id);
@@ -441,6 +470,16 @@ Layanan Teknis	:
 		}else{
 			redirect('pelanggan/list');
 		}
+	}
+	function delete_struk(){
+		// if ($this->privilage() == true) {
+			$id = $this->uri->segment(3);
+			$this->db->where('id_cetak',$id);
+			$this->db->delete('dt_cetak');
+			redirect('pelanggan/cetak');
+		// }else{
+		// 	redirect('pelanggan/list');
+		// }
 	}
 	function delete_group($id){
 		$this->db->where('id_alamat',$id);
@@ -649,6 +688,33 @@ Layanan Teknis	:
 	}
 	function profile(){
 		$this->load->view('body/profile');
+	}
+	function addon(){
+		$data = [
+			'title' => 'Add on',
+			'addon' => $this->db->get('addon')->result(),
+		];
+		$nama = $this->input->post('nama');
+		$harga = $this->input->post('harga');
+		$action = $this->input->post('action');
+		if ($nama == true && $harga == true) {
+			$d = [
+				"nama" => $nama,
+				"biaya" => $this->remove_special($harga)
+			];
+			$this->db->insert('addon',$d);
+			redirect('pelanggan/addon');
+		}
+		$this->load->view('temp/header', $data);
+		$this->load->view('body/pelanggan/addon', $data);
+		$this->load->view('temp/footer');
+	}
+	function delete_addon()
+	{
+		$id = $this->uri->segment(3);
+		$this->db->where('id', $id);
+		$this->db->delete('addon');
+		redirect('pelanggan/addon');
 	}
 	public function filter(){
         if($this->uri->segment(3)){
