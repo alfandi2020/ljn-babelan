@@ -133,6 +133,70 @@
                                                 </fieldset>
                                             </div>
                                         </div>
+                                         <div class="row mt-2">
+                                            <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                <fieldset class="form-group">
+                                                    <span>Add On 1</span>
+                                                        <select required name="addon1" class="select2 form-control">
+                                                        <option disabled selected>Pilih Addon 1</option>
+                                                        <?php $paket = $this->db->get('addon')->result();
+                                                        foreach ($paket as $x) {
+                                                            if (strpos($pelanggan['addon1'],$x->id) !== false) { ?>
+                                                            <option selected value="<?= $x->id ?>">
+                                                                <?= $x->nama . ' - ' . number_format($x->biaya, 0, '.', '.') ?>
+                                                            </option>
+                                                        <?php } else { ?>
+                                                                <option value="<?= $x->id ?>">
+                                                                <?= $x->nama . ' - ' . number_format($x->biaya, 0, '.', '.') ?>
+                                                            </option>
+                                                       <?php }
+                                                        }?>
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                <fieldset class="form-group">
+                                                    <span>Add On 2</span>
+                                                    <select required name="addon2" class="select2 form-control">
+                                                        <option disabled selected>Pilih Addon 1</option>
+                                                        <?php $paket = $this->db->get('addon')->result();
+                                                        foreach ($paket as $x) {
+                                                            if ($pelanggan['addon2'] == $x->id) { ?>
+                                                                <option selected value="<?= $x->id ?>">
+                                                                    <?= $x->nama . ' - ' . number_format($x->biaya, 0, '.', '.') ?>
+                                                                </option>
+                                                            <?php } else { ?>
+                                                                <option value="<?= $x->id ?>">
+                                                                    <?= $x->nama . ' - ' . number_format($x->biaya, 0, '.', '.') ?>
+                                                                </option>
+                                                            <?php }
+                                                        } ?>
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                <span>Add on 3</span>
+                                                <select required name="addon3" class="select2 form-control">
+                                                        <option disabled selected>Pilih Addon 1</option>
+                                                    <?php $paket = $this->db->get('addon')->result();
+                                                    foreach ($paket as $x) {
+                                                        if ($pelanggan['addon3'] == $x->id) { ?>
+                                                            <option selected value="<?= $x->id ?>">
+                                                                <?= $x->nama . ' - ' . number_format($x->biaya, 0, '.', '.') ?>
+                                                            </option>
+                                                        <?php } else { ?>
+                                                            <option value="<?= $x->id ?>">
+                                                                <?= $x->nama . ' - ' . number_format($x->biaya, 0, '.', '.') ?>
+                                                            </option>
+                                                        <?php }
+                                                    } ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                <span>Diskon</span>
+                                                <input type="text" name="diskon" required class="form-control">
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-xl">
                                                 <div class="divider divider-left divider-primary">
@@ -142,6 +206,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                              
                                         <div class="row mt-2">
                                             <div class="col-xl-4 col-md-6 col-12">
                                                 <fieldset class="form-group">

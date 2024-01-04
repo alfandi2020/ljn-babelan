@@ -605,6 +605,82 @@ $(document).ready(function(){
         "responsive": true
         
     });
+
+    $('#table-cetak').DataTable({
+        'processing': true,
+        'serverSide': true,
+        'serverMethod': 'post',
+        'ajax': {
+           'url':'cetak_struk',
+        //    'data' : {'status' : status}
+        },
+        'columns': [
+            {data: 'no'},
+           { data: 'nama' },
+           { data: 'paket' },
+           { data: 'nominal' },
+           { data: 'penerima' },
+           { data: 'periode' },
+           { data: 'tahun' },
+           { data: 'tanggal_bayar' },
+           { data: 'action' },
+        //    {
+        //       className: 'url',
+        //       data: 'id',
+        //       render: function(data, type, row) {
+        //           if (type === 'display') {
+        //               $('.delete-confirm').on('click', function (eventx) {
+        //                       eventx.preventDefault();
+        //                   //   var id = $(this).attr('val');
+        //                   const url = $(this).attr('href');
+        //                   swal.fire({
+        //                     title: 'Yakin Hapus Pelanggan?',
+        //                     text: "Data Akan di delete !",
+        //                     icon: 'warning',
+        //                     showCancelButton: true,
+        //                     cancelButtonColor: '#d33',
+        //                     confirmButtonClass: 'btn btn-primary',
+        //                     cancelButtonClass: 'btn btn-danger ml-1',
+        //                     confirmButtonText: 'Ya, Hapus Data'
+                      
+        //                   }).then(function(result) {
+        //                     if (result.value) {
+        //                         Swal.fire(
+        //                             {
+        //                               type: "success",
+        //                               title: 'Deleted!',
+        //                               text: 'Data berhasil didelete',
+        //                               confirmButtonClass: 'btn btn-success',
+        //                             }
+        //                           )
+        //                         setTimeout(() => {
+        //                             document.location.href = url;
+        //                         }, 1500);
+        //                         // console.log(href);
+        //                     }else if (result.dismiss === Swal.DismissReason.cancel) {
+        //                         Swal.fire({
+        //                           title: 'Cencel',
+        //                           text: 'Data cancel di delete',
+        //                           type: 'error',
+        //                           confirmButtonClass: 'btn btn-success',
+        //                         })
+        //                       }
+        //                   });
+        //               });
+        //               return '<a target="_blank" class="btn btn-icon btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light " href="pdf/' + data + '"><i class="feather icon-eye"></i></a>'+ 
+        //               '<a class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1 waves-effect waves-light" href="update/' + data + '" class="url"><i class="feather icon-edit"></i></a>'+
+        //               '<a href="delete/' + data + '" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1 waves-effect waves-light delete-confirm url"><i class="feather icon-trash-2"></i></a> ';
+        //           }
+  
+        //           return data;
+        //       }
+        //    }
+        ],
+        
+        // "sScrollX": "100%",
+        "responsive": true
+        
+    });
 });
 $(document).ready(function() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));

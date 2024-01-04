@@ -46,61 +46,107 @@
                                                 <input type="text" name="kode_unik" required class="form-control">
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-xl">
-                                    <div class="divider divider-left divider-primary">
-                                        <div class="divider-text">
-                                            <h4> Inventory </h4>
+                                         <div class="row mt-2">
+                                            <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                <fieldset class="form-group">
+                                                    <span>Add On 1</span>
+                                                        <select required name="addon1" class="select2 form-control">
+                                                        <option disabled selected>Pilih Addon 1</option>
+                                                        <?php $paket = $this->db->get('addon')->result();
+                                                            foreach ($paket as $x) { ?>
+                                                                <option value="<?= $x->id ?>">
+                                                                    <?=  $x->nama . ' - ' . number_format($x->biaya,0,'.','.') ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </fieldset>
+                                            </div>
+                                            <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                <fieldset class="form-group">
+                                                    <span>Add On 2</span>
+                                                    <select required name="addon2" class="select2 form-control">
+                                                    <option disabled selected>Pilih Addon 1</option>
+                                                    <?php $paket = $this->db->get('addon')->result();
+                                                            foreach ($paket as $x) { ?>
+                                                                <option value="<?= $x->id ?>">
+                                                                    <?= $x->nama . ' - ' . number_format($x->biaya, 0, '.', '.') ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                    <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                        <span>Add on 3</span>
+                                                        <select required name="addon3" class="select2 form-control">
+                                                        <option disabled selected>Pilih Addon 1</option>
+                                                        <?php $paket = $this->db->get('addon')->result();
+                                                                foreach ($paket as $x) { ?>
+                                                                    <option value="<?= $x->id ?>">
+                                                                        <?= $x->nama . ' - ' . number_format($x->biaya, 0, '.', '.') ?>
+                                                                    </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                        <span>Diskon</span>
+                                                        <input type="text" name="diskon" required class="form-control">
+                                                    </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-xl-4 col-md-6 col-12 mb-1">
-                                    <fieldset class="form-group">
-                                        <span>Router</span>
-                                        <input type="text" required name="router" class="form-control" placeholder="Router Huawei">
-                                    </fieldset>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-12 mb-1">
-                                    <fieldset class="form-group">
-                                        <span>CPE</span>
-                                        <input type="text" required name="cpe" class="form-control" placeholder="Ubiqity">
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl">
-                                    <div class="divider divider-left divider-primary">
-                                        <div class="divider-text">
-                                            <h4> Data Pelanggan </h4>
+                                        <div class="row">
+                                            <div class="col-xl">
+                                                <div class="divider divider-left divider-primary">
+                                                    <div class="divider-text">
+                                                        <h4> Inventory </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-xl-4 col-md-6 col-12">
-                                    <fieldset class="form-group">
-                                        <span>Nama</span>
-                                        <input type="text" required name="nama" class="form-control" placeholder="asep" >
-                                    </fieldset>
-                                </div>
+                                        <div class="row mt-2">
+                                            <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                                <fieldset class="form-group">
+                                                    <span>Router</span>
+                                                    <input type="text" required name="router" class="form-control" placeholder="Router Huawei">
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                                <fieldset class="form-group">
+                                                    <span>CPE</span>
+                                                    <input type="text" required name="cpe" class="form-control" placeholder="Ubiqity">
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl">
+                                                <div class="divider divider-left divider-primary">
+                                                    <div class="divider-text">
+                                                        <h4> Data Pelanggan </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-xl-4 col-md-6 col-12">
+                                                <fieldset class="form-group">
+                                                    <span>Nama</span>
+                                                    <input type="text" required name="nama" class="form-control" placeholder="asep" >
+                                                </fieldset>
+                                            </div>
                                 
-                                <div class="col-xl-4">
-                                    <span>Nomor KTP</span>
-                                    <input type="number" required name="nomor" class="form-control" placeholder="3175">
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-12">
-                                    <fieldset class="form-group">
-                                        <span>No NPWP</span>
-                                        <input type="number" required name="npwp" class="form-control" placeholder="123" >
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-xl-4">
-                                    <span>Group</span>
-                                    <select name="group" id="" class="select2">
+                                            <div class="col-xl-4">
+                                                <span>Nomor KTP</span>
+                                                <input type="number" required name="nomor" class="form-control" placeholder="3175">
+                                            </div>
+                                            <div class="col-xl-4 col-md-6 col-12">
+                                                <fieldset class="form-group">
+                                                    <span>No NPWP</span>
+                                                    <input type="number" required name="npwp" class="form-control" placeholder="123" >
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-xl-4">
+                                                <span>Group</span>
+                                                <select name="group" id="" class="select2">
                                         <?php foreach ($mt_role as $x) {?> 
                                             <option value="<?= $x->group ?>"><?= $x->group ?></option>
                                         <?php } ?>

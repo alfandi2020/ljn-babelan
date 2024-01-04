@@ -407,5 +407,121 @@ class M_Registrasi extends CI_Model {
 
         return $response;
     }
+    function cetak_struk2($postData){
+        $response = array();
+        
+        //value
+        $draw = $postData['draw'];
+        $start = $postData['start'];
+        $rowperpage = $postData['length'];
+        $columnIndex = $postData['order'][0]['column'];
+        $columnName = 'a.nama';
+        $columnSortOrder = $postData['order'][0]['dir'];
+        $searchValue = $postData['search']['value'];
+
+        //search
+        $searchQuery = "";
+        if($searchValue != ''){
+            $searchQuery = " (a.nama like '%".$searchValue."%' or a.tagihan like '%".$searchValue."%' ) ";
+        }
+
+        $bulann = $this->session->userdata('filterBulan');
+        $thn = $this->session->userdata('filterTahun');
+        $this->db->select('count(*) as allcount');
+        $this->db->from('dt_cetak as a');
+        $this->db->join('mt_paket as b', 'a.mbps = b.id_paket','left');
+        $this->db->where('a.periode', $bulann);
+        $this->db->where('a.tahun', $thn);
+
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
+        // $this->db->like('a.nama',$searchValue);
+        // $this->db->or_like('a.alamat',$searchValue);
+        // $this->db->or_like('a.kode_pelanggan',$searchValue);
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
+            $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
+        }
+        $records = $this->db->get()->result();
+        $totalRecords = $records[0]->allcount;
+
+        $this->db->select('count(*) as allcount');
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
+        // $this->db->like('a.nama',$searchValue);
+        // $this->db->or_like('a.alamat',$searchValue);
+        // $this->db->or_like('a.kode_pelanggan',$searchValue);
+            // $this->db->like('nama',$searchValue);
+        $this->db->from('dt_cetak as a');
+        $this->db->join('mt_paket as b', 'a.mbps = b.id_paket','left');
+        $this->db->where('a.periode', $bulann);
+        $this->db->where('a.tahun', $thn);
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
+            $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
+        }
+        $records = $this->db->get()->result();
+        $totalRecordwithFilter = $records[0]->allcount;
+
+        $this->db->select('*');
+        $this->db->from('dt_cetak as a');
+        $this->db->join('mt_paket as b', 'a.mbps = b.id_paket','left');
+        $this->db->where('a.periode', $bulann);
+        $this->db->where('a.tahun', $thn);
+        if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
+            $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
+        }
+        if ($searchValue) {
+            $this->db->where($searchQuery);
+        }
+        // $this->db->like('a.nama',$searchValue);
+        // $this->db->or_like('a.alamat',$searchValue);
+        // $this->db->or_like('a.kode_pelanggan',$searchValue);
+        //  $this->db->order_by('tanggal', 'desc');
+        $this->db->order_by($columnName, $columnSortOrder);
+        $this->db->limit($rowperpage, $start);
+        //  $records = $this->db->query("SELECT a.id_cetak,a.nama,b.paket,a.tagihan,a.penerima,a.periode,a.tanggal,a.nomor_struk FROM dt_registrasi as a left join mt_paket as b on(a.internet = b.id_wireless) where '$searchQuery' order by '$columnName' asc limit $rowperpage")->result();
+        $records = $this->db->get()->result();
+        $data = array();
+        // $no =1;
+        $no = $_POST['start']+1;
+        $bulann= $this->session->userdata('filterBulan');
+        foreach($records as $record ){
+            // $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->kode_pelanggan' and periode='$bulann'")->num_rows();
+            // if ($cek == true) {
+            //     $status = '<span class="badge badge-glow badge-success">Sudah Bayar</span>';
+            //     $tagihan = '';
+            // }else{
+            //     $status = '<span class="badge badge-glow badge-danger">Belum Bayar</span>';
+                $tagihan =  '<a href="#" id="'.$record->id_cetak.'" class="delete-confirm-struk btn btn-icon btn-icon rounded-circle btn-danger waves-effect waves-light"><i class="feather icon-trash"></i></a>';
+                // $tagihan =  '<a href="#" id="'.$record->id_cetak.'" class="delete-confirm-struk btn btn-icon btn-icon rounded-circle btn-danger waves-effect waves-light"><i class="feather icon-trash"></i></a> &nbsp;
+                // <a href="cetak_struk_pdf" id="'.$record->id_cetak.'" class="btn btn-icon btn-icon rounded-circle btn-warning waves-effect waves-light notif-confirm2"><i class="feather icon-file-text"></i></a>';
+            // }
+
+            $data[] = array(
+            "no"=>$no++,
+            "id"=> $record->id_cetak,
+            "nama"=>$record->nama,
+            "paket"=> $record->mbps. ' Mbps',
+            "nominal"=> "Rp.".number_format($record->tagihan,0,'.','.'),
+            "penerima"=> $record->penerima,
+            "periode"=> $record->periode,
+            "tahun"=> $record->tahun,
+            "tanggal_bayar"=> $record->tanggal_pembayaran,
+            "action"=> $tagihan,
+            );
+        }
+
+        //response
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordwithFilter,
+            "aaData" => $data
+        );
+
+        return $response;
+    }
+    
 
 }
