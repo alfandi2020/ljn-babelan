@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                                          <div class="row mt-2">
-                                            <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                            <div class="col-xl-3 col-md-6 col-12 mb-1">
                                                 <fieldset class="form-group">
                                                     <span>Add On 1</span>
                                                         <select required name="addon1" class="select2 form-control">
@@ -61,7 +61,7 @@
                                                         </select>
                                                     </fieldset>
                                             </div>
-                                            <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                            <div class="col-xl-3 col-md-6 col-12 mb-1">
                                                 <fieldset class="form-group">
                                                     <span>Add On 2</span>
                                                     <select required name="addon2" class="select2 form-control">
@@ -75,7 +75,7 @@
                                                         </select>
                                                     </fieldset>
                                                 </div>
-                                                    <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                    <div class="col-xl-3 col-md-6 col-12 mb-1">
                                                         <span>Add on 3</span>
                                                         <select required name="addon3" class="select2 form-control">
                                                         <option disabled selected>Pilih Addon 1</option>
@@ -87,9 +87,9 @@
                                                                 <?php } ?>
                                                             </select>
                                                     </div>
-                                                    <div class="col-xl-2 col-md-6 col-12 mb-1">
+                                                    <div class="col-xl-3 col-md-6 col-12 mb-1">
                                                         <span>Diskon</span>
-                                                        <input type="text" name="diskon" required class="form-control">
+                                                        <input type="text" name="diskon" class="form-control">
                                                     </div>
                                         </div>
                                         <div class="row">
