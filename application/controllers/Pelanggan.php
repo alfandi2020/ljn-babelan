@@ -327,12 +327,37 @@ class Pelanggan extends CI_Controller {
 		$this->db->join('mt_paket as b','a.speed = b.id_paket');
 		$get_client = $this->db->get('dt_registrasi as a')->row_array();
 
-		$ppn = $get_client['harga'] * 11 / 100;
-		$hargaa = $get_client['harga'];
+
+		$addon1 = $this->db->get_where('addon',['id' => $get_client['addon1']])->row_array();
+        $addon2 = $this->db->get_where('addon',['id' => $get_client['addon2']])->row_array();
+        $addon3 = $this->db->get_where('addon',['id' => $get_client['addon3']])->row_array();
+		if ($addon1 == true) { 
+            $addon1_biaya = $addon1['biaya'];
+		}else{
+            $addon1_biaya = 0;
+        } 
+		if ($addon2 == true) { 
+            $addon2_biaya = $addon2['biaya'];
+		}else{
+            $addon2_biaya = 0;
+        } 
+		if ($addon3 == true) { 
+            $addon3_biaya = $addon3['biaya'];
+		}else{
+            $addon3_biaya = 0;
+        } 
+		$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;    
+		// $ppn = floor($xx * 11 / 100);
+
+		$ppn = $xx * 11 / 100;
+		$hargaa = $xx;
 		$bulan = $this->session->userdata('filterBulan');
 		$tahun = $this->session->userdata('filterTahun');
 		$kd_unik_in = $get_client['id'];
 		$kd_unik_in = sprintf('%04d',$kd_unik_in);
+
+	
+
 		$msg = 
 "Kepada yth 
 *Bpk/Ibu ".trim($get_client['nama'])."*
@@ -544,6 +569,10 @@ Layanan Teknis	:
 		$group = $this->input->post('group');
 		$kd_plg = $this->input->post('kode_pelanggan');
 		$tindakan = $this->input->post('tindakan');
+		$add_on1 = $this->input->post('addon1');
+		$add_on2 = $this->input->post('addon2');
+		$add_on3 = $this->input->post('addon3');
+		$diskon = $this->input->post('diskon');
 		
 		if($nama){
 			$id_update = $this->input->post('id_update');
@@ -568,7 +597,11 @@ Layanan Teknis	:
 				"teknisi" => $teknisi,
 				"kode_unik" => $kode_unik,
 				"tindakan" => $tindakan,
-				"aktif" => $this->input->post('aktif')
+				"aktif" => $this->input->post('aktif'),
+				"addon1"=> $add_on1,
+				"addon2"=> $add_on2,
+				"addon3"=> $add_on3,
+				"diskon"=> $diskon,
 			];
 			$this->db->where('id',$id_update);
 			$data = $this->db->update('dt_registrasi',$update);

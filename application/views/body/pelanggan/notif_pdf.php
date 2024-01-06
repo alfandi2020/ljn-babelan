@@ -157,16 +157,61 @@ function terbilang($nilai) {
             <td>1 Paket</td>
             <td>Biaya langganan internet <?= $x['mbps'] ?> mbps</td>
             <td><?php 
-		    $ppn = floor($x['harga'] * 11 / 100);
             echo 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
             <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
         </tr>
+        <?php 
+            $addon1 = $this->db->get_where('addon',['id' => $x['addon1']])->row_array();
+            $addon2 = $this->db->get_where('addon',['id' => $x['addon2']])->row_array();
+            $addon3 = $this->db->get_where('addon',['id' => $x['addon3']])->row_array();
+        ?>
+        <?php if ($addon1 == true) { 
+            $addon1_biaya = $addon1['biaya'];
+            ?>
+            <tr>
+                <td></td>
+                <td>Add on 1</td>
+                <td><?= 'Rp.' . number_format($addon1['biaya'],0,'.','.') ?></td>
+                <td><?= 'Rp.' . number_format($addon1['biaya'],0,'.','.') ?></td>
+            </tr>
+        <?php }else{
+            $addon1_biaya = 0;
+        } ?>
+        <?php if ($addon2 == true) { 
+            $addon2_biaya = $addon2['biaya'];
+            ?>
+        <tr>
+            <td></td>
+            <td>Add on 2</td>
+            <td><?= 'Rp.' . number_format($addon2['biaya'],0,'.','.') ?></td>
+            <td><?= 'Rp.' . number_format($addon2['biaya'],0,'.','.') ?></td>
+        </tr>
+        <?php }else {
+            $addon2_biaya = 0;
+        } ?>
+        <?php if ($addon3 == true) { 
+            $addon3_biaya = $addon3['biaya'];
+            ?>
+        <tr>
+            <td></td>
+            <td>Add on 3</td>
+            <td><?= 'Rp.' . number_format($addon3['biaya'],0,'.','.') ?></td>
+            <td><?= 'Rp.' . number_format($addon3['biaya'],0,'.','.') ?></td>
+        </tr>
+        <?php }else {
+            $addon3_biaya = 0;
+        } 
+		    $xx = $x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;
+            
+		    $ppn = floor($xx * 11 / 100);
+        
+        ?>
         <tr style="background-color: #d0cece;">
             <td colspan="2">
                 Keterangan : 
             </td>
             <td>Harga Total</td>
-            <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
+            <td><?= 'Rp.'. number_format($x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya,0,'.','.') ?></td>
         </tr>
         <tr>
             <td colspan="2" rowspan="6">
@@ -196,13 +241,13 @@ function terbilang($nilai) {
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
             <td >
-                <b><?= 'Rp.'. number_format(floor($x['harga'] - intval($kd_unik_in) + $ppn),0,'.','.') ?></b>
+                <b><?= 'Rp.'. number_format(floor($xx - intval($kd_unik_in) + $ppn),0,'.','.') ?></b>
             </td>
         </tr>
     </table>
     <table id="table_tagihan">
         <tr style="background-color: #d0cece;">
-            <td>Terbilang : <i> <?= terbilang(floor($x['harga'] - $kd_unik_in + $ppn)) ?> rupiah</i></td>
+            <td>Terbilang : <i> <?= terbilang(floor($xx - $kd_unik_in + $ppn)) ?> rupiah</i></td>
         </tr>
     </table>
 </body>
