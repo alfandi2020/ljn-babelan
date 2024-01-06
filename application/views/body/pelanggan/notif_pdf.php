@@ -203,7 +203,7 @@ function terbilang($nilai) {
         } 
 		    $xx = $x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;
             
-		    $ppn = floor($xx * 11 / 100);
+		    $ppn = floor($x['harga'] * 11 / 100);
         
         ?>
         <tr style="background-color: #d0cece;">
@@ -211,7 +211,7 @@ function terbilang($nilai) {
                 Keterangan : 
             </td>
             <td>Harga Total</td>
-            <td><?= 'Rp.'. number_format($x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya,0,'.','.') ?></td>
+            <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
         </tr>
         <tr>
             <td colspan="2" rowspan="6">
@@ -241,13 +241,13 @@ function terbilang($nilai) {
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
             <td >
-                <b><?= 'Rp.'. number_format(floor($xx - intval($kd_unik_in) + $ppn),0,'.','.') ?></b>
+                <b><?= 'Rp.'. number_format(floor($x['harga'] - intval($kd_unik_in) + $ppn),0,'.','.') ?></b>
             </td>
         </tr>
     </table>
     <table id="table_tagihan">
         <tr style="background-color: #d0cece;">
-            <td>Terbilang : <i> <?= terbilang(floor($xx - $kd_unik_in + $ppn)) ?> rupiah</i></td>
+            <td>Terbilang : <i> <?= terbilang(floor($x['harga'] - $kd_unik_in + $ppn)) ?> rupiah</i></td>
         </tr>
     </table>
 </body>
