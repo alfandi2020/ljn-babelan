@@ -63,9 +63,9 @@ class Pelanggan extends CI_Controller {
 		$add_on3 = $this->input->post('addon3');
 		$diskon = $this->input->post('diskon');
 		// if ($nama) {
-			$nama_cek =  $this->db->get_where('dt_registrasi',['nama' => $nama])->num_rows();
+			$nama_cek =  $this->db->get_where('dt_registrasi',['kode_pelanggan' => $kode_pelanggan])->num_rows();
 			if ($nama_cek == true) {
-				echo json_encode(['code' => 'nama_double','status' => 'Nama pelanggan sudah ada..!']);
+				echo json_encode(['code' => 'nama_double','status' => 'Kode pelanggan sudah ada..!']);
 			}else{
 				$insert = [
 					"media" => $media,
