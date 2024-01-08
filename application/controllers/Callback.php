@@ -203,7 +203,7 @@ Layanan Teknis	:
                     $thn_fix = date('Y');
                 }
                     $wa = "Kepada pelanggan yth,
-*Bapak/Ibu ".str_replace(' ', '', $get_client['nama'])."*
+*Bapak/Ibu ".$get_client['nama']."*
 ID Pel : ".$get_client['kode_pelanggan']."
                     
 Pembayaran tagihan anda *BERHASIL* 
@@ -239,19 +239,21 @@ Layanan Teknis	:
                                 'nama_pengirim' => 'waaw'
                             );
                             $store = $this->db->insert('mutasi',$data);
-                            
-                            $data_cetak = [
-                                "id_registrasi" => $get_client['kode_pelanggan'],
-                                "nama" => $get_client['nama'],
-                                "mbps" => $get_client['mbps'],
-                                "tagihan" => $get_client['tagihan'],
-                                "penerima" => 'admin',
-                                "periode" => $bulan_fix,
-                                "tahun" => $thn_fix,
-                                "tanggal_pembayaran" => date('Y-m-d H:i:s')
-                            ];
-                            $this->db->insert('dt_cetak',$data_cetak);
-                            $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
+                            $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => $get_client['kode_pelanggan'],'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
+                            if ($cek_plg != true) {
+                                $data_cetak = [
+                                    "id_registrasi" => $get_client['kode_pelanggan'],
+                                    "nama" => $get_client['nama'],
+                                    "mbps" => $get_client['mbps'],
+                                    "tagihan" => $get_client['tagihan'],
+                                    "penerima" => 'admin',
+                                    "periode" => str_replace(' ', '', $bulan_fix),
+                                    "tahun" => str_replace(' ', '', $thn_fix),
+                                    "tanggal_pembayaran" => date('Y-m-d H:i:s')
+                                ];
+                                $this->db->insert('dt_cetak', $data_cetak);
+                                $this->api_whatsapp->wa_notif($wa, $get_client['telp']);
+                            }
                         }
                     }else{
                         $wa_2 = "Notifkasi Pembayaran
