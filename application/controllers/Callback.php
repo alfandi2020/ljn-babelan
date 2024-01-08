@@ -203,7 +203,7 @@ Layanan Teknis	:
                     $thn_fix = date('Y');
                 }
                     $wa = "Kepada pelanggan yth,
-*Bapak/Ibu ".str_replace(' ', '', $get_client['nama'])."*
+*Bapak/Ibu ".$get_client['nama']."*
 ID Pel : ".$get_client['kode_pelanggan']."
                     
 Pembayaran tagihan anda *BERHASIL* 
