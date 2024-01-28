@@ -189,7 +189,7 @@ Layanan Teknis	:
                 // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $client = $this->db->query('SELECT
                                 *,
-                                floor((COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) + b.harga * 11 / 100) + b.harga - a.id ) AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3
+                                floor((COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) + b.harga * 11 / 100) + b.harga - a.id ) AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
                             FROM
                                 dt_registrasi AS a
                                 LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
@@ -214,7 +214,7 @@ Layanan Teknis	:
                     $thn_fix = date('Y');
                 }
                     $wa = "Kepada pelanggan yth,
-*Bapak/Ibu ".$get_client['nama']."*
+*Bapak/Ibu ".$get_client['nama_pelanggann']."*
 ID Pel : ".$get_client['kode_pelanggan']."
                     
 Pembayaran tagihan anda *BERHASIL* 
@@ -254,7 +254,7 @@ Layanan Teknis	:
                             if ($cek_plg != true) {
                                 $data_cetak = [
                                     "id_registrasi" => $get_client['kode_pelanggan'],
-                                    "nama" => $get_client['nama'],
+                                    "nama" => $get_client['nama_pelanggann'],
                                     "mbps" => $get_client['mbps'],
                                     "tagihan" => $get_client['tagihan'],
                                     "penerima" => 'admin',
