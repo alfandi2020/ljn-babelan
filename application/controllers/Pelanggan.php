@@ -347,9 +347,9 @@ class Pelanggan extends CI_Controller {
             $addon3_biaya = 0;
         } 
 		$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;    
-		// $ppn = floor($xx * 11 / 100);
+		$ppn = floor($xx * 11 / 100);
 
-		$ppn = $get_client['harga'] * 11 / 100;
+		// $ppn = $get_client['harga'] * 11 / 100;
 		$hargaa = $get_client['harga'];
 		$bulan = $this->session->userdata('filterBulan');
 		$tahun = $this->session->userdata('filterTahun');
@@ -367,7 +367,7 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 		
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa + $ppn),0,'.','.').",-
-.: Kode Unik Verifikasi = ".$kd_unik_in."
+.: Discount Unik = ".$kd_unik_in."
 *Total Tagihan = Rp ".number_format(floor($hargaa+ $ppn -$kd_unik_in),0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
@@ -455,9 +455,9 @@ Layanan Teknis	:
 			}else{
 				$addon3_biaya = 0;
 			} 
-			$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;  
-			
-			$ppn = floor($get_client['harga'] * 11 / 100);
+			$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;
+			$ppn = floor($xx * 11 / 100);
+			// $ppn = floor($get_client['harga'] * 11 / 100);
 			$hargaa = $get_client['harga'];
 			$bulan = $this->session->userdata('filterBulan');
 			$tahun = $this->session->userdata('filterTahun');
@@ -473,7 +473,7 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa+$ppn),0,'.','.').",-
-.: Kode Unik Verifikasi = ".$kd_unik_in."
+.: Discount Unik = ".$kd_unik_in."
 	
 *Total Tagihan = Rp ".number_format(floor($hargaa+ $ppn-$kd_unik_in),0,'.','.')."*,-
 	
