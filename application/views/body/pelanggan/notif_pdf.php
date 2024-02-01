@@ -201,7 +201,24 @@ function terbilang($nilai) {
         <?php }else {
             $addon3_biaya = 0;
         } 
-		    $xx = $x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;
+		    // $xx = $x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;
+            
+        
+        ?>
+        <!--diskon -->
+        <?php if ($x['diskon'] == true) { 
+            $diskonnn = $x['diskon'];
+            ?>
+        <tr>
+            <td></td>
+            <td>Diskon</td>
+            <td><?= 'Rp.' . number_format($x['diskon'],0,'.','.') ?></td>
+            <td><?= 'Rp.' . number_format($x['diskon'],0,'.','.') ?></td>
+        </tr>
+        <?php }else {
+            $diskonnn = 0;
+        } 
+		    // $xx = $x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnn;
             
 		    $ppn = floor($x['harga'] * 11 / 100);
         
@@ -235,19 +252,20 @@ function terbilang($nilai) {
             <td>Rp.0</td>
         </tr>
         <tr>
-            <td>Kode Unik</td>
+            <td>Discount Unik</td>
             <td><?= $kd_unik ?></td>
         </tr>
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
             <td >
-                <b><?= 'Rp.'. number_format(floor($x['harga'] - intval($kd_unik_in) + $ppn),0,'.','.') ?></b>
+                <?php $totalll = floor($x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya + $ppn - $kd_unik_in) ?>
+                <b><?= 'Rp.'. number_format($totalll,0,'.','.') ?></b>
             </td>
         </tr>
     </table>
     <table id="table_tagihan">
         <tr style="background-color: #d0cece;">
-            <td>Terbilang : <i> <?= terbilang(floor($x['harga'] - $kd_unik_in + $ppn)) ?> rupiah</i></td>
+            <td>Terbilang : <i> <?= terbilang($totalll) ?> rupiah</i></td>
         </tr>
     </table>
 </body>
