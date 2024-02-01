@@ -37,7 +37,7 @@
                                     <h6>Pilih Tahun</h6>
                                     <fieldset>
                                         <select onchange="this.form.submit()" name="tahun_t" id="" class="form-control">
-                                            <option <?= $this->session->userdata('filterTahun') == date('Y')-1 ? 'selected' : '' ?> value="<?= date('Y')+1 ?>"><?= date('Y')-1 ?></option>
+                                            <option <?= $this->session->userdata('filterTahun') == date('Y')-1 ? 'selected' : '' ?> value="<?= date('Y')-1 ?>"><?= date('Y')-1 ?></option>
                                             <option <?= $this->session->userdata('filterTahun') == date('Y') ? 'selected' : '' ?> value="<?= date('Y')?>"><?= date('Y')?></option>
                                             <option <?= $this->session->userdata('filterTahun') == date('Y')+1 ? 'selected' : '' ?> value="<?= date('Y')+1?>"><?= date('Y')+1?></option>
                                         </select>
