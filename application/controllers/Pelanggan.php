@@ -346,7 +346,12 @@ class Pelanggan extends CI_Controller {
 		}else{
             $addon3_biaya = 0;
         } 
-		$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;    
+		if ($get_client['diskon'] == true) {
+			$diskonnnn = $get_client['diskon'];
+		}else{
+			$diskonnnn = 0;
+		}
+		$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnnn;    
 		$ppn = floor($xx * 11 / 100);
 
 		// $ppn = $get_client['harga'] * 11 / 100;
@@ -368,7 +373,7 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa + $ppn),0,'.','.').",-
 .: Discount Unik = ".$kd_unik_in."
-*Total Tagihan = Rp ".number_format(floor($hargaa+ $ppn -$kd_unik_in),0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format(floor($xx + $ppn -$kd_unik_in),0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$this->session->userdata('filterTgl_tempo')." bulan tagihan*.
@@ -454,8 +459,13 @@ Layanan Teknis	:
 				$addon3_biaya = $addon3['biaya'];
 			}else{
 				$addon3_biaya = 0;
-			} 
-			$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya;
+			}
+			if ($get_client['diskon'] == true) {
+				$diskonnnn = $get_client['diskon'];
+			} else {
+				$diskonnnn = 0;
+			}
+			$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnnn;
 			$ppn = floor($xx * 11 / 100);
 			// $ppn = floor($get_client['harga'] * 11 / 100);
 			$hargaa = $get_client['harga'];
@@ -475,7 +485,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 .: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa+$ppn),0,'.','.').",-
 .: Discount Unik = ".$kd_unik_in."
 	
-*Total Tagihan = Rp ".number_format(floor($hargaa+ $ppn-$kd_unik_in),0,'.','.')."*,-
+*Total Tagihan = Rp ".number_format(floor($xx+ $ppn-$kd_unik_in),0,'.','.')."*,-
 	
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$tanggal_t." bulan tagihan*.

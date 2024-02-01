@@ -235,7 +235,7 @@ function terbilang($nilai) {
             <td>Rp.0</td>
         </tr>
         <tr>
-            <td>Kode Unik</td>
+            <td>Discount Unik</td>
             <td><?= $kd_unik ?></td>
         </tr>
         <tr style="background-color: #d0cece;">
