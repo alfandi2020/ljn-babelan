@@ -377,7 +377,7 @@ class M_Registrasi extends CI_Model {
         $bulann= str_replace(' ', '', $this->session->userdata('filterBulan'));
         $tahun= str_replace(' ', '', $this->session->userdata('filterTahun'));
         foreach($records as $record ){
-            $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->kode_pelanggan' and periode='$bulann' and tahun='$tahun'")->num_rows();
+            $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi=".$record->kode_pelanggan." and periode=".$bulann." and tahun=".$tahun."")->num_rows();
             if ($cek == true) {
                 $status = '<span class="badge badge-glow badge-success">Sudah Bayar</span>';
                 $tagihan = '';
