@@ -374,8 +374,8 @@ class M_Registrasi extends CI_Model {
         $data = array();
         // $no =1;
         $no = $_POST['start']+1;
-        $bulann= $this->session->userdata('filterBulan');
-        $tahun= $this->session->userdata('filterTahun');
+        $bulann= str_replace(' ', '', $this->session->userdata('filterBulan'));
+        $tahun= str_replace(' ', '', $this->session->userdata('filterTahun'));
         foreach($records as $record ){
             $cek = $this->db->query("SELECT * FROM dt_cetak where id_registrasi='$record->kode_pelanggan' and periode='$bulann' and tahun='$tahun'")->num_rows();
             if ($cek == true) {
