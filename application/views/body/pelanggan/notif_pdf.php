@@ -92,7 +92,7 @@ function terbilang($nilai) {
                     $tanggal_t = $this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo');    
             if ($bulan == 'Januari') {
                 $bln_conv = '01';
-            }elseif ($bulan == 'Febuari') {
+            }elseif ($bulan == 'Februari') {
                 $bln_conv = '02';
             }elseif ($bulan == 'Maret') {
                 $bln_conv = '03';
