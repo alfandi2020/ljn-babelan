@@ -19,7 +19,7 @@
                                     <fieldset>
                                         <select onchange="this.form.submit()" name="bulan" id="" class="form-control">
                                             <option <?= $this->session->userdata('filterBulan') == 'Januari' ? 'selected' : '' ?> value="Januari">Januari</option>
-                                            <option <?= $this->session->userdata('filterBulan') == 'Febuari' ? 'selected' : '' ?> value="Febuari">Febuari</option>
+                                            <option <?= $this->session->userdata('filterBulan') == 'Februari' ? 'selected' : '' ?> value="Februari">Februari</option>
                                             <option <?= $this->session->userdata('filterBulan') == 'Maret' ? 'selected' : '' ?> value="Maret">Maret</option>
                                             <option <?= $this->session->userdata('filterBulan') == 'April' ? 'selected' : '' ?>  value="April">April</option>
                                             <option <?= $this->session->userdata('filterBulan') == 'Mei' ? 'selected' : '' ?>  value="Mei">Mei</option>
