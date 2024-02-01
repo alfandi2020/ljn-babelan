@@ -448,13 +448,13 @@ Layanan Teknis	:
             $imagick->setResolution(200, 200);
             $imagick->readImage("invoice/$no_invoice.pdf");
             $imagick->writeImages("invoice/image/$no_invoice.jpg", true);
-			if (file_exists('invoice/image/'.$no_invoice.'-0.jpg')) {
-				$no_invoice = $no_invoice . '-0.jpg';
-			}else if (file_exists('invoice/image/' . $no_invoice . '-1.jpg')) {
-				$no_invoice = $no_invoice . '-1.jpg';
-			}else{
-				$no_invoice = $no_invoice . '.jpg';
-			}
+			// if (file_exists('invoice/image/'.$no_invoice.'-0.jpg')) {
+			// 	$no_invoice = $no_invoice . '-0.jpg';
+			// }else if (file_exists('invoice/image/' . $no_invoice . '-1.jpg')) {
+			// 	$no_invoice = $no_invoice . '-1.jpg';
+			// }else{
+			// 	$no_invoice = $no_invoice . '.jpg';
+			// }
 			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
 			// $url_img = "https://billing.lintasmediadata.net/invoice/image/INV2308051069.jpg";
 
