@@ -333,26 +333,38 @@ class Pelanggan extends CI_Controller {
         $addon3 = $this->db->get_where('addon',['id' => $get_client['addon3']])->row_array();
 		if ($addon1 == true) { 
             $addon1_biaya = $addon1['biaya'];
+			$ad1 = ".: Add on " . $addon1['nama']. " = " . 'Rp.' . number_format($addon1['biaya'],0,'.','.');
 		}else{
             $addon1_biaya = 0;
+			$ad1 = null;
         } 
 		if ($addon2 == true) { 
             $addon2_biaya = $addon2['biaya'];
+			$ad2 = ".: Add on " . $addon2['nama']. " = " . 'Rp.' . number_format($addon2['biaya'], 0, '.', '.');
 		}else{
             $addon2_biaya = 0;
-        } 
+			$ad2 = null;
+
+		} 
 		if ($addon3 == true) { 
             $addon3_biaya = $addon3['biaya'];
+			$ad3 = ".: Add on " . $addon3['nama']. " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
 		}else{
             $addon3_biaya = 0;
-        } 
+			$ad3 = null;
+
+		} 
+
+
 		if ($get_client['diskon'] == true) {
 			$diskonnnn = $get_client['diskon'];
+			$diskon_x = ".: Diskon =" . number_format($get_client['diskon'],0,'.','.');
 		}else{
 			$diskonnnn = 0;
+			$diskon_x = null;
 		}
-		$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnnn;    
-		$ppn = floor($xx * 11 / 100);
+		$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnnn; 
+		$ppn = floor($get_client['harga'] * 11 / 100);
 
 		// $ppn = $get_client['harga'] * 11 / 100;
 		$hargaa = $get_client['harga'];
@@ -361,7 +373,7 @@ class Pelanggan extends CI_Controller {
 		$kd_unik_in = $get_client['id'];
 		$kd_unik_in = sprintf('%04d',$kd_unik_in);
 
-	
+		
 
 		$msg = 
 "Kepada yth 
@@ -372,7 +384,11 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 		
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa + $ppn),0,'.','.').",-
+$ad1
+$ad2
+$ad3
 .: Discount Unik = ".$kd_unik_in."
+$diskon_x
 *Total Tagihan = Rp ".number_format(floor($xx + $ppn -$kd_unik_in),0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
@@ -423,7 +439,7 @@ Layanan Teknis	:
 			$no_invoice = 'INV' . date('y').date('m').date('d').$data['x']['id'];
             $html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
             $mpdf->defaultfooterline=0;
-            $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+            // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
             $mpdf->WriteHTML($html);
             $mpdf->Output('/home/billing.lintasmediadata.net/invoice/'.$no_invoice.'.pdf','F');
 			chmod($no_invoice.".pdf", 0777);
@@ -431,7 +447,14 @@ Layanan Teknis	:
 			$imagick = new Imagick();
             $imagick->setResolution(200, 200);
             $imagick->readImage("invoice/$no_invoice.pdf");
-            $imagick->writeImages("invoice/image/$no_invoice.jpg", false);
+            $imagick->writeImages("invoice/image/$no_invoice.jpg", true);
+			if (file_exists('invoice/image/'.$no_invoice.'-0.jpg')) {
+				$no_invoice = $no_invoice . '-0.jpg';
+			}else if (file_exists('invoice/image/' . $no_invoice . '-1.jpg')) {
+				$no_invoice = $no_invoice . '-1.jpg';
+			}else{
+				$no_invoice = $no_invoice . '.jpg';
+			}
 			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
 			// $url_img = "https://billing.lintasmediadata.net/invoice/image/INV2308051069.jpg";
 
@@ -445,28 +468,40 @@ Layanan Teknis	:
 			$addon1 = $this->db->get_where('addon',['id' => $get_client['addon1']])->row_array();
 			$addon2 = $this->db->get_where('addon',['id' => $get_client['addon2']])->row_array();
 			$addon3 = $this->db->get_where('addon',['id' => $get_client['addon3']])->row_array();
-			if ($addon1 == true) { 
+			if ($addon1 == true) {
 				$addon1_biaya = $addon1['biaya'];
-			}else{
+				$ad1 = ".: Add on " . $addon1['nama'] . " = " . 'Rp.' . number_format($addon1['biaya'], 0, '.', '.');
+			} else {
 				$addon1_biaya = 0;
-			} 
-			if ($addon2 == true) { 
-				$addon2_biaya = $addon2['biaya'];
-			}else{
-				$addon2_biaya = 0;
-			} 
-			if ($addon3 == true) { 
-				$addon3_biaya = $addon3['biaya'];
-			}else{
-				$addon3_biaya = 0;
+				$ad1 = null;
 			}
+			if ($addon2 == true) {
+				$addon2_biaya = $addon2['biaya'];
+				$ad2 = ".: Add on " . $addon2['nama'] . " = " . 'Rp.' . number_format($addon2['biaya'], 0, '.', '.');
+			} else {
+				$addon2_biaya = 0;
+				$ad2 = null;
+
+			}
+			if ($addon3 == true) {
+				$addon3_biaya = $addon3['biaya'];
+				$ad3 = ".: Add on " . $addon3['nama'] . " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
+			} else {
+				$addon3_biaya = 0;
+				$ad3 = null;
+
+			}
+
+
 			if ($get_client['diskon'] == true) {
 				$diskonnnn = $get_client['diskon'];
+				$diskon_x = ".: Diskon =" . number_format($get_client['diskon'], 0, '.', '.');
 			} else {
 				$diskonnnn = 0;
+				$diskon_x = null;
 			}
 			$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnnn;
-			$ppn = floor($xx * 11 / 100);
+			$ppn = floor($get_client['harga'] * 11 / 100);
 			// $ppn = floor($get_client['harga'] * 11 / 100);
 			$hargaa = $get_client['harga'];
 			$bulan = $this->session->userdata('filterBulan');
@@ -482,10 +517,13 @@ ID : ".$get_client['kode_pelanggan']."
 Terimakasih sudah menggunakan layanan *MD.Net*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
-.: Paket Internet ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa+$ppn),0,'.','.').",-
-.: Discount Unik = ".$kd_unik_in."
-	
-*Total Tagihan = Rp ".number_format(floor($xx+ $ppn-$kd_unik_in),0,'.','.')."*,-
+.: Biaya Langganan " . $get_client['mbps'] . " Mbps Periode " . $bulan . " $tahun = Rp " . number_format(floor($hargaa + $ppn), 0, '.', '.') . ",-
+$ad1
+$ad2
+$ad3
+.: Discount Unik = " . $kd_unik_in . "
+$diskon_x
+*Total Tagihan = Rp " . number_format(floor($xx + $ppn - $kd_unik_in), 0, '.', '.') . "*,-
 	
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$tanggal_t." bulan tagihan*.
