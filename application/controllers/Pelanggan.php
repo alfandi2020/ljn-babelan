@@ -373,7 +373,7 @@ class Pelanggan extends CI_Controller {
 		$kd_unik_in = $get_client['id'];
 		$kd_unik_in = sprintf('%04d',$kd_unik_in);
 
-		
+		$rincian = $ad1;
 
 		$msg = 
 "Kepada yth 
@@ -384,11 +384,6 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 		
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa + $ppn),0,'.','.').",-
-$ad1
-$ad2
-$ad3
-.: Discount Unik = ".$kd_unik_in."
-$diskon_x
 *Total Tagihan = Rp ".number_format(floor($xx + $ppn -$kd_unik_in),0,'.','.')."*,-
 
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
@@ -403,7 +398,7 @@ Demikian disampaikan terima kasih atas kerjasamanya..
 		
 Regards
 MD.Net
-PT Lintas Jaringan Nusantara
+*PT Lintas Jaringan Nusantara*
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
@@ -518,19 +513,14 @@ Terimakasih sudah menggunakan layanan *MD.Net*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan " . $get_client['mbps'] . " Mbps Periode " . $bulan . " $tahun = Rp " . number_format(floor($hargaa + $ppn), 0, '.', '.') . ",-
-$ad1
-$ad2
-$ad3
 .: Discount Unik = " . $kd_unik_in . "
-$diskon_x
 *Total Tagihan = Rp " . number_format(floor($xx + $ppn - $kd_unik_in), 0, '.', '.') . "*,-
 	
 .: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
 .: Jatuh tempo pembayaran *tanggal ".$tanggal_t." bulan tagihan*.
 .: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
 	
-Pembayaran ditujukan ke : 
-			
+Pembayaran ditujukan ke : 	
 1. *BCA 2761446578 an Mahfudin*
 2. *Mandiri 1560016047112 an Mahfudin*
 	
@@ -538,7 +528,7 @@ Demikian disampaikan terima kasih atas kerjasamanya..
 		
 Regards
 MD.Net
-PT Lintas Jaringan Nusantara
+*PT Lintas Jaringan Nusantara*
 Layanan Teknis	: 
 0821-1420-9923
 0819-3380-3366";
