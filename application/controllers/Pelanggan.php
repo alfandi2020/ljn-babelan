@@ -380,7 +380,7 @@ class Pelanggan extends CI_Controller {
 *Bpk/Ibu ".trim($get_client['nama'])."*
 ID : ".$get_client['kode_pelanggan']."
 
-Terimakasih sudah menggunakan layanan *MD.Net*
+Terimakasih sudah menggunakan layanan *Lintas.Net (LJN)*
 		
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan ". $get_client['mbps'] ." Mbps Periode ".$bulan." $tahun = Rp ".number_format(floor($hargaa + $ppn),0,'.','.').",-
@@ -397,7 +397,7 @@ Kami informasikan jumlah tagihan sebagai berikut :
 Demikian disampaikan terima kasih atas kerjasamanya..
 		
 Regards
-MD.Net
+Lintas.Net (LJN)
 *PT Lintas Jaringan Nusantara*
 Layanan Teknis	: 
 0821-1420-9923
@@ -495,6 +495,7 @@ Layanan Teknis	:
 				$diskonnnn = 0;
 				$diskon_x = null;
 			}
+			$rincian = $ad1;
 			$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnnn;
 			$ppn = floor($get_client['harga'] * 11 / 100);
 			// $ppn = floor($get_client['harga'] * 11 / 100);
@@ -509,10 +510,11 @@ Layanan Teknis	:
 *Bpk/Ibu ".trim($get_client['nama'])."*
 ID : ".$get_client['kode_pelanggan']."
 				
-Terimakasih sudah menggunakan layanan *MD.Net*
+Terimakasih sudah menggunakan layanan *Lintas.Net (LJN)*
 			
 Kami informasikan jumlah tagihan sebagai berikut :
 .: Biaya Langganan " . $get_client['mbps'] . " Mbps Periode " . $bulan . " $tahun = Rp " . number_format(floor($hargaa + $ppn), 0, '.', '.') . ",-
+$rincian
 .: Discount Unik = " . $kd_unik_in . "
 *Total Tagihan = Rp " . number_format(floor($xx + $ppn - $kd_unik_in), 0, '.', '.') . "*,-
 	
@@ -527,7 +529,7 @@ Pembayaran ditujukan ke :
 Demikian disampaikan terima kasih atas kerjasamanya..
 		
 Regards
-MD.Net
+Lintas.Net (LJN)
 *PT Lintas Jaringan Nusantara*
 Layanan Teknis	: 
 0821-1420-9923
