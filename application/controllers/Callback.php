@@ -232,7 +232,9 @@ _Supported by :_
 Kantor Layanan Babelan
 Layanan Teknis	: 
 0821-1420-9923
-0819-3380-3366";
+0819-3380-3366
+
+Note : _Pesan ini terkirim otomatis dari billing system_";
                     if ($client->num_rows() == true) {
                         if ($kode_unik != 000) {
                             $data = array(
