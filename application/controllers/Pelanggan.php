@@ -410,6 +410,107 @@ Layanan Teknis	:
 			redirect('pelanggan/status');
 		}
 	}
+	function tes_api()
+	{
+
+		$curl = curl_init();
+		$curl2 = curl_init();
+		$token = "r7w9Zh54DDZ0Yv6b5jC2ARZ2yJCOj_40LLI2Di2qY-8"; 
+		curl_setopt_array($curl, [
+			CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_POSTFIELDS => json_encode([
+				'to_number' => '6283897943785',
+				'to_name' => 'aseiiiip',
+				'message_template_id' => '6ba83bae-219a-4fdb-af88-ae5b93b1e0a0',
+				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
+				'room' => [
+					'tags' => ['mahfud'],
+				],
+				'language' => [
+					'code' => 'id'
+				],
+				'parameters' => [
+					'body' => [
+						[
+							'key' => '1', //{{ buat key 1,2,3,4 }}
+							'value' => 'name', //field di excel contact
+							'value_text' => 'bambang' //value
+						],
+						[
+							'key' => '2', //{{ buat key 1,2,3,4 }}
+							'value' => 'company', //field di excel contact
+							'value_text' => 'GGA002' //value
+						],
+						[
+							'key' => '3', //{{ buat key 1,2,3,4 }}
+							'value' => '165000', //field di excel contact
+							'value_text' => '165000' //value
+						],
+						[
+							'key' => '4', //{{ buat key 1,2,3,4 }}
+							'value' => '124', //field di excel contact
+							'value_text' => '124' //value
+						],
+						[
+							'key' => '5', //{{ buat key 1,2,3,4 }}
+							'value' => '150000', //field di excel contact
+							'value_text' => '150000' //value
+						],
+						[
+							'key' => '6', //{{ buat key 1,2,3,4 }}
+							'value' => '10', //field di excel contact
+							'value_text' => '10' //value
+						]
+					]
+				]
+			]),
+			CURLOPT_HTTPHEADER => [
+				"Authorization: Bearer ".$token."",
+				"Content-Type: application/json"
+			],
+		]);
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+
+		curl_close($curl);
+
+		if ($err) {
+			echo "cURL Error #:" . $err;
+		} else {
+			curl_setopt_array($curl2, [
+				CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/rooms?limit=1",
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 30,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "GET",
+				CURLOPT_HTTPHEADER => [
+					"Authorization: Bearer ".$token.""
+				],
+			]);
+
+			$response2 = curl_exec($curl2);
+			$err2 = curl_error($curl2);
+
+			curl_close($curl2);
+
+			if ($err) {
+				echo "cURL Error #:" . $err2;
+			} else {
+				$x = json_decode($response2);
+				echo json_encode($x->data[0]->id);
+			}
+			// echo ($response) ;
+		}
+	}
 	function send_notif_pdf()
 	{
 		// if($this->uri->segment(3)){
