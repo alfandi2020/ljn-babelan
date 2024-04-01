@@ -75,13 +75,13 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '103.171.85.211',
 	// 'username' => 'u1677928_root',
 	// 'password' => 'rvO^=FDIj1^x',
 	// 'database' => 'u1677928_bat',
 	'username' => 'root',
-	'password' => '',
-	'database' => 'ljn-babelan',
+	'password' => 'B3tulsekali1@@@',
+	'database' => 'ljn_babelan',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
