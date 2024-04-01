@@ -586,9 +586,9 @@ Layanan Teknis	:
 				  curl_close($curl3);
 				  $k = json_decode($response3);
 				  echo json_encode($k->status);
-				//   if (json_encode($k->status == 'success')) {
-				// 	redirect('pelanggan/status');
-				//   }
+				  if (json_encode($k->status == 'success')) {
+					redirect('pelanggan/status');
+				  }
 			}
 			// echo ($response) ;
 		}
