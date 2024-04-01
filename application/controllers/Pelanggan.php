@@ -320,7 +320,7 @@ class Pelanggan extends CI_Controller {
 	// 		$this->db->update('dt_registrasi');
 	// 	}
 	// }
-	function send_notif()
+	function send_notif22()
 	{
 		$id = $this->uri->segment(3);
 		$this->db->where('a.id',$id);
@@ -377,7 +377,7 @@ class Pelanggan extends CI_Controller {
 
 		$msg = 
 "Kepada yth 
-*Bpk/Ibu ".trim($get_client['nama'])."*
+*Bpk/Ibu ".$get_client['nama']."*
 ID : ".$get_client['kode_pelanggan']."
 
 Terimakasih sudah menggunakan layanan *Lintas.Net (LJN)*
@@ -410,12 +410,66 @@ Layanan Teknis	:
 			redirect('pelanggan/status');
 		}
 	}
-	function tes_api()
+	function send_notif()
 	{
+
+		$id = $this->uri->segment(3);
+		$this->db->where('a.id',$id);
+		$this->db->join('mt_paket as b','a.speed = b.id_paket');
+		$get_client = $this->db->get('dt_registrasi as a')->row_array();
+
+
+		$addon1 = $this->db->get_where('addon',['id' => $get_client['addon1']])->row_array();
+        $addon2 = $this->db->get_where('addon',['id' => $get_client['addon2']])->row_array();
+        $addon3 = $this->db->get_where('addon',['id' => $get_client['addon3']])->row_array();
+		if ($addon1 == true) { 
+            $addon1_biaya = $addon1['biaya'];
+			$ad1 = ".: Add on " . $addon1['nama']. " = " . 'Rp.' . number_format($addon1['biaya'],0,'.','.');
+		}else{
+            $addon1_biaya = 0;
+			$ad1 = null;
+        } 
+		if ($addon2 == true) { 
+            $addon2_biaya = $addon2['biaya'];
+			$ad2 = ".: Add on " . $addon2['nama']. " = " . 'Rp.' . number_format($addon2['biaya'], 0, '.', '.');
+		}else{
+            $addon2_biaya = 0;
+			$ad2 = null;
+
+		} 
+		if ($addon3 == true) { 
+            $addon3_biaya = $addon3['biaya'];
+			$ad3 = ".: Add on " . $addon3['nama']. " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
+		}else{
+            $addon3_biaya = 0;
+			$ad3 = null;
+
+		} 
+
+
+		if ($get_client['diskon'] == true) {
+			$diskonnnn = $get_client['diskon'];
+			$diskon_x = ".: Diskon =" . number_format($get_client['diskon'],0,'.','.');
+		}else{
+			$diskonnnn = 0;
+			$diskon_x = null;
+		}
+		$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnnn; 
+		$ppn = floor($get_client['harga'] * 11 / 100);
+
+		// $ppn = $get_client['harga'] * 11 / 100;
+		$hargaa = $get_client['harga'];
+		$bulan = $this->session->userdata('filterBulan');
+		$tahun = $this->session->userdata('filterTahun');
+		$kd_unik_in = $get_client['id'];
+		$kd_unik_in = sprintf('%04d',$kd_unik_in);
+
+		$rincian = $ad1;
 
 		$curl = curl_init();
 		$curl2 = curl_init();
-		$token = "r7w9Zh54DDZ0Yv6b5jC2ARZ2yJCOj_40LLI2Di2qY-8"; 
+		$curl3 = curl_init();
+		$token = "gYGG2YKTv9odqMHhyi2PFIFo2eMSrCom9wVAJmVpLi8"; 
 		curl_setopt_array($curl, [
 			CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
 			CURLOPT_RETURNTRANSFER => true,
@@ -425,9 +479,9 @@ Layanan Teknis	:
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "POST",
 			CURLOPT_POSTFIELDS => json_encode([
-				'to_number' => '6283897943785',
-				'to_name' => 'aseiiiip',
-				'message_template_id' => '6ba83bae-219a-4fdb-af88-ae5b93b1e0a0',
+				'to_number' => "62".substr($get_client['telp'],1),
+				'to_name' => $get_client['nama'],
+				'message_template_id' => '5a9d24ae-836c-43c2-9859-e1a7f68651eb',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -440,32 +494,37 @@ Layanan Teknis	:
 						[
 							'key' => '1', //{{ buat key 1,2,3,4 }}
 							'value' => 'name', //field di excel contact
-							'value_text' => 'bambang' //value
+							'value_text' => $get_client['nama'] //value
 						],
 						[
 							'key' => '2', //{{ buat key 1,2,3,4 }}
-							'value' => 'company', //field di excel contact
-							'value_text' => 'GGA002' //value
+							'value' => 'company', //kode pelanggan
+							'value_text' => $get_client['kode_pelanggan'] //value
 						],
 						[
 							'key' => '3', //{{ buat key 1,2,3,4 }}
-							'value' => '165000', //field di excel contact
-							'value_text' => '165000' //value
+							'value' => '165000', //tagihan
+							'value_text' => number_format(floor($xx + $ppn)) //value
 						],
 						[
 							'key' => '4', //{{ buat key 1,2,3,4 }}
-							'value' => '124', //field di excel contact
-							'value_text' => '124' //value
+							'value' => '124', //kode unik
+							'value_text' => $kd_unik_in //value
 						],
 						[
 							'key' => '5', //{{ buat key 1,2,3,4 }}
-							'value' => '150000', //field di excel contact
-							'value_text' => '150000' //value
+							'value' => '150000', //total tagihan
+							'value_text' => number_format(floor($xx + $ppn -$kd_unik_in)) //value
 						],
 						[
 							'key' => '6', //{{ buat key 1,2,3,4 }}
-							'value' => '10', //field di excel contact
-							'value_text' => '10' //value
+							'value' => '1231310', //paket
+							'value_text' =>  $get_client['mbps']  //value
+						],
+						[
+							'key' => '7', //{{ buat key 1,2,3,4 }}
+							'value' => '10', //bulan tahun
+							'value_text' => $bulan ." ". $tahun  //value
 						]
 					]
 				]
@@ -506,7 +565,30 @@ Layanan Teknis	:
 				echo "cURL Error #:" . $err2;
 			} else {
 				$x = json_decode($response2);
-				echo json_encode($x->data[0]->id);
+				$id_room = json_encode($x->data[0]->id);
+
+				curl_setopt_array($curl3, array(
+					CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/rooms/'.$this->remove_special($id_room).'/tags',
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_ENCODING => '',
+					CURLOPT_MAXREDIRS => 10,
+					CURLOPT_TIMEOUT => 0,
+					CURLOPT_FOLLOWLOCATION => true,
+					CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+					CURLOPT_CUSTOMREQUEST => 'POST',
+					CURLOPT_POSTFIELDS => array('tag' => 'mahfud'),
+					CURLOPT_HTTPHEADER => array(
+					  'Authorization: Bearer '.$token.'',
+					),
+				  ));
+				  
+				  $response3 = curl_exec($curl3);
+				  curl_close($curl3);
+				  $k = json_decode($response3);
+				  echo json_encode($k->status);
+				//   if (json_encode($k->status == 'success')) {
+				// 	redirect('pelanggan/status');
+				//   }
 			}
 			// echo ($response) ;
 		}
