@@ -490,15 +490,6 @@ Layanan Teknis	:
 					'code' => 'id'
 				],
 				'parameters' => [
-					'header' => [
-						'format' => 'IMAGE',
-						'params' => [
-							[
-								'key' => 'url',
-								'value' => 'https://billing.lintasmediadata.net/invoice/image/INV240201312-1.jpg'
-							]
-						]
-					],
 					'body' => [
 						[
 							'key' => '1', //{{ buat key 1,2,3,4 }}
@@ -596,7 +587,7 @@ Layanan Teknis	:
 				  $k = json_decode($response3);
 				  echo json_encode($k->status);
 				  if (json_encode($k->status == 'success')) {
-					// redirect('pelanggan/status');
+					redirect('pelanggan/status');
 				  }
 			}
 			// echo ($response) ;
@@ -629,7 +620,7 @@ Layanan Teknis	:
 		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
 		$mpdf->WriteHTML($html);
 		$mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
-		chmod($no_invoice . ".pdf", 0777);
+		// chmod($no_invoice . ".pdf", 0777);
 		// $mpdf->Output();
 		$imagick = new Imagick();
 		$imagick->setResolution(200, 200);
@@ -828,7 +819,7 @@ Layanan Teknis	:
 				$k = json_decode($response3);
 				echo json_encode($k->status);
 				if (json_encode($k->status == 'success')) {
-					// redirect('pelanggan/status');
+					redirect('pelanggan/status');
 				}
 			}
 			// echo ($response) ;
