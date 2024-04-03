@@ -178,7 +178,7 @@ Layanan Teknis	:
                     $get_client = $client->row_array();
                 $tanggal2 = time();
                 $bulan2 = $this->indonesian_date($tanggal2, 'F');
-                $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => $get_client['kode_pelanggan'], 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
+                $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']), 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
                 if ($cek_bulan == true) {
                     //jika sudah bayar maka bayar di bulan berikut nya 
                     $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
@@ -229,10 +229,10 @@ Layanan Teknis	:
                                 'nama_pengirim' => 'waaw'
                             );
                             $store = $this->db->insert('mutasi',$data);
-                            $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => $get_client['kode_pelanggan'],'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
+                            $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']),'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
                             if ($cek_plg != true) {
                                 $data_cetak = [
-                                    "id_registrasi" => $get_client['kode_pelanggan'],
+                                    "id_registrasi" => str_replace(' ','',$get_client['kode_pelanggan']),
                                     "nama" => $get_client['nama_pelanggann'],
                                     "mbps" => $get_client['mbps'],
                                     "tagihan" => $get_client['tagihan'],
