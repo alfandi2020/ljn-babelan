@@ -178,7 +178,7 @@ Layanan Teknis	:
                     $get_client = $client->row_array();
                 $tanggal2 = time();
                 $bulan2 = $this->indonesian_date($tanggal2, 'F');
-                $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']), 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
+                $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ','','GAK0616'), 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
                 if ($cek_bulan == true) {
                     //jika sudah bayar maka bayar di bulan berikut nya 
                     $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
@@ -229,7 +229,7 @@ Layanan Teknis	:
                                 'nama_pengirim' => 'waaw'
                             );
                             $store = $this->db->insert('mutasi',$data);
-                            $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']),'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
+                            $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => str_replace(' ','','GAK0616'),'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
                             if ($cek_plg != true) {
                                 $data_cetak = [
                                     "id_registrasi" => str_replace(' ','',$get_client['kode_pelanggan']),
@@ -315,11 +315,11 @@ Tanggal : ".date( 'Y-m-d H:i:s')."
 Jumlah : "."Rp.". number_format($jquin['amount'],0,'.','.')."
 Deskripsi : ".$jquin['description']."
                         ";
-                        $this->api_whatsapp->wa_notif($wa_2,'081933803366');
+                        //$this->api_whatsapp->wa_notif($wa_2,'081933803366');
                     }
                 }
             }else{
-                $this->api_whatsapp->wa_notif('notif','083897943785');
+                //$this->api_whatsapp->wa_notif('notif','083897943785');
             }
         }
         public static function http_get($url, $headers = array())
