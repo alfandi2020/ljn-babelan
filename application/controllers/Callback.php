@@ -118,29 +118,6 @@ Layanan Teknis	:
         }
         function mutasi_moota()
         {
-            // $curl = curl_init();
-
-            // curl_setopt_array($curl, array(
-            //     CURLOPT_URL => 'https://app.moota.co/api/v2/auth/login',
-            //     CURLOPT_RETURNTRANSFER => true,
-            //     CURLOPT_ENCODING => '',
-            //     CURLOPT_MAXREDIRS => 10,
-            //     CURLOPT_TIMEOUT => 0,
-            //     CURLOPT_FOLLOWLOCATION => true,
-            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            //     CURLOPT_CUSTOMREQUEST => 'POST',
-            //     CURLOPT_POSTFIELDS =>'{
-            //         "email" : "mahfud612@gmail.com",
-            //         "password" : "#BESI1meter",
-            //         "scopes" : ["api"]
-            //     }',
-            //     CURLOPT_HTTPHEADER => array(
-            //         'Accept: application/json',
-            //         'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJucWllNHN3OGxsdyIsImp0aSI6ImFkMDI0MDk4ZWNmZTFjNDdhMzA0YmZmMjJmMjViMDVjYzFkZTc4OTRhMDg0NTI4MzNlM2FkYWY4MDM2MjBiNGUzYjcwYjM4N2FkODJlMDY3IiwiaWF0IjoxNzAxMjU5NjUyLjQ0MTQ5NywibmJmIjoxNzAxMjU5NjUyLjQ0MTUwMywiZXhwIjoxNzMyODgyMDUyLjE4NzQxOCwic3ViIjoiMzEyNjciLCJzY29wZXMiOlsiYXBpIiwibXV0YXRpb25fcmVhZCIsIm11dGF0aW9uIiwidXNlciIsInVzZXJfcmVhZCIsImJhbmsiLCJiYW5rX3JlYWQiXX0.TjAYbcMFcyoBjzHkh6_UU1_Bx1PT3rzLG687qUxr2WudRUFqBgGdj6WjKCcY0GOTCTnOC8y-9OPGgSEDuiOjSxLxNXc39NZ3mCQgtYAJ_ktLjX1jea14XlqnJZtHXXSoSyKFDyJx21SddcLL9zCsW601mnGTZtrrTVx_QwDQbDpxorSz2Q8FIsH8yVRCh1x6xF1BhOVOTJc9ok3xDuDKwrEx6y5V_90GW6ZMVcY3c79JW7Y7xVdNZs8xBUN_3DoxrIbXmwxMp6VKh9FEuSDWkSUZgyQmBo2-1UUU9rGbaP4bxleotcTPn78cuEjofvNEnLwQE2URc8flh24zwcXY2O-9sXMSJjsbvJmbkk02rVAC5OAI9QpNKlPZhWGUVgvYdFNOHNxSuH51acbb65EP4nW6VvRUcYAUutTsJvqfvC66yy8U3_G2rEs8we7Z04BP-HNcptmMLhMM1JfRv-Yl9OAq8w8FeTo60yWNxunHbmeLcjU6U2XIYOxJqwsLE_9FZz7bSBMBWnmN0Y8rGh7Yz8cRBuayfny7CQhq5qfVVnZ4U4Z5rulfWZdwYYMEhUyeOXFvAQk45NIq5kv9HLD0E7xE0vqHVrPYRa1KVhYdWvmphdHfM9g5IRTizcHRPTz8mnCjhE0I1bWTEGoIuUaSIxqk8HQZVWQxPbleumlwJXA',
-            //         'Content-Type: application/json'
-            //     ),
-            // ));
-            // $token = curl_exec($curl);
 
             $curl2 = curl_init();
 
@@ -213,28 +190,28 @@ Layanan Teknis	:
                     $bulan_fix = $bulan2;
                     $thn_fix = date('Y');
                 }
-                    $wa = "Kepada pelanggan yth,
-*Bapak/Ibu ".$get_client['nama_pelanggann']."*
-ID Pel : ".$get_client['kode_pelanggan']."
+//                     $wa = "Kepada pelanggan yth,
+// *Bapak/Ibu ".$get_client['nama_pelanggann']."*
+// ID Pel : ".$get_client['kode_pelanggan']."
                     
-Pembayaran tagihan anda *BERHASIL* 
+// Pembayaran tagihan anda *BERHASIL* 
                     
-Tanggal Verifikasi : ".date('d-m-Y')."
-Periode Pembayaran : ". $bulan_fix." " . $thn_fix ."
-*Total Pembayaran : Rp ".number_format($jquin['amount'],0,'.','.').",-*
+// Tanggal Verifikasi : ".date('d-m-Y')."
+// Periode Pembayaran : ". $bulan_fix." " . $thn_fix ."
+// *Total Pembayaran : Rp ".number_format($jquin['amount'],0,'.','.').",-*
                     
-Terima kasih atas kerjasamanya.
+// Terima kasih atas kerjasamanya.
                     
-Salam
-MD.Net
-_Supported by :_
-*PT Lintas Jaringan Nusantara*
-Kantor Layanan Babelan
-Layanan Teknis	: 
-0821-1420-9923
-0819-3380-3366
+// Salam
+// MD.Net
+// _Supported by :_
+// *PT Lintas Jaringan Nusantara*
+// Kantor Layanan Babelan
+// Layanan Teknis	: 
+// 0821-1420-9923
+// 0819-3380-3366
 
-Note : _Pesan ini terkirim otomatis dari billing system_";
+// Note : _Pesan ini terkirim otomatis dari billing system_";
                     if ($client->num_rows() == true) {
                         if ($kode_unik != 000) {
                             $data = array(
@@ -265,7 +242,70 @@ Note : _Pesan ini terkirim otomatis dari billing system_";
                                     "tanggal_pembayaran" => date('Y-m-d H:i:s')
                                 ];
                                 $this->db->insert('dt_cetak', $data_cetak);
-                                $this->api_whatsapp->wa_notif($wa, $get_client['telp']);
+                                $curl = curl_init();
+                                $curl2 = curl_init();
+                                $curl3 = curl_init();
+                                $token = "gYGG2YKTv9odqMHhyi2PFIFo2eMSrCom9wVAJmVpLi8"; 
+                                curl_setopt_array($curl, [
+                                  CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
+                                  CURLOPT_RETURNTRANSFER => true,
+                                  CURLOPT_ENCODING => "",
+                                  CURLOPT_MAXREDIRS => 10,
+                                  CURLOPT_TIMEOUT => 30,
+                                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                  CURLOPT_CUSTOMREQUEST => "POST",
+                                  CURLOPT_POSTFIELDS => json_encode([
+                                    'to_number' => "62".substr($phonee,1),
+                                    'to_name' => $get_client['nama'],
+                                    'message_template_id' => 'c83eba1a-1c1c-4100-a3a1-c335d042d12a',
+                                    'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
+                                    'room' => [
+                                      'tags' => ['mahfud'],
+                                    ],
+                                    'language' => [
+                                      'code' => 'id'
+                                    ],
+                                    'parameters' => [
+                                      'body' => [
+                                        [
+                                          'key' => '1', //{{ buat key 1,2,3,4 }}
+                                          'value' => 'name', //field di excel contact
+                                          'value_text' => $get_client['nama_pelanggann'] //value
+                                        ],
+                                        [
+                                          'key' => '2', //{{ buat key 1,2,3,4 }}
+                                          'value' => 'company', //kode pelanggan
+                                          'value_text' => $get_client['kode_pelanggan'] //value
+                                        ],
+                                        [
+                                          'key' => '3', //{{ buat key 1,2,3,4 }}
+                                          'value' => '165000', //tagihan
+                                          'value_text' => date('d-m-Y') //value
+                                        ],
+                                        [
+                                          'key' => '4', //{{ buat key 1,2,3,4 }}
+                                          'value' => '124', //kode unik
+                                          'value_text' => $bulan_fix." " . $thn_fix //value
+                                        ],
+                                        [
+                                          'key' => '5', //{{ buat key 1,2,3,4 }}
+                                          'value' => '150000', //total tagihan
+                                          'value_text' => number_format($jquin['amount'],0,'.','.') //value
+                                        ]
+                                      ]
+                                    ]
+                                  ]),
+                                  CURLOPT_HTTPHEADER => [
+                                    "Authorization: Bearer ".$token."",
+                                    "Content-Type: application/json"
+                                  ],
+                                ]);
+                            
+                                $response = curl_exec($curl);
+                                $err = curl_error($curl);
+                                curl_close($curl);
+                                echo $response;
+                                // $this->api_whatsapp->wa_notif($wa, $get_client['telp']);
                             }
                         }
                     }else{
