@@ -280,17 +280,17 @@ Layanan Teknis	:
                                         [
                                           'key' => '3', //{{ buat key 1,2,3,4 }}
                                           'value' => '165000', //tagihan
-                                          'value_text' => date('d-m-Y') //value
+                                          'value_text' => 'awd' //value
                                         ],
                                         [
                                           'key' => '4', //{{ buat key 1,2,3,4 }}
                                           'value' => '124', //kode unik
-                                          'value_text' => $bulan_fix." " . $thn_fix //value
+                                          'value_text' =>'awd' //value
                                         ],
                                         [
                                           'key' => '5', //{{ buat key 1,2,3,4 }}
                                           'value' => '150000', //total tagihan
-                                          'value_text' => number_format($jquin['amount'],0,'.','.') //value
+                                          'value_text' => '222a' //value
                                         ]
                                       ]
                                     ]
