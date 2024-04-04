@@ -166,7 +166,7 @@ Layanan Teknis	:
                     // Perlu diketahui value Sandbox Webhook dan value
                     // webhook original berbeda.
                    
-                // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
+                    // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $client = $this->db->query('SELECT
                                 *,
                                 floor((COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) + b.harga * 11 / 100) + b.harga - a.id ) AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
@@ -179,20 +179,20 @@ Layanan Teknis	:
                             WHERE
                                 STATUS = "Aktif" and floor(COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) + b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $get_client = $client->row_array();
-                $tanggal2 = time();
-                $bulan2 = $this->indonesian_date($tanggal2, 'F');
-                $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ','','GAK0616'), 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
-                if ($cek_bulan == true) {
-                    //jika sudah bayar maka bayar di bulan berikut nya 
-                    $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
-                    $bln_ad2 = date("Y-m-d H:i:s", $effectiveDate);
-                    $str_bln = strtotime($bln_ad2);
-                    $bulan_fix = $this->indonesian_date($str_bln, 'F');
-                    $thn_fix = date('Y', $str_bln);
-                } else {
-                    $bulan_fix = $bulan2;
-                    $thn_fix = date('Y');
-                }
+                    $tanggal2 = time();
+                    $bulan2 = $this->indonesian_date($tanggal2, 'F');
+                    $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']), 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
+                    if ($cek_bulan == true) {
+                        //jika sudah bayar maka bayar di bulan berikut nya 
+                        $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
+                        $bln_ad2 = date("Y-m-d H:i:s", $effectiveDate);
+                        $str_bln = strtotime($bln_ad2);
+                        $bulan_fix = $this->indonesian_date($str_bln, 'F');
+                        $thn_fix = date('Y', $str_bln);
+                    } else {
+                        $bulan_fix = $bulan2;
+                        $thn_fix = date('Y');
+                    }
                     if ($client->num_rows() == true) {
                         if ($kode_unik != 000) {
                             $data = array(
@@ -285,6 +285,8 @@ Layanan Teknis	:
                                 curl_close($curl);
                                 echo $response;
                             }
+                        }else{
+                        echo 'eror2';
                         }
                     }else{// kirim untuk selain kode unik
 
@@ -345,6 +347,7 @@ Layanan Teknis	:
                     }
                 }
             }else{
+            echo 'eror';
                 //$this->api_whatsapp->wa_notif('notif','083897943785');
             }
         }
