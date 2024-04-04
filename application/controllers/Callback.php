@@ -270,7 +270,7 @@ Layanan Teknis	:
                                         [
                                           'key' => '1', //{{ buat key 1,2,3,4 }}
                                           'value' => 'name', //field di excel contact
-                                          'value_text' => $get_client['nama_pelanggann'] //value
+                                          'value_text' => $get_client['nama'] //value
                                         ],
                                         [
                                           'key' => '2', //{{ buat key 1,2,3,4 }}
