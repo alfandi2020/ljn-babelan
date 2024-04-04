@@ -543,48 +543,48 @@ Layanan Teknis	:
 		if ($err) {
 			echo "cURL Error #:" . $err;
 		} else {
-			curl_setopt_array($curl2, [
-				CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/rooms?limit=1",
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => "",
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 30,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => "GET",
-				CURLOPT_HTTPHEADER => [
-					"Authorization: Bearer ".$token.""
-				],
-			]);
+			// curl_setopt_array($curl2, [
+			// 	CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/rooms?limit=1",
+			// 	CURLOPT_RETURNTRANSFER => true,
+			// 	CURLOPT_ENCODING => "",
+			// 	CURLOPT_MAXREDIRS => 10,
+			// 	CURLOPT_TIMEOUT => 30,
+			// 	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			// 	CURLOPT_CUSTOMREQUEST => "GET",
+			// 	CURLOPT_HTTPHEADER => [
+			// 		"Authorization: Bearer ".$token.""
+			// 	],
+			// ]);
 
-			$response2 = curl_exec($curl2);
-			$err2 = curl_error($curl2);
+			// $response2 = curl_exec($curl2);
+			// $err2 = curl_error($curl2);
 
-			curl_close($curl2);
+			// curl_close($curl2);
 
 			if ($err) {
-				echo "cURL Error #:" . $err2;
+				// echo "cURL Error #:" . $err2;
 			} else {
-				$x = json_decode($response2);
-				$id_room = json_encode($x->data[0]->id);
+				// $x = json_decode($response2);
+				// $id_room = json_encode($x->data[0]->id);
 
-				curl_setopt_array($curl3, array(
-					CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/rooms/'.$this->remove_special($id_room).'/tags',
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_ENCODING => '',
-					CURLOPT_MAXREDIRS => 10,
-					CURLOPT_TIMEOUT => 0,
-					CURLOPT_FOLLOWLOCATION => true,
-					CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-					CURLOPT_CUSTOMREQUEST => 'POST',
-					CURLOPT_POSTFIELDS => array('tag' => 'mahfud'),
-					CURLOPT_HTTPHEADER => array(
-					  'Authorization: Bearer '.$token.'',
-					),
-				  ));
+				// curl_setopt_array($curl3, array(
+				// 	CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/rooms/'.$this->remove_special($id_room).'/tags',
+				// 	CURLOPT_RETURNTRANSFER => true,
+				// 	CURLOPT_ENCODING => '',
+				// 	CURLOPT_MAXREDIRS => 10,
+				// 	CURLOPT_TIMEOUT => 0,
+				// 	CURLOPT_FOLLOWLOCATION => true,
+				// 	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				// 	CURLOPT_CUSTOMREQUEST => 'POST',
+				// 	CURLOPT_POSTFIELDS => array('tag' => 'mahfud'),
+				// 	CURLOPT_HTTPHEADER => array(
+				// 	  'Authorization: Bearer '.$token.'',
+				// 	),
+				//   ));
 				  
-				  $response3 = curl_exec($curl3);
-				  curl_close($curl3);
-				  $k = json_decode($response3);
+				//   $response3 = curl_exec($curl3);
+				//   curl_close($curl3);
+				  $k = json_decode($response);
 				  echo json_encode($k->status);
 				  if (json_encode($k->status == 'success')) {
 					redirect('pelanggan/status');
