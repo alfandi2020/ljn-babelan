@@ -228,7 +228,7 @@ Layanan Teknis	:
                                 'nama_penerima'  => 'asep',
                                 'nama_pengirim' => 'waaw'
                             );
-                            $store = $this->db->insert('mutasi',$data);
+                            // $store = $this->db->insert('mutasi',$data);
                             $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => str_replace(' ','','GAK0616'),'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
                             if ($cek_plg != true) {
                                 $data_cetak = [
