@@ -241,7 +241,7 @@ Layanan Teknis	:
                                     "tahun" => str_replace(' ', '', $thn_fix),
                                     "tanggal_pembayaran" => date('Y-m-d H:i:s')
                                 ];
-                                $this->db->insert('dt_cetak', $data_cetak);
+                                // $this->db->insert('dt_cetak', $data_cetak);
                                 $curl = curl_init();
                                 $curl2 = curl_init();
                                 $curl3 = curl_init();
@@ -270,12 +270,12 @@ Layanan Teknis	:
                                         [
                                           'key' => '1', //{{ buat key 1,2,3,4 }}
                                           'value' => 'name', //field di excel contact
-                                          'value_text' => $get_client['nama'] //value
+                                          'value_text' => 'awd' //value
                                         ],
                                         [
                                           'key' => '2', //{{ buat key 1,2,3,4 }}
                                           'value' => 'company', //kode pelanggan
-                                          'value_text' => $get_client['kode_pelanggan'] //value
+                                          'value_text' => 'awd' //value
                                         ],
                                         [
                                           'key' => '3', //{{ buat key 1,2,3,4 }}
