@@ -304,7 +304,7 @@ Layanan Teknis	:
                                 $response = curl_exec($curl);
                                 $err = curl_error($curl);
                                 curl_close($curl);
-                                echo $response;
+                                echo $response."2";
                                 // $this->api_whatsapp->wa_notif($wa, $get_client['telp']);
                             }
                         }
