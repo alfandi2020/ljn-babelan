@@ -147,7 +147,10 @@ Layanan Teknis	:
             // Tangkap webhook dari moota METHOD POST
             // notifikasi ini berbentuk json
             $notifications = file_get_contents("php://input");
-               
+            $token = "bzqjLpzxGwUwP7qJRdIRxcjMktOHBdggf3lnfB6Dsew";
+            $curl = curl_init();
+            $curl2 = curl_init();
+            $curl3 = curl_init();
             $neko = json_decode($notifications, TRUE);
             // Cek notif
             if ($neko) {
@@ -190,34 +193,12 @@ Layanan Teknis	:
                     $bulan_fix = $bulan2;
                     $thn_fix = date('Y');
                 }
-//                     $wa = "Kepada pelanggan yth,
-// *Bapak/Ibu ".$get_client['nama_pelanggann']."*
-// ID Pel : ".$get_client['kode_pelanggan']."
-                    
-// Pembayaran tagihan anda *BERHASIL* 
-                    
-// Tanggal Verifikasi : ".date('d-m-Y')."
-// Periode Pembayaran : ". $bulan_fix." " . $thn_fix ."
-// *Total Pembayaran : Rp ".number_format($jquin['amount'],0,'.','.').",-*
-                    
-// Terima kasih atas kerjasamanya.
-                    
-// Salam
-// MD.Net
-// _Supported by :_
-// *PT Lintas Jaringan Nusantara*
-// Kantor Layanan Babelan
-// Layanan Teknis	: 
-// 0821-1420-9923
-// 0819-3380-3366
-
-// Note : _Pesan ini terkirim otomatis dari billing system_";
                     if ($client->num_rows() == true) {
                         if ($kode_unik != 000) {
                             $data = array(
                                 'bank_id' => $jquin['bank_id'],
                                 'account_number' => $jquin['account_number'],
-                                'bank_type' => $jquin['bank'],
+                                'bank_type' => json_decode(json_encode($jquin['bank']))->label,
                                 'date' => date( 'Y-m-d H:i:s'),
                                 'amount' => $jquin['amount'],
                                 'description' => $jquin['description'],
@@ -225,11 +206,12 @@ Layanan Teknis	:
                                 'balance' => $jquin['balance'],
                                 'kode_unik' => $kode_unik,
                                 'id_order' => '13',
-                                'nama_penerima'  => 'asep',
-                                'nama_pengirim' => 'waaw'
+                                'nama_penerima'  => 'superadmin',
+                                'nama_pengirim' => $get_client['nama_pelanggann'],
+                                'id_pelanggan' => str_replace(' ', '', $get_client['kode_pelanggan'])
                             );
-                            // $store = $this->db->insert('mutasi',$data);
-                            $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => str_replace(' ','','GAK0616'),'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
+                            $this->db->insert('mutasi',$data);
+                            $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']),'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
                             if ($cek_plg != true) {
                                 $data_cetak = [
                                     "id_registrasi" => str_replace(' ','',$get_client['kode_pelanggan']),
@@ -241,11 +223,8 @@ Layanan Teknis	:
                                     "tahun" => str_replace(' ', '', $thn_fix),
                                     "tanggal_pembayaran" => date('Y-m-d H:i:s')
                                 ];
-                                // $this->db->insert('dt_cetak', $data_cetak);
-                                $curl = curl_init();
-                                $curl2 = curl_init();
-                                $curl3 = curl_init();
-                                $token = "bzqjLpzxGwUwP7qJRdIRxcjMktOHBdggf3lnfB6Dsew"; 
+                                $this->db->insert('dt_cetak', $data_cetak);
+                               
                                 curl_setopt_array($curl, [
                                   CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
                                   CURLOPT_RETURNTRANSFER => true,
@@ -256,7 +235,7 @@ Layanan Teknis	:
                                   CURLOPT_CUSTOMREQUEST => "POST",
                                   CURLOPT_POSTFIELDS => json_encode([
                                     'to_number' => "62" . substr($get_client['telp'], 1),
-                                    'to_name' => $get_client['nama'],
+                                    'to_name' => $get_client['nama_pelanggann'],
                                     'message_template_id' => 'c83eba1a-1c1c-4100-a3a1-c335d042d12a',
                                     'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
                                     'room' => [
@@ -270,27 +249,27 @@ Layanan Teknis	:
                                         [
                                           'key' => '1', //{{ buat key 1,2,3,4 }}
                                           'value' => 'name', //field di excel contact
-                                          'value_text' => 'awd' //value
+                                          'value_text' => $get_client['nama_pelanggann'] //value
                                         ],
                                         [
                                           'key' => '2', //{{ buat key 1,2,3,4 }}
                                           'value' => 'company', //kode pelanggan
-                                          'value_text' => 'awd' //value
+                                          'value_text' => $get_client['kode_pelanggan'] //value
                                         ],
                                         [
                                           'key' => '3', //{{ buat key 1,2,3,4 }}
                                           'value' => '165000', //tagihan
-                                          'value_text' => 'awd' //value
+                                          'value_text' => date('d-m-Y') //value
                                         ],
                                         [
                                           'key' => '4', //{{ buat key 1,2,3,4 }}
                                           'value' => '124', //kode unik
-                                          'value_text' =>'awd' //value
+                                          'value_text' => $bulan_fix . " " . $thn_fix //periode
                                         ],
                                         [
                                           'key' => '5', //{{ buat key 1,2,3,4 }}
                                           'value' => '150000', //total tagihan
-                                          'value_text' => '222a' //value
+                                          'value_text' => number_format($jquin['amount'], 0, '.', '.') //total_pembayaran
                                         ]
                                       ]
                                     ]
@@ -304,18 +283,65 @@ Layanan Teknis	:
                                 $response = curl_exec($curl);
                                 $err = curl_error($curl);
                                 curl_close($curl);
-                                echo $response."2";
-                                // $this->api_whatsapp->wa_notif($wa, $get_client['telp']);
+                                echo $response;
                             }
                         }
-                    }else{
-                        $wa_2 = "Notifkasi Pembayaran
-Bank : ".$jquin['bank']->bank_type."
-Tanggal : ".date( 'Y-m-d H:i:s')."
-Jumlah : "."Rp.". number_format($jquin['amount'],0,'.','.')."
-Deskripsi : ".$jquin['description']."
-                        ";
-                        //$this->api_whatsapp->wa_notif($wa_2,'081933803366');
+                    }else{// kirim untuk selain kode unik
+
+                        curl_setopt_array($curl, [
+                            CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => "",
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 30,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => "POST",
+                            CURLOPT_POSTFIELDS => json_encode([
+                                'to_number' => "6281933803366",
+                                'to_name' => 'mahfud',
+                                'message_template_id' => '3a58a7f1-4831-43e5-ab78-74e852e578a8',
+                                'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
+                                'room' => [
+                                    'tags' => ['mahfud'],
+                                ],
+                                'language' => [
+                                    'code' => 'id'
+                                ],
+                                'parameters' => [
+                                    'body' => [
+                                        [
+                                            'key' => '1', //{{ buat key 1,2,3,4 }}
+                                            'value' => 'name', //bank
+                                            'value_text' => json_decode(json_encode($jquin['bank']))->label //value
+                                        ],
+                                        [
+                                            'key' => '2', //{{ buat key 1,2,3,4 }}
+                                            'value' => 'company', //kode pelanggan
+                                            'value_text' => date('Y-m-d H:i:s') //value
+                                        ],
+                                        [
+                                            'key' => '3', //{{ buat key 1,2,3,4 }}
+                                            'value' => '165000', //tagihan
+                                            'value_text' => "Rp.".number_format($jquin['amount'], 0, '.', '.') //value
+                                        ],
+                                        [
+                                            'key' => '4', //{{ buat key 1,2,3,4 }}
+                                            'value' => '124', //kode unik
+                                            'value_text' => $jquin['description'] //periode
+                                        ]
+                                    ]
+                                ]
+                            ]),
+                            CURLOPT_HTTPHEADER => [
+                                "Authorization: Bearer " . $token . "",
+                                "Content-Type: application/json"
+                            ],
+                        ]);
+
+                        $response = curl_exec($curl);
+                        $err = curl_error($curl);
+                        curl_close($curl);
+                        echo $response;
                     }
                 }
             }else{
