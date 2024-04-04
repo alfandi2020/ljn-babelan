@@ -481,7 +481,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62".substr($get_client['telp'],1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => 'fb07e29d-bec2-4d25-93d8-5d4d751c57db',
+				'message_template_id' => 'e7272091-8ecf-4146-bb45-bb5d56fb0dfc',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
