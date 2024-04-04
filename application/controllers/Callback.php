@@ -245,7 +245,7 @@ Layanan Teknis	:
                                 $curl = curl_init();
                                 $curl2 = curl_init();
                                 $curl3 = curl_init();
-                                $token = "gYGG2YKTv9odqMHhyi2PFIFo2eMSrCom9wVAJmVpLi8"; 
+                                $token = "bzqjLpzxGwUwP7qJRdIRxcjMktOHBdggf3lnfB6Dsew"; 
                                 curl_setopt_array($curl, [
                                   CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
                                   CURLOPT_RETURNTRANSFER => true,
