@@ -217,7 +217,7 @@ Layanan Teknis	:
                             $data = array(
                                 'bank_id' => $jquin['bank_id'],
                                 'account_number' => $jquin['account_number'],
-                                'bank_type' => $jquin['bank_type'],
+                                'bank_type' => $jquin['bank'],
                                 'date' => date( 'Y-m-d H:i:s'),
                                 'amount' => $jquin['amount'],
                                 'description' => $jquin['description'],
@@ -255,7 +255,7 @@ Layanan Teknis	:
                                   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                                   CURLOPT_CUSTOMREQUEST => "POST",
                                   CURLOPT_POSTFIELDS => json_encode([
-                                    'to_number' => "62".substr($get_client['telp'],1),
+                                    'to_number' => "6283897943785",
                                     'to_name' => $get_client['nama'],
                                     'message_template_id' => 'c83eba1a-1c1c-4100-a3a1-c335d042d12a',
                                     'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
