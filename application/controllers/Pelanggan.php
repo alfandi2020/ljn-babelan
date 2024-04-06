@@ -249,7 +249,7 @@ class Pelanggan extends CI_Controller {
 					CURLOPT_CUSTOMREQUEST => "POST",
 					CURLOPT_POSTFIELDS => json_encode([
 						'to_number' => "62" . substr($get_client['telp'], 1),
-						'to_name' => $get_client['nama_pelanggann'],
+						'to_name' => $get_client['nama'],
 						'message_template_id' => 'c83eba1a-1c1c-4100-a3a1-c335d042d12a',
 						'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 						'room' => [
@@ -263,7 +263,7 @@ class Pelanggan extends CI_Controller {
 								[
 									'key' => '1', //{{ buat key 1,2,3,4 }}
 									'value' => 'name', //field di excel contact
-									'value_text' => $get_client['nama_pelanggann'] //value
+									'value_text' => $get_client['nama'] //value
 								],
 								[
 									'key' => '2', //{{ buat key 1,2,3,4 }}
