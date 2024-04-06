@@ -191,6 +191,14 @@
                                                     ] ?>"  name="cpe" class="form-control" placeholder="Ubiqity">
                                                 </fieldset>
                                             </div>
+                                            <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                                <fieldset class="form-group">
+                                                    <span>Jatuh Tempo</span>
+                                                    <input type="number" value="<?= $pelanggan[
+                                                        'tempo'
+                                                    ] ?>"  name="tempo" class="form-control">
+                                                </fieldset>
+                                            </div>
                                         </div>
                                          <div class="row mt-2">
                                             <div class="col-xl-3 col-md-6 col-12 mb-1">
@@ -508,6 +516,21 @@
                                                             <span class="vs-radio--circle"></span>
                                                         </span>
                                                         <span class="">Perusahaan</span>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-xl-4">
+                                                <fieldset>
+                                                    <div class="vs-checkbox-con vs-checkbox-primary">
+                                                        <input  onclick="salindata(this.form)" name="salin_to" type="checkbox">
+                                                        <span class="vs-checkbox">
+                                                            <span class="vs-checkbox--check">
+                                                                <i class="vs-icon feather icon-check"></i>
+                                                            </span>
+                                                        </span>
+                                                        <span class="">Ceklis Jika data pelanggan sama</span>
                                                     </div>
                                                 </fieldset>
                                             </div>

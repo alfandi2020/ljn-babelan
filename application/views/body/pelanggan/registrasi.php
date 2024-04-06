@@ -114,6 +114,12 @@
                                                     <input type="text" required name="cpe" class="form-control" placeholder="Ubiqity">
                                                 </fieldset>
                                             </div>
+                                            <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                                <fieldset class="form-group">
+                                                    <span>Jatuh Tempo</span>
+                                                    <input type="number" name="tempo" class="form-control">
+                                                </fieldset>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xl">
