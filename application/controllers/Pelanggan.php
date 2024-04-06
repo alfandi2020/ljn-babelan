@@ -62,6 +62,7 @@ class Pelanggan extends CI_Controller {
 		$add_on2 = $this->input->post('addon2');
 		$add_on3 = $this->input->post('addon3');
 		$diskon = $this->input->post('diskon');
+		$tempo = $this->input->post('tempo');
 		// if ($nama) {
 			$nama_cek =  $this->db->get_where('dt_registrasi',['kode_pelanggan' => $kode_pelanggan])->num_rows();
 			if ($nama_cek == true) {
@@ -93,6 +94,7 @@ class Pelanggan extends CI_Controller {
 					"addon2"=> $add_on2,
 					"addon3"=> $add_on3,
 					"diskon"=> $diskon,
+					"tempo"=> $tempo,
 				];
 				$this->db->insert('dt_registrasi',$insert);
 				// $msg = [
@@ -481,7 +483,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62".substr($get_client['telp'],1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => 'e7272091-8ecf-4146-bb45-bb5d56fb0dfc',
+				'message_template_id' => 'e6711677-dc7c-4313-8f57-66555fc0f6aa',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -525,6 +527,11 @@ Layanan Teknis	:
 							'key' => '7', //{{ buat key 1,2,3,4 }}
 							'value' => '10', //bulan tahun
 							'value_text' => $bulan ." ". $tahun  //value
+						],
+						[
+							'key' => '8', //{{ buat key 1,2,3,4 }}
+							'value' => '12310', //bulan tahun
+							'value_text' => $get_client['tempo']  //value
 						]
 					]
 				]
@@ -703,7 +710,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62" . substr($get_client['telp'], 1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => 'fb07e29d-bec2-4d25-93d8-5d4d751c57db',
+				'message_template_id' => '497be8a5-e266-4a85-8b95-a62098c2bf02',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -756,6 +763,11 @@ Layanan Teknis	:
 							'key' => '7', //{{ buat key 1,2,3,4 }}
 							'value' => '10', //bulan tahun
 							'value_text' => $bulan . " " . $tahun  //value
+						],
+						[
+							'key' => '8', //{{ buat key 1,2,3,4 }}
+							'value' => 'awd', //bulan tahun
+							'value_text' => $get_client['tempo']  //value
 						]
 					]
 				]
@@ -1049,6 +1061,7 @@ Layanan Teknis	:
 		$add_on2 = $this->input->post('addon2');
 		$add_on3 = $this->input->post('addon3');
 		$diskon = $this->input->post('diskon');
+		$tempo = $this->input->post('tempo');
 		
 		if($nama){
 			$id_update = $this->input->post('id_update');
@@ -1078,6 +1091,7 @@ Layanan Teknis	:
 				"addon2"=> $add_on2,
 				"addon3"=> $add_on3,
 				"diskon"=> $diskon,
+				"tempo"=> $tempo,
 			];
 			$this->db->where('id',$id_update);
 			$data = $this->db->update('dt_registrasi',$update);
