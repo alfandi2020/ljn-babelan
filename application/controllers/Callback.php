@@ -147,7 +147,7 @@ Layanan Teknis	:
             // Tangkap webhook dari moota METHOD POST
             // notifikasi ini berbentuk json
             $notifications = file_get_contents("php://input");
-            $token = "gYGG2YKTv9odqMHhyi2PFIFo2eMSrCom9wVAJmVpLi8";
+            $token = "bzqjLpzxGwUwP7qJRdIRxcjMktOHBdggf3lnfB6Dsew";
             $curl = curl_init();
             $curl2 = curl_init();
             $curl3 = curl_init();
