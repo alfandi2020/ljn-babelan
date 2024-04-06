@@ -219,6 +219,7 @@ class Pelanggan extends CI_Controller {
 		$tahun = $this->input->post('p_tahun');
 		$tgl_bayar = $this->input->post('tgl_pembayaran');
 		$cek_tagihan = $this->db->query("SELECT * FROM dt_cetak where periode='$bulan' and tahun='$tahun' and id_registrasi='$id_registrasi' ")->num_rows();
+		$get_client = $this->db->get_where('dt_registrasi',['kode_pelanggan' => $id_registrasi])->row_array();
 		if ($tagihan == true) {
 			if ($cek_tagihan != true) {
 				$data = [
@@ -232,6 +233,71 @@ class Pelanggan extends CI_Controller {
 					"tanggal_pembayaran" => $tgl_bayar
 				];
 				$this->db->insert('dt_cetak',$data);
+
+				//notif
+				$curl = curl_init();
+				$curl2 = curl_init();
+				$curl3 = curl_init();
+				$token = "gYGG2YKTv9odqMHhyi2PFIFo2eMSrCom9wVAJmVpLi8";
+				curl_setopt_array($curl, [
+					CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_ENCODING => "",
+					CURLOPT_MAXREDIRS => 10,
+					CURLOPT_TIMEOUT => 30,
+					CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+					CURLOPT_CUSTOMREQUEST => "POST",
+					CURLOPT_POSTFIELDS => json_encode([
+						'to_number' => "62" . substr($get_client['telp'], 1),
+						'to_name' => $get_client['nama_pelanggann'],
+						'message_template_id' => 'c83eba1a-1c1c-4100-a3a1-c335d042d12a',
+						'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
+						'room' => [
+							'tags' => ['mahfud'],
+						],
+						'language' => [
+							'code' => 'id'
+						],
+						'parameters' => [
+							'body' => [
+								[
+									'key' => '1', //{{ buat key 1,2,3,4 }}
+									'value' => 'name', //field di excel contact
+									'value_text' => $get_client['nama_pelanggann'] //value
+								],
+								[
+									'key' => '2', //{{ buat key 1,2,3,4 }}
+									'value' => 'qawd', //kode pelanggan
+									'value_text' => $get_client['kode_pelanggan'] //value
+								],
+								[
+									'key' => '3', //{{ buat key 1,2,3,4 }}
+									'value' => '165000', //tagihan
+									'value_text' => date('d-m-Y') //value
+								],
+								[
+									'key' => '4', //{{ buat key 1,2,3,4 }}
+									'value' => '124', //kode unik
+									'value_text' => $bulan . " " . $tahun //periode
+								],
+								[
+									'key' => '5', //{{ buat key 1,2,3,4 }}
+									'value' => '150000', //total tagihan
+									'value_text' => number_format($tagihan, 0, '.', '.') //total_pembayaran
+								]
+							]
+						]
+					]),
+					CURLOPT_HTTPHEADER => [
+						"Authorization: Bearer " . $token . "",
+						"Content-Type: application/json"
+					],
+				]);
+
+				$response = curl_exec($curl);
+				$err = curl_error($curl);
+				curl_close($curl);
+				echo $response;
 				$this->session->set_flashdata("msg", "<div class='alert alert-success'>Cetak Pembayaran berhasil</div>");
 				redirect('pelanggan/pembayaran');
 			}else{
