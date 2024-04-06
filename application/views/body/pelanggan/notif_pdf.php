@@ -135,7 +135,7 @@ function terbilang($nilai) {
         </tr>
         <tr>
             <td>Phone : <?= $x['telp'] ?></td>
-            <td>Jatuh Tempo : <?= $tanggal_t ?> <?= $bulan ?> <?= $tahun ?></td>
+            <td>Jatuh Tempo : <?= $x['tempo'] ?> <?= $bulan ?> <?= $tahun ?></td>
         </tr>
         <tr>
             <td>Email : <?= $x['email'] ?></td>
