@@ -165,7 +165,7 @@ Layanan Teknis	:
                     // Tampung data response dari moota
                     // Perlu diketahui value Sandbox Webhook dan value
                     // webhook original berbeda.
-                   
+                    echo json_encode($jquin);
                     // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $client = $this->db->query('SELECT
                                 *,
@@ -238,9 +238,6 @@ Layanan Teknis	:
                                     'to_name' => $get_client['nama_pelanggann'],
                                     'message_template_id' => 'c83eba1a-1c1c-4100-a3a1-c335d042d12a',
                                     'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
-                                    'room' => [
-                                      'tags' => ['mahfud'],
-                                    ],
                                     'language' => [
                                       'code' => 'id'
                                     ],
@@ -281,8 +278,6 @@ Layanan Teknis	:
                                 ]);
                             
                                 $response = curl_exec($curl);
-                                $err = curl_error($curl);
-                                curl_close($curl);
                                 echo $response;
                             }
                         }else{
@@ -350,6 +345,8 @@ Layanan Teknis	:
             echo 'eror';
                 //$this->api_whatsapp->wa_notif('notif','083897943785');
             }
+        curl_close($curl);
+
         }
         public static function http_get($url, $headers = array())
         {
