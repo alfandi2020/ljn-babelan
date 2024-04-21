@@ -1030,7 +1030,7 @@ Layanan Teknis	:
 						[
 							'key' => '12', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon3', //addon3
-							'value_text' => '' //value
+							'value_text' => "" //value
 						],
 						
 					]
