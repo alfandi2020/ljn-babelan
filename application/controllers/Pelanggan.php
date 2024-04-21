@@ -915,7 +915,7 @@ Layanan Teknis	:
 			$ad3 = ".: Add on " . $addon3['nama'] . " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
 		} else {
 			$addon3_biaya = 0;
-			$ad3 = null;
+			$ad3 = 'null';
 
 		}
 
@@ -1030,7 +1030,7 @@ Layanan Teknis	:
 						[
 							'key' => '12', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon3', //addon3
-							'value_text' => $addon3['biaya'] == "" ? "" : "Add on 3 = " . number_format($addon3['biaya'])  //value
+							'value_text' => $ad3 //value
 						],
 						
 					]
