@@ -1020,12 +1020,12 @@ Layanan Teknis	:
 						[
 							'key' => '10', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon1', //addon1
-							'value_text' =>  $addon1['biaya'] == "" ? "" : "Add on 1 = " . number_format($addon1['biaya'])  //value
+							'value_text' =>  $ad1 //value
 						],
 						[
 							'key' => '11', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon2', //addon2
-							'value_text' =>  $addon2['biaya'] == "" ? "" : "Add on 2 = " . number_format($addon2['biaya'])  //value
+							'value_text' => $ad2  //value
 						],
 						[
 							'key' => '12', //{{ buat key 1,2,3,4 }}
