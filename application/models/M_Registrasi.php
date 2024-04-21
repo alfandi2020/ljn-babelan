@@ -384,7 +384,8 @@ class M_Registrasi extends CI_Model {
             }else{
                 $status = '<span class="badge badge-glow badge-danger">Belum Bayar</span>';
                 $tagihan =  '<a href="#" id="'.$record->id.'" class="notif-confirm btn btn-icon btn-icon rounded-circle btn-success waves-effect waves-light"><i class="feather icon-send"></i></a> &nbsp;
-                <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-warning waves-effect waves-light notif-confirm2"><i class="feather icon-file-text"></i></a>';
+                <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-warning waves-effect waves-light notif-confirm2"><i class="feather icon-file-text"></i></a> &nbsp;
+                <a href="#" id="'.$record->id.'" class="btn btn-icon btn-icon rounded-circle btn-danger waves-effect waves-light notif-confirm3"><i class="feather icon-stop-circle"></i></a>';
             }
 
             $data[] = array(
