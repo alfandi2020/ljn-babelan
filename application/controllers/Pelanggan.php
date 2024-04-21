@@ -659,14 +659,14 @@ Layanan Teknis	:
 			$ad1 = ".: Add on " . $addon1['nama']. " = " . 'Rp.' . number_format($addon1['biaya'],0,'.','.');
 		}else{
             $addon1_biaya = 0;
-			$ad1 = null;
+			$ad1 = '—(‏‏‎‏‏‎ )—';
         } 
 		if ($addon2 == true) { 
             $addon2_biaya = $addon2['biaya'];
 			$ad2 = ".: Add on " . $addon2['nama']. " = " . 'Rp.' . number_format($addon2['biaya'], 0, '.', '.');
 		}else{
             $addon2_biaya = 0;
-			$ad2 = null;
+			$ad2 = '—(‏‏‎‏‏‎ )—';
 
 		} 
 		if ($addon3 == true) { 
@@ -674,7 +674,7 @@ Layanan Teknis	:
 			$ad3 = ".: Add on " . $addon3['nama']. " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
 		}else{
             $addon3_biaya = 0;
-			$ad3 = null;
+			$ad3 = '—(‏‏‎‏‏‎ )—';
 
 		} 
 
@@ -781,7 +781,7 @@ Layanan Teknis	:
 						[
 							'key' => '12', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon3', //addon3
-							'value_text' =>"Add on 1 = " . number_format($addon2['biaya'])  //value
+							'value_text' => '—(‏‏‎‏‏‎ )—'  //value
 						],
 					]
 				]
