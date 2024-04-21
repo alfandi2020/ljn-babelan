@@ -330,7 +330,7 @@
                                             </div>
                                             <div class="col-xl-3 col-md-6 col-12 mb-1">
                                                 <span>Diskon</span>
-                                                <input type="text" name="diskon" class="form-control">
+                                                <input type="text" value="<?= $pelanggan['diskon'] ?>" name="diskon" class="form-control">
                                             </div>
                                         </div>
                                         <div class="row">

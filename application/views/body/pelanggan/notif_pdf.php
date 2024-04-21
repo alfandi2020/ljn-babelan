@@ -268,7 +268,7 @@ function terbilang($nilai) {
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
             <td >
-                <?php $totalll = floor($x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya + $ppn - $kd_unik_in) ?>
+                <?php $totalll = floor($x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya + $ppn - $kd_unik_in - $diskonnn) ?>
                 <b><?= 'Rp.'. number_format($totalll,0,'.','.') ?></b>
             </td>
         </tr>
