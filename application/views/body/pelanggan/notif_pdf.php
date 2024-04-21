@@ -246,8 +246,10 @@ function terbilang($nilai) {
                 1. BCA 2761446578 an Mahfudin <br>
                 2. MANDIRI 1560016047112 an Mahfudin
             </td>
-            <!-- <td>Diskon</td>
-            <td>Rp.0</td> -->
+            <?php if($x['diskon'] > 0) { ?>
+            <td>Diskon</td>
+            <td>Rp.<?= number_format($x['diskon']) ?></td>
+            <?php } ?>
         </tr>
         <tr style="background-color: #d0cece;">
             <td>PPN 11%</td>
@@ -262,7 +264,7 @@ function terbilang($nilai) {
             <td>Rp.0</td>
         </tr> -->
         <tr>
-            <td>Discount Unik</td>
+            <td>Discount</td>
             <td><?= $kd_unik ?></td>
         </tr>
         <tr style="background-color: #d0cece;">
