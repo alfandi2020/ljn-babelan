@@ -117,29 +117,39 @@ function terbilang($nilai) {
             }
     ?>
     <table style="background-color:white">
-        <tr>
-            <td><b style="background-color: #f2f2f2;width:90px;">Kepada : </b></td>
-            <td><h4> INVOICE </h4></td>
+        <tr style="border-color:red;border-style:solid;border-width: 4px;">
+            <td  colspan="4" style="text-align:center;">INVOICE</td>
         </tr>
         <tr>
+            <td width="800">Kepada Yth. : <?= $x['nama'] ?></td>
+            <td>INV<?= $tahun. $bln_conv. $tanggal_t.$x['id'] ?></td>
+            <!-- <td><h4> INVOICE </h4></td> -->
+        </tr>
+        <tr>
+            <td>ID Pelanggan : <?= $x['kode_pelanggan'] ?></td>
+            <td>Tanggal : <?= date('d') ?> <?= date('m') ?> <?= date('Y') ?></td>
+            <!-- <td><h4> INVOICE </h4></td> -->
+        </tr>
+        <tr>
+            <td>Alamat : <?= $x['alamat'] ?></td> 
+            <td>Jatuh Tempo : <?= $x['tempo'] ?> <?= $bulan ?> <?= $tahun ?></td>
+        </tr>
+        <!-- <tr>
             <td><?= $x['nama'] ?></td> 
             <td>No Invoice : INV<?= $tahun. $bln_conv. $tanggal_t.$x['id'] ?></td>
-        </tr>
-        <tr>
-            <td width="400"><?= $x['alamat'] ?></td> 
-            <td>Tanggal : <?= date('d') ?> <?= date('m') ?> <?= date('Y') ?></td>
-        </tr>
+        </tr> -->
+
         <tr>
             <td><br><br></td>
             <td>Periode : <?= $bulan ?> <?= $tahun ?></td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>Phone : <?= $x['telp'] ?></td>
             <td>Jatuh Tempo : <?= $x['tempo'] ?> <?= $bulan ?> <?= $tahun ?></td>
-        </tr>
-        <tr>
+        </tr> -->
+        <!-- <tr>
             <td>Email : <?= $x['email'] ?></td>
-        </tr>
+        </tr> -->
     </table>
     <table id="table_tagihan">
         <tr>
@@ -209,12 +219,12 @@ function terbilang($nilai) {
         <?php if ($x['diskon'] == true) { 
             $diskonnn = $x['diskon'];
             ?>
-        <tr>
+        <!-- <tr>
             <td></td>
             <td>Diskon</td>
             <td><?= 'Rp.' . number_format($x['diskon'],0,'.','.') ?></td>
             <td><?= 'Rp.' . number_format($x['diskon'],0,'.','.') ?></td>
-        </tr>
+        </tr> -->
         <?php }else {
             $diskonnn = 0;
         } 
@@ -223,13 +233,13 @@ function terbilang($nilai) {
 		    $ppn = floor($x['harga'] * 11 / 100);
         
         ?>
-        <tr style="background-color: #d0cece;">
+        <!-- <tr style="background-color: #d0cece;">
             <td colspan="2">
                 Keterangan : 
             </td>
             <td>Harga Total</td>
             <td><?= 'Rp.'. number_format($x['harga'],0,'.','.') ?></td>
-        </tr>
+        </tr> -->
         <tr>
             <td colspan="2" rowspan="6">
             .: Pembayaran ditujukan ke : <br>
@@ -243,14 +253,14 @@ function terbilang($nilai) {
             <td>PPN 11%</td>
             <td>Rp.<?= number_format($ppn,0,'.','.') ?></td>
         </tr>
-        <tr>
+        <!-- <tr>
             <td>Biaya Pengirim</td>
             <td>Rp.0</td>
-        </tr>
-        <tr style="background-color: #d0cece;">
+        </tr> -->
+        <!-- <tr style="background-color: #d0cece;">
             <td>Uang Muka (DP)</td>
             <td>Rp.0</td>
-        </tr>
+        </tr> -->
         <tr>
             <td>Discount Unik</td>
             <td><?= $kd_unik ?></td>
