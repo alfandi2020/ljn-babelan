@@ -953,7 +953,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62" . substr($get_client['telp'], 1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => 'b6e31fab-ef3c-4267-91cf-3a098437dfe3',
+				'message_template_id' => '6b934bfd-e3f9-47cb-b175-18a2d74f13fa',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
