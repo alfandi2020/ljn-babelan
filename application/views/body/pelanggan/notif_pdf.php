@@ -180,7 +180,7 @@ function terbilang($nilai) {
             ?>
             <tr>
                 <td></td>
-                <td>Add on 1</td>
+                <td>Add on <?= $addon1['nama'] ?></td>
                 <td><?= 'Rp.' . number_format($addon1['biaya'],0,'.','.') ?></td>
                 <td><?= 'Rp.' . number_format($addon1['biaya'],0,'.','.') ?></td>
             </tr>
@@ -192,7 +192,7 @@ function terbilang($nilai) {
             ?>
         <tr>
             <td></td>
-            <td>Add on 2</td>
+            <td>Add on <?= $addon2['nama'] ?></td>
             <td><?= 'Rp.' . number_format($addon2['biaya'],0,'.','.') ?></td>
             <td><?= 'Rp.' . number_format($addon2['biaya'],0,'.','.') ?></td>
         </tr>
@@ -204,7 +204,7 @@ function terbilang($nilai) {
             ?>
         <tr>
             <td></td>
-            <td>Add on 3</td>
+            <td>Add on <?= $addon3['nama'] ?></td>
             <td><?= 'Rp.' . number_format($addon3['biaya'],0,'.','.') ?></td>
             <td><?= 'Rp.' . number_format($addon3['biaya'],0,'.','.') ?></td>
         </tr>
