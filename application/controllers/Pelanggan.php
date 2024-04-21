@@ -1020,17 +1020,17 @@ Layanan Teknis	:
 						[
 							'key' => '10', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon1', //addon1
-							'value_text' => "Add on 1 = " . number_format($addon1['biaya'])  //value
+							'value_text' =>  $addon1['biaya'] == null ? "" : "Add on 1 = " . number_format($addon1['biaya'])  //value
 						],
 						[
 							'key' => '11', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon2', //addon2
-							'value_text' => "Add on 1 = " . number_format($addon3['biaya'])  //value
+							'value_text' =>  $addon2['biaya'] == null ? "" : "Add on 2 = " . number_format($addon2['biaya'])  //value
 						],
 						[
 							'key' => '12', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon3', //addon3
-							'value_text' =>"Add on 1 = " . number_format($addon2['biaya'])  //value
+							'value_text' => $addon3['biaya'] == null ? "" : "Add on 3 = " . number_format($addon3['biaya'])  //value
 						],
 						
 					]
