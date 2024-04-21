@@ -915,7 +915,7 @@ Layanan Teknis	:
 			$ad3 = ".: Add on " . $addon3['nama'] . " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
 		} else {
 			$addon3_biaya = 0;
-			$ad3 = "-";
+			$ad3 = null;
 
 		}
 
