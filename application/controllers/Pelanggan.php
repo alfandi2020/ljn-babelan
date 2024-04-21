@@ -549,7 +549,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62".substr($get_client['telp'],1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => 'e6711677-dc7c-4313-8f57-66555fc0f6aa',
+				'message_template_id' => '92a934d7-5771-48c6-902c-699f0657792f',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -598,7 +598,27 @@ Layanan Teknis	:
 							'key' => '8', //{{ buat key 1,2,3,4 }}
 							'value' => '12310', //bulan tahun
 							'value_text' => $get_client['tempo']  //value
-						]
+						],
+						[
+							'key' => '9', //{{ buat key 1,2,3,4 }}
+							'value' => 'diskonn', //diskon
+							'value_text' => "Disc 2 = " . number_format($get_client['diskon'])  //value
+						],
+						[
+							'key' => '10', //{{ buat key 1,2,3,4 }}
+							'value' => 'addon1', //addon1
+							'value_text' => "Add on 1 = " . number_format($addon1['biaya'])  //value
+						],
+						[
+							'key' => '11', //{{ buat key 1,2,3,4 }}
+							'value' => 'addon2', //addon2
+							'value_text' => "Add on 1 = " . number_format($addon3['biaya'])  //value
+						],
+						[
+							'key' => '12', //{{ buat key 1,2,3,4 }}
+							'value' => 'addon3', //addon3
+							'value_text' =>"Add on 1 = " . number_format($addon2['biaya'])  //value
+						],
 					]
 				]
 			]),
@@ -670,7 +690,7 @@ Layanan Teknis	:
 	{
 
 		$mpdf = new \Mpdf\Mpdf([
-			'tempDir' => '/tmp',
+			// 'tempDir' => '/tmp',
 			'mode' => '',
 			'format' => 'A4',
 			'default_font_size' => 0,
@@ -692,22 +712,15 @@ Layanan Teknis	:
 		$mpdf->defaultfooterline = 0;
 		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
 		$mpdf->WriteHTML($html);
-		$mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
+		// $mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
 		// chmod($no_invoice . ".pdf", 0777);
-		// $mpdf->Output();
+		$mpdf->Output();
+		exit;
 		$imagick = new Imagick();
 		$imagick->setResolution(200, 200);
 		$imagick->readImage("invoice/$no_invoice.pdf");
 		$imagick->writeImages("invoice/image/$no_invoice.jpg", true);
-		// if (file_exists('invoice/image/'.$no_invoice.'-0.jpg')) {
-		// 	$no_invoice = $no_invoice . '-0.jpg';
-		// }else if (file_exists('invoice/image/' . $no_invoice . '-1.jpg')) {
-		// 	$no_invoice = $no_invoice . '-1.jpg';
-		// }else{
-		// 	$no_invoice = $no_invoice . '.jpg';
-		// }
 		$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
-		// $url_img = "https://billing.lintasmediadata.net/invoice/image/INV2308051069.jpg";
 			//end create image
 		$id = $this->uri->segment(3);
 		$this->db->where('a.id', $id);
@@ -776,7 +789,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62" . substr($get_client['telp'], 1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => '497be8a5-e266-4a85-8b95-a62098c2bf02',
+				'message_template_id' => 'b6e31fab-ef3c-4267-91cf-3a098437dfe3',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -834,7 +847,28 @@ Layanan Teknis	:
 							'key' => '8', //{{ buat key 1,2,3,4 }}
 							'value' => 'awd', //bulan tahun
 							'value_text' => $get_client['tempo']  //value
-						]
+						],
+						[
+							'key' => '9', //{{ buat key 1,2,3,4 }}
+							'value' => 'diskonn', //diskon
+							'value_text' => "Disc 2 = " . number_format($get_client['diskon'])  //value
+						],
+						[
+							'key' => '10', //{{ buat key 1,2,3,4 }}
+							'value' => 'addon1', //addon1
+							'value_text' => "Add on 1 = " . number_format($addon1['biaya'])  //value
+						],
+						[
+							'key' => '11', //{{ buat key 1,2,3,4 }}
+							'value' => 'addon2', //addon2
+							'value_text' => "Add on 1 = " . number_format($addon3['biaya'])  //value
+						],
+						[
+							'key' => '12', //{{ buat key 1,2,3,4 }}
+							'value' => 'addon3', //addon3
+							'value_text' =>"Add on 1 = " . number_format($addon2['biaya'])  //value
+						],
+						
 					]
 				]
 			]),
