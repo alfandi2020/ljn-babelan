@@ -897,14 +897,14 @@ Layanan Teknis	:
 		$addon3 = $this->db->get_where('addon', ['id' => $get_client['addon3']])->row_array();
 		if ($addon1 == true) {
 			$addon1_biaya = $addon1['biaya'];
-			$ad1 = ".: Add on " . $addon1['nama'] . " = " . 'Rp.' . number_format($addon1['biaya'], 0, '.', '.');
+			$ad1 = ".: Add on 1" . ' = Rp.' . number_format($addon1['biaya'], 0, '.', '.');
 		} else {
 			$addon1_biaya = 0;
-			$ad1 = "sadwa";
+			$ad1 = "-";
 		}
 		if ($addon2 == true) {
 			$addon2_biaya = $addon2['biaya'];
-			$ad2 = ".: Add on " . $addon2['nama'] . " = " . 'Rp.' . number_format($addon2['biaya'], 0, '.', '.');
+			$ad2 = ".: Add on 2" . ' = Rp.' . number_format($addon2['biaya'], 0, '.', '.');
 		} else {
 			$addon2_biaya = 0;
 			$ad2 = "-";
@@ -912,10 +912,10 @@ Layanan Teknis	:
 		}
 		if ($addon3 == true) {
 			$addon3_biaya = $addon3['biaya'];
-			$ad3 = ".: Add on " . $addon3['nama'] . " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
+			$ad3 = ".: Add on 3" . ' = Rp.' . number_format($addon3['biaya'], 0, '.', '.');
 		} else {
 			$addon3_biaya = 0;
-			$ad3 = null;
+			$ad3 = '-';
 
 		}
 
@@ -1030,7 +1030,7 @@ Layanan Teknis	:
 						[
 							'key' => '12', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon3', //addon3
-							'value_text' => 0 //value
+							'value_text' => $ad3 //value
 						],
 						
 					]
