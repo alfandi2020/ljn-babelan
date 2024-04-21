@@ -270,6 +270,66 @@
             }
         })
     })
+    $(document).on('click', '.notif-confirm3', function () {
+        var linkURL = $(this).attr("href").split('#');
+        var id = this.id;
+        linkURL =  base_url +"pelanggan/send_notif_pdf/" + id;
+        $.ajax({
+            type :"POST",
+            url : "get_pelanggan",
+            dataType : 'json',
+            data : {id:id},
+            success : function(data){
+            if (data.telp == "") {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Nomor WhatsApp harus di isi..!',
+                  })
+            }else{
+                var ppn = parseInt(data.harga * 11 / 100);
+                var harga = parseInt(data.harga) + parseInt(ppn);
+                var	number_string = harga.toString(),
+                    sisa 	= number_string.length % 3,
+                    rupiahh 	= number_string.substr(0, sisa),
+                    ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                        
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiahh += separator + ribuan.join('.');
+                }
+             Swal.fire({
+                    title: "Kirim Notifkasi Nonaktifkan Pelanggan!",
+                    html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u> <br>Apa yakin anda akan mengirim notifkasi?',
+                    type: "info",
+                    confirmButtonClass: 'btn btn-primary',
+                    buttonsStyling: false,
+                    showCancelButton:true,
+                    cancelButtonClass: 'btn btn-danger ml-1',
+                  }).then(
+                        function (isConfirm) {
+                            if (isConfirm.value) {
+                                Swal.fire(
+                                    {
+                                        type: "success",
+                                        title: 'Berhasil!',
+                                        text: 'Notifkasi berhasil dikirim',
+                                        confirmButtonClass: 'btn btn-success',
+                                    })
+                                setTimeout(() => {
+                                    window.location.href = linkURL;
+                                }, 1500);
+                            } else {
+                                history.replaceState(null, null, ' ');
+                                event.preventDefault();
+                                return false;
+                            }
+                        }
+                    );
+            }
+            }
+        })
+    })
     $(document).on('click', '.delete-confirm-struk', function () {
         var linkURL = $(this).attr("href").split('#');
         var id = this.id;
