@@ -907,7 +907,7 @@ Layanan Teknis	:
 			$ad2 = ".: Add on " . $addon2['nama'] . " = " . 'Rp.' . number_format($addon2['biaya'], 0, '.', '.');
 		} else {
 			$addon2_biaya = 0;
-			$ad2 = "null";
+			$ad2 = "";
 
 		}
 		if ($addon3 == true) {
@@ -915,7 +915,7 @@ Layanan Teknis	:
 			$ad3 = ".: Add on " . $addon3['nama'] . " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
 		} else {
 			$addon3_biaya = 0;
-			$ad3 = 'null';
+			$ad3 = '';
 
 		}
 
