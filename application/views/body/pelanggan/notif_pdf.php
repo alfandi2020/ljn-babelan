@@ -246,8 +246,8 @@ function terbilang($nilai) {
                 1. BCA 2761446578 an Mahfudin <br>
                 2. MANDIRI 1560016047112 an Mahfudin
             </td>
-            <td>Diskon</td>
-            <td>Rp.0</td>
+            <!-- <td>Diskon</td>
+            <td>Rp.0</td> -->
         </tr>
         <tr style="background-color: #d0cece;">
             <td>PPN 11%</td>
