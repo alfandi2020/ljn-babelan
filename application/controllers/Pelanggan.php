@@ -900,14 +900,14 @@ Layanan Teknis	:
 			$ad1 = ".: Add on " . $addon1['nama'] . " = " . 'Rp.' . number_format($addon1['biaya'], 0, '.', '.');
 		} else {
 			$addon1_biaya = 0;
-			$ad1 = null;
+			$ad1 = "sadwa";
 		}
 		if ($addon2 == true) {
 			$addon2_biaya = $addon2['biaya'];
 			$ad2 = ".: Add on " . $addon2['nama'] . " = " . 'Rp.' . number_format($addon2['biaya'], 0, '.', '.');
 		} else {
 			$addon2_biaya = 0;
-			$ad2 = null;
+			$ad2 = "null";
 
 		}
 		if ($addon3 == true) {
