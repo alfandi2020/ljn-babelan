@@ -876,9 +876,9 @@ Layanan Teknis	:
 		$mpdf->defaultfooterline = 0;
 		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
 		$mpdf->WriteHTML($html);
-		// $mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
+		$mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
 		// chmod($no_invoice . ".pdf", 0777);
-		$mpdf->Output();
+		// $mpdf->Output();
 		exit;
 		$imagick = new Imagick();
 		$imagick->setResolution(200, 200);
