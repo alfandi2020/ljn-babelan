@@ -713,7 +713,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62".substr($get_client['telp'],1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => 'a5420c56-41b4-4303-8d94-cebc3933e913',
+				'message_template_id' => 'f4a89528-62f3-4387-a7b6-76f299af7537',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -953,7 +953,7 @@ exit;
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62" . substr($get_client['telp'], 1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => '0d587da0-d1ee-4b69-9d7b-b2f5b82d3d8b',
+				'message_template_id' => 'bbdbb42b-dbb2-42a7-b863-762d6245bba6',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -991,6 +991,11 @@ exit;
 							'key' => '4', //{{ buat key 1,2,3,4 }}
 							'value' => 'awd', //bulan tahun
 							'value_text' => number_format(floor($xx + $ppn - $kd_unik_in))  //value
+						],
+						[
+							'key' => '6', //{{ buat key 1,2,3,4 }}
+							'value' => 'awd', //no telp
+							'value_text' => '0877-8619-9004'  //value
 						]
 						
 					]
