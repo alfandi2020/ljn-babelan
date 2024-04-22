@@ -713,7 +713,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62".substr($get_client['telp'],1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => '92a934d7-5771-48c6-902c-699f0657792f',
+				'message_template_id' => 'a5420c56-41b4-4303-8d94-cebc3933e913',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
