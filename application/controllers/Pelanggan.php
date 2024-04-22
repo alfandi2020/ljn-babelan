@@ -781,7 +781,7 @@ Layanan Teknis	:
 						[
 							'key' => '12', //{{ buat key 1,2,3,4 }}
 							'value' => 'addon3', //addon3
-							'value_text' => ' '  //value
+							'value_text' => 'aa'  //value
 						],
 					]
 				]
@@ -796,7 +796,7 @@ Layanan Teknis	:
 		$err = curl_error($curl);
 		echo $response;
 		curl_close($curl);
-
+exit;
 		if ($err) {
 			echo "cURL Error #:" . $err;
 		} else {
@@ -953,7 +953,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62" . substr($get_client['telp'], 1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => '6b934bfd-e3f9-47cb-b175-18a2d74f13fa',
+				'message_template_id' => '0d587da0-d1ee-4b69-9d7b-b2f5b82d3d8b',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -984,54 +984,14 @@ Layanan Teknis	:
 						],
 						[
 							'key' => '3', //{{ buat key 1,2,3,4 }}
-							'value' => '165000', //tagihan
-							'value_text' => number_format(floor($xx + $ppn)) //value
+							'value' => '150000', //total tagihan
+							'value_text' =>$get_client['tempo'] //value
 						],
 						[
 							'key' => '4', //{{ buat key 1,2,3,4 }}
-							'value' => '124', //kode unik
-							'value_text' => $kd_unik_in //value
-						],
-						[
-							'key' => '5', //{{ buat key 1,2,3,4 }}
-							'value' => '150000', //total tagihan
-							'value_text' => number_format(floor($xx + $ppn - $kd_unik_in)) //value
-						],
-						[
-							'key' => '6', //{{ buat key 1,2,3,4 }}
-							'value' => '1231310', //paket
-							'value_text' => $get_client['mbps']  //value
-						],
-						[
-							'key' => '7', //{{ buat key 1,2,3,4 }}
-							'value' => '10', //bulan tahun
-							'value_text' => $bulan . " " . $tahun  //value
-						],
-						[
-							'key' => '8', //{{ buat key 1,2,3,4 }}
 							'value' => 'awd', //bulan tahun
-							'value_text' => $get_client['tempo']  //value
-						],
-						[
-							'key' => '9', //{{ buat key 1,2,3,4 }}
-							'value' => 'diskonn', //diskon
-							'value_text' => "Disc 2 = " . number_format($get_client['diskon'])  //value
-						],
-						[
-							'key' => '10', //{{ buat key 1,2,3,4 }}
-							'value' => 'addon1', //addon1
-							'value_text' =>  $ad1 //value
-						],
-						[
-							'key' => '11', //{{ buat key 1,2,3,4 }}
-							'value' => 'addon2', //addon2
-							'value_text' => $ad2  //value
-						],
-						[
-							'key' => '12', //{{ buat key 1,2,3,4 }}
-							'value' => 'addon3', //addon3
-							'value_text' => $ad3 //value
-						],
+							'value_text' => number_format(floor($xx + $ppn - $kd_unik_in))  //value
+						]
 						
 					]
 				]
