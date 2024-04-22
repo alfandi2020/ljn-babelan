@@ -229,8 +229,8 @@ function terbilang($nilai) {
             $diskonnn = 0;
         } 
 		    // $xx = $x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnn;
-            
-		    $ppn = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn * 11 / 100);
+            $tt_h = $x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn;
+		    $ppn = floor($tt_h * 11 / 100);
         
         ?>
         <!-- <tr style="background-color: #d0cece;">
