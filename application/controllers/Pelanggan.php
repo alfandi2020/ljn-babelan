@@ -993,7 +993,7 @@ exit;
 							'value_text' => number_format(floor($xx + $ppn - $kd_unik_in))  //value
 						],
 						[
-							'key' => '6', //{{ buat key 1,2,3,4 }}
+							'key' => '5', //{{ buat key 1,2,3,4 }}
 							'value' => 'awd', //no telp
 							'value_text' => '0877-8619-9004'  //value
 						]
