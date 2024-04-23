@@ -989,7 +989,7 @@ exit;
 						],
 						[
 							'key' => '4', //{{ buat key 1,2,3,4 }}
-							'value' => 'awd', //bulan tahun
+							'value' => 'wadawaefea', //bulan tahun
 							'value_text' => number_format(floor($xx + $ppn - $kd_unik_in))  //value
 						],
 						[
