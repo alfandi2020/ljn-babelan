@@ -928,7 +928,7 @@ exit;
 			$diskon_x = null;
 		}
 		$xx = $get_client['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnnn;
-		$ppn = floor($get_client['harga'] * 11 / 100);
+		$ppn = floor($xx * 11 / 100);
 
 		// $ppn = $get_client['harga'] * 11 / 100;
 		$hargaa = $get_client['harga'];
