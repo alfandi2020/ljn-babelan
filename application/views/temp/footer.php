@@ -273,7 +273,7 @@
     $(document).on('click', '.notif-confirm3', function () {
         var linkURL = $(this).attr("href").split('#');
         var id = this.id;
-        linkURL =  base_url +"pelanggan/send_notif_pdf/" + id;
+        linkURL =  base_url +"pelanggan/send_notif_nonaktif/" + id;
         $.ajax({
             type :"POST",
             url : "get_pelanggan",
