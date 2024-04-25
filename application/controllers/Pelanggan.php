@@ -250,7 +250,7 @@ class Pelanggan extends CI_Controller {
 					CURLOPT_POSTFIELDS => json_encode([
 						'to_number' => "62" . substr($get_client['telp'], 1),
 						'to_name' => $get_client['nama'],
-						'message_template_id' => 'c83eba1a-1c1c-4100-a3a1-c335d042d12a',
+						'message_template_id' => '0f8fdb1c-6f29-4085-96d6-2639322a7c37',
 						'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 						'room' => [
 							'tags' => ['mahfud'],
@@ -284,6 +284,11 @@ class Pelanggan extends CI_Controller {
 									'key' => '5', //{{ buat key 1,2,3,4 }}
 									'value' => '150000', //total tagihan
 									'value_text' => number_format($tagihan, 0, '.', '.') //total_pembayaran
+								],
+								[
+								   'key' => '6', //{{ buat key 1,2,3,4 }}
+								   'value' => 'awawdd', //no telp
+								   'value_text' => '0877-8619-9004'  //value
 								]
 							]
 						]
