@@ -137,8 +137,8 @@
                     text: 'Nomor WhatsApp harus di isi..!',
                   })
             }else{
-            var ppn = parseInt(data.harga * 11 / 100);
-            var harga = parseInt(data.harga) + parseInt(ppn);
+            // var ppn = parseInt(data.harga * 11 / 100);
+            var harga = parseInt(data.tagihan);
             var	number_string = harga.toString(),
                 sisa 	= number_string.length % 3,
                 rupiahh 	= number_string.substr(0, sisa),
@@ -150,7 +150,7 @@
             }
              Swal.fire({
                     title: "Tagihan invoice!",
-                    html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u><br>Jumlah Tagihan : <b><u>Rp.'+rupiahh+'</u></b> <br> Periode : <b><u>'+ "<?= $this->session->userdata('filterBulan') .' ' . $this->session->userdata('filterTahun') ?>" +' </u></b> <br>Apa yakin anda akan mengirim tagihan?',
+                    html: '<u><b>'+data.nama_pelanggann+' - Group: '+data.group+'</b></u><br>Jumlah Tagihan : <b><u>Rp.'+rupiahh+'</u></b> <br> Periode : <b><u>'+ "<?= $this->session->userdata('filterBulan') .' ' . $this->session->userdata('filterTahun') ?>" +' </u></b> <br>Apa yakin anda akan mengirim tagihan?',
                     type: "info",
                     confirmButtonClass: 'btn btn-primary',
                     buttonsStyling: false,
@@ -210,7 +210,7 @@
         //     }
         // );
     });
-    $(document).on('click', '.notif-confirm2', function () {
+    $(document).on('click', '.notif-confirm2', function () { //pdf
         var linkURL = $(this).attr("href").split('#');
         var id = this.id;
         linkURL =  base_url +"pelanggan/send_notif_pdf/" + id;
@@ -227,8 +227,8 @@
                     text: 'Nomor WhatsApp harus di isi..!',
                   })
             }else{
-                var ppn = parseInt(data.harga * 11 / 100);
-                var harga = parseInt(data.harga) + parseInt(ppn);
+                // var ppn = parseInt(data.harga * 11 / 100);
+                var harga = parseInt(data.tagihan) ;
                 var	number_string = harga.toString(),
                     sisa 	= number_string.length % 3,
                     rupiahh 	= number_string.substr(0, sisa),
@@ -240,7 +240,7 @@
                 }
              Swal.fire({
                     title: "Tagihan invoice dengan pdf!",
-                    html: '<u><b>'+data.nama+' - Group: '+data.group+'</b></u><br>Jumlah Tagihan : <b><u>Rp.'+rupiahh+'</u></b> <br> Periode : <b><u>'+ "<?= $this->session->userdata('filterBulan') .' ' . $this->session->userdata('filterTahun') ?>" +' </u></b> <br>Apa yakin anda akan mengirim tagihan?',
+                    html: '<u><b>'+data.nama_pelanggann+' - Group: '+data.group+'</b></u><br>Jumlah Tagihan : <b><u>Rp.'+rupiahh+'</u></b> <br> Periode : <b><u>'+ "<?= $this->session->userdata('filterBulan') .' ' . $this->session->userdata('filterTahun') ?>" +' </u></b> <br>Apa yakin anda akan mengirim tagihan?',
                     type: "info",
                     confirmButtonClass: 'btn btn-primary',
                     buttonsStyling: false,
