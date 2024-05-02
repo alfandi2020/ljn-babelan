@@ -18,7 +18,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Harga</th>
-                                        <!-- <th>Action</th> -->
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,13 +34,13 @@
                                             <td>
                                                 <?= 'Rp.' . number_format($x->biaya, 0, ".", ".") ?>
                                             </td>
-                                            <!-- <td>
-                                                <button id="<?= $x->id ?>" class="btn btn-primary update-user"> <i
+                                            <td>
+                                                <button id="<?= $x->id ?>" class="btn btn-primary update-addon"> <i
                                                         class="feather icon-edit"></i></button>&nbsp;&nbsp;
                                                 <a href="<?= base_url('pelanggan/delete_addon/') . $x->id ?>"
                                                     class="btn btn-danger confirm-delete"> <i
                                                         class="feather icon-trash-2"></i></a>
-                                            </td> -->
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -86,7 +86,6 @@
                                 </div>
                             </fieldset>
                         </div>
-                     
                     </div>
                     <!-- <div class="row mt-2">
                         <div class="col-xl">
@@ -97,6 +96,29 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade text-left" id="addonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+        <form method="post" id="user_form" class="form-horizontal form-label-left">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel1">Update User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mdl-addonModal">
+                    
+                </div>
+                <div class="modal-footer">
+                <input type="hidden" name="id" id="id">
+                <button type="submit" class="btn btn-primary" id="submit_upd_addon">Submit</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </form>

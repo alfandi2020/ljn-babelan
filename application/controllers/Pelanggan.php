@@ -1484,6 +1484,23 @@ Layanan Teknis	:
 		$this->db->delete('addon');
 		redirect('pelanggan/addon');
 	}
+	function get_addon()
+	{
+		$id = $this->input->post('id');
+		$this->db->where('id', $id);
+		$data['user'] = $this->db->get('addon')->row_array();
+		$this->load->view('body/pelanggan/modal_update_addon', $data);
+	}
+	function update_addon()
+	{
+		$nama = $this->input->post('nama');
+		$data = [
+			"nama" => $this->input->post('nama'),
+			"biaya" => $this->input->post('harga')
+		];
+		$this->db->update('addon',$data);
+		echo 'Data addon ' . $nama . ' berhasil diupdate';
+	}
 	public function filter(){
         if($this->uri->segment(3)){
             $filter = $this->uri->segment(3);

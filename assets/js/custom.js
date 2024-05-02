@@ -246,6 +246,71 @@ $(document).ready(function(){
 
         }
     });
+    $(document).on('click', '.update-addon', function (e) {
+        e.preventDefault();
+        var id = this.id;
+        $('#addonModal').modal('show');
+        $("#id").val(id);
+        $.ajax({
+            url: "get_addon",
+            type: "POST",
+            data: {id: id},
+            dataType: "html",
+            success: function (data) {
+                $(".mdl-addonModal").html(data).show();
+
+                // if($("#ttd_lhu").val() !== ''){
+                //     if(level_user === '1'){
+                //         $("#submit_ttd_form").show();
+                //     } else {
+                //         $("#submit_ttd_form").hide();
+                //     }
+                // } else {
+                //     $("#submit_ttd_form").show();
+                // }
+               
+            }
+        });
+    });
+    $(document).on('click', '#submit_upd_addon', function (e) {
+        e.preventDefault();
+        var form = $('#user_form');
+        var datas = form.serialize();
+        console.log(datas)
+        stop;
+        // if (form[0][1].value && form[0][2].value) {
+            $.ajax({
+                url: "update_addon",
+                type: "POST",
+                data: datas,
+                dataType: "text",
+                success: function (data) {
+                    // alert(data);
+                    // console.log(data);
+                    // if (data == 'Password harus sama') {
+                    //     Swal.fire({
+                    //         type: 'warning',
+                    //         title: data
+                    //     });
+                    // }else{
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Berhasil',
+                            text: data
+                        });
+                        $('#userModal').modal('toggle');
+                    // }
+                }
+            });
+        // }else{
+        //     Swal.fire({
+        //         type: 'warning',
+        //         title: 'Opss',
+        //         text: 'Form harus di isi'
+        //     });
+
+        // }
+    });
 
     $('#submit_registrasi').click(function(){
         var form = $('#form_registrasi')
