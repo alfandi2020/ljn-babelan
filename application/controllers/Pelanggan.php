@@ -1498,6 +1498,7 @@ Layanan Teknis	:
 			"nama" => $this->input->post('nama'),
 			"biaya" => $this->input->post('harga')
 		];
+		$this->db->where('id',$this->input->post('id'));
 		$this->db->update('addon',$data);
 		echo 'Data addon ' . $nama . ' berhasil diupdate';
 	}

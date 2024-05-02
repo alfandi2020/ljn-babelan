@@ -16,6 +16,8 @@
                 </div>
                 <input type="text" name="harga" value="<?= $user['biaya'] ?>" id="rupiah" class="form-control" placeholder="200.000"
                     aria-describedby="basic-addon1">
+                    <input type="hidden" name="id" value="<?= $user['id'] ?>" id="id" class="form-control" placeholder="200.000"
+                    aria-describedby="basic-addon1">
             </div>
         </fieldset>
     </div>

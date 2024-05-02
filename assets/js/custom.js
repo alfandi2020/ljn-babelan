@@ -299,6 +299,9 @@ $(document).ready(function(){
                             text: data
                         });
                         $('#userModal').modal('toggle');
+                        setTimeout(() => {
+                            window.location = "";
+                        }, 1500);
                     // }
                 }
             });
