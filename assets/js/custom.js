@@ -296,12 +296,31 @@ $(document).ready(function(){
                         Swal.fire({
                             type: 'success',
                             title: 'Berhasil',
-                            text: data
-                        });
+                            text: data,
+                            timer: 2000,
+                                // confirmButtonClass: 'btn btn-primary',
+                                // buttonsStyling: false,
+                                
+                                onBeforeOpen: function () {
+                                Swal.showLoading()
+                                timerInterval = setInterval(function () {
+                                    Swal.getContent().querySelector('strong')
+                                    .textContent = Swal.getTimerLeft()
+                                }, 100)
+                                },
+                                onClose: function () {
+                                clearInterval(timerInterval)
+                                }
+                        }).then(function (result) {
+                                    if (result.dismiss === Swal.DismissReason.timer) {
+                                        window.location = "";
+                                    }
+                            });
+                        //    setTimeout(() => {
+                        //     window.location = "";
+                        // }, 1000);
                         $('#userModal').modal('toggle');
-                        setTimeout(() => {
-                            window.location = "";
-                        }, 1500);
+                 
                     // }
                 }
             });
