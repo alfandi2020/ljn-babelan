@@ -204,8 +204,8 @@
                                             <div class="col-xl-3 col-md-6 col-12 mb-1">
                                                 <fieldset class="form-group">
                                                     <span>Add On 1</span>
-                                                        <select required name="addon1" class="select2 form-control">
-                                                        <option disabled selected>Pilih Addon 1</option>
+                                                        <select name="addon1" class="select2 form-control">
+                                                        <option value="" selected>Pilih Addon 1</option>
                                                         <?php
                                                         $paket = $this->db
                                                             ->get('addon')
@@ -249,8 +249,8 @@
                                             <div class="col-xl-3 col-md-6 col-12 mb-1">
                                                 <fieldset class="form-group">
                                                     <span>Add On 2</span>
-                                                    <select required name="addon2" class="select2 form-control">
-                                                        <option disabled selected>Pilih Addon 1</option>
+                                                    <select name="addon2" class="select2 form-control">
+                                                        <option value="" selected>Pilih Addon 2</option>
                                                         <?php
                                                         $paket = $this->db
                                                             ->get('addon')
@@ -290,8 +290,8 @@
                                             </div>
                                             <div class="col-xl-3 col-md-6 col-12 mb-1">
                                                 <span>Add on 3</span>
-                                                <select required name="addon3" class="select2 form-control">
-                                                        <option disabled selected>Pilih Addon 1</option>
+                                                <select name="addon3" class="select2 form-control">
+                                                        <option value="" selected>Pilih Addon 3</option>
                                                     <?php
                                                     $paket = $this->db
                                                         ->get('addon')
