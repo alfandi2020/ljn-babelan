@@ -106,9 +106,9 @@
                 var ppn ='';
                 var i;
                 for (i = 0; i < data.length; i++) {
-                    html =  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].harga)+ ' - ' + data[i].paket_internet +'</option>';
-                    ppn = parseInt(data[i].harga * 11 / 100);
-                    html2 = parseInt(data[i].harga) + parseInt(ppn);
+                    html =  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].tagihan)+ ' - ' + data[i].paket_internet +'</option>';
+                    // ppn = parseInt(data[i].harga * 11 / 100);
+                    html2 = parseInt(data[i].tagihan);
                     html3 = data[i].nama;
                     // html2 += '<option>Invoice Kosong </option>';
                 }
