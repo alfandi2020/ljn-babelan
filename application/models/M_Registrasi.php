@@ -417,7 +417,7 @@ class M_Registrasi extends CI_Model {
         $start = $postData['start'];
         $rowperpage = $postData['length'];
         $columnIndex = $postData['order'][0]['column'];
-        $columnName = 'a.nama';
+        $columnName = 'a.tanggal_pembayaran';
         $columnSortOrder = $postData['order'][0]['dir'];
         $searchValue = $postData['search']['value'];
 
@@ -444,6 +444,7 @@ class M_Registrasi extends CI_Model {
         if ($this->session->userdata('role') != 'Super Admin' && $this->session->userdata('role') != 'Admin') {
             $this->db->where_in('a.group',explode(',',$this->session->userdata('kode_group')));
         }
+        $this->db->order_by($columnName, $columnSortOrder);
         $records = $this->db->get()->result();
         $totalRecords = $records[0]->allcount;
 
@@ -479,7 +480,7 @@ class M_Registrasi extends CI_Model {
         // $this->db->like('a.nama',$searchValue);
         // $this->db->or_like('a.alamat',$searchValue);
         // $this->db->or_like('a.kode_pelanggan',$searchValue);
-        //  $this->db->order_by('tanggal', 'desc');
+        //  $this->db->order_by('a.tanggal_pembayaran', 'desc');
         $this->db->order_by($columnName, $columnSortOrder);
         $this->db->limit($rowperpage, $start);
         //  $records = $this->db->query("SELECT a.id_cetak,a.nama,b.paket,a.tagihan,a.penerima,a.periode,a.tanggal,a.nomor_struk FROM dt_registrasi as a left join mt_paket as b on(a.internet = b.id_wireless) where '$searchQuery' order by '$columnName' asc limit $rowperpage")->result();

@@ -701,6 +701,7 @@ $(document).ready(function(){
            'url':'cetak_struk',
         //    'data' : {'status' : status}
         },
+        'order' : [[7,'desc']],
         'columns': [
             {data: 'no'},
            { data: 'nama' },
