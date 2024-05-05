@@ -12,7 +12,7 @@
                                 <div class="col-xl-4 col-md-6 col-12">
                                     <fieldset class="form-group">
                                         <span>Username</span>
-                                        <input type="text" name="username" class="form-control" placeholder="123" required>
+                                        <input type="text" name="username" class="form-control" placeholder="asep" required>
                                     </fieldset>
                                 </div>
                                 <div class="col-xl-4 col-md-6 col-12">
@@ -44,6 +44,7 @@
                                             <option value="Super Admin">Super Admin</option>
                                             <option value="Koordinator">Koordinator</option>
                                             <option value="Sub Koordinator">Sub Koordinator</option>
+                                            <option value="Pelanggan">Pelanggan</option>
                                         </select>
                                     </fieldset>
                                 </div>
@@ -60,7 +61,7 @@
                             <div class="row">
                                 <div class="col-xl-4">
                                     <button type="button" id="submit_user" class="btn btn-primary">Submit</button>
-                                    <a href="<?= base_url('pelangga/registrasi') ?>" class="btn btn-warning">Refresh</a>
+                                    <a href="<?= base_url('pelanggan/registrasi') ?>" class="btn btn-warning">Refresh</a>
                                 </div>
                             </div>
                         </div>
