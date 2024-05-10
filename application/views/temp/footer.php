@@ -109,7 +109,7 @@
                     html =  '<option value='+ data[i].id_paket+'> '+ data[i].mbps+' Mbps - Rp.'+ formatRupiah(data[i].tagihan)+ ' - ' + data[i].paket_internet +'</option>';
                     // ppn = parseInt(data[i].harga * 11 / 100);
                     html2 = parseInt(data[i].tagihan);
-                    html3 = data[i].nama;
+                    html3 = data[i].nama_pelanggann;
                     // html2 += '<option>Invoice Kosong </option>';
                 }
                 $('select[name="p_paket"]').html(html).change()
