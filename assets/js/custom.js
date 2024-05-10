@@ -422,7 +422,7 @@ $(document).ready(function(){
         'processing': true,
         'serverSide': true,
         'serverMethod': 'post',
-        'order': [2,'desc'],
+        // 'order': [2,'desc'],
         'ajax': {
            'url':'getClient',
         //    'data' : {'status' : status}
