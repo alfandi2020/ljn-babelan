@@ -247,7 +247,7 @@ class Pelanggan extends CI_Controller {
 				$this->db->insert('dt_cetak',$data);
 				//create image
 				$mpdf = new \Mpdf\Mpdf([
-					'tempDir' => '/tmp',
+					// 'tempDir' => '/tmp',
 					'mode' => '',
 					'format' => 'A4',
 					'default_font_size' => 0,
@@ -269,12 +269,12 @@ class Pelanggan extends CI_Controller {
 				$mpdf->defaultfooterline = 0;
 				// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
 				$mpdf->WriteHTML($html);
-				$mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk' . $no_invoice . '.pdf', 'F');
+				$mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
 				// chmod($no_invoice . ".pdf", 0777);
 				// $mpdf->Output();
 				$imagick = new Imagick();
 				$imagick->setResolution(200, 200);
-				$imagick->readImage("invoice/$no_invoice.pdf");
+				$imagick->readImage("invoice/struk/$no_invoice.pdf");
 				$imagick->writeImages("invoice/image/$no_invoice.jpg", true);
 				$url_img = "https://billing.lintasmediadata.net/invoice/struk/image/$no_invoice.jpg";
 				//end create image
@@ -907,7 +907,7 @@ exit;
 	{
 
 		$mpdf = new \Mpdf\Mpdf([
-			'tempDir' => '/tmp',
+			// 'tempDir' => '/tmp',
 			'mode' => '',
 			'format' => 'A4',
 			'default_font_size' => 0,
