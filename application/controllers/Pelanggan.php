@@ -934,7 +934,7 @@ exit;
 		$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
 		$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
 		$no_invoice = 'INV' . date('y') . date('m') . date('d') . $data['x']['id'];
-		$html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
+		$html = $this->load->view('body/pelanggan/struk', $data, true);
 		$mpdf->defaultfooterline = 0;
 		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
 		$mpdf->WriteHTML($html);
