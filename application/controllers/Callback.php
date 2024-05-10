@@ -212,6 +212,39 @@ Layanan Teknis	:
                             );
                             $this->db->insert('mutasi',$data);
                             $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']),'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
+                            //create image
+                            $mpdf = new \Mpdf\Mpdf([
+                                // 'tempDir' => '/tmp',
+                                'mode' => '',
+                                'format' => 'A4',
+                                'default_font_size' => 0,
+                                'default_font' => '',
+                                'margin_left' => 15,
+                                'margin_right' => 15,
+                                'margin_top' => 5,
+                                'margin_bottom' => 10,
+                                'margin_header' => 10,
+                                'margin_footer' => 5,
+                                'orientation' => 'L',
+                                'showImageErrors' => true
+                            ]);
+                            $this->db->where('a.kode_pelanggan', $get_client['kode_pelanggan']);
+                            $this->db->join('mt_paket as b', 'a.speed = b.id_paket');
+                            $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
+                            $no_invoice = 'INV' . date('y') . date('m') . date('d') . $data['x']['id'];
+                            $html = $this->load->view('body/pelanggan/struk', $data, true);
+                            $mpdf->defaultfooterline = 0;
+                            // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+                            $mpdf->WriteHTML($html);
+                            $mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
+                            // chmod($no_invoice . ".pdf", 0777);
+                            // $mpdf->Output();
+                            $imagick = new Imagick();
+                            $imagick->setResolution(200, 200);
+                            $imagick->readImage("invoice/struk/$no_invoice.pdf");
+                            $imagick->writeImages("invoice/struk/image/$no_invoice.jpg", true);
+                            $url_img = "https://billing.lintasmediadata.net/invoice/struk/image/$no_invoice.jpg";
+                            //end create image
                             if ($cek_plg != true) {
                                 $data_cetak = [
                                     "id_registrasi" => str_replace(' ','',$get_client['kode_pelanggan']),
@@ -236,12 +269,21 @@ Layanan Teknis	:
                                   CURLOPT_POSTFIELDS => json_encode([
                                     'to_number' => "62" . substr($get_client['telp'], 1),
                                     'to_name' => $get_client['nama_pelanggann'],
-                                    'message_template_id' => '4798e1ca-ccf9-49b3-ab80-00f06be59402',
+                                    'message_template_id' => '887d911d-c19a-463c-aa56-ca03d2133aee',
                                     'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
                                     'language' => [
                                       'code' => 'id'
                                     ],
                                     'parameters' => [
+                                        'header' => [
+                                            'format' => 'IMAGE',
+                                            'params' => [
+                                                [
+                                                    'key' => 'url',
+                                                    'value' => $url_img
+                                                ]
+                                            ]
+                                        ],
                                       'body' => [
                                         [
                                           'key' => '1', //{{ buat key 1,2,3,4 }}
