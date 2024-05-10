@@ -275,7 +275,7 @@ class Pelanggan extends CI_Controller {
 				$imagick = new Imagick();
 				$imagick->setResolution(200, 200);
 				$imagick->readImage("invoice/struk/$no_invoice.pdf");
-				$imagick->writeImages("invoice/image/$no_invoice.jpg", true);
+				$imagick->writeImages("invoice/struk/image/$no_invoice.jpg", true);
 				$url_img = "https://billing.lintasmediadata.net/invoice/struk/image/$no_invoice.jpg";
 				//end create image
 				//notif
