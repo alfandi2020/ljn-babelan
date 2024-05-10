@@ -261,7 +261,7 @@ class Pelanggan extends CI_Controller {
 					'orientation' => 'L',
 					'showImageErrors' => true
 				]);
-				$this->db->where('a.id', $this->uri->segment(3));
+				$this->db->where('a.kode_pelanggan', $id_registrasi);
 				$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
 				$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
 				$no_invoice = 'INV' . date('y') . date('m') . date('d') . $data['x']['id'];
