@@ -117,9 +117,9 @@ function terbilang($nilai) {
             }
     ?>
     <table style="background-color:white">
-        <tr style="border-color:red;border-style:solid;border-width: 4px;">
+        <!-- <tr style="border-color:red;border-style:solid;border-width: 4px;">
             <td  colspan="4" style="text-align:center;">INVOICE</td>
-        </tr>
+        </tr> -->
         <tr>
             <td width="800">Kepada Yth. : <?= $x['nama'] ?></td>
             <td>INV<?= $tahun. $bln_conv. $tanggal_t.$x['id'] ?></td>

@@ -13,7 +13,7 @@ class M_Registrasi extends CI_Model {
         $start = $postData['start'];
         $rowperpage = $postData['length'];
         $columnIndex = $postData['order'][0]['column'];
-        $columnName = 'a.nama';
+        $columnName = 'a.aktif';
         $columnSortOrder = $postData['order'][0]['dir'];
         $searchValue = $postData['search']['value'];
 
@@ -28,7 +28,7 @@ class M_Registrasi extends CI_Model {
         $this->db->select('count(*) as allcount');
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
-        $this->db->order_by('a.id', 'desc');
+        $this->db->order_by('a.aktif', 'desc');
         // $this->db->where('a.status','Aktif');
         if ($this->session->userdata('sort_status')) {
             $this->db->where('a.status',$this->session->userdata('sort_status'));
@@ -48,7 +48,7 @@ class M_Registrasi extends CI_Model {
         $this->db->select('count(*) as allcount');
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
-        $this->db->order_by('a.id', 'desc');
+        $this->db->order_by('a.aktif', 'desc');
         // $this->db->where('a.status','Aktif');
         if ($this->session->userdata('sort_status')) {
             $this->db->where('a.status',$this->session->userdata('sort_status'));
@@ -69,7 +69,7 @@ class M_Registrasi extends CI_Model {
         $this->db->select('*');
         $this->db->from('dt_registrasi as a');
         $this->db->join('mt_paket as b', 'a.speed = b.id_paket','left');
-        $this->db->order_by('a.id', 'desc');
+        $this->db->order_by('a.aktif', 'desc');
         if ($this->session->userdata('sort_status')) {
             $this->db->where('a.status',$this->session->userdata('sort_status'));
         }
@@ -84,7 +84,7 @@ class M_Registrasi extends CI_Model {
         }
         $this->db->order_by($columnName, $columnSortOrder);
         $this->db->limit($rowperpage, $start);
-        //  $records = $this->db->query("SELECT a.id_cetak,a.nama,b.paket,a.tagihan,a.penerima,a.periode,a.tanggal,a.nomor_struk FROM dt_registrasi as a left join mt_paket as b on(a.internet = b.id_wireless) where '$searchQuery' order by '$columnName' asc limit $rowperpage")->result();
+        //  $records = $this->db->quer  y("SELECT a.id_cetak,a.nama,b.paket,a.tagihan,a.penerima,a.periode,a.tanggal,a.nomor_struk FROM dt_registrasi as a left join mt_paket as b on(a.internet = b.id_wireless) where '$searchQuery' order by '$columnName' asc limit $rowperpage")->result();
         $records = $this->db->get()->result();
         $data = array();
         // $no =1;

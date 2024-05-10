@@ -196,10 +196,21 @@ class Pelanggan extends CI_Controller {
 	function getclient_pembayaran()
 	{
 		$id = $this->input->post('id');
-		$this->db->from('dt_registrasi as a');
-		$this->db->join('mt_paket as b','a.speed=b.id_paket');
-		$this->db->where('a.kode_pelanggan',$id);
-		$data = $this->db->get()->result();
+		// $this->db->from('dt_registrasi as a');
+		// $this->db->join('mt_paket as b','a.speed=b.id_paket');
+		// $this->db->where('a.kode_pelanggan',$id);
+
+		$data = $this->db->query('SELECT
+		*,
+		FLOOR(((b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
+	FROM
+		dt_registrasi AS a
+		LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
+		LEFT JOIN addon AS c ON ( c.id = a.addon1 )
+		LEFT JOIN addon AS d ON ( d.id = a.addon2 )
+		LEFT JOIN addon AS f ON ( f.id = a.addon3 )
+	WHERE
+		STATUS = "Aktif" and a.kode_pelanggan="' . $id . '" ')->result();
 
 		$tanggal = time();
         $bulan = $this->indonesian_date($tanggal, 'F');
@@ -220,6 +231,7 @@ class Pelanggan extends CI_Controller {
 		$tgl_bayar = $this->input->post('tgl_pembayaran');
 		$cek_tagihan = $this->db->query("SELECT * FROM dt_cetak where periode='$bulan' and tahun='$tahun' and id_registrasi='$id_registrasi' ")->num_rows();
 		$get_client = $this->db->get_where('dt_registrasi',['kode_pelanggan' => $id_registrasi])->row_array();
+		
 		if ($tagihan == true) {
 			if ($cek_tagihan != true) {
 				$data = [
@@ -233,7 +245,39 @@ class Pelanggan extends CI_Controller {
 					"tanggal_pembayaran" => $tgl_bayar
 				];
 				$this->db->insert('dt_cetak',$data);
-
+				//create image
+				$mpdf = new \Mpdf\Mpdf([
+					'tempDir' => '/tmp',
+					'mode' => '',
+					'format' => 'A4',
+					'default_font_size' => 0,
+					'default_font' => '',
+					'margin_left' => 15,
+					'margin_right' => 15,
+					'margin_top' => 5,
+					'margin_bottom' => 10,
+					'margin_header' => 10,
+					'margin_footer' => 5,
+					'orientation' => 'L',
+					'showImageErrors' => true
+				]);
+				$this->db->where('a.id', $this->uri->segment(3));
+				$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
+				$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
+				$no_invoice = 'INV' . date('y') . date('m') . date('d') . $data['x']['id'];
+				$html = $this->load->view('body/pelanggan/struk', $data, true);
+				$mpdf->defaultfooterline = 0;
+				// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+				$mpdf->WriteHTML($html);
+				$mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk' . $no_invoice . '.pdf', 'F');
+				// chmod($no_invoice . ".pdf", 0777);
+				// $mpdf->Output();
+				$imagick = new Imagick();
+				$imagick->setResolution(200, 200);
+				$imagick->readImage("invoice/$no_invoice.pdf");
+				$imagick->writeImages("invoice/image/$no_invoice.jpg", true);
+				$url_img = "https://billing.lintasmediadata.net/invoice/struk/image/$no_invoice.jpg";
+				//end create image
 				//notif
 				$curl = curl_init();
 				$curl2 = curl_init();
@@ -250,7 +294,7 @@ class Pelanggan extends CI_Controller {
 					CURLOPT_POSTFIELDS => json_encode([
 						'to_number' => "62" . substr($get_client['telp'], 1),
 						'to_name' => $get_client['nama'],
-						'message_template_id' => '0f8fdb1c-6f29-4085-96d6-2639322a7c37',
+						'message_template_id' => '887d911d-c19a-463c-aa56-ca03d2133aee',
 						'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 						'room' => [
 							'tags' => ['mahfud'],
@@ -855,11 +899,15 @@ exit;
 			// echo ($response) ;
 		}
 	}
+	function send_notif_struk()
+	{
+
+	}
 	function send_notif_pdf()
 	{
 
 		$mpdf = new \Mpdf\Mpdf([
-			// 'tempDir' => '/tmp',
+			'tempDir' => '/tmp',
 			'mode' => '',
 			'format' => 'A4',
 			'default_font_size' => 0,
@@ -881,9 +929,10 @@ exit;
 		$mpdf->defaultfooterline = 0;
 		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
 		$mpdf->WriteHTML($html);
-		$mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
+		// $mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
 		// chmod($no_invoice . ".pdf", 0777);
-		// $mpdf->Output();
+		$mpdf->Output();
+		exit;
 		
 		$imagick = new Imagick();
 		$imagick->setResolution(200, 200);
