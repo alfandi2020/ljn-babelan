@@ -303,6 +303,15 @@ class Pelanggan extends CI_Controller {
 							'code' => 'id'
 						],
 						'parameters' => [
+							'header' => [
+								'format' => 'IMAGE',
+								'params' => [
+									[
+										'key' => 'url',
+										'value' => $url_img
+									]
+								]
+							],
 							'body' => [
 								[
 									'key' => '1', //{{ buat key 1,2,3,4 }}
