@@ -128,11 +128,13 @@ function terbilang($nilai)
         $bln_conv = '11';
     } elseif ($bulan == 'Desember') {
         $bln_conv = '12';
+    }else {
+        $bln_conv = date('m');
     }
-    if ($this->uri->segment(2) == 'buat_pembayaran') {
+    if ($this->uri->segment(2) == 'buat_pembayaran' || $this->uri->segment(2) == 'index') {//index callback moota
         $pay = 'PAID';
         $pay_css = '#10c245';
-    }else{
+    } else{
         $pay = 'INVOICE';
         $pay_css = '#e67217';
     }
