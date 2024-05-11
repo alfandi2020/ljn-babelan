@@ -269,7 +269,7 @@ Layanan Teknis	:
                                   CURLOPT_POSTFIELDS => json_encode([
                                     'to_number' => "62" . substr($get_client['telp'], 1),
                                     'to_name' => $get_client['nama_pelanggann'],
-                                    'message_template_id' => '887d911d-c19a-463c-aa56-ca03d2133aee',
+                                    'message_template_id' => '0d7aee00-0f10-4db6-82d3-c596f8491fee',
                                     'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
                                     'language' => [
                                       'code' => 'id'
