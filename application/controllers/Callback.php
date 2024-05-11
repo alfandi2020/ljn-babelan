@@ -237,7 +237,7 @@ Layanan Teknis	:
                             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
                             $mpdf->WriteHTML($html);
                             $mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
-                            chmod($no_invoice . ".pdf", 0777);
+                            // chmod($no_invoice . ".pdf", 0777);
                             // $mpdf->Output();
                             $imagick = new Imagick();
                             $imagick->setResolution(200, 200);
