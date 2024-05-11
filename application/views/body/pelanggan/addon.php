@@ -18,6 +18,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Harga</th>
+                                        <th>Qty</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -34,6 +35,9 @@
                                             <td>
                                                 <?= 'Rp.' . number_format($x->biaya, 0, ".", ".") ?>
                                             </td>
+                                                  <td>
+                                                <?= $x->qty ?>
+                                                </td>
                                             <td>
                                                 <button id="<?= $x->id ?>" class="btn btn-primary update-addon"> <i
                                                         class="feather icon-edit"></i></button>&nbsp;&nbsp;
@@ -83,6 +87,18 @@
                                     </div>
                                     <input type="text" name="harga" id="rupiah" class="form-control"
                                         placeholder="200.000" aria-describedby="basic-addon1">
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-xl">
+                            <span>Qty</span>
+                            <fieldset>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Qty</span>
+                                    </div>
+                                    <input type="number" name="qty" class="form-control"
+                                        placeholder="1" aria-describedby="basic-addon1">
                                 </div>
                             </fieldset>
                         </div>

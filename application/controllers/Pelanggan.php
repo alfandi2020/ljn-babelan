@@ -202,7 +202,7 @@ class Pelanggan extends CI_Controller {
 
 		$data = $this->db->query('SELECT
 		*,
-		FLOOR(((b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
+		FLOOR(((b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
 	FROM
 		dt_registrasi AS a
 		LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
@@ -1497,7 +1497,7 @@ Layanan Teknis	:
 		// $this->db->join('addon as c','a.addon1 = c.id_paket');
 		$data = $this->db->query('SELECT
 		*,
-		FLOOR(((b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
+		FLOOR(((b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
 	FROM
 		dt_registrasi AS a
 		LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
@@ -1518,11 +1518,13 @@ Layanan Teknis	:
 		];
 		$nama = $this->input->post('nama');
 		$harga = $this->input->post('harga');
+		$qty = $this->input->post('qty');
 		$action = $this->input->post('action');
 		if ($nama == true && $harga == true) {
 			$d = [
 				"nama" => $nama,
-				"biaya" => $this->remove_special($harga)
+				"biaya" => $this->remove_special($harga),
+				"qty" => $qty,
 			];
 			$this->db->insert('addon',$d);
 			redirect('pelanggan/addon');
@@ -1548,9 +1550,12 @@ Layanan Teknis	:
 	function update_addon()
 	{
 		$nama = $this->input->post('nama');
+		$qty = $this->input->post('qty');
+
 		$data = [
 			"nama" => $this->input->post('nama'),
-			"biaya" => $this->input->post('harga')
+			"biaya" => $this->input->post('harga'),
+			"qty" => $qty,
 		];
 		$this->db->where('id',$this->input->post('id'));
 		$this->db->update('addon',$data);
