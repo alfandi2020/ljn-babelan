@@ -228,7 +228,7 @@ Layanan Teknis	:
                                 'orientation' => 'L',
                                 'showImageErrors' => true
                             ]);
-                            $this->db->where('a.kode_pelanggan', $get_client['kode_pelanggan']);
+                            $this->db->where('a.id', $get_client['id']);
                             $this->db->join('mt_paket as b', 'a.speed = b.id_paket');
                             $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
                             $no_invoice = 'INV' . date('y') . date('m') . date('d') . $data['x']['id'];
@@ -237,7 +237,7 @@ Layanan Teknis	:
                             // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
                             $mpdf->WriteHTML($html);
                             $mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
-                            // chmod($no_invoice . ".pdf", 0777);
+                            chmod($no_invoice . ".pdf", 0777);
                             // $mpdf->Output();
                             $imagick = new Imagick();
                             $imagick->setResolution(200, 200);
