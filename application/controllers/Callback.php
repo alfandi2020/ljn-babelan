@@ -214,7 +214,7 @@ Layanan Teknis	:
                             $cek_plg = $this->db->get_where('dt_cetak',['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']),'periode' => str_replace(' ', '', $bulan_fix) ,'tahun' => $thn_fix])->num_rows();
                             //create image
                             $mpdf = new \Mpdf\Mpdf([
-                                'tempDir' => '/tmp',
+                                // 'tempDir' => '/tmp',
                                 'mode' => '',
                                 'format' => 'A4',
                                 'default_font_size' => 0,
