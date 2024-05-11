@@ -169,7 +169,7 @@ Layanan Teknis	:
                     // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $client = $this->db->query('SELECT
                     *,
-                    FLOOR(((b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann,a.id as id_client
+                    FLOOR(((b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann,a.id as id_client
                 FROM
                     dt_registrasi AS a
                     LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
@@ -177,7 +177,7 @@ Layanan Teknis	:
                     LEFT JOIN addon AS d ON ( d.id = a.addon2 )
                     LEFT JOIN addon AS f ON ( f.id = a.addon3 )
                 WHERE
-                    STATUS = "Aktif" and FLOOR(((b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0) - a.id)='.$jquin['amount'].'');
+                    STATUS = "Aktif" and FLOOR(((b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0) - a.id)='.$jquin['amount'].'');
                     $get_client = $client->row_array();
                     $tanggal2 = time();
                     $bulan2 = $this->indonesian_date($tanggal2, 'F');

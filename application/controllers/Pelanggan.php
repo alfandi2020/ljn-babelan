@@ -202,7 +202,7 @@ class Pelanggan extends CI_Controller {
 
 		$data = $this->db->query('SELECT
 		*,
-		FLOOR(((b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
+		FLOOR(((b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
 	FROM
 		dt_registrasi AS a
 		LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
@@ -1497,7 +1497,7 @@ Layanan Teknis	:
 		// $this->db->join('addon as c','a.addon1 = c.id_paket');
 		$data = $this->db->query('SELECT
 		*,
-		FLOOR(((b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0)*c.qty + COALESCE(d.biaya,0)*d.qty + COALESCE(f.biaya,0)*f.qty - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
+		FLOOR(((b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
 	FROM
 		dt_registrasi AS a
 		LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
