@@ -21,4 +21,16 @@
             </div>
         </fieldset>
     </div>
+    <div class="col-xl">
+                            <span>Qty</span>
+                            <fieldset>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Qty</span>
+                                    </div>
+                                    <input type="number" value="<?= $user['qty'] ?>" name="qty" class="form-control"
+                                        placeholder="1" aria-describedby="basic-addon1">
+                                </div>
+                            </fieldset>
+                        </div>
 </div>
