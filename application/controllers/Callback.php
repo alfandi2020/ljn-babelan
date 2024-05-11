@@ -169,7 +169,7 @@ Layanan Teknis	:
                     // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                     $client = $this->db->query('SELECT
                     *,
-                    FLOOR(((b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann
+                    FLOOR(((b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE(c.biaya,0) + COALESCE(d.biaya,0) + COALESCE(f.biaya,0) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann,a.id as id_client
                 FROM
                     dt_registrasi AS a
                     LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
@@ -228,7 +228,7 @@ Layanan Teknis	:
                                 'orientation' => 'L',
                                 'showImageErrors' => true
                             ]);
-                            $this->db->where('a.id', $get_client['id']);
+                            $this->db->where('a.id', $get_client['id_client']);
                             $this->db->join('mt_paket as b', 'a.speed = b.id_paket');
                             $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
                             $no_invoice = 'INV' . date('y') . date('m') . date('d') . $data['x']['id'];
