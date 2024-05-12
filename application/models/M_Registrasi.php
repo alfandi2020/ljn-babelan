@@ -96,6 +96,8 @@ class M_Registrasi extends CI_Model {
                 $status = '<span class="badge badge-glow badge-primary">'.$record->status.'</span>';
             }else if($record->status == "Off"){
                 $status = '<span class="badge badge-glow badge-danger">'.$record->status.'</span>';
+            }else{
+                $status = '';
             }
             if ($this->session->userdata('role') == 'Koordinator' || $this->session->userdata('role') == 'Sub Koordinator') {
                 $disabled = 'disabled';
