@@ -94,7 +94,7 @@ class Pelanggan extends CI_Controller {
 					"addon2"=> $add_on2,
 					"addon3"=> $add_on3,
 					"diskon"=> $diskon,
-					"tempo"=> $tempo,
+					"tempo"=> $tempo == '' ? 10 : $tempo,
 				];
 				$this->db->insert('dt_registrasi',$insert);
 				// $msg = [
@@ -1118,9 +1118,9 @@ exit;
 				// curl_close($curl3);
 				$k = json_decode($response);
 				echo json_encode($k->status);
-				// if (json_encode($k->status == 'success')) {
-				// 	redirect('pelanggan/status');
-				// }
+				if (json_encode($k->status == 'success')) {
+					redirect('pelanggan/status');
+				}
 			}
 			// echo ($response) ;
 		}
