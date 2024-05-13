@@ -101,8 +101,18 @@ function terbilang($nilai)
         </tr>
     </table>
     <?php
-    $bulan = $this->session->userdata('filterBulan');
-    $tahun = $this->session->userdata('filterTahun');
+    if ($this->uri->segment(2) == 'buat_pembayaran' || $this->uri->segment(2) == 'index') {//index callback moota
+        $pay = 'PAID';
+        $pay_css = '#10c245';
+        $bulan = date('m');
+        $tahun = date('Y');
+    } else {
+        $pay = 'INVOICE';
+        $pay_css = '#e67217';
+        $bulan = $this->session->userdata('filterBulan');
+        $tahun = $this->session->userdata('filterTahun');
+    }
+
     $tanggal_t = $this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo');
     if ($bulan == 'Januari') {
         $bln_conv = '01';
@@ -131,13 +141,7 @@ function terbilang($nilai)
     }else {
         $bln_conv = date('m');
     }
-    if ($this->uri->segment(2) == 'buat_pembayaran' || $this->uri->segment(2) == 'index') {//index callback moota
-        $pay = 'PAID';
-        $pay_css = '#10c245';
-    } else{
-        $pay = 'INVOICE';
-        $pay_css = '#e67217';
-    }
+
     ?>
     <table style="background-color:white">
        <!--#10c245 paid -->
