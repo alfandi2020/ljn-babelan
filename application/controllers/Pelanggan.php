@@ -94,7 +94,7 @@ class Pelanggan extends CI_Controller {
 					"addon2"=> $add_on2,
 					"addon3"=> $add_on3,
 					"diskon"=> $diskon,
-					"tempo"=> $tempo,
+					"tempo"=> $tempo == '' ? 10 : $tempo,
 				];
 				$this->db->insert('dt_registrasi',$insert);
 				// $msg = [
