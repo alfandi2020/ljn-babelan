@@ -965,10 +965,11 @@ exit;
 		} else {
 			$bln_conv = date('m');
 		}
+		$this->db->select('*,a.id as id_pel');
 		$this->db->where('a.id', $this->uri->segment(3));
 		$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
 		$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
-		$no_invoice = 'INV' . $tahun . $bln_conv . date('d') . $data['x']['id'];
+		$no_invoice = 'INV' . $tahun . $bln_conv . date('d') . $data['x']['id_pel'];
 		$html = $this->load->view('body/pelanggan/struk', $data, true);
 		$mpdf->defaultfooterline = 0;
 		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
