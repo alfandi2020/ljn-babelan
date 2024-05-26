@@ -939,6 +939,8 @@ exit;
 		$mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
 		// chmod($no_invoice . ".pdf", 0777);
 		// $mpdf->Output();
+		echo $no_invoice;
+		exit;
 		sleep(3);
 
 		$imagick = new Imagick();
