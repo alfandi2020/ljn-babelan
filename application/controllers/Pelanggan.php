@@ -272,6 +272,7 @@ class Pelanggan extends CI_Controller {
 				$mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
 				// chmod($no_invoice . ".pdf", 0777);
 				// $mpdf->Output();
+				sleep(3);
 				$imagick = new Imagick();
 				$imagick->setResolution(200, 200);
 				$imagick->readImage("invoice/struk/$no_invoice.pdf");
