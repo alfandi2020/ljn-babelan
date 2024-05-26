@@ -928,6 +928,13 @@ exit;
 			'orientation' => 'L',
 			'showImageErrors' => true
 		]);
+		// if ($this->session->userdata('filterBulan') == null || $this->session->userdata('filterTahun') == null) {
+		// 	# code...
+		// }else{
+			$bulan = $this->session->userdata('filterBulan');
+			$tahun = $this->session->userdata('filterTahun');
+		// }
+		
 		$this->db->where('a.id', $this->uri->segment(3));
 		$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
 		$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
@@ -939,7 +946,9 @@ exit;
 		$mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
 		// chmod($no_invoice . ".pdf", 0777);
 		// $mpdf->Output();
-		echo $no_invoice;
+		// echo $no_invoice;
+		echo $bulan;
+		echo $tahun;
 		exit;
 		sleep(3);
 
