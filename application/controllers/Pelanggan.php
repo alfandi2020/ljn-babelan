@@ -272,7 +272,7 @@ class Pelanggan extends CI_Controller {
 				$mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
 				// chmod($no_invoice . ".pdf", 0777);
 				// $mpdf->Output();
-				sleep(3);
+				sleep(2);
 				$imagick = new Imagick();
 				$imagick->setResolution(200, 200);
 				$imagick->readImage("invoice/struk/$no_invoice.pdf");
@@ -934,11 +934,37 @@ exit;
 			$bulan = $this->session->userdata('filterBulan');
 			$tahun = $this->session->userdata('filterTahun');
 		// }
-		
+		if ($bulan == 'Januari') {
+			$bln_conv = '01';
+		} elseif ($bulan == 'Februari') {
+			$bln_conv = '02';
+		} elseif ($bulan == 'Maret') {
+			$bln_conv = '03';
+		} elseif ($bulan == 'April') {
+			$bln_conv = '04';
+		} elseif ($bulan == 'Mei') {
+			$bln_conv = '05';
+		} elseif ($bulan == 'Juni') {
+			$bln_conv = '06';
+		} elseif ($bulan == 'Juli') {
+			$bln_conv = '07';
+		} elseif ($bulan == 'Agustus') {
+			$bln_conv = '08';
+		} elseif ($bulan == 'September') {
+			$bln_conv = '09';
+		} elseif ($bulan == 'Oktober') {
+			$bln_conv = '10';
+		} elseif ($bulan == 'November') {
+			$bln_conv = '11';
+		} elseif ($bulan == 'Desember') {
+			$bln_conv = '12';
+		} else {
+			$bln_conv = date('m');
+		}
 		$this->db->where('a.id', $this->uri->segment(3));
 		$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
 		$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
-		$no_invoice = 'INV' . date('y') . date('m') . date('d') . $data['x']['id'];
+		$no_invoice = 'INV' . $tahun . $bln_conv . date('d') . $data['x']['id'];
 		$html = $this->load->view('body/pelanggan/struk', $data, true);
 		$mpdf->defaultfooterline = 0;
 		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
@@ -946,11 +972,8 @@ exit;
 		$mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
 		// chmod($no_invoice . ".pdf", 0777);
 		// $mpdf->Output();
-		// echo $no_invoice;
-		echo $bulan;
-		echo $tahun;
-		exit;
-		sleep(3);
+	
+		sleep(2);
 
 		$imagick = new Imagick();
 		$imagick->setResolution(200, 200);

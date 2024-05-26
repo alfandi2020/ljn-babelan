@@ -239,7 +239,7 @@ Layanan Teknis	:
                             $mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
                             // chmod($no_invoice . ".pdf", 0777);
                             // $mpdf->Output();
-		                    sleep(3);
+		                    sleep(2);
 
                             $imagick = new Imagick();
                             $imagick->setResolution(200, 200);
