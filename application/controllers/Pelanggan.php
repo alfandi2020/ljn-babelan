@@ -386,7 +386,6 @@ class Pelanggan extends CI_Controller {
 				$err = curl_error($curl);
 				curl_close($curl);
 				echo $response;
-				exit;
 				$this->session->set_flashdata("msg", "<div class='alert alert-success'>Cetak Pembayaran berhasil atas nama : ".$nama." bulan ".$bulan." tahun ".$tahun."</div>");
 				redirect('pelanggan/pembayaran');
 			}else{
