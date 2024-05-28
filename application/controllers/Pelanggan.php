@@ -231,7 +231,33 @@ class Pelanggan extends CI_Controller {
 		$tgl_bayar = $this->input->post('tgl_pembayaran');
 		$cek_tagihan = $this->db->query("SELECT * FROM dt_cetak where periode='$bulan' and tahun='$tahun' and id_registrasi='$id_registrasi' ")->num_rows();
 		$get_client = $this->db->get_where('dt_registrasi',['kode_pelanggan' => $id_registrasi])->row_array();
-		
+		if ($bulan == 'Januari') {
+			$bln_conv = '01';
+		} elseif ($bulan == 'Februari') {
+			$bln_conv = '02';
+		} elseif ($bulan == 'Maret') {
+			$bln_conv = '03';
+		} elseif ($bulan == 'April') {
+			$bln_conv = '04';
+		} elseif ($bulan == 'Mei') {
+			$bln_conv = '05';
+		} elseif ($bulan == 'Juni') {
+			$bln_conv = '06';
+		} elseif ($bulan == 'Juli') {
+			$bln_conv = '07';
+		} elseif ($bulan == 'Agustus') {
+			$bln_conv = '08';
+		} elseif ($bulan == 'September') {
+			$bln_conv = '09';
+		} elseif ($bulan == 'Oktober') {
+			$bln_conv = '10';
+		} elseif ($bulan == 'November') {
+			$bln_conv = '11';
+		} elseif ($bulan == 'Desember') {
+			$bln_conv = '12';
+		} else {
+			$bln_conv = date('m');
+		}
 		if ($tagihan == true) {
 			if ($cek_tagihan != true) {
 				$data = [
@@ -268,7 +294,7 @@ class Pelanggan extends CI_Controller {
 				$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
 				$this->db->join('dt_cetak as c', 'c.id_registrasi = a.kode_pelanggan');
 				$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
-				$no_invoice = 'INV' . $tahun . $bulan . date('d') . $data['x']['id_pel'];
+				$no_invoice = 'INV' . $tahun . $bln_conv . date('d') . $data['x']['id_pel'];
 				$html = $this->load->view('body/pelanggan/struk', $data, true);
 				$mpdf->defaultfooterline = 0;
 				// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
