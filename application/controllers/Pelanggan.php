@@ -276,7 +276,6 @@ class Pelanggan extends CI_Controller {
 				$mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
 				// chmod($no_invoice . ".pdf", 0777);
 				// $mpdf->Output();
-				sleep(2);
 				$imagick = new Imagick();
 				$imagick->setResolution(200, 200);
 				$imagick->readImage("invoice/struk/$no_invoice.pdf");
@@ -361,6 +360,7 @@ class Pelanggan extends CI_Controller {
 				$err = curl_error($curl);
 				curl_close($curl);
 				echo $response;
+				exit;
 				$this->session->set_flashdata("msg", "<div class='alert alert-success'>Cetak Pembayaran berhasil atas nama : ".$nama." bulan ".$bulan." tahun ".$tahun."</div>");
 				redirect('pelanggan/pembayaran');
 			}else{
@@ -859,7 +859,6 @@ Layanan Teknis	:
 		$err = curl_error($curl);
 		echo $response;
 		curl_close($curl);
-exit;
 		if ($err) {
 			echo "cURL Error #:" . $err;
 		} else {
