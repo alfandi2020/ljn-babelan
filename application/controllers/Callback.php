@@ -243,7 +243,7 @@ Layanan Teknis	:
                             $imagick->setResolution(200, 200);
                             $imagick->readImage("invoice/struk/$no_invoice.pdf");
                             $imagick->writeImages("invoice/struk/image/$no_invoice.jpg", true);
-                            $url_img = "https://billing.lintasmediadata.net/invoice/struk/image/$no_invoice.jpg";
+                            $url_img = "https://billing.mediadata.id/invoice/struk/image/$no_invoice.jpg";
                             //end create image
                             if ($cek_plg != true) {
                                 $data_cetak = [

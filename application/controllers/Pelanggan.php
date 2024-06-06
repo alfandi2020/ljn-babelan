@@ -276,7 +276,7 @@ class Pelanggan extends CI_Controller {
 				$imagick->setResolution(200, 200);
 				$imagick->readImage("invoice/struk/$no_invoice.pdf");
 				$imagick->writeImages("invoice/struk/image/$no_invoice.jpg", true);
-				$url_img = "https://billing.lintasmediadata.net/invoice/struk/image/$no_invoice.jpg";
+				$url_img = "https://billing.mediadata.id/invoice/struk/image/$no_invoice.jpg";
 				//end create image
 				//notif
 				$curl = curl_init();
@@ -943,7 +943,7 @@ exit;
 		$imagick->setResolution(200, 200);
 		$imagick->readImage("invoice/$no_invoice.pdf");
 		$imagick->writeImages("invoice/image/$no_invoice.jpg", true);
-		$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
+		$url_img = "https://billing.mediadata.id/invoice/image/$no_invoice.jpg";
 			//end create image
 		$id = $this->uri->segment(3);
 		$this->db->where('a.id', $id);
@@ -1165,8 +1165,8 @@ exit;
 			// }else{
 			// 	$no_invoice = $no_invoice . '.jpg';
 			// }
-			$url_img = "https://billing.lintasmediadata.net/invoice/image/$no_invoice.jpg";
-			// $url_img = "https://billing.lintasmediadata.net/invoice/image/INV2308051069.jpg";
+			$url_img = "https://billing.mediadata.id/invoice/image/$no_invoice.jpg";
+			// $url_img = "https://billing.mediadata.id/invoice/image/INV2308051069.jpg";
 
 			//send wa
 			$id = $this->uri->segment(3);
