@@ -311,7 +311,7 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                    // Simulate an HTTP redirect:
-                    window.location.replace("https://billing.lintasmediadata.net/dashboard");
+                    window.location.replace("https://billing.mediadata.id/dashboard");
                 }
                 })
             </script>

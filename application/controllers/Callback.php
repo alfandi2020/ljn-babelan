@@ -182,17 +182,17 @@ Layanan Teknis	:
                     $tanggal2 = time();
                     $bulan2 = $this->indonesian_date($tanggal2, 'F');
                     $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ','',$get_client['kode_pelanggan']), 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
-                    if ($cek_bulan == true) {
-                        //jika sudah bayar maka bayar di bulan berikut nya 
-                        $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
-                        $bln_ad2 = date("Y-m-d H:i:s", $effectiveDate);
-                        $str_bln = strtotime($bln_ad2);
-                        $bulan_fix = $this->indonesian_date($str_bln, 'F');
-                        $thn_fix = date('Y', $str_bln);
-                    } else {
+                    // if ($cek_bulan == true) {
+                    //     //jika sudah bayar maka bayar di bulan berikut nya 
+                    //     $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
+                    //     $bln_ad2 = date("Y-m-d H:i:s", $effectiveDate);
+                    //     $str_bln = strtotime($bln_ad2);
+                    //     $bulan_fix = $this->indonesian_date($str_bln, 'F');
+                    //     $thn_fix = date('Y', $str_bln);
+                    // } else {
                         $bulan_fix = $bulan2;
                         $thn_fix = date('Y');
-                    }
+                    // }
                     if ($client->num_rows() == true) {
                         if ($kode_unik != 000) {
                             $data = array(
@@ -245,7 +245,7 @@ Layanan Teknis	:
                             $imagick->setResolution(200, 200);
                             $imagick->readImage("invoice/struk/$no_invoice.pdf");
                             $imagick->writeImages("invoice/struk/image/$no_invoice.jpg", true);
-                            $url_img = "https://billing.lintasmediadata.net/invoice/struk/image/$no_invoice.jpg";
+                            $url_img = "https://billing.mediadata.id/invoice/struk/image/$no_invoice.jpg";
                             //end create image
                             if ($cek_plg != true) {
                                 $data_cetak = [
