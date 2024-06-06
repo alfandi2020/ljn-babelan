@@ -101,19 +101,27 @@ function terbilang($nilai)
         </tr>
     </table>
     <?php
-    if ($this->uri->segment(2) == 'buat_pembayaran' || $this->uri->segment(2) == 'index') {//index callback moota
+    if ($this->uri->segment(2) == 'index') {//index callback moota, note : kondisi 2x bayar belum dibuat
         $pay = 'PAID';
         $pay_css = '#10c245';
         $bulan = date('m');
         $tahun = date('Y');
-    } else {
+        $tanggal_t = date('d');
+    }else if ($this->uri->segment(2) == 'buat_pembayaran'){
+        $pay = 'PAID';
+        $pay_css = '#10c245';
+        $bulan = $x['periode'];
+        $tahun = $x['tahun'];
+        $tanggal_t = date('d');
+    }else {
         $pay = 'INVOICE';
         $pay_css = '#e67217';
         $bulan = $this->session->userdata('filterBulan');
         $tahun = $this->session->userdata('filterTahun');
+        $tanggal_t = $this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo');
+
     }
 
-    $tanggal_t = $this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo');
     if ($bulan == 'Januari') {
         $bln_conv = '01';
     } elseif ($bulan == 'Februari') {
