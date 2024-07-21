@@ -155,16 +155,13 @@ Layanan Teknis	:
             // Cek notif
             if ($neko) {
                 // Looping hasil array dan isert ke database 
-                // if (is_array($neko) || is_object($neko)){
-            // var_dump(json_decode($neko));
-            $datax = json_decode($neko,true);
+                if (is_array($neko)){
+                    $datax = $neko;
+                }else{
+                    $datax = json_decode($neko, true);
+                }  
                     foreach($datax as $jquin) {
-                echo substr($jquin['amount'], -3);
-                // echo $jquin->amount;
-                exit;
                         $kode_unik = substr($jquin['amount'], -3);
-                        
-                        echo json_encode($jquin);
                         // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                             $client = $this->db->query('SELECT
                             *,
