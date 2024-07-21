@@ -160,7 +160,7 @@ Layanan Teknis	:
             $datax = json_decode($neko,true);
                     foreach($datax as $jquin) {
                 echo substr($jquin['amount'], -3);
-                echo $jquin->amount;
+                // echo $jquin->amount;
                 exit;
                         $kode_unik = substr($jquin['amount'], -3);
                         
