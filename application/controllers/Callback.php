@@ -158,7 +158,7 @@ Layanan Teknis	:
                 // if (is_array($neko) || is_object($neko)){
             // var_dump(json_decode($neko));
             $datax = json_encode($neko,true);
-            $x = ($datax);
+            $x = json_encode($datax);
             var_dump($x);
                     foreach(json_decode($datax) as $jquin) {
                 echo substr($jquin['amount'], -3);
