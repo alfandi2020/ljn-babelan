@@ -156,7 +156,7 @@ Layanan Teknis	:
             if ($neko) {
                 // Looping hasil array dan isert ke database 
                 // if (is_array($neko) || is_object($neko)){
-            var_dump(json_encode($neko));
+            var_dump(json_decode($neko));
             exit;
                     foreach($neko as $jquin) {
                         // Buat kode unik untuk membandingkan
