@@ -157,9 +157,9 @@ Layanan Teknis	:
                 // Looping hasil array dan isert ke database 
                 // if (is_array($neko) || is_object($neko)){
             // var_dump(json_decode($neko));
-            $datax = json_encode($neko,true);
+            $datax = json_decode($neko,true);
             $x = json_encode($datax);
-            var_dump($neko);
+            var_dump($datax);
                     foreach(json_decode($datax) as $jquin) {
                 echo substr($jquin['amount'], -3);
                 echo $jquin->amount;
