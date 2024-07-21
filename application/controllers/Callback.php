@@ -155,7 +155,9 @@ Layanan Teknis	:
             // Cek notif
             if ($neko) {
                 // Looping hasil array dan isert ke database 
-                if (is_array($neko) || is_object($neko)){
+                // if (is_array($neko) || is_object($neko)){
+            var_dump($neko);
+            exit;
                     foreach($neko as $jquin) {
                         // Buat kode unik untuk membandingkan
                         // update status pembayaran
@@ -391,9 +393,9 @@ Layanan Teknis	:
                             echo $response;
                         }
                     }
-                }else{
-                echo "array eror";
-                }
+                // }else{
+                // echo "array eror";
+                // }
             }else{
             echo 'eror';
                 //$this->api_whatsapp->wa_notif('notif','083897943785');
