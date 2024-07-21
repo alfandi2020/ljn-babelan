@@ -156,9 +156,10 @@ Layanan Teknis	:
             if ($neko) {
                 // Looping hasil array dan isert ke database 
                 // if (is_array($neko) || is_object($neko)){
-            var_dump(json_decode($neko));
-            exit;
-                    foreach($neko as $jquin) {
+            // var_dump(json_decode($neko));
+            $datax = json_decode($neko);
+            // exit;
+                    foreach($datax as $jquin) {
                         // Buat kode unik untuk membandingkan
                         // update status pembayaran
                         $kode_unik = substr($jquin['amount'], -3);
