@@ -391,6 +391,8 @@ Layanan Teknis	:
                             echo $response;
                         }
                     }
+                }else{
+                echo "array eror";
                 }
             }else{
             echo 'eror';
