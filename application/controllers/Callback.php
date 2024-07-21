@@ -159,7 +159,7 @@ Layanan Teknis	:
             // var_dump(json_decode($neko));
             $datax = json_encode($neko,true);
             $x = json_encode($datax);
-            var_dump($x);
+            var_dump($neko);
                     foreach(json_decode($datax) as $jquin) {
                 echo substr($jquin['amount'], -3);
                 echo $jquin->amount;
