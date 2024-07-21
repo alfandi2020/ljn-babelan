@@ -157,18 +157,13 @@ Layanan Teknis	:
                 // Looping hasil array dan isert ke database 
                 // if (is_array($neko) || is_object($neko)){
             // var_dump(json_decode($neko));
-            $datax = json_decode($neko);
-            // exit;
-                    foreach($datax as $jquin) {
-                        // Buat kode unik untuk membandingkan
-                        // update status pembayaran
+            $datax = json_encode($neko,true);
+                    foreach(json_decode($datax) as $jquin) {
+                echo substr($jquin['amount'], -3);
+                echo $jquin->amount;
+                exit;
                         $kode_unik = substr($jquin['amount'], -3);
-                        // Cari data yang sama di table detail order
-                        // $jOrder = $this->Order_model->jGetDataOrder($kode_unik);
-                        // $idOrder = $jOrder->id_order;
-                        // Tampung data response dari moota
-                        // Perlu diketahui value Sandbox Webhook dan value
-                        // webhook original berbeda.
+                        
                         echo json_encode($jquin);
                         // $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) left join mt_paket as c on(a.speed=c.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$jquin['amount'].'');
                             $client = $this->db->query('SELECT
