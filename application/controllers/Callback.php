@@ -10,7 +10,9 @@ class Callback extends CI_Controller {
             $this->load->helper(array('form', 'url'));
             $this->load->library(array('form_validation'));
             $this->load->library('api_whatsapp');
-        }
+            $this->load->library('api_xendit');
+
+    }
         function mutasi(){
             $data = json_decode(file_get_contents('php://input'), true);
 
@@ -143,25 +145,40 @@ Layanan Teknis	:
         }
       function tes()
       {
-        $tanggal2 = time();
-
-        $bulan2 = $this->indonesian_date($tanggal2, 'F');
-
-        $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ', '', 'WPM0207'), 'periode' => $bulan2, 'tahun' => '202'])->num_rows();
-
-
-        if ($cek_bulan == true) {
-            //jika sudah bayar maka bayar di bulan berikut nya 
-            $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
-            $bln_ad2 = date("Y-m-d H:i:s", $effectiveDate);
-            $str_bln = strtotime($bln_ad2);
-            $bulan_fix = $this->indonesian_date($str_bln, 'F');
-            $thn_fix = date('Y', $str_bln);
-        } else {
-            $bulan_fix = $bulan2;
-            $thn_fix = date('Y');
+        $db2 = $this->db->query('SELECT
+                            *,
+                            FLOOR(((b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0) )  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann,a.id as id_client
+                        FROM
+                            dt_registrasi AS a
+                            LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
+                            LEFT JOIN addon AS c ON ( c.id = a.addon1 )
+                            LEFT JOIN addon AS d ON ( d.id = a.addon2 )
+                            LEFT JOIN addon AS f ON ( f.id = a.addon3 )
+                            where a.kode_pelanggan="GAK0616"
+                        ')->result();
+        foreach ($db2 as $x) {
+            // echo ($x->nama_pelanggann);
+            $mandiri = 1013000000 + $x->id_client;
+            $data = '{"external_id": "VA_fixed-'.time().'",
+                    "bank_code": "MANDIRI",
+                    "name": "'.$x->nama_pelanggann.'",
+                    "expected_amount": "'.$x->tagihan.'",
+                    "virtual_account_number" : "'. $mandiri .'",
+                    "is_single_use": false,
+                    "is_closed": true
+                }';
+            $d = $this->api_xendit->create_va($data);
+            $p = json_decode($d);
+            $data_in = [
+                "id_pelanggan" => $x->id_client, //id_pelanggan
+                "company" => $p->bank_code,
+                "va" => $p->account_number,
+                "id_va" => $p->id,
+                'external_id' => $p->external_id,
+                'json_va' => $d
+            ];
+            $this->db->insert('mt_payment',$data_in);
         }
-        echo $bulan_fix;
       }
         public function index()
         {
