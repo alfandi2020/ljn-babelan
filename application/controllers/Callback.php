@@ -146,17 +146,28 @@ Layanan Teknis	:
       function tes()
       {
         $db2 = $this->db->query('SELECT
-                            *,
-                            FLOOR(((b.harga + COALESCE ( c.biaya* c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE ( c.biaya * c.qty, 0 ) + COALESCE ( d.biaya* d.qty, 0 ) + COALESCE ( f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0)  - a.id)  AS tagihan,c.biaya as biaya1,d.biaya as biaya2,f.biaya as biaya3,a.nama as nama_pelanggann,a.id as id_client
-                        FROM
-                            dt_registrasi AS a
-                            LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
-                            LEFT JOIN addon AS c ON ( c.id = a.addon1 )
-                            LEFT JOIN addon AS d ON ( d.id = a.addon2 )
-                            LEFT JOIN addon AS f ON ( f.id = a.addon3 )
-                            where a.kode_pelanggan="GAK0616"
+	*,
+	FLOOR(((
+				b.harga + COALESCE ( c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 )) * 11 / 100 
+			) + b.harga + COALESCE ( c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 ) - a.id 
+	) AS tagihan,
+	c.biaya AS biaya1,
+	d.biaya AS biaya2,
+	f.biaya AS biaya3,
+	a.nama AS nama_pelanggann,
+	a.id AS id_client 
+FROM
+	dt_registrasi AS a
+	LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
+	LEFT JOIN addon AS c ON ( c.id = a.addon1 )
+	LEFT JOIN addon AS d ON ( d.id = a.addon2 )
+	LEFT JOIN addon AS f ON (
+	f.id = a.addon3 
+	)
+	where status="Aktif" and a.id=1361
                         ')->result();
         foreach ($db2 as $x) {
+            // echo $x->id_cl;exit;
             // echo ($x->nama_pelanggann);
             $mandiri = 1013000000 + $x->id_client;
             $data = '{"external_id": "VA_fixed-'.time().'",
@@ -169,15 +180,16 @@ Layanan Teknis	:
                 }';
             $d = $this->api_xendit->create_va($data);
             $p = json_decode($d);
-            $data_in = [
-                "id_pelanggan" => $x->id_client, //id_pelanggan
-                "company" => $p->bank_code,
-                "va" => $p->account_number,
-                "id_va" => $p->id,
-                'external_id' => $p->external_id,
-                'json_va' => $d
-            ];
-            $this->db->insert('mt_payment',$data_in);
+            echo $d;
+            // $data_in = [
+            //     "id_pelanggan" => $x->id_client, //id_pelanggan
+            //     "company" => $p->bank_code,
+            //     "va" => $p->account_number,
+            //     "id_va" => $p->id,
+            //     'external_id' => $p->external_id,
+            //     'json_va' => $d
+            // ];
+            // $this->db->insert('mt_payment',$data_in);
         }
       }
         public function index()
@@ -433,6 +445,43 @@ Layanan Teknis	:
         curl_close($curl);
 
         }
+        function paid_va()
+        {
+        $xenditXCallbackToken = 'xnd_development_htkzZHONSblQBpnzzfB53Zu4tXHbLYK4jpdApGq2hc1Va1986zkiyw3mPX1ZsZ';
+
+        // Bagian ini untuk mendapatkan Token callback dari permintaan header, 
+        // yang kemudian akan dibandingkan dengan token verifikasi callback Xendit
+        $reqHeaders = getallheaders();
+        $xIncomingCallbackTokenHeader = isset($reqHeaders['x-callback-token']) ? $reqHeaders['x-callback-token'] : "";
+
+        // Untuk memastikan permintaan datang dari Xendit
+        // Anda harus membandingkan token yang masuk sama dengan token verifikasi callback Anda
+        // Ini untuk memastikan permintaan datang dari Xendit dan bukan dari pihak ketiga lainnya.
+        if ($xIncomingCallbackTokenHeader === $xenditXCallbackToken) {
+            // Permintaan masuk diverifikasi berasal dari Xendit
+
+            // Baris ini untuk mendapatkan semua input pesan dalam format JSON teks mentah
+            $rawRequestInput = file_get_contents("php://input");
+            // Baris ini melakukan format input mentah menjadi array asosiatif
+            $arrRequestInput = json_decode($rawRequestInput, true);
+            print_r($arrRequestInput);
+
+            $_id = $arrRequestInput['id'];
+            $_externalId = $arrRequestInput['external_id'];
+            $_userId = $arrRequestInput['user_id'];
+            $_status = $arrRequestInput['status'];
+            $_paidAmount = $arrRequestInput['paid_amount'];
+            $_paidAt = $arrRequestInput['paid_at'];
+            $_paymentChannel = $arrRequestInput['payment_channel'];
+            $_paymentDestination = $arrRequestInput['payment_destination'];
+            echo json_encode($arrRequestInput);
+            // Kamu bisa menggunakan array objek diatas sebagai informasi callback yang dapat digunaka untuk melakukan pengecekan atau aktivas tertentu di aplikasi atau sistem kamu.
+
+        } else {
+            // Permintaan bukan dari Xendit, tolak dan buang pesan dengan HTTP status 403
+            http_response_code(403);
+        }
+    }
         public static function http_get($url, $headers = array())
         {
 
