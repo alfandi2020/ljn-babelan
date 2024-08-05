@@ -468,10 +468,10 @@ FROM
             //         "transaction_timestamp" => "2017-02-15T11:01:52.722Z",
             //         "merchant_code" => "88464",
             //     ];
-            $api_key = 'xnd_production_oOyARY7MUfPxasdVEPMjPf2HyfGNB9GiIYh7ftqRH1S3IVtZhJbi4QuL2dYMQH';
+            $api_key = 'xnd_development_PMum4qdX86nn2xODSDzuA4EwkGNcVmACaXT634AJsZ6cb0zcfpIdc7DljK9As';
             $id = $arrRequestInput['callback_virtual_account_id'];
-            $query = $this->db->query("SELECT * FROM tb_registrasi as a left join tb_payment as b on(a.id_registrasi=b.id_pelanggan) left join tb_paket as c on(a.speed = c.id_wireless) where b.id_va='$id'")->row_array();
-            $id_va = isset($query['id_va']) ? $query['id_va'] : "";
+            $query = $this->db->query("SELECT * FROM dt_registrasi as a left join mt_payment as b on(a.id=b.id_pelanggan) where b.id_va='$id'")->row_array();
+            // $id_va = isset($query['id_va']) ? $query['id_va'] : "";
             // if ( $id_va ==  true) {
             $end_point = 'https://api.xendit.co/callback_virtual_accounts/' . $query['id_va'];
             $curl2 = curl_init();
@@ -501,32 +501,27 @@ FROM
             echo json_encode($response2);
 
 
-            // $phone = $query['kontak']; 
-            $phone = '083897943785';
-            $message = 'pembayaran behasil' . $query['nama'];
-            $sender = 'fandi';
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'http://103.171.85.211:8000/send-message',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => 'sender=' . $sender . '&number=' . $phone . '&message=' . $message,
-            )
-            );
-            $response = curl_exec($curl);
-            curl_close($curl);
-            $o = json_decode($response);
-            // }else{
-            //     echo json_encode([
-            //         "error" => 404,
-            //         "message" => "data not found"
-            //     ]);
-            // }
+            // // $phone = $query['kontak']; 
+            // $phone = '083897943785';
+            // $message = 'pembayaran behasil' . $query['nama'];
+            // $sender = 'fandi';
+            // $curl = curl_init();
+            // curl_setopt_array($curl, array(
+            //     CURLOPT_URL => 'http://103.171.85.211:8000/send-message',
+            //     CURLOPT_RETURNTRANSFER => true,
+            //     CURLOPT_ENCODING => '',
+            //     CURLOPT_MAXREDIRS => 10,
+            //     CURLOPT_TIMEOUT => 0,
+            //     CURLOPT_FOLLOWLOCATION => true,
+            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            //     CURLOPT_CUSTOMREQUEST => 'POST',
+            //     CURLOPT_POSTFIELDS => 'sender=' . $sender . '&number=' . $phone . '&message=' . $message,
+            // )
+            // );
+            // $response = curl_exec($curl);
+            // curl_close($curl);
+            // $o = json_decode($response);
+            
         } else {
             echo json_encode([
                 "error" => 404,
