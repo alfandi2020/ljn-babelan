@@ -498,7 +498,7 @@ FROM
             $response2 = curl_exec($curl2);
             curl_close($curl2);
 
-            echo json_encode($response2);
+            echo json_encode($id);
 
 
             // // $phone = $query['kontak']; 
