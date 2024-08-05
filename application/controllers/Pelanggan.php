@@ -1061,13 +1061,13 @@ Layanan Teknis	:
 		$kd_unik_in = sprintf('%04d', $kd_unik_in);
 		$pay = $this->db->get_where('mt_payment',['id_pelanggan' => $id ]);
 		// $payment =+ 'BCA 2761446578 an Mahfudin';
-		$payment = '';
+		// $payment = '';
 		if ($pay->num_rows() > 1) {
             foreach ($pay->result() as $k) {
-                $payment += $k->company . ' ' . $k->va . ' an' . $get_client['nama'] . "<br>" ;
+                $payment = $k->company . ' ' . $k->va . ' an' . $get_client['nama'] . "<br>" ;
             }
         }else{
-            $payment += 'MANDIRI 1560016047112 an Mahfudin';
+            $payment = 'MANDIRI 1560016047112 an Mahfudin';
         }
 		echo $payment .' - '. $pay->num_rows();
 		exit;
