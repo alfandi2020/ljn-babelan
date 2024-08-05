@@ -1129,7 +1129,7 @@ Layanan Teknis	:
 							'value_text' => '0877-8619-9004'  //value
 						],
 						[
-							'key' => '5', //{{ buat key 1,2,3,4 }}
+							'key' => '6', //{{ buat key 1,2,3,4 }}
 							'value' => 'norek', //no telp
 							'value_text' => $payment  //value
 						]
