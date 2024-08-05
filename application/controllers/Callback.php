@@ -389,7 +389,6 @@ FROM
             );
 
             $response2 = curl_exec($curl2);
-            echo json_encode($response2);
 
             
             curl_close($curl2);
@@ -465,7 +464,7 @@ FROM
                     "nama" => $query['nama_pelanggann'],
                     "mbps" => $query['mbps'],
                     "tagihan" => $query['tagihan'],
-                    "penerima" => 'admin',
+                    "penerima" => 'xendit',
                     "periode" => str_replace(' ', '', $bulan_fix),
                     "tahun" => str_replace(' ', '', $thn_fix),
                     "tanggal_pembayaran" => date('Y-m-d H:i:s')
@@ -540,6 +539,8 @@ FROM
 
                 $response = curl_exec($curl);
                 // echo $response;
+            echo json_encode($response2);
+
             }
 
             
