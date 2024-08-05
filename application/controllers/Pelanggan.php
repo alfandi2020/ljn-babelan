@@ -1064,7 +1064,7 @@ Layanan Teknis	:
 		$payment = '';
 		if ($pay->num_rows() > 1) {
             foreach ($pay->result() as $k) {
-                $payment =+ $k->company . ' ' . $k->va . ' an' . $get_client['nama'] . "<br>" ;
+                $payment += $k->company . ' ' . $k->va . ' an' . $get_client['nama'] . "<br>" ;
             }
         }else{
             $payment = 'MANDIRI 1560016047112 an Mahfudin';
