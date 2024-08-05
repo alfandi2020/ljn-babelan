@@ -447,7 +447,7 @@ FROM
         }
         function paid_va()
         {
-        $xenditXCallbackToken = '4vEXmvTSLMojEEoiCs7ML1hiTIjfxhOIzjbuxCedcdnoFczF';
+        $xenditXCallbackToken = 'R9XoKSUvS79dokcq2BYRh4UOQnQHTtzgyi0DBSDNGCOPvLyj';
 
         $reqHeaders = getallheaders();
         $xIncomingCallbackTokenHeader = isset($reqHeaders["X-Callback-Token"]) ? $reqHeaders["X-Callback-Token"] : "";
@@ -468,7 +468,7 @@ FROM
             //         "transaction_timestamp" => "2017-02-15T11:01:52.722Z",
             //         "merchant_code" => "88464",
             //     ];
-            $api_key = 'xnd_development_PMum4qdX86nn2xODSDzuA4EwkGNcVmACaXT634AJsZ6cb0zcfpIdc7DljK9As';
+            $api_key = 'xnd_production_IciBYQPfQ819WW5bP7x31pOSZVl6Nn6P1NiVwabystIa9TOv9B7lQvw2tWA';
             $id = $arrRequestInput['callback_virtual_account_id'];
             $query = $this->db->query("SELECT * FROM dt_registrasi as a left join mt_payment as b on(a.id=b.id_pelanggan) where b.id_va='$id'")->row_array();
             // $id_va = isset($query['id_va']) ? $query['id_va'] : "";
