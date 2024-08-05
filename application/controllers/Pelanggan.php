@@ -1069,8 +1069,8 @@ Layanan Teknis	:
         }else{
             $payment .= 'MANDIRI 1560016047112 an Mahfudin';
         }
-		echo $payment .' - '. $pay->num_rows();
-		exit;
+		// echo $payment .' - '. $pay->num_rows();
+		// exit;
 		$rincian = $ad1;
 		$curl = curl_init();
 		$curl2 = curl_init();

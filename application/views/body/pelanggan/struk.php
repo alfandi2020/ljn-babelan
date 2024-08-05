@@ -283,13 +283,15 @@ function terbilang($nilai)
                 .: Pembayaran ditujukan ke : <br>
                 BCA 2761446578 an Mahfudin <br>
                 <?php $pay = $this->db->get_where('mt_payment',['id_pelanggan' => $x['id'] ]);
+                $paymentt = '';
                     if ($pay->num_rows() >= 1) {
                         foreach ($pay->result() as $k) {
-                            echo $k->company . ' ' . $k->va . ' an' . $x['nama'] . "<br>" ;
+                            $paymentt .= $k->company . ' ' . $k->va . ' an' . $x['nama'] . "<br>" ;
                         }
                     }else{
-                        echo 'MANDIRI 1560016047112 an Mahfudin';
+                        $paymentt .= 'MANDIRI 1560016047112 an Mahfudin';
                     }
+                echo $paymentt;
                 ?>
                 <!-- 2. MANDIRI 1560016047112 an Mahfudin -->
             </td>
