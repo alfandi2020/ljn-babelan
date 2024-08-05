@@ -13,136 +13,6 @@ class Callback extends CI_Controller {
             $this->load->library('api_xendit');
 
     }
-        function mutasi(){
-            $data = json_decode(file_get_contents('php://input'), true);
-
-            //TOKEN ANDA YANG ANDA DAPATKAN DI MUTASIBANK.CO.ID
-            $api_token = "N2lYREgzV3lJdGNzdzVGNVRyVVVLZ2YxdjNRSDVCTlA0UWdBS2FHUkJLcm5YQTlzck9QZTJmZ2F4TE5Q6562dc5bb59f8";
-            $token = $data['api_key'];
-            if ($api_token != strval($token)) {
-                echo "invalid api token";
-                exit;
-            }
-
-            //MODULE BANK (bca,bri,bni,mandiri)
-            $module = $data['module'];
-
-            //DATA MUTASI
-            foreach ($data['data_mutasi'] as $dtm) {
-                //Tanggal Transaksi terjadi di bank
-                $date = $dtm['transaction_date'];
-
-                //Note atau deskripsi dari bank
-                $note = $dtm['description'];
-
-                //Tipe transaksi (DB ATAU CR)
-                $type = $dtm['type'];
-
-                //Jumlah Dana
-                $amount = $dtm['amount'];
-
-                //Saldo saat ini
-                $saldo = $dtm['balance'];
-
-                //ID Transaksi Mutasi
-                $id = $dtm['id'];
-
-                //Module Bank
-                $module = $data['module'];
-
-                $headers = [
-                    "Authorization: $api_token",
-                    'Content-Type: application/json'
-                ];
-                //validate transaction =
-                $result_v = $this->http_get("https://mutasibank.co.id/api/v1/validate/$id", $headers);
-                $data_r = json_decode($result_v);
-                if ($data_r->valid && $data_r->data->amount == $amount) {
-                $unik = substr($amount,-3);
-                    if ($unik != 000) {
-                        $client = $this->db->query('SELECT *,floor(b.harga * 11 / 100 + b.harga - a.id) as tagihan FROM dt_registrasi as a LEFT JOIN mt_paket as b on(a.speed=b.id_paket) where status="Aktif" and floor(b.harga * 11 / 100 + b.harga - a.id)='.$amount.'');
-                        $get_client = $client->row_array();
-                    $wa = "Kepada pelanggan yth,
-*Bapak/Ibu ".$get_client['nama']."*
-ID Pel : ".$get_client['kode_pelanggan']."
-                    
-Pembayaran tagihan anda *BERHASIL* 
-                    
-Tanggal Verifikasi : ".date('d-m-Y')."
-Periode Pembayaran : ".date('M')." " . date('Y') ."
-*Total Pembayaran : Rp ".number_format($amount,0,'.','.').",-*
-                    
-Terima kasih atas kerjasamanya.
-                    
-Salam
-MD.Net
-_Supported by :_
-*PT Lintas Jaringan Nusantara*
-Kantor Layanan Babelan
-Layanan Teknis	: 
-0821-1420-9923
-0819-3380-3366";
-                    // foreach ($client->result() as $x) {
-                    //     $ppn = $x->harga * 11 / 100;
-                    //     $hargaa = $x->harga + $ppn;
-                    //     $cek_unik = $hargaa - $x->id;
-                        $get_cetak = $this->db->get_where('dt_cetak',['periode' => date('F'),'tahun' => date('Y'),'id_registrasi' => $get_client['kode_pelanggan'] ])->num_rows();
-                        // if ($get_cetak == false) {
-                            if ($get_client['tagihan'] == $amount) {
-                                $paket = $this->db->get_where('mt_paket',['id_paket' => $get_client['speed']])->row_array();
-                                $data2 = [
-                                    "id_registrasi" => $get_client['kode_pelanggan'],
-                                    "nama" => $get_client['nama'],
-                                    "mbps" => $paket['mbps'],
-                                    "tagihan" => $amount,
-                                    "penerima" => "admin",
-                                    "periode" => date('F'),
-                                    "tahun" => date('Y'),
-                                    "tanggal_pembayaran" => date('Y-m-d H:i:s')
-                                ];
-                                $this->db->insert('dt_cetak',$data2);
-                                if ($get_client['telp'] != "") {
-                                    $this->api_whatsapp->wa_notif($wa,$get_client['telp']);
-                                }
-                            }
-                        // }else{
-                        //     echo 'error2';
-                        // }
-                    // }
-
-                    }else{
-                        echo "error1";
-                    }
-                }else {
-                    echo "Tansaksi $id not valid ";
-                }
-            }
-        }
-        function mutasi_moota()
-        {
-
-            $curl2 = curl_init();
-
-            curl_setopt_array($curl2, array(
-                CURLOPT_URL => 'https://app.moota.co/api/v1/bank/{bank_id}/mutation/search/222',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Accept: application/json',
-                    'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJucWllNHN3OGxsdyIsImp0aSI6IjUxZDg2ZWZiMDQ3NGNlMjQ3NTkyOWI3ODcwOTQ5OTZkOGQyYTQ4N2U2YmM3MDMxMWU0MzExYjBkNDkxNWM2YzY2ZGQ1NzdkMzQ3NDZiYmM2IiwiaWF0IjoxNzAxMjY0MTMwLjU1MDMwMiwibmJmIjoxNzAxMjY0MTMwLjU1MDMwNiwiZXhwIjoxNzMyODg2NTMwLjQ3ODk4Mywic3ViIjoiMzEyNjciLCJzY29wZXMiOlsiYXBpIiwidXNlciIsInVzZXJfcmVhZCIsImJhbmsiLCJiYW5rX3JlYWQiLCJtdXRhdGlvbiIsIm11dGF0aW9uX3JlYWQiXX0.bfwnOzHgX7kAz3isgAVNQnnUw8pBzv21dDahFlzcRJf3vaEkDH1ILwJJqPvIMjZcEe80Z_PoTE7uTrRtnu2T9GpeqfUgMV0hOCt3IM26RYO1CxRMXtnQvr30QAjKvMTYUxa7v1p4Mqr8mqfwctM7lFW00_9MW4urd960jD1VhhNDcrBImAprmsE04hlktjNcus-wsqTpuvTPl2YKZxvADDKLcUDJaNzJzVai8P71W_26bM7QDHqST0_e4eIUhio7jxYlfcy6GQvRyxskBsOg1TSK9omU60gVtcCZP0ggJargJ3ib1xa0LZtvToWasAQiwIAaAZ7H8B1hM66w2QN8NJb_rPrpYKbAhpH9nJj7Dvg0Gstj9ha3V8z97c5nkgoIQN1n6Yq2aVIUrBwZFF7WgWljEs6G2EWgOO--WMU-ADjEN0X-lafqyZ9o25re0cH4tQslmOBsEZLHpqReYZ63stC3Uy54TifqJIhSxwFPN3V-y1RZLEH5OCRW4RurMU1GtgAHBIOWlt024yUvfQPOEkerHaVhnL7-DqYOCJDvmgX0pAfexzTLf639xUb47sbTBVUF1rJoOOHJS6Ce0obq1qb-mbSxlwqPRKgtGeuIMM-Rc19jD_l5lvrNcQ8wGGb5TLEiVzu05e5s93Y1K_rVEmIVvPMx4T3W__RfyHXmrxE',
-                    'Content-Type: application/json'
-                ),
-            ));
-            $xx = curl_exec($curl2);
-            echo $xx;
-            // echo json_decode($token)->access_token;
-
-        }
       function tes()
       {
         $db2 = $this->db->query('SELECT
@@ -469,12 +339,35 @@ FROM
             //         "merchant_code" => "88464",
             //     ];
             $api_key = 'xnd_production_IciBYQPfQ819WW5bP7x31pOSZVl6Nn6P1NiVwabystIa9TOv9B7lQvw2tWA';
+            $token = "bzqjLpzxGwUwP7qJRdIRxcjMktOHBdggf3lnfB6Dsew";
+
             $id = $arrRequestInput['callback_virtual_account_id'];
-            $query = $this->db->query("SELECT * FROM dt_registrasi as a left join mt_payment as b on(a.id=b.id_pelanggan) where b.id_va='$id'")->row_array();
+            $query = $this->db->query("SELECT
+                    *,
+                    FLOOR(((
+                                b.harga + COALESCE ( c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 )) * 11 / 100 
+                            ) + b.harga + COALESCE ( c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 ) - a.id 
+                    ) AS tagihan,
+                    c.biaya AS biaya1,
+                    d.biaya AS biaya2,
+                    f.biaya AS biaya3,
+                    a.nama AS nama_pelanggann,
+                    a.id AS id_client 
+                FROM
+                    dt_registrasi AS a
+                    LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
+                    LEFT JOIN addon AS c ON ( c.id = a.addon1 )
+                    LEFT JOIN addon AS d ON ( d.id = a.addon2 )
+                    LEFT JOIN addon AS f ON ( f.id = a.addon3 )
+                    LEFT JOIN mt_payment AS g ON ( a.id = g.id_pelanggan ) 
+                WHERE
+                    g.id_va = '$id'")->row_array();
             // $id_va = isset($query['id_va']) ? $query['id_va'] : "";
             // if ( $id_va ==  true) {
             $end_point = 'https://api.xendit.co/callback_virtual_accounts/' . $query['id_va'];
             $curl2 = curl_init();
+            $curl = curl_init();
+
             curl_setopt_array($curl2, array(
                 CURLOPT_URL => $end_point,
                 CURLOPT_RETURNTRANSFER => true,
@@ -496,31 +389,159 @@ FROM
             );
 
             $response2 = curl_exec($curl2);
+            echo json_encode($response2);
+
+            
             curl_close($curl2);
-
-            echo json_encode($id);
-
-
-            // // $phone = $query['kontak']; 
-            // $phone = '083897943785';
-            // $message = 'pembayaran behasil' . $query['nama'];
-            // $sender = 'fandi';
-            // $curl = curl_init();
-            // curl_setopt_array($curl, array(
-            //     CURLOPT_URL => 'http://103.171.85.211:8000/send-message',
-            //     CURLOPT_RETURNTRANSFER => true,
-            //     CURLOPT_ENCODING => '',
-            //     CURLOPT_MAXREDIRS => 10,
-            //     CURLOPT_TIMEOUT => 0,
-            //     CURLOPT_FOLLOWLOCATION => true,
-            //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            //     CURLOPT_CUSTOMREQUEST => 'POST',
-            //     CURLOPT_POSTFIELDS => 'sender=' . $sender . '&number=' . $phone . '&message=' . $message,
-            // )
+            // $data = array(
+            //     'bank_id' => $jquin['bank_id'],
+            //     'account_number' => $jquin['account_number'],
+            //     'bank_type' => json_decode(json_encode($jquin['bank']))->label,
+            //     'date' => date('Y-m-d H:i:s'),
+            //     'amount' => $jquin['amount'],
+            //     'description' => $jquin['description'],
+            //     'type' => $jquin['type'],
+            //     'balance' => $jquin['balance'],
+            //     'kode_unik' => 0,
+            //     'id_order' => '13',
+            //     'nama_penerima' => 'xendit',
+            //     'nama_pengirim' => $query['nama'],
+            //     'id_pelanggan' => str_replace(' ', '', $query['kode_pelanggan'])
             // );
-            // $response = curl_exec($curl);
-            // curl_close($curl);
-            // $o = json_decode($response);
+            // $this->db->insert('mutasi', $data);
+            $tanggal2 = time();
+            $bulan2 = $this->indonesian_date($tanggal2, 'F');
+            $cek_bulan = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ', '', $query['kode_pelanggan']), 'periode' => $bulan2, 'tahun' => date('Y')])->num_rows();
+            // if ($cek_bulan == true) {
+            //     //jika sudah bayar maka bayar di bulan berikut nya 
+            //     $effectiveDate = strtotime("+1 months", strtotime(date("Y-m-d")));
+            //     $bln_ad2 = date("Y-m-d H:i:s", $effectiveDate);
+            //     $str_bln = strtotime($bln_ad2);
+            //     $bulan_fix = $this->indonesian_date($str_bln, 'F');
+            //     $thn_fix = date('Y', $str_bln);
+            // } else {
+            $bulan_fix = $bulan2;
+            $thn_fix = date('Y');
+            // }
+            $cek_plg = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ', '', $query['kode_pelanggan']), 'periode' => str_replace(' ', '', $bulan_fix), 'tahun' => $thn_fix])->num_rows();
+            //create image
+            $mpdf = new \Mpdf\Mpdf([
+                // 'tempDir' => '/tmp',
+                'mode' => '',
+                'format' => 'A4',
+                'default_font_size' => 0,
+                'default_font' => '',
+                'margin_left' => 15,
+                'margin_right' => 15,
+                'margin_top' => 5,
+                'margin_bottom' => 10,
+                'margin_header' => 10,
+                'margin_footer' => 5,
+                'orientation' => 'L',
+                'showImageErrors' => true
+            ]);
+
+            $this->db->where('a.id', $query['id_client']);
+            $this->db->join('mt_paket as b', 'a.speed = b.id_paket');
+            $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
+            $no_invoice = 'INV' . date('y') . date('m') . date('d') . $data['x']['id'];
+            $html = $this->load->view('body/pelanggan/struk', $data, true);
+            $mpdf->defaultfooterline = 0;
+            // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+            $mpdf->WriteHTML($html);
+            $mpdf->Output('/home/billing.lintasmediadata.net/invoice/struk/' . $no_invoice . '.pdf', 'F');
+            // chmod($no_invoice . ".pdf", 0777);
+            // $mpdf->Output();
+
+            $imagick = new Imagick();
+            $imagick->setResolution(200, 200);
+            $imagick->readImage("invoice/struk/$no_invoice.pdf");
+            $imagick->writeImages("invoice/struk/image/$no_invoice.jpg", true);
+            $url_img = "https://billing.mediadata.id/invoice/struk/image/$no_invoice.jpg";
+            //end create image
+            if ($cek_plg != true) {
+                $data_cetak = [
+                    "id_registrasi" => str_replace(' ', '', $query['kode_pelanggan']),
+                    "nama" => $query['nama_pelanggann'],
+                    "mbps" => $query['mbps'],
+                    "tagihan" => $query['tagihan'],
+                    "penerima" => 'admin',
+                    "periode" => str_replace(' ', '', $bulan_fix),
+                    "tahun" => str_replace(' ', '', $thn_fix),
+                    "tanggal_pembayaran" => date('Y-m-d H:i:s')
+                ];
+                $this->db->insert('dt_cetak', $data_cetak);
+
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 3000,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode([
+                        'to_number' => "62" . substr($query['telp'], 1),
+                        'to_name' => $query['nama_pelanggann'],
+                        'message_template_id' => '0d7aee00-0f10-4db6-82d3-c596f8491fee',
+                        'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
+                        'language' => [
+                            'code' => 'id'
+                        ],
+                        'parameters' => [
+                            'header' => [
+                                'format' => 'IMAGE',
+                                'params' => [
+                                    [
+                                        'key' => 'url',
+                                        'value' => $url_img
+                                    ]
+                                ]
+                            ],
+                            'body' => [
+                                [
+                                    'key' => '1', //{{ buat key 1,2,3,4 }}
+                                    'value' => 'name', //field di excel contact
+                                    'value_text' => $query['nama_pelanggann'] //value
+                                ],
+                                [
+                                    'key' => '2', //{{ buat key 1,2,3,4 }}
+                                    'value' => 'company', //kode pelanggan
+                                    'value_text' => $query['kode_pelanggan'] //value
+                                ],
+                                [
+                                    'key' => '3', //{{ buat key 1,2,3,4 }}
+                                    'value' => '165000', //tagihan
+                                    'value_text' => date('d-m-Y') //value
+                                ],
+                                [
+                                    'key' => '4', //{{ buat key 1,2,3,4 }}
+                                    'value' => '124', //kode unik
+                                    'value_text' => $bulan_fix . " " . $thn_fix //periode
+                                ],
+                                [
+                                    'key' => '5', //{{ buat key 1,2,3,4 }}
+                                    'value' => '150000', //total tagihan
+                                    'value_text' => number_format($query['tagihan'], 0, '.', '.') //total_pembayaran
+                                ],
+                                [
+                                    'key' => '6', //{{ buat key 1,2,3,4 }}
+                                    'value' => 'awawdd', //no telp
+                                    'value_text' => '0877-8619-9004'  //value
+                                ]
+                            ]
+                        ]
+                    ]),
+                    CURLOPT_HTTPHEADER => [
+                        "Authorization: Bearer " . $token . "",
+                        "Content-Type: application/json"
+                    ],
+                ]);
+
+                $response = curl_exec($curl);
+                // echo $response;
+            }
+
             
         } else {
             echo json_encode([
