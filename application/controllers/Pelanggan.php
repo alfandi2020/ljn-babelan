@@ -1062,8 +1062,8 @@ Layanan Teknis	:
 		$pay = $this->db->get_where('mt_payment',['id_pelanggan' => $id ]);
 		// $payment =+ 'BCA 2761446578 an Mahfudin';
 		$payment = '';
+		$payment .= 'BCA 2761446578 an Mahfudin \n';
 		if ($pay->num_rows() >= 1) {
-			$payment .= 'BCA 2761446578 an Mahfudin \n';
             foreach ($pay->result() as $k) {
                 $payment .= $k->company . ' ' . $k->va . ' an ' . $get_client['nama'] . ' \n' ;
             }
