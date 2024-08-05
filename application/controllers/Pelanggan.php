@@ -1067,7 +1067,7 @@ Layanan Teknis	:
                 $payment += $k->company . ' ' . $k->va . ' an' . $get_client['nama'] . "<br>" ;
             }
         }else{
-            $payment = 'MANDIRI 1560016047112 an Mahfudin';
+            $payment += 'MANDIRI 1560016047112 an Mahfudin';
         }
 		echo $payment .' - '. $pay->num_rows();
 		exit;
