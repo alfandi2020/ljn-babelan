@@ -1059,7 +1059,15 @@ Layanan Teknis	:
 		$tahun = $this->session->userdata('filterTahun');
 		$kd_unik_in = $get_client['id'];
 		$kd_unik_in = sprintf('%04d', $kd_unik_in);
-
+		$pay = $this->db->get_where('payment',['id' => $id ]);
+		$payment = 'BCA 2761446578 an Mahfudin';
+		if ($pay->num_rows() == 1) {
+            foreach ($pay->result() as $k) {
+                $payment = $k->company . ' ' . $k->va . ' an' . $get_client['nama'] . "<br>" ;
+            }
+        }else{
+            $payment = 'MANDIRI 1560016047112 an Mahfudin';
+        }
 		$rincian = $ad1;
 		$curl = curl_init();
 		$curl2 = curl_init();
@@ -1076,7 +1084,7 @@ Layanan Teknis	:
 			CURLOPT_POSTFIELDS => json_encode([
 				'to_number' => "62" . substr($get_client['telp'], 1),
 				'to_name' => $get_client['nama'],
-				'message_template_id' => 'a9d42495-4254-495f-9b03-56a5bdee9e61',
+				'message_template_id' => '2922a45e-a095-42a4-9c53-be89063cd6f0',
 				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
 				'room' => [
 					'tags' => ['mahfud'],
@@ -1119,6 +1127,11 @@ Layanan Teknis	:
 							'key' => '5', //{{ buat key 1,2,3,4 }}
 							'value' => 'awd', //no telp
 							'value_text' => '0877-8619-9004'  //value
+						],
+						[
+							'key' => '5', //{{ buat key 1,2,3,4 }}
+							'value' => 'norek', //no telp
+							'value_text' => $payment  //value
 						]
 						
 					]
@@ -1189,138 +1202,259 @@ Layanan Teknis	:
 			// echo ($response) ;
 		}
 	}
-	function send_notif_pdf2()
+
+	function send_notif_pdf_tes()
 	{
-		// if($this->uri->segment(3)){
-            $mpdf = new \Mpdf\Mpdf([
-				'tempDir' => '/tmp',
-                'mode' => '',
-                'format' => 'A4',
-                'default_font_size' => 0,
-                'default_font' => '',
-                'margin_left' => 15,
-                'margin_right' => 15,
-                'margin_top' => 5,
-                'margin_bottom' => 10,
-                'margin_header' => 10,
-                'margin_footer' => 5,
-                'orientation' => 'L',
-				'showImageErrors' => true
-            ]);
-			$this->db->where('a.id',$this->uri->segment(3));
-			$this->db->join('mt_paket as b','a.speed = b.id_paket');
-            $data['x'] = $this->db->get("dt_registrasi as a")->row_array();
-			$no_invoice = 'INV' . date('y').date('m').date('d').$data['x']['id'];
-            $html = $this->load->view('body/pelanggan/notif_pdf', $data, true);
-            $mpdf->defaultfooterline=0;
-            // $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
-            $mpdf->WriteHTML($html);
-            $mpdf->Output('/home/billing.lintasmediadata.net/invoice/'.$no_invoice.'.pdf','F');
-			chmod($no_invoice.".pdf", 0777);
-            // $mpdf->Output();
-			$imagick = new Imagick();
-            $imagick->setResolution(200, 200);
-            $imagick->readImage("invoice/$no_invoice.pdf");
-            $imagick->writeImages("invoice/image/$no_invoice.jpg", true);
-			// if (file_exists('invoice/image/'.$no_invoice.'-0.jpg')) {
-			// 	$no_invoice = $no_invoice . '-0.jpg';
-			// }else if (file_exists('invoice/image/' . $no_invoice . '-1.jpg')) {
-			// 	$no_invoice = $no_invoice . '-1.jpg';
-			// }else{
-			// 	$no_invoice = $no_invoice . '.jpg';
-			// }
-			$url_img = "https://billing.mediadata.id/invoice/image/$no_invoice.jpg";
-			// $url_img = "https://billing.mediadata.id/invoice/image/INV2308051069.jpg";
 
-			//send wa
-			$id = $this->uri->segment(3);
-			$this->db->where('a.id',$id);
-			$this->db->join('mt_paket as b','a.speed = b.id_paket');
-			$get_client = $this->db->get('dt_registrasi as a')->row_array();
-	
+		$mpdf = new \Mpdf\Mpdf([
+			// 'tempDir' => '/tmp',
+			'mode' => '',
+			'format' => 'A4',
+			'default_font_size' => 0,
+			'default_font' => '',
+			'margin_left' => 15,
+			'margin_right' => 15,
+			'margin_top' => 5,
+			'margin_bottom' => 10,
+			'margin_header' => 10,
+			'margin_footer' => 5,
+			'orientation' => 'L',
+			'showImageErrors' => true
+		]);
+		// if ($this->session->userdata('filterBulan') == null || $this->session->userdata('filterTahun') == null) {
+		// 	# code...
+		// }else{
+		$bulan = $this->session->userdata('filterBulan');
+		$tahun = $this->session->userdata('filterTahun');
+		// }
+		if ($bulan == 'Januari') {
+			$bln_conv = '01';
+		} elseif ($bulan == 'Februari') {
+			$bln_conv = '02';
+		} elseif ($bulan == 'Maret') {
+			$bln_conv = '03';
+		} elseif ($bulan == 'April') {
+			$bln_conv = '04';
+		} elseif ($bulan == 'Mei') {
+			$bln_conv = '05';
+		} elseif ($bulan == 'Juni') {
+			$bln_conv = '06';
+		} elseif ($bulan == 'Juli') {
+			$bln_conv = '07';
+		} elseif ($bulan == 'Agustus') {
+			$bln_conv = '08';
+		} elseif ($bulan == 'September') {
+			$bln_conv = '09';
+		} elseif ($bulan == 'Oktober') {
+			$bln_conv = '10';
+		} elseif ($bulan == 'November') {
+			$bln_conv = '11';
+		} elseif ($bulan == 'Desember') {
+			$bln_conv = '12';
+		} else {
+			$bln_conv = date('m');
+		}
+		$this->db->select('*,a.id as id_pel');
+		$this->db->where('a.id', $this->uri->segment(3));
+		$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
+		$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
+		$no_invoice = 'INV' . $tahun . $bln_conv . date('d') . $data['x']['id_pel'];
+		$html = $this->load->view('body/pelanggan/struk', $data, true);
+		$mpdf->defaultfooterline = 0;
+		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+		$mpdf->WriteHTML($html);
+		$mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
+		// chmod($no_invoice . ".pdf", 0777);
+		// $mpdf->Output();
+		sleep(3);
 
-			$addon1 = $this->db->get_where('addon',['id' => $get_client['addon1']])->row_array();
-			$addon2 = $this->db->get_where('addon',['id' => $get_client['addon2']])->row_array();
-			$addon3 = $this->db->get_where('addon',['id' => $get_client['addon3']])->row_array();
-			if ($addon1 == true) {
-				$addon1_biaya = $addon1['biaya'];
-				$ad1 = ".: Add on " . $addon1['nama'] . " = " . 'Rp.' . number_format($addon1['biaya'], 0, '.', '.');
+		$imagick = new Imagick();
+		$imagick->setResolution(200, 200);
+		$imagick->readImage("invoice/$no_invoice.pdf");
+		$imagick->writeImages("invoice/image/$no_invoice.jpg", true);
+		$url_img = "https://billing.mediadata.id/invoice/image/$no_invoice.jpg";
+		//end create image
+		$id = $this->uri->segment(3);
+		$this->db->where('a.id', $id);
+		$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
+		$get_client = $this->db->get('dt_registrasi as a')->row_array();
+
+
+		$addon1 = $this->db->get_where('addon', ['id' => $get_client['addon1']])->row_array();
+		$addon2 = $this->db->get_where('addon', ['id' => $get_client['addon2']])->row_array();
+		$addon3 = $this->db->get_where('addon', ['id' => $get_client['addon3']])->row_array();
+		if ($addon1 == true) {
+			$addon1_biaya = $addon1['biaya'];
+			$ad1 = ".: Add on 1" . ' = Rp.' . number_format($addon1['biaya'], 0, '.', '.');
+		} else {
+			$addon1_biaya = 0;
+			$ad1 = "ㅤㅤㅤㅤㅤ";
+		}
+		if ($addon2 == true) {
+			$addon2_biaya = $addon2['biaya'];
+			$ad2 = ".: Add on 2" . ' = Rp.' . number_format($addon2['biaya'], 0, '.', '.');
+		} else {
+			$addon2_biaya = 0;
+			$ad2 = "ㅤㅤㅤㅤㅤ";
+
+		}
+		if ($addon3 == true) {
+			$addon3_biaya = $addon3['biaya'];
+			$ad3 = ".: Add on 3" . ' = Rp.' . number_format($addon3['biaya'], 0, '.', '.');
+		} else {
+			$addon3_biaya = 0;
+			$ad3 = '-';
+
+		}
+
+
+		if ($get_client['diskon'] == true) {
+			$diskonnnn = $get_client['diskon'];
+			$diskon_x = ".: Diskon =" . number_format($get_client['diskon'], 0, '.', '.');
+		} else {
+			$diskonnnn = 0;
+			$diskon_x = null;
+		}
+		$xx = $get_client['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnnn;
+		$ppn = floor($xx * 11 / 100);
+
+		// $ppn = $get_client['harga'] * 11 / 100;
+		$hargaa = $get_client['harga'];
+		$bulan = $this->session->userdata('filterBulan');
+		$tahun = $this->session->userdata('filterTahun');
+		$kd_unik_in = $get_client['id'];
+		$kd_unik_in = sprintf('%04d', $kd_unik_in);
+
+		$rincian = $ad1;
+		$curl = curl_init();
+		$curl2 = curl_init();
+		$curl3 = curl_init();
+		$token = "gYGG2YKTv9odqMHhyi2PFIFo2eMSrCom9wVAJmVpLi8";
+		curl_setopt_array($curl, [
+			CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/broadcasts/whatsapp/direct",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 3000,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_POSTFIELDS => json_encode([
+				'to_number' => "62" . substr($get_client['telp'], 1),
+				'to_name' => $get_client['nama'],
+				'message_template_id' => 'a9d42495-4254-495f-9b03-56a5bdee9e61',
+				'channel_integration_id' => 'c7b25ef0-9ea4-4aff-9536-eb2eadae3400',
+				'room' => [
+					'tags' => ['mahfud'],
+				],
+				'language' => [
+					'code' => 'id'
+				],
+				'parameters' => [
+					'header' => [
+						'format' => 'IMAGE',
+						'params' => [
+							[
+								'key' => 'url',
+								'value' => $url_img
+							]
+						]
+					],
+					'body' => [
+						[
+							'key' => '1', //{{ buat key 1,2,3,4 }}
+							'value' => 'name', //field di excel contact
+							'value_text' => $get_client['nama'] //value
+						],
+						[
+							'key' => '2', //{{ buat key 1,2,3,4 }}
+							'value' => 'company', //kode pelanggan
+							'value_text' => $get_client['kode_pelanggan'] //value
+						],
+						[
+							'key' => '3', //{{ buat key 1,2,3,4 }}
+							'value' => '150000', //total tagihan
+							'value_text' => $get_client['tempo'] //value
+						],
+						[
+							'key' => '4', //{{ buat key 1,2,3,4 }}
+							'value' => 'wadawaefea', //bulan tahun
+							'value_text' => number_format(floor($xx + $ppn - $kd_unik_in))  //value
+						],
+						[
+							'key' => '5', //{{ buat key 1,2,3,4 }}
+							'value' => 'awd', //no telp
+							'value_text' => '0877-8619-9004'  //value
+						]
+
+					]
+				]
+			]),
+			CURLOPT_HTTPHEADER => [
+				"Authorization: Bearer " . $token . "",
+				"Content-Type: application/json"
+			],
+		]);
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+		echo $response;
+		curl_close($curl);
+
+		if ($err) {
+			echo "cURL Error #:" . $err;
+		} else {
+			// curl_setopt_array($curl2, [
+			// 	CURLOPT_URL => "https://service-chat.qontak.com/api/open/v1/rooms?limit=1",
+			// 	CURLOPT_RETURNTRANSFER => true,
+			// 	CURLOPT_ENCODING => "",
+			// 	CURLOPT_MAXREDIRS => 10,
+			// 	CURLOPT_TIMEOUT => 3000,
+			// 	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			// 	CURLOPT_CUSTOMREQUEST => "GET",
+			// 	CURLOPT_HTTPHEADER => [
+			// 		"Authorization: Bearer " . $token . ""
+			// 	],
+			// ]);
+
+			// $response2 = curl_exec($curl2);
+			// $err2 = curl_error($curl2);
+
+			// curl_close($curl2);
+
+			if ($err) {
+				// echo "cURL Error #:" . $err2;
 			} else {
-				$addon1_biaya = 0;
-				$ad1 = null;
+				// $x = json_decode($response2);
+				// $id_room = json_encode($x->data[0]->id);
+
+				// curl_setopt_array($curl3, array(
+				// 	CURLOPT_URL => 'https://service-chat.qontak.com/api/open/v1/rooms/' . $this->remove_special($id_room) . '/tags',
+				// 	CURLOPT_RETURNTRANSFER => true,
+				// 	CURLOPT_ENCODING => '',
+				// 	CURLOPT_MAXREDIRS => 10,
+				// 	CURLOPT_TIMEOUT => 0,
+				// 	CURLOPT_FOLLOWLOCATION => true,
+				// 	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				// 	CURLOPT_CUSTOMREQUEST => 'POST',
+				// 	CURLOPT_POSTFIELDS => array('tag' => 'mahfud'),
+				// 	CURLOPT_HTTPHEADER => array(
+				// 		'Authorization: Bearer ' . $token . '',
+				// 	),
+				// )
+				// );
+
+				// $response3 = curl_exec($curl3);
+				// curl_close($curl3);
+				$k = json_decode($response);
+				echo json_encode($k->status);
+				if (json_encode($k->status == 'success')) {
+					redirect('pelanggan/status');
+				}
 			}
-			if ($addon2 == true) {
-				$addon2_biaya = $addon2['biaya'];
-				$ad2 = ".: Add on " . $addon2['nama'] . " = " . 'Rp.' . number_format($addon2['biaya'], 0, '.', '.');
-			} else {
-				$addon2_biaya = 0;
-				$ad2 = null;
-
-			}
-			if ($addon3 == true) {
-				$addon3_biaya = $addon3['biaya'];
-				$ad3 = ".: Add on " . $addon3['nama'] . " = " . 'Rp.' . number_format($addon3['biaya'], 0, '.', '.');
-			} else {
-				$addon3_biaya = 0;
-				$ad3 = null;
-
-			}
-
-
-			if ($get_client['diskon'] == true) {
-				$diskonnnn = $get_client['diskon'];
-				$diskon_x = ".: Diskon =" . number_format($get_client['diskon'], 0, '.', '.');
-			} else {
-				$diskonnnn = 0;
-				$diskon_x = null;
-			}
-			$rincian = $ad1;
-			$xx = $get_client['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnnn;
-			$ppn = floor($get_client['harga'] * 11 / 100);
-			// $ppn = floor($get_client['harga'] * 11 / 100);
-			$hargaa = $get_client['harga'];
-			$bulan = $this->session->userdata('filterBulan');
-			$tahun = $this->session->userdata('filterTahun');
-			$kd_unik_in = $get_client['id'];
-			$kd_unik_in = sprintf('%04d',$kd_unik_in);
-			$tanggal_t = $this->session->userdata('filterTgl_tempo') == null ? 10 : $this->session->userdata('filterTgl_tempo');    
-			$msg = 
-"Kepada yth 
-*Bpk/Ibu ".trim($get_client['nama'])."*
-ID : ".$get_client['kode_pelanggan']."
-				
-Terimakasih sudah menggunakan layanan *Lintas.Net (LJN)*
-			
-Kami informasikan jumlah tagihan sebagai berikut :
-.: Biaya Langganan " . $get_client['mbps'] . " Mbps Periode " . $bulan . " $tahun = Rp " . number_format(floor($hargaa + $ppn), 0, '.', '.') . ",-
-$rincian
-.: Discount Unik = " . $kd_unik_in . "
-*Total Tagihan = Rp " . number_format(floor($xx + $ppn - $kd_unik_in), 0, '.', '.') . "*,-
-	
-.: _Dimohon transfer tepat sesuai nominal tagihan untuk memudahkan verifikasi_
-.: Jatuh tempo pembayaran *tanggal ".$tanggal_t." bulan tagihan*.
-.: Wajib mengirimkan bukti transfer ke WhatsApp *087883973151* sebelum jatuh tempo demi kelancaran bersama.
-	
-Pembayaran ditujukan ke : 	
-1. *BCA 2761446578 an Mahfudin*
-2. *Mandiri 1560016047112 an Mahfudin*
-	
-Demikian disampaikan terima kasih atas kerjasamanya..
-		
-Regards
-Lintas.Net (LJN)
-*PT Lintas Jaringan Nusantara*
-Layanan Teknis	: 
-0821-1420-9923
-0819-3380-3366";
-			// if (file_exists($url_img)) {
-				$c =  $this->api_whatsapp->wa_notif_doc($msg,$get_client['telp'],$url_img);
-			// }else{
-			// 	echo 1;
-			// }
-				redirect('pelanggan/status');
-
+			// echo ($response) ;
+		}
 	}
+	
 	// }
 	function info()
 	{
@@ -1552,6 +1686,10 @@ Layanan Teknis	:
 		$id = $this->input->post('id');
 		$data = $this->M_Registrasi->get_paket($id);
 		echo json_encode($data);
+	}
+	function create_va()
+	{
+		
 	}
 	function get_pelanggan()
 	{

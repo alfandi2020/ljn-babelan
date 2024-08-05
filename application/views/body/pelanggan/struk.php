@@ -268,8 +268,7 @@ function terbilang($nilai)
             $diskonnn = 0;
         }
         // $xx = $x['harga']+$addon1_biaya+$addon2_biaya+$addon3_biaya-$diskonnn;
-        $tt_h = $x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn;
-        $ppn = floor($tt_h * 11 / 100);
+
 
         ?>
         <!-- <tr style="background-color: #d0cece;">
@@ -284,10 +283,12 @@ function terbilang($nilai)
                 .: Pembayaran ditujukan ke : <br>
                 BCA 2761446578 an Mahfudin <br>
                 <?php $pay = $this->db->get_where('payment',['id' => $x['id'] ]);
-                    if ($pay->num_rows() > 1) {
+                    if ($pay->num_rows() == 1) {
                         foreach ($pay->result() as $k) {
                             echo $k->company . ' ' . $k->va . ' an' . $x['nama'] . "<br>" ;
                         }
+                    }else{
+                        echo 'MANDIRI 1560016047112 an Mahfudin';
                     }
                 ?>
                 <!-- 2. MANDIRI 1560016047112 an Mahfudin -->
@@ -316,7 +317,16 @@ function terbilang($nilai)
         <tr style="background-color: #d0cece;">
             <td rowspan="7"><b>Grand Total</b></td>
             <td>
-                <?php $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $kd_unik_in - $diskonnn) ?>
+                <?php
+                $tt_h = $x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn;
+                $ppn = floor($tt_h * 11 / 100);
+                if ($pay->num_rows() == 1) { //menggunakan va
+                    $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $diskonnn);
+                }else{ //menggunakan kode unik
+                    $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $kd_unik_in - $diskonnn);
+                }
+                ?>
+                
                 <b><?= 'Rp.' . number_format($totalll, 0, '.', '.') ?></b>
             </td>
         </tr>
