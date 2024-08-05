@@ -283,7 +283,7 @@ function terbilang($nilai)
                 .: Pembayaran ditujukan ke : <br>
                 BCA 2761446578 an Mahfudin <br>
                 <?php $pay = $this->db->get_where('mt_payment',['id_pelanggan' => $x['id'] ]);
-                    if ($pay->num_rows() == 1) {
+                    if ($pay->num_rows() >= 1) {
                         foreach ($pay->result() as $k) {
                             echo $k->company . ' ' . $k->va . ' an' . $x['nama'] . "<br>" ;
                         }
@@ -320,7 +320,7 @@ function terbilang($nilai)
                 <?php
                 $tt_h = $x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn;
                 $ppn = floor($tt_h * 11 / 100);
-                if ($pay->num_rows() == 1) { //menggunakan va
+                if ($pay->num_rows() >= 1) { //menggunakan va
                     $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $diskonnn);
                 }else{ //menggunakan kode unik
                     $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $kd_unik_in - $diskonnn);
