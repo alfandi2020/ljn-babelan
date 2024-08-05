@@ -447,7 +447,7 @@ FROM
         }
         function paid_va()
         {
-        $xenditXCallbackToken = '4vEXmvTSLMojEEoiCs7ML1hiTIjfxhOIzjbuxCedcdnoFczF';
+        $xenditXCallbackToken = 'xnd_production_IciBYQPfQ819WW5bP7x31pOSZVl6Nn6P1NiVwabystIa9TOv9B7lQvw2tWA';
 
         // Bagian ini untuk mendapatkan Token callback dari permintaan header, 
         // yang kemudian akan dibandingkan dengan token verifikasi callback Xendit
