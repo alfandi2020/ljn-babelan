@@ -282,18 +282,25 @@ function terbilang($nilai)
         <tr>
             <td colspan="2" rowspan="6">
                 .: Pembayaran ditujukan ke : <br>
-                1. BCA 2761446578 an Mahfudin <br>
-                2. MANDIRI 1560016047112 an Mahfudin
+                BCA 2761446578 an Mahfudin <br>
+                <?php $pay = $this->db->get_where('payment',['id' => $x['id'] ]);
+                    if ($pay->num_rows() > 1) {
+                        foreach ($pay->result() as $k) {
+                            echo $k->company . ' ' . $k->va . ' an' . $x['nama'] . "<br>" ;
+                        }
+                    }
+                ?>
+                <!-- 2. MANDIRI 1560016047112 an Mahfudin -->
             </td>
             <?php if ($x['diskon'] > 0) { ?>
                 <td>Diskon</td>
                 <td>Rp.<?= number_format($x['diskon']) ?></td>
             <?php } ?>
         </tr>
-        <tr style="background-color: #d0cece;">
+        <!-- <tr style="background-color: #d0cece;">
             <td>PPN 11%</td>
             <td>Rp.<?= number_format($ppn, 0, '.', '.') ?></td>
-        </tr>
+        </tr> -->
         <!-- <tr>
             <td>Biaya Pengirim</td>
             <td>Rp.0</td>
