@@ -322,11 +322,11 @@ function terbilang($nilai)
                 <?php
                 $tt_h = $x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn;
                 $ppn = floor($tt_h * 11 / 100);
-                if ($pay->num_rows() >= 1) { //menggunakan va
-                    $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $diskonnn);
-                }else{ //menggunakan kode unik
+                // if ($pay->num_rows() >= 1) { //menggunakan va
+                    // $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $diskonnn);
+                // }else{ //menggunakan kode unik
                     $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $kd_unik_in - $diskonnn);
-                }
+                // }
                 ?>
                 
                 <b><?= 'Rp.' . number_format($totalll, 0, '.', '.') ?></b>
