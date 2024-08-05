@@ -447,39 +447,91 @@ FROM
         }
         function paid_va()
         {
-        $xenditXCallbackToken = 'R9XoKSUvS79dokcq2BYRh4UOQnQHTtzgyi0DBSDNGCOPvLyj';
+        $xenditXCallbackToken = '4vEXmvTSLMojEEoiCs7ML1hiTIjfxhOIzjbuxCedcdnoFczF';
 
-        // Bagian ini untuk mendapatkan Token callback dari permintaan header, 
-        // yang kemudian akan dibandingkan dengan token verifikasi callback Xendit
         $reqHeaders = getallheaders();
-        $xIncomingCallbackTokenHeader = isset($reqHeaders['x-callback-token']) ? $reqHeaders['x-callback-token'] : "";
+        $xIncomingCallbackTokenHeader = isset($reqHeaders["X-Callback-Token"]) ? $reqHeaders["X-Callback-Token"] : "";
 
-        // Untuk memastikan permintaan datang dari Xendit
-        // Anda harus membandingkan token yang masuk sama dengan token verifikasi callback Anda
-        // Ini untuk memastikan permintaan datang dari Xendit dan bukan dari pihak ketiga lainnya.
         if ($xIncomingCallbackTokenHeader === $xenditXCallbackToken) {
-            // Permintaan masuk diverifikasi berasal dari Xendit
-
-            // Baris ini untuk mendapatkan semua input pesan dalam format JSON teks mentah
             $rawRequestInput = file_get_contents("php://input");
             // Baris ini melakukan format input mentah menjadi array asosiatif
             $arrRequestInput = json_decode($rawRequestInput, true);
-            print_r($arrRequestInput);
+            // $payload2 = [
+            //         "id" => $id,
+            //         "payment_id" => "1487156512722",
+            //         "callback_virtual_account_id" => "58a434ba39cc9e4a230d5a2b",
+            //         "owner_id" => "5824128aa6f9f9b648be9d76",
+            //         "external_id" => "fixed-va-1487156410",
+            //         "account_number" => "1001470126",
+            //         "bank_code" => "MANDIRI",
+            //         "amount" => 80000,
+            //         "transaction_timestamp" => "2017-02-15T11:01:52.722Z",
+            //         "merchant_code" => "88464",
+            //     ];
+            $api_key = 'xnd_production_oOyARY7MUfPxasdVEPMjPf2HyfGNB9GiIYh7ftqRH1S3IVtZhJbi4QuL2dYMQH';
+            $id = $arrRequestInput['callback_virtual_account_id'];
+            $query = $this->db->query("SELECT * FROM tb_registrasi as a left join tb_payment as b on(a.id_registrasi=b.id_pelanggan) left join tb_paket as c on(a.speed = c.id_wireless) where b.id_va='$id'")->row_array();
+            $id_va = isset($query['id_va']) ? $query['id_va'] : "";
+            // if ( $id_va ==  true) {
+            $end_point = 'https://api.xendit.co/callback_virtual_accounts/' . $query['id_va'];
+            $curl2 = curl_init();
+            curl_setopt_array($curl2, array(
+                CURLOPT_URL => $end_point,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                // CURLOPT_POSTFIELDS =>'{
+                //     "expected_amount": "10000",
+                //     "is_single_use": true
+                // }',
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Authorization: Basic ' . base64_encode("$api_key:"),
+                ),
+            )
+            );
 
-            $_id = $arrRequestInput['id'];
-            $_externalId = $arrRequestInput['external_id'];
-            $_userId = $arrRequestInput['user_id'];
-            $_status = $arrRequestInput['status'];
-            $_paidAmount = $arrRequestInput['paid_amount'];
-            $_paidAt = $arrRequestInput['paid_at'];
-            $_paymentChannel = $arrRequestInput['payment_channel'];
-            $_paymentDestination = $arrRequestInput['payment_destination'];
-            echo json_encode($arrRequestInput);
-            // Kamu bisa menggunakan array objek diatas sebagai informasi callback yang dapat digunaka untuk melakukan pengecekan atau aktivas tertentu di aplikasi atau sistem kamu.
+            $response2 = curl_exec($curl2);
+            curl_close($curl2);
 
+            echo json_encode($response2);
+
+
+            // $phone = $query['kontak']; 
+            $phone = '083897943785';
+            $message = 'pembayaran behasil' . $query['nama'];
+            $sender = 'fandi';
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'http://103.171.85.211:8000/send-message',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => 'sender=' . $sender . '&number=' . $phone . '&message=' . $message,
+            )
+            );
+            $response = curl_exec($curl);
+            curl_close($curl);
+            $o = json_decode($response);
+            // }else{
+            //     echo json_encode([
+            //         "error" => 404,
+            //         "message" => "data not found"
+            //     ]);
+            // }
         } else {
-            // Permintaan bukan dari Xendit, tolak dan buang pesan dengan HTTP status 403
-            http_response_code(403);
+            echo json_encode([
+                "error" => 404,
+                "message" => "Toke not found"
+            ]);
         }
     }
         public static function http_get($url, $headers = array())
