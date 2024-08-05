@@ -1062,10 +1062,10 @@ Layanan Teknis	:
 		$pay = $this->db->get_where('mt_payment',['id_pelanggan' => $id ]);
 		// $payment =+ 'BCA 2761446578 an Mahfudin';
 		$payment = '';
-		$payment .= 'BCA 2761446578 an Mahfudin \n';
+		$payment .= 'BCA 2761446578 an *Mahfudin* \n';
 		if ($pay->num_rows() >= 1) {
             foreach ($pay->result() as $k) {
-                $payment .= $k->company . ' ' . $k->va . ' an ' . $get_client['nama'] . ' \n' ;
+                $payment .= $k->company . ' ' . $k->va . ' an *' . $get_client['nama'] . '* \n' ;
             }
         }else{
             $payment .= 'MANDIRI 1560016047112 an Mahfudin';
