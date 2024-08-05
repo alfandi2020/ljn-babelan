@@ -282,7 +282,7 @@ function terbilang($nilai)
             <td colspan="2" rowspan="6">
                 .: Pembayaran ditujukan ke : <br>
                 BCA 2761446578 an Mahfudin <br>
-                <?php $pay = $this->db->get_where('payment',['id' => $x['id'] ]);
+                <?php $pay = $this->db->get_where('mt_payment',['id_pelanggan' => $x['id'] ]);
                     if ($pay->num_rows() == 1) {
                         foreach ($pay->result() as $k) {
                             echo $k->company . ' ' . $k->va . ' an' . $x['nama'] . "<br>" ;
