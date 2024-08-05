@@ -1063,8 +1063,9 @@ Layanan Teknis	:
 		// $payment =+ 'BCA 2761446578 an Mahfudin';
 		$payment = '';
 		if ($pay->num_rows() > 1) {
+			$payment .= 'BCA 2761446578 an Mahfudin <br>';
             foreach ($pay->result() as $k) {
-                $payment .= $k->company . ' ' . $k->va . ' an' . $get_client['nama'] . "<br>" ;
+                $payment .= $k->company . ' ' . $k->va . ' an' . $get_client['nama'] . " <br> " ;
             }
         }else{
             $payment .= 'MANDIRI 1560016047112 an Mahfudin';

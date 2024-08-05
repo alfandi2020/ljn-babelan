@@ -286,7 +286,7 @@ function terbilang($nilai)
                 $paymentt = '';
                     if ($pay->num_rows() >= 1) {
                         foreach ($pay->result() as $k) {
-                            $paymentt .= $k->company . ' ' . $k->va . ' an' . $x['nama'] . "<br>" ;
+                            $paymentt .= $k->company . ' ' . $k->va . ' an ' . $x['nama'] . "<br>" ;
                         }
                     }else{
                         $paymentt .= 'MANDIRI 1560016047112 an Mahfudin';
