@@ -34,7 +34,8 @@ FROM
 	LEFT JOIN addon AS f ON (
 	f.id = a.addon3 
 	)
-	where status="Aktif" and a.id=1361
+    left join mt_payment as g on(a.id = g.id_pelanggan)
+	where status="Aktif" and a.id between 1447 and (SELECT max(id) FROM dt_registrasi)
                         ')->result();
         foreach ($db2 as $x) {
             // echo $x->id_cl;exit;
@@ -51,15 +52,19 @@ FROM
             $d = $this->api_xendit->create_va($data);
             $p = json_decode($d);
             echo $d;
-            // $data_in = [
-            //     "id_pelanggan" => $x->id_client, //id_pelanggan
-            //     "company" => $p->bank_code,
-            //     "va" => $p->account_number,
-            //     "id_va" => $p->id,
-            //     'external_id' => $p->external_id,
-            //     'json_va' => $d
-            // ];
-            // $this->db->insert('mt_payment',$data_in);
+            $cek_pay = $this->db->get_where('payment',['id_pelanggan' => $x->id_client])->num_rows();
+            if ($cek_pay == false) {
+                $data_in = [
+                    "id_pelanggan" => $x->id_client, //id_pelanggan
+                    "company" => $p->bank_code,
+                    "va" => $p->account_number,
+                    "id_va" => $p->id,
+                    'external_id' => $p->external_id,
+                    'json_va' => $d
+                ];
+                $this->db->insert('mt_payment',$data_in);
+            }
+
         }
       }
         public function index()
