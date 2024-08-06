@@ -940,7 +940,7 @@ Layanan Teknis	:
 	
 	function send_notif_pdf()
 	{
-
+		ob_start();
 		$mpdf = new \Mpdf\Mpdf([
 			// 'tempDir' => '/tmp',
 			'mode' => '',
