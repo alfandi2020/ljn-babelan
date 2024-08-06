@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+ob_start();
 
 class Pelanggan extends CI_Controller {
 	// private $param;
@@ -1004,7 +1005,6 @@ Layanan Teknis	:
 	}
 	function send_notif_pdf()
 	{
-		ob_start();
 		$mpdf = new \Mpdf\Mpdf([
 			// 'tempDir' => '/tmp',
 			'mode' => '',
