@@ -35,13 +35,13 @@ FROM
 	f.id = a.addon3 
 	)
     left join mt_payment as g on(a.id = g.id_pelanggan)
-	where status="Aktif" and a.id between 1447 and (SELECT max(id) FROM dt_registrasi)
+	where status="Aktif" and a.id in("754","671") 
                         ')->result();
         foreach ($db2 as $x) {
             // echo $x->id_cl;exit;
             // echo ($x->nama_pelanggann);
   
-            $cek_pay = $this->db->get_where('payment',['id_pelanggan' => $x->id_client])->num_rows();
+            $cek_pay = $this->db->get_where('mt_payment',['id_pelanggan' => $x->id_client])->num_rows();
             if ($cek_pay == false) {
                 $mandiri = 1013000000 + $x->id_client;
                 $data = '{"external_id": "VA_fixed-'.time().'",
