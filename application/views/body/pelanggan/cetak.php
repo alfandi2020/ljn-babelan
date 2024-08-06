@@ -68,7 +68,7 @@
                                         <th width="150">Periode</th>
                                         <th width="150">Tahun</th>
                                         <th width="150">Tanggal bayar</th>
-                                        <th width="150">action</th>
+                                        <th width="450">action</th>
                                     </tr>
                                 </thead>
                             </table>

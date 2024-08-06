@@ -498,7 +498,7 @@ class M_Registrasi extends CI_Model {
             //     $tagihan = '';
             // }else{
             //     $status = '<span class="badge badge-glow badge-danger">Belum Bayar</span>';
-                $tagihan =  '<a href="#" id="'.$record->id_cetak.'" class="delete-confirm-struk btn btn-icon btn-icon rounded-circle btn-danger waves-effect waves-light"><i class="feather icon-trash"></i></a>';
+                $tagihan =  '<a href="#" id="'.$record->id_cetak.'" class="delete-confirm-struk btn btn-icon btn-icon rounded-circle btn-danger waves-effect waves-light"><i class="feather icon-trash"></i></a> &nbsp; <a target="_blank" href="cetak_pdf/'.$record->id_cetak.'" class="btn btn-icon btn-icon rounded-circle btn-primary waves-effect waves-light"><i class="feather icon-download"></i></a>';
                 // $tagihan =  '<a href="#" id="'.$record->id_cetak.'" class="delete-confirm-struk btn btn-icon btn-icon rounded-circle btn-danger waves-effect waves-light"><i class="feather icon-trash"></i></a> &nbsp;
                 // <a href="cetak_struk_pdf" id="'.$record->id_cetak.'" class="btn btn-icon btn-icon rounded-circle btn-warning waves-effect waves-light notif-confirm2"><i class="feather icon-file-text"></i></a>';
             // }

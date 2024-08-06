@@ -937,7 +937,71 @@ Layanan Teknis	:
 			// echo ($response) ;
 		}
 	}
-	
+	function cetak_pdf()
+	{
+		ob_start();
+		$mpdf = new \Mpdf\Mpdf([
+			// 'tempDir' => '/tmp',
+			'mode' => '',
+			'format' => 'A4',
+			'default_font_size' => 0,
+			'default_font' => '',
+			'margin_left' => 15,
+			'margin_right' => 15,
+			'margin_top' => 5,
+			'margin_bottom' => 10,
+			'margin_header' => 10,
+			'margin_footer' => 5,
+			'orientation' => 'L',
+			'showImageErrors' => true
+		]);
+		// if ($this->session->userdata('filterBulan') == null || $this->session->userdata('filterTahun') == null) {
+		// 	# code...
+		// }else{
+			$bulan = $this->session->userdata('filterBulan');
+			$tahun = $this->session->userdata('filterTahun');
+		// }
+		if ($bulan == 'Januari') {
+			$bln_conv = '01';
+		} elseif ($bulan == 'Februari') {
+			$bln_conv = '02';
+		} elseif ($bulan == 'Maret') {
+			$bln_conv = '03';
+		} elseif ($bulan == 'April') {
+			$bln_conv = '04';
+		} elseif ($bulan == 'Mei') {
+			$bln_conv = '05';
+		} elseif ($bulan == 'Juni') {
+			$bln_conv = '06';
+		} elseif ($bulan == 'Juli') {
+			$bln_conv = '07';
+		} elseif ($bulan == 'Agustus') {
+			$bln_conv = '08';
+		} elseif ($bulan == 'September') {
+			$bln_conv = '09';
+		} elseif ($bulan == 'Oktober') {
+			$bln_conv = '10';
+		} elseif ($bulan == 'November') {
+			$bln_conv = '11';
+		} elseif ($bulan == 'Desember') {
+			$bln_conv = '12';
+		} else {
+			$bln_conv = date('m');
+		}
+		$this->db->select('*,a.id as id_pel');
+		$this->db->where('c.id_cetak', $this->uri->segment(3));
+		$this->db->join('mt_paket as b', 'a.speed = b.id_paket');
+		$this->db->join('dt_cetak as c', 'a.kode_pelanggan = c.id_registrasi');
+		$data['x'] = $this->db->get("dt_registrasi as a")->row_array();
+		$no_invoice = 'INV' . $tahun . $bln_conv . date('d') . $data['x']['id_pel'];
+		$html = $this->load->view('body/pelanggan/struk', $data, true);
+		$mpdf->defaultfooterline = 0;
+		// $mpdf->setFooter('<div style="text-align: left;">F.7.1.1</div>');
+		$mpdf->WriteHTML($html);
+		// $mpdf->Output('/home/billing.lintasmediadata.net/invoice/' . $no_invoice . '.pdf', 'F');
+		// chmod($no_invoice . ".pdf", 0777);
+		$mpdf->Output();
+	}
 	function send_notif_pdf()
 	{
 		ob_start();
