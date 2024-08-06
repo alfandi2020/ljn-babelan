@@ -40,20 +40,21 @@ FROM
         foreach ($db2 as $x) {
             // echo $x->id_cl;exit;
             // echo ($x->nama_pelanggann);
-            $mandiri = 1013000000 + $x->id_client;
-            $data = '{"external_id": "VA_fixed-'.time().'",
-                    "bank_code": "MANDIRI",
-                    "name": "'.$x->nama_pelanggann.'",
-                    "expected_amount": "'.$x->tagihan.'",
-                    "virtual_account_number" : "'. $mandiri .'",
-                    "is_single_use": false,
-                    "is_closed": true
-                }';
-            $d = $this->api_xendit->create_va($data);
-            $p = json_decode($d);
-            echo $d;
+  
             $cek_pay = $this->db->get_where('payment',['id_pelanggan' => $x->id_client])->num_rows();
             if ($cek_pay == false) {
+                $mandiri = 1013000000 + $x->id_client;
+                $data = '{"external_id": "VA_fixed-'.time().'",
+                        "bank_code": "MANDIRI",
+                        "name": "'.$x->nama_pelanggann.'",
+                        "expected_amount": "'.$x->tagihan.'",
+                        "virtual_account_number" : "'. $mandiri .'",
+                        "is_single_use": false,
+                        "is_closed": true
+                    }';
+                $d = $this->api_xendit->create_va($data);
+                $p = json_decode($d);
+                echo $d;
                 $data_in = [
                     "id_pelanggan" => $x->id_client, //id_pelanggan
                     "company" => $p->bank_code,
