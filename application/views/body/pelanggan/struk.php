@@ -154,7 +154,9 @@ function terbilang($nilai)
     <table style="background-color:white">
        <!--#10c245 paid -->
        <!--#e67217 invoice -->
-
+<?php              $tt_h = $x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn;
+                $ppn = floor($tt_h * 11 / 100);
+                 ?>
         <tr>
             <td colspan="1"></td>
             <td class="poppins-thin" style="text-align:center;font-size:35px;color:<?= $pay_css ?>;border-radius:2px;border: 5px solid <?= $pay_css ?>;font-family: 'Poppins-bold', sans-serif"><?= $pay ?></td>
@@ -206,8 +208,8 @@ function terbilang($nilai)
             <td>1 Paket</td>
             <td>Biaya langganan internet <?= $x['mbps'] ?> mbps</td>
             <td><?php
-            echo 'Rp.' . number_format($x['harga'], 0, '.', '.') ?></td>
-            <td><?= 'Rp.' . number_format($x['harga'], 0, '.', '.') ?></td>
+            echo 'Rp.' . number_format($x['harga'] + $ppn, 0, '.', '.') ?></td>
+            <td><?= 'Rp.' . number_format($x['harga'] + $ppn, 0, '.', '.') ?></td>
         </tr>
         <?php
         $addon1 = $this->db->get_where('addon', ['id' => $x['addon1']])->row_array();
@@ -320,8 +322,7 @@ function terbilang($nilai)
             <td rowspan="7"><b>Grand Total</b></td>
             <td>
                 <?php
-                $tt_h = $x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn;
-                $ppn = floor($tt_h * 11 / 100);
+  
                 // if ($pay->num_rows() >= 1) { //menggunakan va
                     // $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $diskonnn);
                 // }else{ //menggunakan kode unik
