@@ -154,7 +154,28 @@ function terbilang($nilai)
     <table style="background-color:white">
        <!--#10c245 paid -->
        <!--#e67217 invoice -->
-<?php              $tt_h = $x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya - $diskonnn;
+<?php          
+        $addon1 = $this->db->get_where('addon', ['id' => $x['addon1']])->row_array();
+        $addon2 = $this->db->get_where('addon', ['id' => $x['addon2']])->row_array();
+        $addon3 = $this->db->get_where('addon', ['id' => $x['addon3']])->row_array();
+if ($addon1 == true) {
+    $addon1_biayax = ($addon1['biaya']) + floor($addon1['biaya'] * 11 /100);
+}else{
+    $addon1_biayax = 0;
+}
+
+if ($addon2 == true) {
+    $addon2_biayax =  ($addon2['biaya']) + floor($addon2['biaya'] * 11 /100);
+}else{
+    $addon2_biayax = 0;
+}
+
+if ($addon3 == true) {
+    $addon3_biayax =  ($addon3['biaya']) + floor($addon3['biaya'] * 11 /100);
+}else{
+    $addon3_biayax = 0;
+}
+$tt_h = $x['harga'] + $addon1_biayax + $addon2_biayax + $addon3_biayax - $diskonnn;
                 $ppn = floor($tt_h * 11 / 100);
                  ?>
         <tr>
@@ -211,19 +232,15 @@ function terbilang($nilai)
             echo 'Rp.' . number_format($x['harga'] + $ppn, 0, '.', '.') ?></td>
             <td><?= 'Rp.' . number_format($x['harga'] + $ppn, 0, '.', '.') ?></td>
         </tr>
-        <?php
-        $addon1 = $this->db->get_where('addon', ['id' => $x['addon1']])->row_array();
-        $addon2 = $this->db->get_where('addon', ['id' => $x['addon2']])->row_array();
-        $addon3 = $this->db->get_where('addon', ['id' => $x['addon3']])->row_array();
-        ?>
+
         <?php if ($addon1 == true) {
             $addon1_biaya = $addon1['biaya'];
             ?>
             <tr>
                 <td></td>
                 <td>Add on <?= $addon1['nama'] ?></td>
-                <td><?= 'Rp.' . number_format($addon1['biaya'], 0, '.', '.') ?></td>
-                <td><?= 'Rp.' . number_format($addon1['biaya'], 0, '.', '.') ?></td>
+                <td><?= 'Rp.' . number_format($addon1_biayax, 0, '.', '.') ?></td>
+                <td><?= 'Rp.' . number_format($addon1_biayax, 0, '.', '.') ?></td>
             </tr>
         <?php } else {
             $addon1_biaya = 0;
@@ -234,8 +251,8 @@ function terbilang($nilai)
             <tr>
                 <td></td>
                 <td>Add on <?= $addon2['nama'] ?></td>
-                <td><?= 'Rp.' . number_format($addon2['biaya'], 0, '.', '.') ?></td>
-                <td><?= 'Rp.' . number_format($addon2['biaya'], 0, '.', '.') ?></td>
+                <td><?= 'Rp.' . number_format($addon2_biayax, 0, '.', '.') ?></td>
+                <td><?= 'Rp.' . number_format($addon2_biayax, 0, '.', '.') ?></td>
             </tr>
         <?php } else {
             $addon2_biaya = 0;
@@ -246,8 +263,8 @@ function terbilang($nilai)
             <tr>
                 <td></td>
                 <td>Add on <?= $addon3['nama'] ?></td>
-                <td><?= 'Rp.' . number_format($addon3['biaya'], 0, '.', '.') ?></td>
-                <td><?= 'Rp.' . number_format($addon3['biaya'], 0, '.', '.') ?></td>
+                <td><?= 'Rp.' . number_format($addon3_biayax, 0, '.', '.') ?></td>
+                <td><?= 'Rp.' . number_format($addon3_biayax, 0, '.', '.') ?></td>
             </tr>
         <?php } else {
             $addon3_biaya = 0;
