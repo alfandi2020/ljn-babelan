@@ -36,6 +36,8 @@ FROM
 	)
     left join mt_payment as g on(a.id = g.id_pelanggan)
 	where status="Aktif" and a.id in("754","671") 
+    	LEFT JOIN mt_payment as g on (a.id=g.id_pelanggan)
+	where status="Aktif" and g.va is null
                         ')->result();
         foreach ($db2 as $x) {
             // echo $x->id_cl;exit;

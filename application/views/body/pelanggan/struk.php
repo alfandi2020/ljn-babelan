@@ -343,7 +343,7 @@ $tt_h = $x['harga'] + $addon1_biayax + $addon2_biayax + $addon3_biayax - $diskon
                 // if ($pay->num_rows() >= 1) { //menggunakan va
                     // $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $diskonnn);
                 // }else{ //menggunakan kode unik
-                    $totalll = floor($x['harga'] + $addon1_biaya + $addon2_biaya + $addon3_biaya + $ppn - $kd_unik_in - $diskonnn);
+                    $totalll = floor($x['harga'] + $addon1_biayax + $addon2_biayax + $addon3_biayax + $ppn - $kd_unik_in - $diskonnn);
                 // }
                 ?>
                 

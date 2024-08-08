@@ -22,10 +22,10 @@
                 </li>
                 <?php if ($this->session->userdata('role') == 'Pelanggan') { ?>
                     <li class=" nav-item"><a href="<?= base_url('pelanggan/history') ?>"><i class="feather icon-user"></i><span
-                                class="menu-title" data-i18n="Calender">History Payment</span></a>
+                                class="menu-title" data-i18n="Calender">History Payment</span></a></li>
                     <?php } ?>
                 <?php if ($this->session->userdata('role') == 'Super Admin' || $this->session->userdata('role') == 'Admin') { ?>
-                <li class=" nav-item"><a href="<?= base_url('pelanggan/registrasi') ?>"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Calender">Registrasi</span></a>
+                <li class=" nav-item"><a href="<?= base_url('pelanggan/registrasi') ?>"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Calender">Registrasi</span></a> </li>
                 <?php } ?>
                 <?php if ($this->session->userdata('role') != 'Pelanggan') { ?>
                 <li class=" nav-item"><a href="<?= base_url('pelanggan/list') ?>"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Calender">List Pelanggan</span></a>
