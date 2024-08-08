@@ -6,6 +6,7 @@ class Dashboard extends CI_Controller {
 
 	public function __construct() {
         parent::__construct();
+		$this->load->library('api_xendit');
 		if ($this->session->userdata('id_user') == false) {
 			$this->session->set_flashdata("msg", "<div class='alert alert-danger'>Opss anda blm login</div>");
             redirect('auth');
@@ -100,13 +101,32 @@ class Dashboard extends CI_Controller {
 
 		$arraydata = implode(',',$group_sess);
 
+		// $this->db->select('*,a.id as id_client');
 		if ($condition_group) {
-			$this->db->where_in('a.group',$group_sess);
+			// $this->db->where_in('a.group',$group_sess);
+			$group_session = 'AND a.group in('.trim(json_encode($group_sess),'[]').')';
+		}else{
+			$group_session = '';
 		}
-		$this->db->from('dt_registrasi as a');
-		$this->db->join('mt_paket as b','a.speed=b.id_paket');
-		$belum_bayar = $this->db->get()->result();
-		// $belum_bayar = $this->db->query("SELECT * FROM dt_registrasi as a left join mt_paket as b on(a.speed=b.id_paket)")->result();
+		
+		// $this->db->from('dt_registrasi as a');
+		// $this->db->join('mt_paket as b','a.speed=b.id_paket');
+		// $belum_bayar = $this->db->get()->result();
+		$belum_bayar = $this->db->query("SELECT
+                            *,
+                            FLOOR(((b.harga + COALESCE (c.biaya * 11 /100 + c.biaya  * c.qty, 0 ) + COALESCE (d.biaya * 11 /100 + d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * 11 /100 + f.biaya* f.qty, 0 ) - COALESCE(a.diskon,0)) * 11 / 100) + b.harga + COALESCE ( c.biaya * 11 /100 + c.biaya * c.qty, 0 ) + COALESCE (d.biaya * 11 /100 + d.biaya  * d.qty, 0 ) + COALESCE (f.biaya * 11 /100 + f.biaya  * f.qty, 0 ) - COALESCE(a.diskon,0) - a.id)  AS tagihan,c.biaya AS biaya1,d.biaya AS biaya2,f.biaya AS biaya3,a.nama AS nama_pelanggann,a.id AS id_client
+                        FROM
+                            dt_registrasi AS a
+                            LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
+                            LEFT JOIN addon AS c ON ( c.id = a.addon1 )
+                            LEFT JOIN addon AS d ON ( d.id = a.addon2 )
+                            LEFT JOIN addon AS f ON ( f.id = a.addon3 )
+                        WHERE
+                            STATUS = 'Aktif' $group_session")->result();
+
+		//get saldo xendit
+		$d = $this->api_xendit->get_balance();
+
 		$data = [
 			"title" => "Dashboard",
 			'total' => $total_client,
@@ -114,7 +134,8 @@ class Dashboard extends CI_Controller {
 			'tidak_aktif' => $off,
 			'semua' => $total,
 			'payment' => $payment,
-			'belum_bayar' => $belum_bayar
+			'belum_bayar' => $belum_bayar,
+			'saldo_xendit' => $d
 		];
 		$this->load->view('temp/header',$data);
 		$this->load->view('body/dashboard');

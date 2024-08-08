@@ -36,69 +36,21 @@
             <div class="card">
                 <div class="card-header d-flex align-items-start pb-0">
                     <div>
-                        <h2 class="text-bold-700 mb-0"><?= $tidak_aktif['pelanggan'] ?></h2>
-                        <p>Pelanggan Tidak Akitf</p>
-                    </div>
-                    <div class="avatar bg-rgba-primary p-50 m-0">
-                        <div class="avatar-content">
-                            <i class="feather icon-users text-primary font-medium-5"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-12">
-            <div class="card">
-                <div class="card-header d-flex align-items-start pb-0">
-                    <div>
-                        <h2 class="text-bold-700 mb-0"><?= $semua['pelanggan'] ?></h2>
-                        <p>Total</p>
-                    </div>
-                    <div class="avatar bg-rgba-primary p-50 m-0">
-                        <div class="avatar-content">
-                            <i class="feather icon-users text-primary font-medium-5"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6 col-12">
-            <div class="card">
-                <div class="card-header d-flex align-items-start pb-0">
-                    <div>
-                        <h2 class="text-bold-700 mb-0"><?php
-                        $total = 0;
-                        $tagihan = 0;
-                        foreach ($payment as $x) {
-                            $total += $x->tagihan * 11 / 100 + $x->tagihan;
-                            // $tagihan += $x->tagihan;
-                        }
-                        echo 'Rp.' . number_format($total, 0, '.', '.');
-                        ?></h2>
-                        <p>Pembayaran Sudah Masuk</p>
-                    </div>
-                    <div class="avatar bg-rgba-success p-50 m-0">
-                        <div class="avatar-content">
-                            <i class="feather icon-check-circle text-success font-medium-5"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-12">
-            <div class="card">
-                <div class="card-header d-flex align-items-start pb-0">
-                    <div>
                         <h2 class="text-bold-700 mb-0">
                             <?php
-                            $belum = 0;
-                            foreach ($belum_bayar as $x) {
-                                $belum += $x->harga * 11 / 100 + $x->harga;
-                            }
-                            echo 'Rp.' . number_format($belum - $total, 0, '.', '.');
-                            ?>
+                                $tagihan_masuk = 0;
+                                foreach ($payment as $x) {
+                                    $tagihan_masuk += $x->tagihan * 11 / 100 + $x->tagihan;
+                                    // $tagihan += $x->tagihan;
+                                }
+                                $belum = 0;
+                                foreach ($belum_bayar as $x) {
+                                   
+                                    $belum += $x->tagihan  ;
+                                }
+                            // var_dump($total['pelanggan']);
+                                echo 'Rp.' . number_format($belum - $tagihan_masuk, 0, '.', '.');
+                                ?>
                         </h2>
                         <p>Pembayaran Belum Masuk</p>
                     </div>
@@ -110,6 +62,64 @@
                 </div>
             </div>
         </div>
+       
+         <div class="col-lg-3 col-md-6 col-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-start pb-0">
+                    <div>
+                        <h2 class="text-bold-700 mb-0"><?php
+                            $total = 0;
+                            $tagihan = 0;
+                            foreach ($payment as $x) {
+                                $total += $x->tagihan * 11 / 100 + $x->tagihan;
+                                // $tagihan += $x->tagihan;
+                            }
+                            echo 'Rp.' . number_format($total, 0, '.', '.');
+                            ?></h2>
+                        <p>Pembayaran Sudah Masuk</p>
+                    </div>
+                    <div class="avatar bg-rgba-success p-50 m-0">
+                        <div class="avatar-content">
+                            <i class="feather icon-check-circle text-success font-medium-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-start pb-0">
+                            <div>
+                                <h2 class="text-bold-700 mb-0"><?= $semua['pelanggan'] ?></h2>
+                        <p>Total</p>
+                    </div>
+                    <div class="avatar bg-rgba-primary p-50 m-0">
+                        <div class="avatar-content">
+                            <i class="feather icon-users text-primary font-medium-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-start pb-0">
+                    <div>
+                        <h2 class="text-bold-700 mb-0"><?= $tidak_aktif['pelanggan'] ?></h2>
+                        <p>Pelanggan Tidak Akitf</p>
+                    </div>
+                    <div class="avatar bg-rgba-primary p-50 m-0">
+                        <div class="avatar-content">
+                            <i class="feather icon-users text-primary font-medium-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="col-lg-3 col-md-6 col-12">
                     <div class="card">
                         <div class="card-header d-flex align-items-start pb-0">
@@ -140,6 +150,54 @@
                         </div>
                     </div>
                 </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-start pb-0">
+                    <div>
+                        <h2 class="text-bold-700 mb-0">
+                            <?php
+                            
+                            // var_dump($total['pelanggan']);
+                            $v = json_decode($saldo_xendit);
+                            echo 'Rp.' . number_format($v->balance, 0, '.', '.');
+                            ?>
+                        </h2>
+                        <p>Saldo Xendit</p>
+                    </div>
+                    <div class="avatar bg-rgba-success p-50 m-0">
+                        <div class="avatar-content">
+                            <i class="feather icon-check-circle text-success font-medium-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-start pb-0">
+                    <div>
+                        <h2 class="text-bold-700 mb-0"><?php
+                        // $total = 0;
+                        // $tagihan = 0;
+                        // foreach ($payment as $x) {
+                        //     $total += $x->tagihan * 11 / 100 + $x->tagihan;
+                        //     // $tagihan += $x->tagihan;
+                        // }
+                        echo 'Rp.' . number_format(0, 0, '.', '.');
+                        ?></h2>
+                        <p>Alfamart</p>
+                    </div>
+                    <div class="avatar bg-rgba-success p-50 m-0">
+                        <div class="avatar-content">
+                            <i class="feather icon-check-circle text-success font-medium-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-12 col-12">

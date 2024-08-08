@@ -18,7 +18,7 @@ class Callback extends CI_Controller {
         $cek_plg = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ', '', 'GAK0616'), 'periode' => str_replace(' ', '', 'September'), 'tahun' => '2024'])->num_rows();
         echo $cek_plg;
     }
-      function tes()
+      function buat_va()
       {
         $db2 = $this->db->query('SELECT
 	*,
@@ -40,9 +40,7 @@ FROM
 	f.id = a.addon3 
 	)
     left join mt_payment as g on(a.id = g.id_pelanggan)
-	where status="Aktif" and a.id in("754","671") 
-    	LEFT JOIN mt_payment as g on (a.id=g.id_pelanggan)
-	where status="Aktif" and g.va is null
+	where status="Aktif" and a.id in("754") 
                         ')->result();
         foreach ($db2 as $x) {
             // echo $x->id_cl;exit;
