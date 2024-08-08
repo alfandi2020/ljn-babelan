@@ -13,6 +13,11 @@ class Callback extends CI_Controller {
             $this->load->library('api_xendit');
 
     }
+    function tes2()
+    {
+        $cek_plg = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ', '', 'GAK0616'), 'periode' => str_replace(' ', '', 'September'), 'tahun' => '2024'])->num_rows();
+        echo $cek_plg;
+    }
       function tes()
       {
         $db2 = $this->db->query('SELECT
@@ -170,7 +175,7 @@ FROM
                                 $imagick->writeImages("invoice/struk/image/$no_invoice.jpg", true);
                                 $url_img = "https://billing.mediadata.id/invoice/struk/image/$no_invoice.jpg";
                                 //end create image
-                                if ($cek_plg != true) {
+                                if ($cek_plg == false) {
                                     $data_cetak = [
                                         "id_registrasi" => str_replace(' ','',$get_client['kode_pelanggan']),
                                         "nama" => $get_client['nama_pelanggann'],
@@ -466,7 +471,7 @@ FROM
             $imagick->writeImages("invoice/struk/image/$no_invoice.jpg", true);
             $url_img = "https://billing.mediadata.id/invoice/struk/image/$no_invoice.jpg";
             //end create image
-            if ($cek_plg != true) {
+            if ($cek_plg == false) {
                 $data_cetak = [
                     "id_registrasi" => str_replace(' ', '', $query['kode_pelanggan']),
                     "nama" => $query['nama_pelanggann'],
