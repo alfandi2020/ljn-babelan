@@ -151,15 +151,15 @@
                     </div>
                 </div>
     </div>
+    <?php if ($this->session->userdata('role') == 'Super Admin') { ?>
     <div class="row">
-        
         <div class="col-lg-6 col-md-6 col-12">
             <div class="card">
                 <div class="card-header d-flex align-items-start pb-0">
                     <div>
                         <h2 class="text-bold-700 mb-0">
                             <?php
-                            
+
                             // var_dump($total['pelanggan']);
                             $v = json_decode($saldo_xendit);
                             echo 'Rp.' . number_format($v->balance, 0, '.', '.');
@@ -199,6 +199,7 @@
             </div>
         </div>
     </div>
+    <?php } ?>
     <div class="row">
         <div class="col-lg-4 col-md-12 col-12">
             <div class="card overlay-img-card text-white">
