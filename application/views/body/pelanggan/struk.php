@@ -175,7 +175,7 @@ if ($addon3 == true) {
 }else{
     $addon3_biayax = 0;
 }
-$tt_h = $x['harga'] + $addon1['biaya'] + $addon2['biaya'] + $addon3['biaya'] - $diskonnn;
+$tt_h = $x['harga'] + $addon1_biayax + $addon2_biayax + $addon3_biayax - $diskonnn;
                 $ppn = floor($tt_h * 11 / 100);
                  ?>
         <tr>
