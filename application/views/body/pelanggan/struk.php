@@ -175,7 +175,7 @@ if ($addon3 == true) {
 }else{
     $addon3_biayax = 0;
 }
-$tt_h = $x['harga'] + $addon1_biayax + $addon2_biayax + $addon3_biayax - $diskonnn;
+$tt_h = $x['harga'];
                 $ppn = floor($tt_h * 11 / 100);
                  ?>
         <tr>
@@ -229,7 +229,7 @@ $tt_h = $x['harga'] + $addon1_biayax + $addon2_biayax + $addon3_biayax - $diskon
             <td>1 Paket</td>
             <td>Biaya langganan internet <?= $x['mbps'] ?> mbps</td>
             <td><?php
-            echo 'Rp.' . number_format($x['harga'], 0, '.', '.') ?></td>
+            echo 'Rp.' . number_format($x['harga'] + $ppn, 0, '.', '.') ?></td>
             <td><?= 'Rp.' . number_format($x['harga'] + $ppn, 0, '.', '.') ?></td>
         </tr>
 
