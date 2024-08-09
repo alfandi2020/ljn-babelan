@@ -13,11 +13,7 @@ class Callback extends CI_Controller {
             $this->load->library('api_xendit');
 
     }
-    function tes2()
-    {
-        $cek_plg = $this->db->get_where('dt_cetak', ['id_registrasi' => str_replace(' ', '', 'GAK0616'), 'periode' => str_replace(' ', '', 'September'), 'tahun' => '2024'])->num_rows();
-        echo $cek_plg;
-    }
+
       function buat_va()
       {
         $db2 = $this->db->query('SELECT
@@ -111,11 +107,10 @@ FROM
 	LEFT JOIN addon AS d ON ( d.id = a.addon2 )
 	LEFT JOIN addon AS f ON ( f.id = a.addon3 ) 
 WHERE
-	STATUS = "Aktif" 
-	AND FLOOR(((
+	FLOOR(((
 				b.harga - COALESCE ( a.diskon, 0 )) * 11 / 100 
 		) + b.harga + COALESCE ( c.biaya * 11 / 100 + c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * 11 / 100 + d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * 11 / 100 + f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 ) - a.id 
-	)= '.$jquin['amount'].'');
+	)='.$jquin['amount'].'');
                         $get_client = $client->row_array();
                         $tanggal2 = time();
                         $bulan2 = $this->indonesian_date($tanggal2, 'F');
@@ -338,7 +333,7 @@ WHERE
         curl_close($curl);
 
         }
-        function paid_va()
+        function paid_va() //xendit va
         {
         $xenditXCallbackToken = 'R9XoKSUvS79dokcq2BYRh4UOQnQHTtzgyi0DBSDNGCOPvLyj';
 
@@ -366,25 +361,26 @@ WHERE
 
             $id = $arrRequestInput['callback_virtual_account_id'];
             $query = $this->db->query("SELECT
-                    *,
-                    FLOOR(((
-                                b.harga + COALESCE ( c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 )) * 11 / 100 
-                            ) + b.harga + COALESCE ( c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 ) - a.id 
-                    ) AS tagihan,
-                    c.biaya AS biaya1,
-                    d.biaya AS biaya2,
-                    f.biaya AS biaya3,
-                    a.nama AS nama_pelanggann,
-                    a.id AS id_client 
-                FROM
-                    dt_registrasi AS a
-                    LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
-                    LEFT JOIN addon AS c ON ( c.id = a.addon1 )
-                    LEFT JOIN addon AS d ON ( d.id = a.addon2 )
-                    LEFT JOIN addon AS f ON ( f.id = a.addon3 )
-                    LEFT JOIN mt_payment AS g ON ( a.id = g.id_pelanggan ) 
-                WHERE
-                    g.id_va = '$id'")->row_array();
+	*,
+	FLOOR(((
+				b.harga - COALESCE ( a.diskon, 0 )) * 11 / 100 
+			) + b.harga + COALESCE ( c.biaya * 11 / 100 + c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * 11 / 100 + d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * 11 / 100 + f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 ) - a.id 
+	) AS tagihan,
+	c.biaya AS biaya1,
+	d.biaya AS biaya2,
+	f.biaya AS biaya3,
+	a.nama AS nama_pelanggann,
+	a.id AS id_client 
+FROM
+	dt_registrasi AS a
+	LEFT JOIN mt_paket AS b ON ( a.speed = b.id_paket )
+	LEFT JOIN addon AS c ON ( c.id = a.addon1 )
+	LEFT JOIN addon AS d ON ( d.id = a.addon2 )
+	LEFT JOIN addon AS f ON ( f.id = a.addon3 ) 
+WHERE FLOOR(((
+				b.harga - COALESCE ( a.diskon, 0 )) * 11 / 100 
+		) + b.harga + COALESCE ( c.biaya * 11 / 100 + c.biaya * c.qty, 0 ) + COALESCE ( d.biaya * 11 / 100 + d.biaya * d.qty, 0 ) + COALESCE ( f.biaya * 11 / 100 + f.biaya * f.qty, 0 ) - COALESCE ( a.diskon, 0 ) - a.id 
+	)= '$id'")->row_array();
             // $id_va = isset($query['id_va']) ? $query['id_va'] : "";
             // if ( $id_va ==  true) {
             $end_point = 'https://api.xendit.co/callback_virtual_accounts/' . $query['id_va'];
